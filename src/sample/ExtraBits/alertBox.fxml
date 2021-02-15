@@ -9,7 +9,7 @@
 <BorderPane>
     <center>
         <VBox>
-
+            <Label text="Do "/>
         </VBox>
     </center>
 </BorderPane>
