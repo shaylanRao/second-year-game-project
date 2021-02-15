@@ -7,13 +7,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml">
+<?import java.net.URL?>
+<BorderPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color:#FF0984">
+    <stylesheets>
+        <URL value="@temp.css"/>
+    </stylesheets>
+<padding>
+    <Insets left="50"/>
+</padding>
+
     <left>
-        <VBox alignment="CENTER">
-            <Button text="Play" onAction="#playClicked"/>
-            <Button text="Settings"/>
-            <Button text="Controls"/>
-            <Button text="Quit"/>
+        <VBox alignment="CENTER_RIGHT" spacing="25">
+            <Button  text="Play" onAction="#playClicked" id="button"/>
+            <Button text="Settings" id="button"/>
+            <Button text="Controls" id="button"/>
+            <Button text="Quit" id="button"/>
         </VBox>
     </left>
 </BorderPane>

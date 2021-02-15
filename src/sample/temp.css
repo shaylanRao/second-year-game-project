@@ -1,0 +1,22 @@
+@font-face {
+    font-family:VT323;
+    src: url("src/sample/resources/fonts/VT323/VT323-Regular.ttf");
+}
+
+#button {
+    -fx-font-family:"VT323";
+    -fx-spacing:100;
+    -fx-background-radius:0px;
+    -fx-margin-left:20;
+    -fx-pref-width:250;
+    -fx-pref-height:70;
+    -fx-font-size:50px;
+    -fx-margin:20;
+    -fx-border-width:10;
+    -fx-padding:5 10 5 10;
+    -fx-background-color:#FFFA00;
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
+}
+#button:hover {
+
+}
