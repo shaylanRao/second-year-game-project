@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
-<BorderPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color:#FF0984">
+<BorderPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" id="backgroundColour">
     <stylesheets>
-        <URL value="@temp.css"/>
+        <URL value="@resources/stylesheets/stylesheet.css"/>
     </stylesheets>
 <padding>
     <Insets left="50"/>
 </padding>
 
     <left>
-        <VBox alignment="CENTER_RIGHT" spacing="25">
+        <VBox alignment="CENTER" spacing="25">
             <Button  text="Play" onAction="#playClicked" id="button"/>
-            <Button text="Settings" id="button"/>
-            <Button text="Controls" id="button"/>
-            <Button text="Quit" id="button"/>
+            <Button text="Settings" onAction="#settingsClicked" id="button"/>
+            <Button text="Controls" onAction="#controlsClicked" id="button"/>
+            <Button text="Quit" onAction="#quitClicked" id="button"/>
         </VBox>
     </left>
 </BorderPane>
