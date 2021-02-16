@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.ExtraBits.AlertBox;
 
-public class Controller {
+public class MainScreen {
 
     private Stage currentStage;
 

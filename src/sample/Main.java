@@ -20,16 +20,16 @@ public class Main extends Application {
         final int maxWidth = 1280;
         final int maxHeight = 720;
 
-        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("settingsScreen.fxml"));
 
-        Controller controller = new Controller();
+        SettingsScreen settingsScreen = new SettingsScreen();
 
         primaryStage.setTitle("RACING GAME 2D");
         primaryStage.setScene(new Scene(root, maxWidth, maxHeight));
         primaryStage.setResizable(true);
         primaryStage.show();
 
-        controller.setCurrentStage(stageName);
+        settingsScreen.setCurrentStage(stageName);
 
     }
 
