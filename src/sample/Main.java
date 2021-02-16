@@ -15,21 +15,26 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         //Load font here instead of CSS to avoid weird path errors
         Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
-        stageName = primaryStage;
 
         final int maxWidth = 1280;
         final int maxHeight = 720;
 
-        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
-
-        Controller controller = new Controller();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
+        Parent root = (Parent) loader.load();
 
         primaryStage.setTitle("RACING GAME 2D");
         primaryStage.setScene(new Scene(root, maxWidth, maxHeight));
         primaryStage.setResizable(true);
         primaryStage.show();
 
-        controller.setCurrentStage(stageName);
+
+
+        try {
+            MainScreen mainScreen =  (MainScreen) loader.getController();
+            mainScreen.setCurrentStage(primaryStage);
+        } catch (Exception e) {
+            System.out.println("Inside main");
+        }
 
     }
 

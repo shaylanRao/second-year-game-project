@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.ExtraBits.AlertBox;
 
-public class Controller {
+public class MainScreen {
 
     private Stage currentStage;
 
@@ -35,12 +35,16 @@ public class Controller {
     }
 
     public void quitClicked(ActionEvent actionEvent) throws Exception {
-        System.out.println("Quit Clicked");
-        AlertBox quitPrompt = new AlertBox(this.getCurrentStage(),
-                                            "Are you sure you want to exit?",
-                                            "QUIT",
-                                            "NO",
-                                            "QUIT");
-        quitPrompt.displayPrompt();
+        try {
+            System.out.println("Quit Clicked");
+            AlertBox quitPrompt = new AlertBox(this.getCurrentStage(),
+                    "Are you sure you want to exit?",
+                    "QUIT",
+                    "NO",
+                    "QUIT");
+            quitPrompt.displayPrompt();
+        } catch (Exception e) {
+            System.out.println("here");
+        }
     }
 }

@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
+
 public class AlertBox {
 
     Label alertBoxDescription;
@@ -33,15 +35,22 @@ public class AlertBox {
         int alertBoxMaxHeight = 180;
 
         alertWindow = new Stage();
-        VBox layout = new VBox();
+
         alertWindow.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(layout, alertBoxMaxWidth, alertBoxMaxHeight);
 
         alertBoxDescription = new Label(alertBoxDescriptionText);
         acceptButton = new Button(acceptButtonText);
         declineButton = new Button(declineButtonText);
 
-        declineButton.setOnAction(e ->
+        VBox layout = new VBox();
+        layout.getChildren().addAll(alertBoxDescription, acceptButton,declineButton);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout, alertBoxMaxWidth, alertBoxMaxHeight);
+
+        scene.getStylesheets().add("sample/ExtraBits/stylesheet.css");
+
+        declineButton.setOnMouseClicked(e ->
                 alertWindow.close()
         );
 
@@ -49,13 +58,6 @@ public class AlertBox {
                 alertWindow.close();
                 currentStage.close();
         });
-
-
-        layout.getChildren().addAll(alertBoxDescription, acceptButton,declineButton);
-        layout.setAlignment(Pos.CENTER);
-
-
-        scene.getStylesheets().add("sample/ExtraBits/stylesheet.css");
 
         initializeAlertWindow(scene,alertBoxMaxWidth,alertBoxMaxHeight, alertBoxTitle);
     }
