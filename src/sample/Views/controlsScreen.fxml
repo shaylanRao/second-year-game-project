@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControlsScreen">
+    <stylesheets>
+        <URL value="@../resources/stylesheets/stylesheet.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets left="50" top="50" />
+    </padding>
+
+    <top>
+        <VBox>
+            <Label styleClass="label" text="Controls">
+            <VBox.margin>
+               <Insets left="470.0" />
+            </VBox.margin></Label>
+            <HBox>
+                <Button defaultButton="true" styleClass="button-2" text="Player 1">
+               <HBox.margin>
+                  <Insets left="100.0" top="30.0" />
+               </HBox.margin></Button>
+                <Button onMouseEntered="#player2Hover" styleClass="button-2" stylesheets="@../resources/stylesheets/stylesheet.css" text="Player 2">
+               <HBox.margin>
+                  <Insets left="500.0" top="30.0" />
+               </HBox.margin></Button>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+
+        <ImageView id="image" fitHeight="360" fitWidth="640.0" BorderPane.alignment="CENTER_LEFT">
+            <image>
+                <Image url="@../resources/images/Player_1_Keyboard_Layout.png" />
+            </image>
+         <BorderPane.margin>
+            <Insets left="270.0" right="50.0" />
+         </BorderPane.margin>
+        </ImageView>
+    </center>
+
+    <bottom>
+        <HBox>
+            <Button onAction="#controlsToMainScreen" text="Back">
+                <BorderPane.margin>
+                    <Insets bottom="20.0" />
+                </BorderPane.margin>
+            <HBox.margin>
+               <Insets bottom="20.0" />
+            </HBox.margin>
+            </Button>
+            <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" styleClass="label-2" text="F, Right Control - Powerup">
+            <HBox.margin>
+               <Insets left="650.0" top="30.0" />
+            </HBox.margin></Label>
+        </HBox>
+    </bottom>
+
+</BorderPane>

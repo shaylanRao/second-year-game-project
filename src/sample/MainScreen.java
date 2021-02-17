@@ -1,8 +1,9 @@
 package sample;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.ExtraBits.AlertBox;
 
@@ -10,7 +11,7 @@ public class MainScreen {
 
     private Stage currentStage;
 
-    public Stage getCurrentStage() {
+    private Stage getCurrentStage() {
         return currentStage;
     }
 
@@ -32,6 +33,20 @@ public class MainScreen {
 
     public void controlsClicked(ActionEvent actionEvent) {
         System.out.println("Controls clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/controlsScreen.fxml"));
+            Parent root = loader.load();
+            Scene controlScene = new Scene(root,Main.maxWidth,Main.maxHeight);
+            ControlsScreen controlsScreen = new ControlsScreen();
+
+            controlsScreen.setCurrentStage(this.getCurrentStage());
+
+            Main.sceneController.setCurrentScene(controlScene);
+
+        } catch (Exception e) {
+            System.out.println("Error in controls clicked - MainScreen.java");
+            e.printStackTrace();
+        }
     }
 
     public void quitClicked(ActionEvent actionEvent) throws Exception {

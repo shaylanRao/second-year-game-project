@@ -8,7 +8,7 @@
 
 <BorderPane fx:controller="sample.MainScreen" xmlns:fx="http://javafx.com/fxml">
     <stylesheets>
-        <URL value="@resources/stylesheets/stylesheet.css"/>
+        <URL value="@../resources/stylesheets/stylesheet.css"/>
     </stylesheets>
 <padding>
     <Insets left="50"/>

@@ -1,14 +1,21 @@
 .label {
-    -fx-font-family:"VT323";
     -fx-font-size:80px;
 }
 
 .root {
     -fx-background-color:#FF0984;
+    -fx-font-family:"VT323";
+}
+
+#image {
+    -fx-background-size: 640px 360px;
+}
+
+.label-2{
+    -fx-font-size:30px;
 }
 
 .button {
-    -fx-font-family:"VT323";
     -fx-spacing:100;
     -fx-background-radius:0px;
     -fx-margin-left:20;
