@@ -17,16 +17,16 @@
 
     <top>
         <VBox>
-            <Label styleClass="label" text="Controls">
+            <Label prefWidth="256.0" styleClass="label" text="Controls">
             <VBox.margin>
                <Insets left="470.0" />
             </VBox.margin></Label>
             <HBox>
-                <Button defaultButton="true" styleClass="button-2" text="Player 1">
+                <Button defaultButton="true" onAction="#player1ButtonClicked" styleClass="button-2" text="Player 1">
                <HBox.margin>
                   <Insets left="100.0" top="30.0" />
                </HBox.margin></Button>
-                <Button onMouseEntered="#player2Hover" styleClass="button-2" stylesheets="@../resources/stylesheets/stylesheet.css" text="Player 2">
+                <Button onAction="#player2ButtonClicked" styleClass="button-2" stylesheets="@../resources/stylesheets/stylesheet.css" text="Player 2">
                <HBox.margin>
                   <Insets left="500.0" top="30.0" />
                </HBox.margin></Button>
@@ -36,7 +36,7 @@
 
     <center>
 
-        <ImageView id="image" fitHeight="360" fitWidth="640.0" BorderPane.alignment="CENTER_LEFT">
+        <ImageView id="image" fx:id="keyboardLayout" fitHeight="360" fitWidth="640.0" BorderPane.alignment="CENTER_LEFT">
             <image>
                 <Image url="@../resources/images/Player_1_Keyboard_Layout.png" />
             </image>
@@ -48,7 +48,7 @@
 
     <bottom>
         <HBox>
-            <Button onAction="#controlsToMainScreen" text="Back">
+            <Button onAction="#backButtonClicked" text="Back">
                 <BorderPane.margin>
                     <Insets bottom="20.0" />
                 </BorderPane.margin>

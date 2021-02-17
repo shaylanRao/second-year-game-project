@@ -30,5 +30,23 @@
 }
 
 .button:hover {
--fx-effect: dropshadow(two-pass-box, black, 0, 0, -20, 10);
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -20, 10);
+}
+
+.card {
+    -fx-spacing:100;
+    -fx-background-radius:0px;
+    -fx-margin-left:20;
+    -fx-pref-width:400;
+    -fx-pref-height:400;
+    -fx-font-size:50px;
+    -fx-margin:20;
+    -fx-border-width:10;
+    -fx-padding:5 10 5 10;
+    -fx-background-color:#FFFA00;
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
+}
+
+.card:hover{
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -20, 10);
 }

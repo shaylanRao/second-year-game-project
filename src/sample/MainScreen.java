@@ -25,6 +25,18 @@ public class MainScreen {
 
     public void playClicked(ActionEvent actionEvent) {
         System.out.println("Play clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/playModeScreen.fxml"));
+            Parent root = loader.load();
+
+            Scene playModeScene = new Scene(root,Main.maxWidth,Main.maxWidth);
+
+            Main.sceneController.setCurrentScene(playModeScene);
+
+        } catch (Exception ex) {
+            System.out.println("Error in play clicked - MainScreen.java");
+        }
+
     }
 
     public void settingsClicked(ActionEvent actionEvent) {
@@ -37,9 +49,6 @@ public class MainScreen {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/controlsScreen.fxml"));
             Parent root = loader.load();
             Scene controlScene = new Scene(root,Main.maxWidth,Main.maxHeight);
-            ControlsScreen controlsScreen = new ControlsScreen();
-
-            controlsScreen.setCurrentStage(this.getCurrentStage());
 
             Main.sceneController.setCurrentScene(controlScene);
 
