@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -37,6 +38,7 @@ public class SceneController {
             this.sceneStack.pop();
             Scene prevScene = this.getSceneStack().peek();
             this.getCurrentStage().setScene(prevScene);
+            
         }
     }
 
@@ -45,5 +47,9 @@ public class SceneController {
         this.getCurrentStage().setScene(currentScene);
     }
 
-
+    /*
+    • prerequisites for createScene function
+    • need a hash set of all the scenes in the project
+       • how to do that - need a list of all the views - add
+    */
 }

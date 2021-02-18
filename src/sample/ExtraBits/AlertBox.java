@@ -8,8 +8,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.event.KeyEvent;
-
 public class AlertBox {
 
     Label alertBoxDescription;
@@ -22,6 +20,9 @@ public class AlertBox {
     String declineButtonText;
     String alertBoxTitle;
 
+    final int alertBoxMaxWidth = 320;
+    final int alertBoxMaxHeight = 180;
+
     public AlertBox(Stage currentStage, String alertBoxDescriptionText, String acceptButtonText, String declineButtonText,String alertBoxTitle) {
         this.currentStage = currentStage;
         this.alertBoxDescriptionText = alertBoxDescriptionText;
@@ -31,11 +32,10 @@ public class AlertBox {
     }
 
     public void displayPrompt(){
-        int alertBoxMaxWidth = 320;
-        int alertBoxMaxHeight = 180;
 
         alertWindow = new Stage();
 
+        // this is to make it look like a prompt/popup
         alertWindow.initModality(Modality.APPLICATION_MODAL);
 
         alertBoxDescription = new Label(alertBoxDescriptionText);
@@ -59,10 +59,10 @@ public class AlertBox {
                 currentStage.close();
         });
 
-        initializeAlertWindow(scene,alertBoxMaxWidth,alertBoxMaxHeight, alertBoxTitle);
+        initializeAlertWindow(scene, alertBoxTitle);
     }
 
-    private void initializeAlertWindow(Scene scene, int alertBoxMaxWidth, int alertBoxMaxHeight, String title){
+    private void initializeAlertWindow(Scene scene, String title){
         alertWindow.setScene(scene);
         alertWindow.setTitle(title);
         alertWindow.setMinWidth(alertBoxMaxWidth);

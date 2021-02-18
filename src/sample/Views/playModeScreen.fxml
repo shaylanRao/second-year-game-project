@@ -37,7 +37,7 @@
             <HBox.margin>
                <Insets left="30.0" />
             </HBox.margin></Button>
-            <Button disable="true" onAction="#nextButtonClicked" styleClass="button" text="NEXT">
+            <Button onAction="#nextButtonClicked" styleClass="button" text="NEXT" fx:id="nextButton">
             <HBox.margin>
                <Insets bottom="30.0" left="720.0" />
             </HBox.margin></Button>

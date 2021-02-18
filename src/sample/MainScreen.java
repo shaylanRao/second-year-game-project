@@ -19,7 +19,7 @@ public class MainScreen {
         try {
             this.currentStage = currentStage;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error in setting current stage -  MainScreen.java");
         }
     }
 
@@ -29,7 +29,7 @@ public class MainScreen {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/playModeScreen.fxml"));
             Parent root = loader.load();
 
-            Scene playModeScene = new Scene(root,Main.maxWidth,Main.maxWidth);
+            Scene playModeScene = new Scene(root,Main.maxWidth,Main.maxHeight);
 
             Main.sceneController.setCurrentScene(playModeScene);
 
@@ -61,11 +61,7 @@ public class MainScreen {
     public void quitClicked(ActionEvent actionEvent) throws Exception {
         try {
             System.out.println("Quit Clicked");
-            AlertBox quitPrompt = new AlertBox(this.getCurrentStage(),
-                    "Are you sure you want to exit?",
-                    "QUIT",
-                    "NO",
-                    "QUIT");
+            AlertBox quitPrompt = new AlertBox(this.getCurrentStage(), "Are you sure you want to exit?", "YES", "NO", "QUIT");
             quitPrompt.displayPrompt();
         } catch (Exception e) {
             System.out.println("here");
