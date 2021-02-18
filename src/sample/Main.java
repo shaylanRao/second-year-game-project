@@ -18,6 +18,7 @@ public class Main extends Application {
         //Load font here instead of CSS to avoid weird path errors
         Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
 
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/mainScreen.fxml"));
         Parent root = loader.load();
 
