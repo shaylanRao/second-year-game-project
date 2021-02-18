@@ -30,6 +30,14 @@ public class MainScreen {
     }
     public void settingsClicked(ActionEvent actionEvent) {
         System.out.println("Settings clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/settingsScreen.fxml"));
+            Parent root = loader.load();
+            Scene settingsScene = new Scene(root,Main.maxWidth,Main.maxHeight);
+            Main.sceneController.setCurrentScene(settingsScene);
+        } catch (Exception ex) {
+            System.out.println("Error in settings clicked - MainScreen.java");
+        }
     }
     public void controlsClicked(ActionEvent actionEvent) {
         System.out.println("Controls clicked");
