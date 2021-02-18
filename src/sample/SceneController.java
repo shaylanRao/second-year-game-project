@@ -38,7 +38,6 @@ public class SceneController {
             this.sceneStack.pop();
             Scene prevScene = this.getSceneStack().peek();
             this.getCurrentStage().setScene(prevScene);
-            
         }
     }
 

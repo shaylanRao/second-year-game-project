@@ -14,7 +14,7 @@ public class ControlsScreen {
         By default the player 1 layout is displayed
         When the player 2 button is clicked it's changed to player 2 layout
 
-        This method is still not very clear, the user wouldn't know which button is active ergo problem!
+        This method is not very clear, the user wouldn't know which button is active ergo problem!
 
     */
 

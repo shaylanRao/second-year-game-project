@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LapsSelection">
+    <stylesheets>
+        <URL value="@../resources/stylesheets/stylesheet.css" />
+    </stylesheets>
+    <top>
+        <Label styleClass="label" text="Total laps">
+            <BorderPane.margin>
+                <Insets left="480.0" top="20.0" />
+            </BorderPane.margin></Label>
+    </top>
+    <center>
+        <VBox>
+            <Label styleClass="label-2" text="Lap: ">
+            <VBox.margin>
+               <Insets left="640.0" top="200.0" />
+            </VBox.margin></Label>
+            <HBox>
+                <Label styleClass="label-3" text="0" />
+                <Slider fx:id="lapsSlider" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" onMouseReleased="#lapsSelected" scaleX="0.7" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER" />
+                <Label styleClass="label-3" text="10" />
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <Button onAction="#backButtonClicked" styleClass="button" text="BACK">
+                <HBox.margin>
+                    <Insets left="30.0" />
+                </HBox.margin></Button>
+            <Button fx:id="nextButton" onAction="#nextButtonClicked" styleClass="button" text="NEXT">
+                <HBox.margin>
+                    <Insets bottom="30.0" left="720.0" />
+                </HBox.margin></Button>
+        </HBox>
+    </bottom>
+</BorderPane>
