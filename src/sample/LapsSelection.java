@@ -21,16 +21,15 @@ public class LapsSelection {
     @FXML
     private Label lapsLabel;
 
-    private String lapsLabelTextPlural = "Laps:";
-    private String lapsLabelTextSingular = "Lap:";
-
     public void lapsSelected(MouseEvent mouseEvent) {
         // getValue returns a float, so converting it to int
         int lapsSelected = (int) lapsSlider.getValue();
 
         if (lapsSelected == 1) {
+            String lapsLabelTextSingular = "Lap:";
             lapsLabel.setText(lapsLabelTextSingular + " " + lapsSelected);
         } else {
+            String lapsLabelTextPlural = "Laps:";
             lapsLabel.setText(lapsLabelTextPlural + " " + lapsSelected);
         }
 
