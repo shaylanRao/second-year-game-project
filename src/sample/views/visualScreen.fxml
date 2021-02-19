@@ -10,7 +10,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.geometry.Insets?>
-<?import com.sun.javafx.webkit.theme.RenderThemeImpl.FormRadioButton?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.controllers.VisualScreen"
@@ -21,7 +20,7 @@
     <center>
         <VBox alignment="CENTER" spacing="50">
             <Label styleClass="label" text="Visual"/>
-            <Label styleClass="label-2" text="brightness"/>
+            <Label styleClass="label-2" text="brightness" fx:id="brightLabel"/>
             <StackPane>
                 <Rectangle fill="#fffa00" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                     <effect>

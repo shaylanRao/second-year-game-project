@@ -2,11 +2,16 @@ package sample.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
 
 public class SoundScreen {
+    @FXML
+    private Label sfxLabel;
+    @FXML
+    private Label masterLabel;
     @FXML
     private Slider masterSlider;
     @FXML
@@ -15,12 +20,14 @@ public class SoundScreen {
     public void backClicked(ActionEvent actionEvent) { Main.sceneController.setPrevScene();}
 
     public void sfxSelected(MouseEvent mouseEvent) {
-        //TODO logic for changing sfx volume
+        int sfxVol = (int) sfxSlider.getValue();
+        sfxLabel.setText("sfx volume: " + sfxVol);
         System.out.println(sfxSlider.getValue());
     }
 
     public void masterSelected(MouseEvent mouseEvent) {
-        //TODO logic for changing master volume
+        int masterVol = (int) masterSlider.getValue();
+        masterLabel.setText("master volume: " + masterVol);
         System.out.println(masterSlider.getValue());
     }
 

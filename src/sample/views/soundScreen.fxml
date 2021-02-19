@@ -14,7 +14,7 @@
     <center>
         <VBox alignment="CENTER" spacing="50">
             <Label styleClass="label" text="Sound" />
-            <Label styleClass="label-2" text="sfx volume" />
+            <Label styleClass="label-2" text="sfx volume" fx:id="sfxLabel"/>
             <StackPane>
                 <Rectangle fill="#fffa00" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                     <effect>
@@ -41,7 +41,7 @@
                         </HBox.margin></Label>
                 </HBox>
             </StackPane>
-            <Label styleClass="label-2" text="master volume" />
+            <Label styleClass="label-2" text="master volume" fx:id="masterLabel"/>
             <StackPane>
                 <Rectangle fill="#fffa00" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                     <effect>
