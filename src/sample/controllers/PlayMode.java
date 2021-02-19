@@ -1,4 +1,4 @@
-package sample;
+package sample.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import sample.Main;
 
 public class PlayMode {
 
@@ -44,7 +45,7 @@ public class PlayMode {
     public void nextButtonClicked(ActionEvent actionEvent) {
         // code to handle next screen
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/trackSelection.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/trackSelection.fxml"));
             Parent root = loader.load();
 
             Scene nextScene = new Scene(root, Main.maxWidth, Main.maxHeight);

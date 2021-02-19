@@ -6,12 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.controllers.MainScreen;
+import sample.controllers.SceneController;
 
 public class Main extends Application {
 
-    static final int maxWidth = 1280;
-    static final int maxHeight = 720;
-    static SceneController sceneController;
+    public static final int maxWidth = 1280;
+    public static final int maxHeight = 720;
+    public static SceneController sceneController;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

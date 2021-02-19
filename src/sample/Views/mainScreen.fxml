@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
 
-<BorderPane fx:controller="sample.MainScreen" xmlns:fx="http://javafx.com/fxml">
+<BorderPane fx:controller="sample.controllers.MainScreen" xmlns:fx="http://javafx.com/fxml">
     <stylesheets>
         <URL value="@../resources/stylesheets/stylesheet.css"/>
     </stylesheets>

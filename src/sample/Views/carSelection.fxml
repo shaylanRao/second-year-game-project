@@ -8,7 +8,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import java.net.URL?>
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.carSelection">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.carSelection">
     <stylesheets>
         <URL value="@../resources/stylesheets/stylesheet.css" />
     </stylesheets>

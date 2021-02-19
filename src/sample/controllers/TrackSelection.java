@@ -1,9 +1,10 @@
-package sample;
+package sample.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import sample.Main;
 
 public class TrackSelection {
     public void trackOneSelected(ActionEvent actionEvent) {
@@ -21,7 +22,7 @@ public class TrackSelection {
 
     public void nextButtonClicked(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/totalLapsScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/totalLapsScreen.fxml"));
             Parent root = loader.load();
 
             Scene totalLapsScene = new Scene(root,Main.maxWidth,Main.maxHeight);

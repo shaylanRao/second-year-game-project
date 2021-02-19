@@ -6,30 +6,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.controllers.SettingsScreen">
+            fx:controller="sample.controllers.SoundScreen"
+            prefHeight="400.0" prefWidth="600.0">
     <stylesheets>
         <URL value="@../resources/stylesheets/stylesheet.css"/>
     </stylesheets>
-    <padding>
-        <Insets left="50"/>
-    </padding>
-
-    <left>
+    <center>
         <VBox alignment="CENTER" spacing="25">
-            <Button text="Sound" onAction="#soundClicked" styleClass="button"/>
-            <Button text="Visual" onAction="#visualClicked" styleClass="button"/>
-            <Button text="Game" onAction="#gameClicked" styleClass="button"/>
+            <Label styleClass="label" text="Sound"/>
+            <Label styleClass="label-2" text="sfx volume"/>
+            <Label styleClass="label-2" text="master volume"/>
         </VBox>
-    </left>
+    </center>
     <bottom>
         <HBox>
             <Button text="Back" onAction="#backClicked" styleClass="button">
                 <HBox.margin>
-                    <Insets bottom="30.0" />
+                    <Insets bottom="30.0" left="30.0" />
                 </HBox.margin>
             </Button>
         </HBox>

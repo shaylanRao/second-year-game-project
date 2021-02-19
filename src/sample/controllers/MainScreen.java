@@ -1,10 +1,12 @@
-package sample;
+package sample.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.ExtraBits.AlertBox;
+import sample.Main;
+
 public class MainScreen {
     private Stage currentStage;
     private Stage getCurrentStage() {
@@ -20,9 +22,9 @@ public class MainScreen {
     public void playClicked(ActionEvent actionEvent) {
         System.out.println("Play clicked");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/playModeScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/playModeScreen.fxml"));
             Parent root = loader.load();
-            Scene playModeScene = new Scene(root,Main.maxWidth,Main.maxHeight);
+            Scene playModeScene = new Scene(root, Main.maxWidth,Main.maxHeight);
             Main.sceneController.setCurrentScene(playModeScene);
         } catch (Exception ex) {
             System.out.println("Error in play clicked - MainScreen.java");
@@ -31,18 +33,19 @@ public class MainScreen {
     public void settingsClicked(ActionEvent actionEvent) {
         System.out.println("Settings clicked");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/settingsScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/settingsScreen.fxml"));
             Parent root = loader.load();
             Scene settingsScene = new Scene(root,Main.maxWidth,Main.maxHeight);
             Main.sceneController.setCurrentScene(settingsScene);
         } catch (Exception ex) {
             System.out.println("Error in settings clicked - MainScreen.java");
+            ex.printStackTrace();
         }
     }
     public void controlsClicked(ActionEvent actionEvent) {
         System.out.println("Controls clicked");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/controlsScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/controlsScreen.fxml"));
             Parent root = loader.load();
             Scene controlScene = new Scene(root,Main.maxWidth,Main.maxHeight);
             Main.sceneController.setCurrentScene(controlScene);
