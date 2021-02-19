@@ -14,7 +14,7 @@ public class MainScreen {
         try {
             this.currentStage = currentStage;
         } catch (Exception e) {
-            System.out.println("Error in setting current stage -  MainScreen.java");
+            System.out.println("Error in setting current stage - MainScreen.java");
         }
     }
     public void playClicked(ActionEvent actionEvent) {

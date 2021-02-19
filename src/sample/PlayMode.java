@@ -12,20 +12,18 @@ public class PlayMode {
     @FXML
     private Button nextButton;
 
-    private boolean isGameModeChosen = false;
-
     public void gameModeOneClicked(ActionEvent actionEvent) {
         // code to handle AI VS HUMAN
         System.out.println("AI VS HUMAN");
-        isGameModeChosen = true;
-        nextButton.setVisible(true);
+
+        // this will activate the next button
+        Main.sceneController.activateNextButton(nextButton);
     }
 
     public void gameModeTwoClicked(ActionEvent actionEvent) {
         // code to handle HUMAN VS HUMAN
         System.out.println("HUMAN VS HUMAN");
-        isGameModeChosen = true;
-        nextButton.setVisible(true);
+        Main.sceneController.activateNextButton(nextButton);
     }
 
     public void gameModeThreeClicked(ActionEvent actionEvent) {
@@ -33,8 +31,7 @@ public class PlayMode {
         System.out.println("TIME TRIAL");
 
         // change this line -> repetition
-        isGameModeChosen = true;
-        nextButton.setVisible(true);
+        Main.sceneController.activateNextButton(nextButton);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
@@ -47,9 +44,9 @@ public class PlayMode {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/trackSelection.fxml"));
             Parent root = loader.load();
 
-            Scene nextScene = new Scene(root, Main.maxWidth, Main.maxHeight);
+            Scene trackSelectionScene = new Scene(root, Main.maxWidth, Main.maxHeight);
 
-            Main.sceneController.setCurrentScene(nextScene);
+            Main.sceneController.setCurrentScene(trackSelectionScene);
         } catch (Exception ex) {
             System.out.println("Error in PlayMode.next to TrackSelection");
         }

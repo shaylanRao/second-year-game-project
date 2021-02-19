@@ -56,8 +56,8 @@
 }
 
 .slider {
-    -fx-control-inner-background: #FFFA00;
-    -fx-background: #FFFA00;
+    -fx-control-inner-background: grey;
+    -fx-background: grey;
     -fx-background-radius:0px;
 }
 

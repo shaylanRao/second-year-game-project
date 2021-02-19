@@ -4,8 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 
 public class Main extends Application {
 
@@ -28,7 +31,6 @@ public class Main extends Application {
         primaryStage.setScene(currentScene);
         primaryStage.setResizable(true);
         primaryStage.show();
-
 
 
         try {
