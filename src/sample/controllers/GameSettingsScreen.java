@@ -1,4 +1,4 @@
-package sample.Views;
+package sample.controllers;
 
 import javafx.event.ActionEvent;
 import sample.Main;

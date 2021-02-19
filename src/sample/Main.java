@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.controllers.MainScreen;
-import sample.controllers.SceneController;
 
 public class Main extends Application {
 
