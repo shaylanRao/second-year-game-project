@@ -43,7 +43,7 @@ public class LapsSelection {
 
     public void nextButtonClicked(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/vehicleSelection.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicleSelection.fxml"));
             Parent root = loader.load();
 
             Scene carSelectionScene = new Scene(root,Main.maxWidth,Main.maxHeight);

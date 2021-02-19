@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.controllers.MainScreen;
@@ -23,16 +21,15 @@ public class Main extends Application {
         Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/mainScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
         Parent root = loader.load();
 
         Scene currentScene = new Scene(root, maxWidth, maxHeight);
 
         primaryStage.setTitle("RACING GAME 2D");
         primaryStage.setScene(currentScene);
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.show();
-
 
         try {
             MainScreen mainScreen =  loader.getController();

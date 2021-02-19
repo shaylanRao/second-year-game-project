@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.ExtraBits.AlertBox;
+import sample.utilities.AlertBox;
 import sample.Main;
 
 public class MainScreen {

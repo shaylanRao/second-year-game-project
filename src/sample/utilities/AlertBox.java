@@ -1,4 +1,4 @@
-package sample.ExtraBits;
+package sample.utilities;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -48,7 +48,7 @@ public class AlertBox {
 
         Scene scene = new Scene(layout, alertBoxMaxWidth, alertBoxMaxHeight);
 
-        scene.getStylesheets().add("sample/ExtraBits/stylesheet.css");
+        scene.getStylesheets().add("sample/utilities/stylesheet.css");
 
         declineButton.setOnMouseClicked(e ->
                 alertWindow.close()

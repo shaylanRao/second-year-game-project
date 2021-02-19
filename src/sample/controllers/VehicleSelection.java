@@ -1,4 +1,4 @@
-package sample;
+package sample.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
+import sample.Main;
 
 public class VehicleSelection {
     @FXML
