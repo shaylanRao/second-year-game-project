@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.geometry.Insets?>
+<?import com.sun.javafx.webkit.theme.RenderThemeImpl.FormRadioButton?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controllers.VisualScreen"
+            prefHeight="720.0" prefWidth="1280.0">
+    <stylesheets>
+        <URL value="@../resources/stylesheets/stylesheet.css"/>
+    </stylesheets>
+    <center>
+        <VBox alignment="CENTER" spacing="50">
+            <Label styleClass="label" text="Visual"/>
+            <Label styleClass="label-2" text="brightness"/>
+            <StackPane>
+                <Rectangle fill="#fffa00" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="550.0" top="50.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="brightSlider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#brightSelected" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="60.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="50.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+            <Label styleClass="label-2" text="color blind mode"/>
+            <!--- TODO add logic for radio buttons -->
+            <RadioButton text="On">
+                <toggleGroup>
+                    <ToggleGroup fx:id="colorBlind"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton text="Off">
+                <toggleGroup>
+                    <fx:reference source="colorBlind"/>
+                </toggleGroup>
+            </RadioButton>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <Button text="BACK" onAction="#backClicked" styleClass="button">
+                <HBox.margin>
+                    <Insets bottom="30.0" left="30.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

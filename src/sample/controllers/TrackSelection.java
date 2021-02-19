@@ -1,12 +1,12 @@
-package sample;
+package sample.controllers;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
+import sample.Main;
 
 public class TrackSelection {
     @FXML
@@ -30,7 +30,7 @@ public class TrackSelection {
 
     public void nextButtonClicked(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/totalLapsScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/totalLapsScreen.fxml"));
             Parent root = loader.load();
 
             Scene totalLapsScene = new Scene(root,Main.maxWidth,Main.maxHeight);
@@ -40,5 +40,4 @@ public class TrackSelection {
             System.out.println("Error in TrackSelection.java -> next button clicked");
         }
     }
-
 }
