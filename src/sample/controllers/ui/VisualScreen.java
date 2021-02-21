@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,5 +22,5 @@ public class VisualScreen {
         System.out.println(brightSlider.getValue());
     }
 
-    public void backClicked(ActionEvent actionEvent) { Main.sceneController.setPrevScene(); }
+    public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene(); }
 }

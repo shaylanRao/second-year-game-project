@@ -7,11 +7,11 @@ import javafx.stage.Stage;
 
 import java.util.Stack;
 
-public class SceneController {
+public class SceneManager {
     private Stack<Scene> sceneStack;
     private Stage currentStage;
 
-    public SceneController(Stage currentStage) {
+    public SceneManager(Stage currentStage) {
         this.sceneStack = new Stack<>();
         this.currentStage = currentStage;
     }

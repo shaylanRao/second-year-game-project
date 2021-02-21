@@ -1,12 +1,9 @@
-package sample.controllers;
+package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import sample.Main;
 
 public class ControlsScreen {
@@ -25,7 +22,7 @@ public class ControlsScreen {
 
     public void backButtonClicked(ActionEvent actionEvent) {
         System.out.println("back button pressed");
-        Main.sceneController.setPrevScene();
+        Main.sceneManager.setPrevScene();
     }
 
     public void player2ButtonClicked(ActionEvent actionEvent) {

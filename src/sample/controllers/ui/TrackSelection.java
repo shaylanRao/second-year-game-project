@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,19 +14,19 @@ public class TrackSelection {
     private Button nextButton;
 
     public void trackOneSelected(ActionEvent actionEvent) {
-        Main.sceneController.activateNextButton(nextButton);
+        Main.sceneManager.activateNextButton(nextButton);
     }
 
     public void trackTwoSelected(ActionEvent actionEvent) {
-        Main.sceneController.activateNextButton(nextButton);
+        Main.sceneManager.activateNextButton(nextButton);
     }
 
     public void trackThreeSelected(ActionEvent actionEvent) {
-        Main.sceneController.activateNextButton(nextButton);
+        Main.sceneManager.activateNextButton(nextButton);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.sceneController.setPrevScene();
+        Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
@@ -36,7 +36,7 @@ public class TrackSelection {
 
             Scene totalLapsScene = new Scene(root,Main.maxWidth,Main.maxHeight);
 
-            Main.sceneController.setCurrentScene(totalLapsScene);
+            Main.sceneManager.setCurrentScene(totalLapsScene);
         } catch (Exception ex) {
             System.out.println("Error in TrackSelection.java -> next button clicked");
         }

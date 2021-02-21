@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,13 +18,13 @@ public class PlayMode {
         System.out.println("AI VS HUMAN");
 
         // this will activate the next button
-        Main.sceneController.activateNextButton(nextButton);
+        Main.sceneManager.activateNextButton(nextButton);
     }
 
     public void gameModeTwoClicked(ActionEvent actionEvent) {
         // code to handle HUMAN VS HUMAN
         System.out.println("HUMAN VS HUMAN");
-        Main.sceneController.activateNextButton(nextButton);
+        Main.sceneManager.activateNextButton(nextButton);
     }
 
     public void gameModeThreeClicked(ActionEvent actionEvent) {
@@ -32,11 +32,11 @@ public class PlayMode {
         System.out.println("TIME TRIAL");
 
         // change this line -> repetition
-        Main.sceneController.activateNextButton(nextButton);
+        Main.sceneManager.activateNextButton(nextButton);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.sceneController.setPrevScene();
+        Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
@@ -47,7 +47,7 @@ public class PlayMode {
 
             Scene trackSelectionScene = new Scene(root, Main.maxWidth, Main.maxHeight);
 
-            Main.sceneController.setCurrentScene(trackSelectionScene);
+            Main.sceneManager.setCurrentScene(trackSelectionScene);
         } catch (Exception ex) {
             System.out.println("Error in PlayMode.next to TrackSelection");
         }

@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.game;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;

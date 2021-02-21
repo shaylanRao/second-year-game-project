@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ public class SoundScreen {
     @FXML
     private Slider sfxSlider;
 
-    public void backClicked(ActionEvent actionEvent) { Main.sceneController.setPrevScene();}
+    public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene();}
 
     public void sfxSelected(MouseEvent mouseEvent) {
         int sfxVol = (int) sfxSlider.getValue();

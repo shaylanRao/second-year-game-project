@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,11 +34,11 @@ public class LapsSelection {
             lapsLabel.setText(lapsLabelTextPlural + " " + lapsSelected);
         }
 
-        Main.sceneController.activateNextButton(nextButton);
+        Main.sceneManager.activateNextButton(nextButton);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.sceneController.setPrevScene();
+        Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
@@ -48,7 +48,7 @@ public class LapsSelection {
 
             Scene carSelectionScene = new Scene(root,Main.maxWidth,Main.maxHeight);
 
-            Main.sceneController.setCurrentScene(carSelectionScene);
+            Main.sceneManager.setCurrentScene(carSelectionScene);
         }catch (Exception ex ) {
             System.out.println("error in LapsSelection.java -> next button");
         }

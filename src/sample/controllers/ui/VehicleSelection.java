@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,11 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Rectangle;
-import sample.Game;
 import sample.Main;
+import sample.controllers.game.GameController;
 
 public class VehicleSelection {
     @FXML
@@ -18,21 +15,21 @@ public class VehicleSelection {
 
     public void carOneSelected(ActionEvent actionEvent) {
         System.out.println("Car one selected");
-        Main.sceneController.activateNextButton(playButton);
+        Main.sceneManager.activateNextButton(playButton);
     }
 
     public void carTwoSelected(ActionEvent actionEvent) {
         System.out.println("Car two selected");
-        Main.sceneController.activateNextButton(playButton);
+        Main.sceneManager.activateNextButton(playButton);
     }
 
     public void carThreeSelected(ActionEvent actionEvent) {
         System.out.println("Car three selected");
-        Main.sceneController.activateNextButton(playButton);
+        Main.sceneManager.activateNextButton(playButton);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.sceneController.setPrevScene();
+        Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
@@ -42,7 +39,7 @@ public class VehicleSelection {
 
             Scene gameViewScene = new Scene(root,Main.maxWidth,Main.maxHeight);
 
-            Main.sceneController.setCurrentScene(gameViewScene);
+            Main.sceneManager.setCurrentScene(gameViewScene);
 
             gameViewScene.setOnKeyPressed(GameController::userKeyClicked);
 

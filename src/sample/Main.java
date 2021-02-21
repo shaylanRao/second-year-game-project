@@ -1,20 +1,18 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import sample.controllers.MainScreen;
+import sample.controllers.ui.MainScreen;
 
 public class Main extends Application {
 
     public static final int maxWidth = 1280;
     public static final int maxHeight = 720;
-    public static SceneController sceneController;
+    public static SceneManager sceneManager;
 
 
 
@@ -38,8 +36,8 @@ public class Main extends Application {
             MainScreen mainScreen =  loader.getController();
             mainScreen.setCurrentStage(primaryStage);
 
-            sceneController = new SceneController(primaryStage);
-            sceneController.setCurrentScene(currentScene);
+            sceneManager = new SceneManager(primaryStage);
+            sceneManager.setCurrentScene(currentScene);
         } catch (Exception e) {
             System.out.println("Inside main");
         }
