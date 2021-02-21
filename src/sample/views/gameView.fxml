@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.GameController"
-            onKeyPressed="#onKeyPress"
-            onKeyReleased="#onKeyReleased">
+<BorderPane fx:controller="sample.controllers.GameController" xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value="@../resources/stylesheets/stylesheet.css"/>
+    </stylesheets>
 
-    <center>
-        <ImageView>
-            <image>
-                <Image url="@../resources/images/car.png" fx:id="carImage"/>
-            </image>
-        </ImageView>
-    </center>
 </BorderPane>

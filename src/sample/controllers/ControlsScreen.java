@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.Main;
@@ -44,4 +45,5 @@ public class ControlsScreen {
             System.out.println("Error in player1ButtonClicked");
         }
     }
+
 }

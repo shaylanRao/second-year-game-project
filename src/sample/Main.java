@@ -1,19 +1,22 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.controllers.MainScreen;
-
 
 public class Main extends Application {
 
     public static final int maxWidth = 1280;
     public static final int maxHeight = 720;
     public static SceneController sceneController;
+
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
