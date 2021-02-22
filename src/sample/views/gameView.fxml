@@ -5,9 +5,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane fx:controller="sample.controllers.game.GameController" xmlns:fx="http://javafx.com/fxml">
-    <stylesheets>
-        <URL value="@../resources/stylesheets/stylesheet.css"/>
-    </stylesheets>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.game.GameController">
 
 </BorderPane>

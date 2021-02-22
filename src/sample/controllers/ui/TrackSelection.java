@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import sample.Main;
+import sample.Settings;
 
 public class TrackSelection {
     @FXML
@@ -15,14 +16,18 @@ public class TrackSelection {
 
     public void trackOneSelected(ActionEvent actionEvent) {
         Main.sceneManager.activateNextButton(nextButton);
+
+        Main.settings.setTrack(Settings.Track.TRACK1);
     }
 
     public void trackTwoSelected(ActionEvent actionEvent) {
         Main.sceneManager.activateNextButton(nextButton);
+        Main.settings.setTrack(Settings.Track.TRACK2);
     }
 
     public void trackThreeSelected(ActionEvent actionEvent) {
         Main.sceneManager.activateNextButton(nextButton);
+        Main.settings.setTrack(Settings.Track.TRACK3);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {

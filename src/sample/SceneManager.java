@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -23,15 +22,6 @@ public class SceneManager {
     private Stage getCurrentStage() {
         return currentStage;
     }
-
-    /**
-     * Functions
-     * 1. setPrevScene
-     * --- used when previous scene has to be set again, call this function, it will pop the last element from the stack and set it as the currentScene
-     * --- call it to go back to previous scene
-     * 2. setCurrentScene - to set a new scene, call this function and pass the new scene as parameter
-     * --- call it to set a new window
-     */
 
     public void setPrevScene() {
         // check for stack underflow
@@ -57,10 +47,4 @@ public class SceneManager {
     public void activateNextButton(Button nextButton) {
         nextButton.setVisible(true);
     }
-
-    /*
-    • prerequisites for createScene function
-    • need a hash set of all the scenes in the project
-       • how to do that - need a list of all the views - add
-    */
 }

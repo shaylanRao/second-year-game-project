@@ -35,6 +35,8 @@ public class LapsSelection {
         }
 
         Main.sceneManager.activateNextButton(nextButton);
+
+        Main.settings.setLaps(lapsSelected);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {

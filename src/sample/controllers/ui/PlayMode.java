@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import sample.Main;
+import sample.Settings;
 
 public class PlayMode {
 
@@ -19,12 +20,18 @@ public class PlayMode {
 
         // this will activate the next button
         Main.sceneManager.activateNextButton(nextButton);
+
+        // setting play modes
+        Main.settings.setPlayMode(Settings.PlayMode.AI);
     }
 
     public void gameModeTwoClicked(ActionEvent actionEvent) {
         // code to handle HUMAN VS HUMAN
         System.out.println("HUMAN VS HUMAN");
+
         Main.sceneManager.activateNextButton(nextButton);
+
+        Main.settings.setPlayMode(Settings.PlayMode.STANDARD);
     }
 
     public void gameModeThreeClicked(ActionEvent actionEvent) {
@@ -33,6 +40,8 @@ public class PlayMode {
 
         // change this line -> repetition
         Main.sceneManager.activateNextButton(nextButton);
+
+        Main.settings.setPlayMode(Settings.PlayMode.TIMETRIAL);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {

@@ -1,39 +1,47 @@
 package sample;
 
 public class Settings {
-    enum Difficulty {
+    public enum Difficulty {
         EASY,
         MEDIUM,
         HARD
     }
 
-    enum Track {
+    public enum Track {
         TRACK1,
         TRACK2,
         TRACK3
     }
 
-    enum PlayMode {
+    public enum PlayMode {
         STANDARD,
         AI,
         TIMETRIAL
     }
 
-    enum VehicleType {
+    public enum VehicleType {
         VEHICLE1,
         VEHICLE2,
         VEHICLE3
     }
 
-    private PlayMode playMode;
-    private VehicleType vehicleType;
-    private Track track;
-    private float masterVol;
-    private float sfxVol;
-    private float bright;
+    private PlayMode playMode = PlayMode.AI;
+    private VehicleType vehicleType = VehicleType.VEHICLE1;
+    private Track track = Track.TRACK1;
+    private int laps = 1;
+    private float masterVol = 100;
+    private float sfxVol = 100;
+    private float bright = 100;
     private boolean colorBlind = false;
+    private Difficulty difficulty = Difficulty.MEDIUM;
 
-    private Difficulty difficulty;
+    public void setLaps(int laps) {
+        this.laps = laps;
+    }
+
+    public int getLaps(){
+        return this.laps;
+    }
 
     public Difficulty getDifficulty() {
         return difficulty;
@@ -100,6 +108,21 @@ public class Settings {
     }
 
     public Settings() { }
+
+    @Override
+    public String toString() {
+        return "Settings{" +
+                "playMode=" + playMode +
+                ", vehicleType=" + vehicleType +
+                ", track=" + track +
+                ", laps=" + laps +
+                ", masterVol=" + masterVol +
+                ", sfxVol=" + sfxVol +
+                ", bright=" + bright +
+                ", colorBlind=" + colorBlind +
+                ", difficulty=" + difficulty +
+                '}';
+    }
 }
 
 

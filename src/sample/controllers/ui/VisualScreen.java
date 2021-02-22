@@ -17,9 +17,11 @@ public class VisualScreen {
     private ToggleGroup colorBlind;
 
     public void brightSelected(MouseEvent mouseEvent) {
-        int bright = (int) brightSlider.getValue();
+        float bright = (float) brightSlider.getValue();
         brightLabel.setText("brightness: " + bright);
         System.out.println(brightSlider.getValue());
+
+        Main.settings.setBright(bright);
     }
 
     public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene(); }

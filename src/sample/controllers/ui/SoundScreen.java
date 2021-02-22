@@ -20,15 +20,19 @@ public class SoundScreen {
     public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene();}
 
     public void sfxSelected(MouseEvent mouseEvent) {
-        int sfxVol = (int) sfxSlider.getValue();
+        float sfxVol = (float) sfxSlider.getValue();
         sfxLabel.setText("sfx volume: " + sfxVol);
         System.out.println(sfxSlider.getValue());
+
+        Main.settings.setSfxVol(sfxVol);
     }
 
     public void masterSelected(MouseEvent mouseEvent) {
-        int masterVol = (int) masterSlider.getValue();
+        float masterVol = (float) masterSlider.getValue();
         masterLabel.setText("master volume: " + masterVol);
         System.out.println(masterSlider.getValue());
+
+        Main.settings.setMasterVol(masterVol);
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {

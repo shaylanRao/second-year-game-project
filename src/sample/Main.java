@@ -8,12 +8,16 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.controllers.ui.MainScreen;
 
+import java.util.HashMap;
+
 public class Main extends Application {
 
     public static final int maxWidth = 1280;
     public static final int maxHeight = 720;
     public static SceneManager sceneManager;
+    public static Settings settings;
 
+    private HashMap<String, String> locations;
 
 
     @Override
@@ -24,7 +28,6 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
         Parent root = loader.load();
-
         Scene currentScene = new Scene(root, maxWidth, maxHeight);
 
         primaryStage.setTitle("RACING GAME 2D");
@@ -33,10 +36,12 @@ public class Main extends Application {
         primaryStage.show();
 
         try {
-            MainScreen mainScreen =  loader.getController();
+            MainScreen mainScreen =  new MainScreen();
             mainScreen.setCurrentStage(primaryStage);
 
             sceneManager = new SceneManager(primaryStage);
+            settings = new Settings();
+
             sceneManager.setCurrentScene(currentScene);
         } catch (Exception e) {
             System.out.println("Inside main");
