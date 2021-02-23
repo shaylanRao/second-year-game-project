@@ -73,7 +73,7 @@ public class MusicClass implements LineListener {
     public static void main(String[] args) {
         String audioFilePath;
         audioFilePath = "C:\\Users\\sen\\Desktop\\xcom-audio\\allMainPagesBgm.wav";
-        musicStuff player = new musicStuff();
+        MusicClass player = new MusicClass();
         player.play(audioFilePath);
     }
 
