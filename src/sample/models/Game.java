@@ -1,13 +1,11 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.image.ImageView;
-import sample.Main;
 
 public class Game {
 
     private Car playerCar;
-    private ImageView imageView;
+    private Powerup[] powerups;
 
     public Car getPlayerCar() {
         return playerCar;
@@ -17,12 +15,11 @@ public class Game {
         this.playerCar = playerCar;
     }
 
-    public Game() {
-
-    }
 
     public void gameLoop(){
         // initialise car, power ups and check for user clicks in a forever loop -> break condition
+
+        // just to check if the car was a
         final boolean[] initialised = {false};
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -30,7 +27,7 @@ public class Game {
 
                 // the car was getting relocated every time the loop ran so it looked like it was stuck
                 if (!initialised[0]) {
-                    getPlayerCar().getImageView().relocate(640, 360);
+                    getPlayerCar().render(640, 360);
                     initialised[0] = true;
                 }
 
@@ -52,6 +49,8 @@ public class Game {
                 } else if (getPlayerCar().isRacing()){
                     dy *= 3;
                 }
+
+                // implement collision detection over here
 
                 getPlayerCar().moveCarBy(dy);
                 getPlayerCar().turn(rot);

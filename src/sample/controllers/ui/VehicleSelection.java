@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import sample.Main;
-import sample.models.Game;
 import sample.models.Settings;
 
 
@@ -55,11 +54,6 @@ public class VehicleSelection {
             System.out.println(Main.settings.toString());
 
             Main.sceneManager.setCurrentScene(gameViewScene);
-
-            // game is initialised over here
-
-            Main.game = new Game();
-            Main.game.gameLoop();
         } catch (Exception ex) {
             System.out.println("error inside VehicleSelection.java - next button clicked");
             ex.printStackTrace();

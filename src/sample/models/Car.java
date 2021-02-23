@@ -3,21 +3,21 @@ package sample.models;
 import javafx.scene.image.ImageView;
 import sample.Main;
 
-public class Car{
+public class Car extends Sprite{
 
     private boolean racing, goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationFactor, maximumAcceleration;
-    private ImageView imageView;
+
+    private final double decelerationFactor = 0.02;
 
     public Car(ImageView image) {
-        // setting initial value
-        this.imageView = image;
+        super(image);
         this.setAccelerationFactor(0.11);
         this.setMaximumAcceleration(5);
     }
 
     public ImageView getImageView() {
-        return imageView;
+        return super.getImage();
     }
 
     public boolean isAccelerate() {
@@ -94,20 +94,20 @@ public class Car{
 
     public double accelerationCalculator(double accelerationFactor) {
         if (this.isAccelerate()) {
-            if (accelerationFactor < 2){
+            if (accelerationFactor < 2) {
                 accelerationFactor += 0.3;
             }
             if(accelerationFactor < this.getMaximumAcceleration()) {
                 accelerationFactor += (1/(accelerationFactor*515));
             }
         }
-        else{
-            if(accelerationFactor > 0){
-                if (accelerationFactor < 0.5){
-                    accelerationFactor -= 0.002;
+        else {
+            if(accelerationFactor > 0) {
+                if (accelerationFactor < 0.5) {
+                    accelerationFactor -= this.decelerationFactor;
                 }
-                else{
-                    accelerationFactor-= 0.005;
+                else {
+                    accelerationFactor-= 0.05;
                 }
             }
 
@@ -137,7 +137,7 @@ public class Car{
         this.move(x, y);
     }
 
-    public void move(double x, double y) {
+    private void move(double x, double y) {
         final double cx = this.getCX();
         final double cy = this.getCY();
 

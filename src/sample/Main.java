@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.controllers.ui.MainScreen;
-import sample.models.Game;
 import sample.models.SceneManager;
 import sample.models.Settings;
 
@@ -19,7 +18,6 @@ public class Main extends Application {
     // TODO: is this the right way to do this
     public static SceneManager sceneManager;
     public static Settings settings;
-    public static Game game;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
