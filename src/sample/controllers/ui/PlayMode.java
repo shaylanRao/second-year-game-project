@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import sample.Main;
-import sample.Settings;
+import sample.models.Settings;
 
 public class PlayMode {
 

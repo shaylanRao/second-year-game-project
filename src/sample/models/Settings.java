@@ -1,4 +1,4 @@
-package sample;
+package sample.models;
 
 public class Settings {
     public enum Difficulty {

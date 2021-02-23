@@ -7,8 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.controllers.ui.MainScreen;
-
-import java.util.HashMap;
+import sample.models.Game;
+import sample.models.SceneManager;
+import sample.models.Settings;
 
 public class Main extends Application {
 
@@ -16,9 +17,7 @@ public class Main extends Application {
     public static final int maxHeight = 720;
     public static SceneManager sceneManager;
     public static Settings settings;
-
-    private HashMap<String, String> locations;
-
+    public static Game game;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

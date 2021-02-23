@@ -7,8 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import sample.Main;
-import sample.Settings;
-import sample.controllers.game.GameController;
+import sample.models.Game;
+import sample.models.Settings;
 
 
 public class VehicleSelection {
@@ -42,19 +42,18 @@ public class VehicleSelection {
 
     public void nextButtonClicked(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/gameView.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
             Parent root = loader.load();
 
             Scene gameViewScene = new Scene(root,Main.maxWidth,Main.maxHeight);
+            gameViewScene.getRoot().requestFocus();
 
             // to see all the selected options - settings
             System.out.println(Main.settings.toString());
 
             Main.sceneManager.setCurrentScene(gameViewScene);
 
-            // TODO: Figure out how to put this in the handler
-            gameViewScene.setOnKeyPressed(GameController::userKeyClicked);
-            gameViewScene.setOnKeyReleased(GameController::userKeyReleased);
+            Main.game = new Game();
         } catch (Exception ex) {
             System.out.println("error inside VehicleSelection.java - next button clicked");
             ex.printStackTrace();

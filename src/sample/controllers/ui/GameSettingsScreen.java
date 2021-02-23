@@ -2,7 +2,7 @@ package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import sample.Main;
-import sample.Settings;
+import sample.models.Settings;
 
 public class GameSettingsScreen {
     public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene(); }
