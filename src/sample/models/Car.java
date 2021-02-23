@@ -1,6 +1,5 @@
 package sample.models;
 
-import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import sample.Main;
 
@@ -13,7 +12,7 @@ public class Car{
     public Car(ImageView image) {
         // setting initial value
         this.imageView = image;
-        this.setAccelerationFactor(0.01);
+        this.setAccelerationFactor(1);
         this.setMaximumAcceleration(5);
     }
 
@@ -130,7 +129,7 @@ public class Car{
         final double angle = this.getImageView().getRotate();
 
         double angleMoveX = Math.cos(Math.toRadians(angle));
-        double angleMoveY = Math.cos(Math.toRadians(angle));
+        double angleMoveY = Math.sin(Math.toRadians(angle));
 
         double x = (cx + this.getImageView().getLayoutX() + (dy * angleMoveX));
         double y = (cy + this.getImageView().getLayoutY() + (dy * angleMoveY));
@@ -145,14 +144,11 @@ public class Car{
         if (x - cx >= 0 && x + cx <= Main.maxWidth && y - cy >= 0 && y + cy <= Main.maxHeight) {
             this.getImageView().relocate(x - cx, y - cy);
         }
-        System.out.println("here");
     }
 
     public void turn(double angle) {
         final double cAngle = this.getImageView().getRotate();
         angle += cAngle;
         this.getImageView().setRotate(angle);
-
-        System.out.println("here tooo");
     }
 }

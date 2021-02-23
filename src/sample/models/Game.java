@@ -2,10 +2,12 @@ package sample.models;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
+import sample.Main;
 
 public class Game {
 
     private Car playerCar;
+    private ImageView imageView;
 
     public Car getPlayerCar() {
         return playerCar;
@@ -16,16 +18,21 @@ public class Game {
     }
 
     public Game() {
-        gameLoop();
+
     }
 
     public void gameLoop(){
         // initialise car, power ups and check for user clicks in a forever loop -> break condition
+        final boolean[] initialised = {false};
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
 
-                getPlayerCar().getImageView().relocate(640, 360);
+                // the car was getting relocated every time the loop ran so it looked like it was stuck
+                if (!initialised[0]) {
+                    getPlayerCar().getImageView().relocate(640, 360);
+                    initialised[0] = true;
+                }
 
                 double dy = 0, rot = 0;
 

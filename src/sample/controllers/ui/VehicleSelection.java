@@ -46,14 +46,18 @@ public class VehicleSelection {
             Parent root = loader.load();
 
             Scene gameViewScene = new Scene(root,Main.maxWidth,Main.maxHeight);
+
+            // solves user key click issue
             gameViewScene.getRoot().requestFocus();
 
             // to see all the selected options - settings
+            // for debugging
             System.out.println(Main.settings.toString());
 
             Main.sceneManager.setCurrentScene(gameViewScene);
 
             Main.game = new Game();
+            Main.game.gameLoop();
         } catch (Exception ex) {
             System.out.println("error inside VehicleSelection.java - next button clicked");
             ex.printStackTrace();

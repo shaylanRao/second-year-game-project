@@ -15,13 +15,15 @@ public class Main extends Application {
 
     public static final int maxWidth = 1280;
     public static final int maxHeight = 720;
+
+    // TODO: is this the right way to do this
     public static SceneManager sceneManager;
     public static Settings settings;
     public static Game game;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //Load font here instead of CSS to avoid weird path errors
+        // Load font here instead of CSS to avoid weird path errors
         Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
 
 
