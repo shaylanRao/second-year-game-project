@@ -12,7 +12,7 @@ public class Car{
     public Car(ImageView image) {
         // setting initial value
         this.imageView = image;
-        this.setAccelerationFactor(1);
+        this.setAccelerationFactor(0.11);
         this.setMaximumAcceleration(5);
     }
 
@@ -113,7 +113,7 @@ public class Car{
 
         }
         if (accelerationFactor < 0){
-            accelerationFactor = 0.01;
+            accelerationFactor = 0.1;
         }
 
         return accelerationFactor;
@@ -149,6 +149,8 @@ public class Car{
     public void turn(double angle) {
         final double cAngle = this.getImageView().getRotate();
         angle += cAngle;
+
+        // removed turnCarTo
         this.getImageView().setRotate(angle);
     }
 }

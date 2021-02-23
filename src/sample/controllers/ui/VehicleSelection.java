@@ -56,6 +56,8 @@ public class VehicleSelection {
 
             Main.sceneManager.setCurrentScene(gameViewScene);
 
+            // game is initialised over here
+
             Main.game = new Game();
             Main.game.gameLoop();
         } catch (Exception ex) {
