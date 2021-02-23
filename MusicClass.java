@@ -50,22 +50,7 @@ public class MusicClass implements LineListener {
             audioClip.close();
 
         }   catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
-            System.out.println("Error playing the audio file.");
             ex.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void update(LineEvent event) {
-        LineEvent.Type type = event.getType();
-
-        if (type == LineEvent.Type.START) {
-            System.out.println("Playback started.");
-
-        } else if (type == LineEvent.Type.STOP) {
-            playingIsDone = true;
-            System.out.println("Playback completed.");
         }
 
     }
@@ -77,4 +62,7 @@ public class MusicClass implements LineListener {
         player.play(audioFilePath);
     }
 
+    @Override
+    public void update(LineEvent event) {
+    }
 }
