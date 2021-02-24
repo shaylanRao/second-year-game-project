@@ -1,11 +1,12 @@
 package sample.controllers.ui;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.utilities.AlertBox;
 import sample.Main;
+import sample.utilities.AlertBox;
 
 public class MainScreen {
     private Stage currentStage;
@@ -61,6 +62,20 @@ public class MainScreen {
             quitPrompt.displayPrompt();
         } catch (Exception e) {
             System.out.println("here");
+        }
+    }
+
+    // just for debugging - only in dev
+    public void startGame(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameScreen.fxml"));
+            Parent root = loader.load();
+            Scene gamePlay = new Scene(root,Main.maxWidth,Main.maxHeight);
+            gamePlay.getRoot().requestFocus();
+            Main.sceneManager.setCurrentScene(gamePlay);
+        } catch (Exception e) {
+            System.out.println("Error in startGame clicked - MainScreen.java");
+            e.printStackTrace();
         }
     }
 }

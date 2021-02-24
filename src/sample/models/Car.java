@@ -3,7 +3,7 @@ package sample.models;
 import javafx.scene.image.ImageView;
 import sample.Main;
 
-public class Car extends Sprite{
+public class Car extends Sprite {
 
     private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationFactor, maximumAcceleration;
