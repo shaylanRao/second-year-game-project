@@ -3,6 +3,9 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import sample.Main;
 
+/**
+ * The class that contains the main game loop
+ */
 public class Game {
 
     private Car playerCar;
@@ -15,15 +18,18 @@ public class Game {
         this.playerCar = playerCar;
     }
 
+
     /**
-     * The game loop
-     *
-     * */
+     * Sets initial game state
+     */
     private void initialiser(){
         getPlayerCar().render(Main.maxWidth / 2, Main.maxHeight / 2);
     }
 
-
+    /**
+     * The game loop. This deals with game logic such as handling collisions and moving the car
+     *
+     * */
     public void gameLoop(){
 
         this.initialiser();
