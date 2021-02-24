@@ -4,7 +4,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.game.CarController"
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.game.GameController"
+            styleClass="backgroundImage"
             onKeyPressed="#keyClicked"
             onKeyReleased="#keyReleased">
     <ImageView fx:id="carImage">

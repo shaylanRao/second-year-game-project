@@ -5,16 +5,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import sample.models.Car;
 import sample.models.Game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CarController implements Initializable {
+public class GameController implements Initializable {
 
     @FXML
     private ImageView carImage;
+
+    @FXML
+    private BorderPane backgroundImage;
 
     private Game game;
 
@@ -28,6 +32,7 @@ public class CarController implements Initializable {
 
     public void keyClicked(KeyEvent event) {
         KeyCode code = event.getCode();
+        System.out.println(code.toString());
         switch (code) {
             case UP:
                 this.getGame().getPlayerCar().setGoingForward(true);
@@ -49,10 +54,11 @@ public class CarController implements Initializable {
 
     public void keyReleased(KeyEvent event) {
         KeyCode code = event.getCode();
+        System.out.println(code.toString());
         switch (code) {
             case UP:
                 this.getGame().getPlayerCar().setAccelerate(false);
-                if (this.getGame().getPlayerCar().getAccelerationFactor() <= 0.2) {
+                if (this.getGame().getPlayerCar().getAccelerationFactor() < 0.2) {
                     this.getGame().getPlayerCar().setGoingForward(false);
                 }
                 break;
@@ -76,6 +82,7 @@ public class CarController implements Initializable {
             this.setGame(new Game());
             this.getGame().setPlayerCar(new Car(this.carImage));
             this.getGame().gameLoop();
+
         } catch (Exception ex) {
             System.out.println("Error when initializing ");
         }

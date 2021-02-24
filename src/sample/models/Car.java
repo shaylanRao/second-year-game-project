@@ -13,7 +13,7 @@ public class Car extends Sprite{
     public Car(ImageView image) {
         super(image);
         this.setAccelerationFactor(0.11);
-        this.setMaximumAcceleration(5);
+        this.setMaximumAcceleration(20);
     }
 
     public ImageView getImageView() {
@@ -95,27 +95,27 @@ public class Car extends Sprite{
     public double accelerationCalculator(double accelerationFactor) {
         if (this.isAccelerate()) {
             if (accelerationFactor < 2) {
-                accelerationFactor += 0.3;
+                accelerationFactor += 0.03;
             }
             if(accelerationFactor < this.getMaximumAcceleration()) {
-                accelerationFactor += (1/(accelerationFactor*515));
+                accelerationFactor += (0.5);
             }
         }
         else {
             if(accelerationFactor > 0) {
                 if (accelerationFactor < 0.5) {
-                    accelerationFactor -= this.decelerationFactor;
+                    accelerationFactor -= 0.002;
                 }
                 else {
-                    accelerationFactor-= 0.05;
+                    accelerationFactor-= 0.005;
                 }
             }
 
         }
         if (accelerationFactor < 0){
-            accelerationFactor = 0.1;
+            accelerationFactor = 0.001;
         }
-
+        System.out.println(accelerationFactor);
         return accelerationFactor;
     }
 

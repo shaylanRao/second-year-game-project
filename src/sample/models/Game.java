@@ -1,6 +1,7 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
+import sample.Main;
 
 public class Game {
 
@@ -15,38 +16,35 @@ public class Game {
         this.playerCar = playerCar;
     }
 
-
     public void gameLoop(){
-        // initialise car, power ups and check for user clicks in a forever loop -> break condition
+        // initialise car, power ups and check for user clicks inside the game loop
+        // place powerups and do other initialising stuff here
 
-        // just to check if the car was a
-        final boolean[] initialised = {false};
+        getPlayerCar().render(Main.maxWidth / 2, Main.maxHeight / 2);
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-
-                // the car was getting relocated every time the loop ran so it looked like it was stuck
-                if (!initialised[0]) {
-                    getPlayerCar().render(640, 360);
-                    initialised[0] = true;
-                }
 
                 double dy = 0, rot = 0;
 
                 double accelerationFactor = getPlayerCar().accelerationCalculator(getPlayerCar().getAccelerationFactor());
 
                 double forwardVelocity = accelerationFactor * 1;
-                double turningSpeed = accelerationFactor * 1;
+                double turningSpeed = accelerationFactor * 4;
 
                 if (getPlayerCar().isGoingForward()) {
                     dy -= forwardVelocity;
-                } else if (getPlayerCar().isGoingBackward()) {
+                }
+                if (getPlayerCar().isGoingBackward()) {
                     dy += 1;
-                } else if (getPlayerCar().isTurnLeft()){
+                }
+                if (getPlayerCar().isTurnLeft()){
                     rot -= turningSpeed;
-                } else if (getPlayerCar().isTurnRight()) {
+                }
+                if (getPlayerCar().isTurnRight()) {
                     rot += turningSpeed;
-                } else if (getPlayerCar().isRacing()){
+                }
+                if (getPlayerCar().isRacing()){
                     dy *= 3;
                 }
 
