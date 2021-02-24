@@ -8,12 +8,15 @@ public class Car extends Sprite{
     private boolean racing, goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationFactor, maximumAcceleration;
 
-    private final double decelerationFactor = 0.02;
+    //Speed controller (acceleration, velocity and turn speed dependent)
+    final double speedFactor = 10;
+
+    //private final double decelerationFactor = 0.02;
 
     public Car(ImageView image) {
         super(image);
         this.setAccelerationFactor(0.001);
-        this.setMaximumAcceleration(3);
+        this.setMaximumAcceleration(speedFactor*0.3);
     }
 
     public ImageView getImageView() {
@@ -94,20 +97,20 @@ public class Car extends Sprite{
 
     public double accelerationCalculator(double accelerationFactor) {
         if (this.isAccelerate()) {
-            if (accelerationFactor < 2){
-                accelerationFactor+=(0.03);
+            if (accelerationFactor < (speedFactor * 0.2)){
+                accelerationFactor+=(speedFactor * 0.003);
             }
             if(accelerationFactor < this.getMaximumAcceleration()) {
-                this.accelerationFactor += (0.2);
+                this.accelerationFactor += (speedFactor * 0.02);
             }
         }
         else {
             if(accelerationFactor > 0) {
-                if (accelerationFactor < 0.5) {
-                    this.accelerationFactor -= 0.002;
+                if (accelerationFactor < speedFactor * 0.05) {
+                    this.accelerationFactor -= (speedFactor * 0.0002);
                 }
                 else {
-                    this.accelerationFactor-= 0.005;
+                    this.accelerationFactor-= (speedFactor * 0.0005);
                 }
             }
 
