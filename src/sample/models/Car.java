@@ -166,4 +166,46 @@ public class Car extends Sprite {
     public double getTurningSpeed(){
         return (this.accelerationCalculator(this.accelerationFactor) * 1.5);
     }
+
+    //TODO collisionHandler(object 2)
+        //Handles collecting OR smashing into powerups OR bump into wall OR bump into car
+
+
+    //TODO powerup pickup
+        //store powerup
+
+
+    //TODO powerup crash
+        //make car spin and slowdown
+
+    /**
+     * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter
+     * @param other
+     * */
+    public boolean collisionDetection(Sprite other) {
+        double widthCar = this.getImage().getBoundsInLocal().getWidth()/2;
+        double heightCar = this.getImage().getBoundsInLocal().getHeight()/2;
+        double widthOther = other.getImage().getBoundsInLocal().getWidth()/2;
+        double heightOther = other.getImage().getBoundsInLocal().getHeight()/2;
+        double cxCar = this.getImage().getLayoutX();
+        double cyCar = this.getImage().getLayoutY();
+        double cxOther = other.getImage().getLayoutX();
+        double cyOther = other.getImage().getLayoutY();
+
+        boolean hasCollided = Math.abs(cyCar - cyOther) <= ((heightCar + heightOther));
+        if (cxCar > cxOther) {
+            if (cxCar - cxOther + widthOther <= widthCar+widthOther) {
+                return hasCollided;
+            }
+        } else {
+            if (cxOther- cxCar - widthOther <= widthCar+widthOther) {
+                return hasCollided;
+            }
+        }
+        return false;
+
+    }
+
+
+
 }
