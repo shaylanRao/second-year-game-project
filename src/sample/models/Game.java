@@ -32,7 +32,7 @@ public class Game {
                 double accelerationFactor = getPlayerCar().accelerationCalculator(getPlayerCar().getAccelerationFactor());
 
                 double forwardVelocity = accelerationFactor * 1;
-                double turningSpeed = accelerationFactor * 4;
+                double turningSpeed = accelerationFactor * 1.5;
 
                 if (getPlayerCar().isGoingForward()) {
                     dy -= forwardVelocity;
