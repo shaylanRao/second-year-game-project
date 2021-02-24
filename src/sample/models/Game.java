@@ -11,6 +11,8 @@ public class Game {
     public Car getPlayerCar() {
         return playerCar;
     }
+    private static final String TRACK_IMAGE_LOC = "src/sample/resources/images/racingtrack.png";
+
 
     public void setPlayerCar(Car playerCar) {
         this.playerCar = playerCar;

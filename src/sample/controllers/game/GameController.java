@@ -16,6 +16,7 @@ public class GameController implements Initializable {
 
     @FXML
     private ImageView carImage;
+    private ImageView TrackImage;
 
     @FXML
     private BorderPane backgroundImage;
