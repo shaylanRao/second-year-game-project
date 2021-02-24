@@ -19,19 +19,22 @@ public class Game {
      * The game loop
      *
      * */
+    private void initialiser(){
+        getPlayerCar().render(Main.maxWidth / 2, Main.maxHeight / 2);
+    }
+
+
     public void gameLoop(){
 
-        getPlayerCar().render(Main.maxWidth / 2, Main.maxHeight / 2);
+        this.initialiser();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
 
                 double dy = 0, rot = 0;
 
-                double accelerationFactor = getPlayerCar().accelerationCalculator(getPlayerCar().getAccelerationFactor());
-
-                double forwardVelocity = accelerationFactor * 1;
-                double turningSpeed = accelerationFactor * 1.5;
+                double forwardVelocity = getPlayerCar().getForwardVelocity();
+                double turningSpeed = getPlayerCar().getTurningSpeed();
 
                 if (getPlayerCar().isGoingForward()) {
                     dy -= forwardVelocity;

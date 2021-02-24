@@ -157,4 +157,13 @@ public class Car extends Sprite{
         // removed turnCarTo
         this.getImageView().setRotate(angle);
     }
+
+
+    public double getForwardVelocity(){
+        return (this.accelerationCalculator(this.accelerationFactor) * 1);
+    }
+
+    public double getTurningSpeed(){
+        return (this.accelerationCalculator(this.accelerationFactor) * 1.5);
+    }
 }

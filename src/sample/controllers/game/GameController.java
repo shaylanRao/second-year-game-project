@@ -1,3 +1,5 @@
+/* Handle game input*/
+
 package sample.controllers.game;
 
 import javafx.fxml.FXML;
@@ -72,6 +74,8 @@ public class GameController implements Initializable {
         }
     }
 
+
+    /* Actually initializes gameplay*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
