@@ -46,9 +46,6 @@ public class Game {
                 if (getPlayerCar().isTurnRight()) {
                     rot += turningSpeed;
                 }
-                if (getPlayerCar().isRacing()){
-                    dy *= 3;
-                }
 
                 // implement collision detection over here
 

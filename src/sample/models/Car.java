@@ -47,14 +47,6 @@ public class Car extends Sprite{
         this.accelerate = accelerate;
     }
 
-    public boolean isRacing() {
-        return racing;
-    }
-
-    public void setRacing(boolean racing) {
-        this.racing = racing;
-    }
-
     public boolean isGoingForward() {
         return goingForward;
     }

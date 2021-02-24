@@ -48,8 +48,6 @@ public class GameController implements Initializable {
             case RIGHT:
                 this.getGame().getPlayerCar().setTurnRight(true);
                 break;
-            case SHIFT:
-                this.getGame().getPlayerCar().setRacing(true);
         }
     }
 
@@ -72,8 +70,6 @@ public class GameController implements Initializable {
             case RIGHT:
                 this.getGame().getPlayerCar().setTurnRight(false);
                 break;
-            case SHIFT:
-                this.getGame().getPlayerCar().setRacing(false);
         }
     }
 
