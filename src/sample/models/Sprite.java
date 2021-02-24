@@ -14,29 +14,38 @@ public abstract class Sprite {
         return image;
     }
 
+    /**
+     * This function will position this Sprite at the chosen coordinates
+     * @param x
+     * @param y
+     * */
     public void render(int x, int y) {
-        //TODO implement render function
         // this method will place an item on the screen at an specified coordinate
         getImage().relocate(x, y);
     }
 
+    /**
+     * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter
+     * @param entity
+     * */
     public boolean collision(Sprite entity) {
-        double wcar = this.getImage().getBoundsInLocal().getWidth()/2;
-        double hcar = this.getImage().getBoundsInLocal().getHeight()/2;
-        double wpwr = entity.getImage().getBoundsInLocal().getWidth()/2;
-        double hpwr = entity.getImage().getBoundsInLocal().getHeight()/2;
-        double cxcar = this.getImage().getLayoutX();
-        double cycar = this.getImage().getLayoutY();
-        double cxpwr = entity.getImage().getLayoutX();
-        double cypwr = entity.getImage().getLayoutY();
+        double widthCar = this.getImage().getBoundsInLocal().getWidth()/2;
+        double heightCar = this.getImage().getBoundsInLocal().getHeight()/2;
+        double widthPowerup = entity.getImage().getBoundsInLocal().getWidth()/2;
+        double heightPowerup = entity.getImage().getBoundsInLocal().getHeight()/2;
+        double cxCar = this.getImage().getLayoutX();
+        double cyCar = this.getImage().getLayoutY();
+        double cxPowerup = entity.getImage().getLayoutX();
+        double cyPowerup = entity.getImage().getLayoutY();
 
-        if (cxcar > cxpwr) {
-            if (cxcar - cxpwr + wpwr <= wcar+wpwr) {
-                return Math.abs(cycar - cypwr) <= ((hcar + hpwr));
+        boolean hasCollided = Math.abs(cyCar - cyPowerup) <= ((heightCar + heightPowerup));
+        if (cxCar > cxPowerup) {
+            if (cxCar - cxPowerup + widthPowerup <= widthCar+widthPowerup) {
+                return hasCollided;
             }
         } else {
-            if (cxpwr- cxcar - wpwr <= wcar+wpwr) {
-                return Math.abs(cycar - cypwr) <= ((hcar + hpwr));
+            if (cxPowerup- cxCar - widthPowerup <= widthCar+widthPowerup) {
+                return hasCollided;
             }
         }
         return false;

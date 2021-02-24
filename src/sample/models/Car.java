@@ -5,13 +5,10 @@ import sample.Main;
 
 public class Car extends Sprite{
 
-    private boolean racing, goingForward, goingBackward, turnRight, turnLeft, accelerate;
+    private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationFactor, maximumAcceleration;
 
-    //Speed controller (acceleration, velocity and turn speed dependent)
     final double speedFactor = 10;
-
-    //private final double decelerationFactor = 0.02;
 
     public Car(ImageView image) {
         super(image);
@@ -87,6 +84,10 @@ public class Car extends Sprite{
         return this.getImageView().getBoundsInLocal().getHeight() / 2;
     }
 
+
+    /**
+     * Explain what this function does
+     * */
     public double accelerationCalculator(double accelerationFactor) {
         if (this.isAccelerate()) {
             if (accelerationFactor < (speedFactor * 0.2)){
@@ -110,10 +111,12 @@ public class Car extends Sprite{
         if (accelerationFactor < 0){
             this.accelerationFactor = 0.001;
         }
-        System.out.println(accelerationFactor);
         return accelerationFactor;
     }
 
+    /**
+     * Explain what this function does
+     * */
     public void moveCarBy(double dy) {
         if (dy == 0) {
             return;
@@ -132,6 +135,9 @@ public class Car extends Sprite{
         this.move(x, y);
     }
 
+    /**
+     * Explain what this function does
+     * */
     private void move(double x, double y) {
         final double cx = this.getCX();
         final double cy = this.getCY();
@@ -141,6 +147,9 @@ public class Car extends Sprite{
         }
     }
 
+    /**
+     * Explain what this function does
+     * */
     public void turn(double angle) {
         final double cAngle = this.getImageView().getRotate();
         angle += cAngle;

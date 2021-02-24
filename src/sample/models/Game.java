@@ -6,21 +6,20 @@ import sample.Main;
 public class Game {
 
     private Car playerCar;
-    private Powerup[] powerups;
 
     public Car getPlayerCar() {
         return playerCar;
     }
-    private static final String TRACK_IMAGE_LOC = "src/sample/resources/images/racingtrack.png";
-
 
     public void setPlayerCar(Car playerCar) {
         this.playerCar = playerCar;
     }
 
+    /**
+     * The game loop
+     *
+     * */
     public void gameLoop(){
-        // initialise car, power ups and check for user clicks inside the game loop
-        // place powerups and do other initialising stuff here
 
         getPlayerCar().render(Main.maxWidth / 2, Main.maxHeight / 2);
         AnimationTimer timer = new AnimationTimer() {

@@ -19,6 +19,10 @@ public class Main extends Application {
     public static SceneManager sceneManager;
     public static Settings settings;
 
+    /**
+     * @param primaryStage
+     * */
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         // Load font here instead of CSS to avoid weird path errors

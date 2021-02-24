@@ -37,12 +37,6 @@ public class SceneManager {
         this.getCurrentStage().setScene(currentScene);
     }
 
-    public Scene getCurrentScene() {
-        if (!this.getSceneStack().isEmpty())
-            return this.getSceneStack().peek();
-        System.out.println("Error: scene stack empty");
-        return null;
-    }
 
     public void activateNextButton(Button nextButton) {
         nextButton.setVisible(true);

@@ -33,7 +33,6 @@ public class GameController implements Initializable {
 
     public void keyClicked(KeyEvent event) {
         KeyCode code = event.getCode();
-        System.out.println(code.toString());
         switch (code) {
             case UP:
                 this.getGame().getPlayerCar().setGoingForward(true);
@@ -52,8 +51,8 @@ public class GameController implements Initializable {
     }
 
     public void keyReleased(KeyEvent event) {
+        // need to add 2nd player listeners
         KeyCode code = event.getCode();
-        System.out.println(code.toString());
         switch (code) {
             case UP:
                 this.getGame().getPlayerCar().setAccelerate(false);
