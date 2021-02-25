@@ -3,6 +3,9 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
 
+/**
+ * The class that contains the main game loop
+ */
 public class Game {
 
     private Car playerCar;
@@ -16,10 +19,10 @@ public class Game {
         this.playerCar = playerCar;
     }
 
+
     /**
-     * The game loop
-     *
-     * */
+     * Sets initial game state
+     */
     private void initialiser(){
         playerCar.render(455, 287);
         //TODO place powerup initialiser
@@ -31,7 +34,10 @@ public class Game {
         this.setPlayerCar(new Car(playerOneImage));
     }
 
-
+    /**
+     * The game loop. This deals with game logic such as handling collisions and moving the car
+     *
+     * */
     public void gameLoop(){
 
         this.initialiser();
@@ -49,6 +55,10 @@ public class Game {
                 double turningSpeed = playerCar.getTurningSpeed();
 
                 if (playerCar.isGoingForward()) {
+                    dy -= forwardVelocity;
+                }
+                //for car roll, needs to keep car moving forward
+                else{
                     dy -= forwardVelocity;
                 }
                 if (playerCar.isGoingBackward()) {

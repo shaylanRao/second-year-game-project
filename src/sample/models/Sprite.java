@@ -6,8 +6,23 @@ public abstract class Sprite {
 
     private final ImageView image;
 
+    /**
+     * Creates the sprite object
+     * @param image
+     */
     public Sprite(ImageView image) {
         this.image = image;
+    }
+
+    /**
+     * Creates the sprite object and renders it at (x,y)
+     * @param image
+     * @param x
+     * @param y
+     */
+    public Sprite(ImageView image, int x, int y) {
+        this.image = image;
+        this.render(x, y);
     }
 
     public ImageView getImage() {
@@ -26,3 +41,6 @@ public abstract class Sprite {
 
 
 }
+
+
+
