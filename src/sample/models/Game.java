@@ -51,6 +51,7 @@ public class Game {
                 if (playerCar.isGoingForward()) {
                     dy -= forwardVelocity;
                 }
+                //for car roll, needs to keep car moving forward
                 else{
                     dy -= forwardVelocity;
                 }

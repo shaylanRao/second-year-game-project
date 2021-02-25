@@ -107,15 +107,6 @@ public class Car extends Sprite{
     private void accelerateForward(){
         if(this.velocity < this.getMaxVelocity()) {
             //if acceleration is starting from 0
-            /*
-            if (accelerationFactor < (speedFactor * 0.2)){
-                accelerationFactor+=(speedFactor * 0.003);
-            }
-            //if already accelerating at speed
-            else{
-                this.accelerationFactor += (speedFactor * 0.02);
-            }
-            */
             if (this.velocity == 0){
                 this.velocity = 0.003;
             }
