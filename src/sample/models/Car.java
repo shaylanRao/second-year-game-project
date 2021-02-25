@@ -7,13 +7,14 @@ public class Car extends Sprite{
 
     private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationFactor, maximumAcceleration;
+    private double velocity;
 
     final double speedFactor = 10;
 
     public Car(ImageView image) {
         super(image);
         this.setAccelerationFactor(0.001);
-        this.setMaximumAcceleration(speedFactor*0.3);
+        this.setMaximumAcceleration(speedFactor*0.8);
     }
 
     public ImageView getImageView() {
@@ -32,7 +33,7 @@ public class Car extends Sprite{
         this.accelerationFactor = accelerationFactor;
     }
 
-    public double getMaximumAcceleration() {
+    public double getMaxVelocity() {
         return maximumAcceleration;
     }
 
@@ -88,31 +89,56 @@ public class Car extends Sprite{
     /**
      * Explain what this function does
      * */
-    public double accelerationCalculator(double accelerationFactor) {
+    public double accelerationCalculator() {
         if (this.isAccelerate()) {
+            this.accelerateForward();
+        }
+        else {
+            this.decelerateForward();
+        }
+
+        if (this.velocity < 0){
+            //make positive again, 0
+            this.velocity = 0;
+        }
+        return this.velocity;
+    }
+
+    private void accelerateForward(){
+        if(this.velocity < this.getMaxVelocity()) {
+            //if acceleration is starting from 0
+            /*
             if (accelerationFactor < (speedFactor * 0.2)){
                 accelerationFactor+=(speedFactor * 0.003);
             }
-            if(accelerationFactor < this.getMaximumAcceleration()) {
+            //if already accelerating at speed
+            else{
                 this.accelerationFactor += (speedFactor * 0.02);
             }
+            */
+            if (this.velocity == 0){
+                this.velocity = 0.003;
+            }
+            //this.accelerationFactor = 9.4*(1-Math.exp(0.01*this.velocity))+0.002;
+            //this.accelerationFactor += -((Math.log(1-(this.velocity / 1)))/0.3);
+            this.accelerationFactor = (1/(Math.log10(this.velocity)+3.2))-0.25;
+            this.velocity += this.accelerationFactor;
         }
-        else {
-            if(accelerationFactor > 0) {
-                if (accelerationFactor < speedFactor * 0.05) {
-                    this.accelerationFactor -= (speedFactor * 0.0002);
-                }
-                else {
-                    this.accelerationFactor-= (speedFactor * 0.0005);
-                }
+    }
+
+    private void decelerateForward(){
+        if(this.velocity > 0) {
+            if (this.velocity < speedFactor * 0.05) {
+                this.velocity -= (speedFactor * 0.001);
+            }
+            else {
+                this.velocity -= (speedFactor * 0.005);
             }
 
         }
-        if (accelerationFactor < 0){
-            this.accelerationFactor = 0.001;
-        }
-        return accelerationFactor;
     }
+
+
 
     /**
      * Explain what this function does
@@ -160,11 +186,12 @@ public class Car extends Sprite{
 
 
     public double getForwardVelocity(){
-        return (this.accelerationCalculator(this.accelerationFactor) * 1);
+        System.out.println(this.velocity);
+        return (this.accelerationCalculator() * 1);
     }
 
     public double getTurningSpeed(){
-        return (this.accelerationCalculator(this.accelerationFactor) * 1.5);
+        return (this.accelerationCalculator() * 1.5);
     }
 
     //TODO collisionHandler(object 2)

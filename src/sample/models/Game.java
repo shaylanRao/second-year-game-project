@@ -51,6 +51,9 @@ public class Game {
                 if (playerCar.isGoingForward()) {
                     dy -= forwardVelocity;
                 }
+                else{
+                    dy -= forwardVelocity;
+                }
                 if (playerCar.isGoingBackward()) {
                     dy += 1;
                 }
