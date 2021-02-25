@@ -1,7 +1,7 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
-import sample.Main;
+import javafx.scene.image.ImageView;
 
 public class Game {
 
@@ -10,6 +10,7 @@ public class Game {
     public Car getPlayerCar() {
         return playerCar;
     }
+
 
     public void setPlayerCar(Car playerCar) {
         this.playerCar = playerCar;
@@ -20,9 +21,14 @@ public class Game {
      *
      * */
     private void initialiser(){
-        playerCar.render(Main.maxWidth / 2, Main.maxHeight / 2);
+        playerCar.render(455, 287);
         //TODO place powerup initialiser
+    }
 
+    public void initialise(ImageView playerOneImage) {
+        // TODO
+        // this method should take in all the necessary info from the GameController and initialise the playerCars
+        this.setPlayerCar(new Car(playerOneImage));
     }
 
 

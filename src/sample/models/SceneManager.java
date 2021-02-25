@@ -6,9 +6,13 @@ import javafx.stage.Stage;
 
 import java.util.Stack;
 
+/**
+ * Handles scene changes, and initialised with the primary stage.
+ * */
+
 public class SceneManager {
-    private Stack<Scene> sceneStack;
-    private Stage currentStage;
+    private final Stack<Scene> sceneStack;
+    private final Stage currentStage;
 
     public SceneManager(Stage currentStage) {
         this.sceneStack = new Stack<>();
@@ -19,10 +23,14 @@ public class SceneManager {
         return sceneStack;
     }
 
-    private Stage getCurrentStage() {
+    public Stage getCurrentStage() {
         return currentStage;
     }
 
+    /**
+     * This function will set the current scene of the primary stage to the previous scene
+     * This has to be called when the previous scene needs to be set as the current scene
+     * */
     public void setPrevScene() {
         // check for stack underflow
         if (!(this.getSceneStack().isEmpty())) {
@@ -32,12 +40,22 @@ public class SceneManager {
         }
     }
 
+
+    /**
+     * @param currentScene
+     * This function will set the current scene of the primary stage to the new scene which is passed as a parameter
+     * This has to be called when the new scene needs to be set as the current scene
+     * */
     public void setCurrentScene(Scene currentScene) {
         this.getSceneStack().push(currentScene);
         this.getCurrentStage().setScene(currentScene);
     }
 
 
+    /**
+     * @param nextButton
+     * This function will activate nextButton i.e. set it's visibility to true
+     */
     public void activateNextButton(Button nextButton) {
         nextButton.setVisible(true);
     }

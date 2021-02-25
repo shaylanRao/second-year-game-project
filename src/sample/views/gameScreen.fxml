@@ -4,10 +4,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.game.GameController"
             styleClass="backgroundImage"
             onKeyPressed="#keyClicked"
             onKeyReleased="#keyReleased">
+    <stylesheets>
+        <URL value="@../resources/stylesheets/stylesheet.css" />
+    </stylesheets>
     <ImageView fx:id="carImage">
         <Image url="@../resources/images/car.png"/>
     </ImageView>

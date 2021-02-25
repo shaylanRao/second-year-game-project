@@ -18,7 +18,6 @@ public class GameController implements Initializable {
 
     @FXML
     private ImageView carImage;
-    private ImageView TrackImage;
 
     @FXML
     private BorderPane backgroundImage;
@@ -55,7 +54,6 @@ public class GameController implements Initializable {
     public void keyReleased(KeyEvent event) {
         // need to add 2nd player listeners
         KeyCode code = event.getCode();
-        System.out.println(code.toString());
         switch (code) {
             case UP:
                 this.getGame().getPlayerCar().setAccelerate(false);
@@ -83,7 +81,6 @@ public class GameController implements Initializable {
             this.setGame(new Game());
             this.getGame().setPlayerCar(new Car(this.carImage));
             this.getGame().gameLoop();
-
         } catch (Exception ex) {
             System.out.println("Error when initializing ");
         }

@@ -66,3 +66,8 @@
     -fx-background-radius:0px;
 }
 
+.backgroundImage {
+    -fx-background-image: url("../images/racingTrack.png");
+    -fx-background-size: 1280, 720;
+    -fx-background-repeat: no-repeat;
+}
