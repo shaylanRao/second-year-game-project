@@ -187,7 +187,7 @@ public class Car extends Sprite {
     }
 
     public double getTurningSpeed(){
-        return (this.accelerationCalculator() * 1.5);
+        return((this.accelerationCalculator()) * 1.5);
     }
 
     //TODO collisionHandler(object 2)
