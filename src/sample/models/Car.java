@@ -6,15 +6,16 @@ import sample.Main;
 public class Car extends Sprite {
 
     private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
-    private double accelerationFactor, maximumAcceleration;
-    private double velocity;
+    private double accelerationFactor, accelerationModerator;
+    private double velocity, maximumVelocity;
 
     final double speedFactor = 10;
 
     public Car(ImageView image) {
         super(image);
         this.setAccelerationFactor(0.001);
-        this.setMaximumAcceleration(speedFactor*0.8);
+        this.setMaximumVelocity(speedFactor*0.45);
+        this.setAccelerationModerator(speedFactor/100);
     }
 
     public ImageView getImageView() {
@@ -34,12 +35,16 @@ public class Car extends Sprite {
     }
 
     public double getMaxVelocity() {
-        return maximumAcceleration;
+        return maximumVelocity;
     }
 
-    public void setMaximumAcceleration(double maximumAcceleration) {
-        this.maximumAcceleration = maximumAcceleration;
+    public void setMaximumVelocity(double maximumVelocity) {
+        this.maximumVelocity = maximumVelocity;
     }
+
+    public double getAccelerationModerator(){ return accelerationModerator;}
+
+    public void setAccelerationModerator(double accelerationModerator){ this.accelerationModerator = accelerationModerator; }
 
     public void setAccelerate(boolean accelerate) {
         this.accelerate = accelerate;
@@ -112,7 +117,7 @@ public class Car extends Sprite {
             }
             //this.accelerationFactor = 9.4*(1-Math.exp(0.01*this.velocity))+0.002;
             //this.accelerationFactor += -((Math.log(1-(this.velocity / 1)))/0.3);
-            this.accelerationFactor = (1/(Math.log10(this.velocity)+3.2))-0.25;
+            this.accelerationFactor = this.getAccelerationModerator()*((1/(Math.log10(this.velocity)+3.2))-0.25);
             this.velocity += this.accelerationFactor;
         }
     }
