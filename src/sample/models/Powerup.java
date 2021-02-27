@@ -10,7 +10,13 @@ public class Powerup extends Sprite {
     }
 
     /* TODO
-       Powerup activate method
+       Powerup spawn method
+        • should randomly place the powerups on the screen
        Powerup deactivate method - needs a timer
+        •
     */
+
+    public void deactivate() {
+        this.getImage().setVisible(false);
+    }
 }

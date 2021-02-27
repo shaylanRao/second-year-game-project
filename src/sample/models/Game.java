@@ -3,17 +3,21 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * The class that contains the main game loop
  */
 public class Game {
+
+    private ArrayList<Powerup> powerups;
 
     private Car playerCar;
 
     public Car getPlayerCar() {
         return playerCar;
     }
-
 
     public void setPlayerCar(Car playerCar) {
         this.playerCar = playerCar;
@@ -25,13 +29,23 @@ public class Game {
      */
     private void initialiser(){
         playerCar.render(455, 287);
-        //TODO place powerup initialiser
+
+        Random random = new Random();
+
+        for (Powerup powerup: powerups) {
+            int x = random.nextInt(1280);
+            int y = random.nextInt(720);
+            powerup.render(x, y);
+        }
     }
 
-    public void initialise(ImageView playerOneImage) {
-        // TODO
+    public void initialiseGameObjects(ImageView playerOneImage, ArrayList<ImageView> powerupImages) {
         // this method should take in all the necessary info from the GameController and initialise the playerCars
         this.setPlayerCar(new Car(playerOneImage));
+        this.powerups = new ArrayList<>();
+        for (ImageView image:powerupImages) {
+            this.powerups.add(new Powerup(image));
+        }
     }
 
     /**
@@ -41,6 +55,7 @@ public class Game {
     public void gameLoop(){
 
         this.initialiser();
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -69,6 +84,12 @@ public class Game {
                 }
                 if (playerCar.isTurnRight()) {
                     rot += turningSpeed;
+                }
+
+                for (Powerup powerup:powerups) {
+                    if (playerCar.collisionDetection(powerup)) {
+                        powerup.deactivate();
+                    }
                 }
 
                 // implement collision detection over here

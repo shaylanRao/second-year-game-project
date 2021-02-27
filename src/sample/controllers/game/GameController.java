@@ -7,11 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import sample.models.Car;
 import sample.models.Game;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -20,7 +19,19 @@ public class GameController implements Initializable {
     private ImageView carImage;
 
     @FXML
-    private BorderPane backgroundImage;
+    private ImageView powerupOne;
+
+    @FXML
+    private ImageView powerupTwo;
+
+    @FXML
+    private ImageView powerupThree;
+
+    @FXML
+    private ImageView powerupFour;
+
+    @FXML
+    private ImageView powerupFive;
 
     private Game game;
 
@@ -79,8 +90,25 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             this.setGame(new Game());
-            this.getGame().setPlayerCar(new Car(this.carImage));
+
+            // temp
+            // TODO - find a better way to do this
+
+            ArrayList<ImageView> temp = new ArrayList<>();
+
+            temp.add(powerupOne);
+            temp.add(powerupTwo);
+            temp.add(powerupThree);
+            temp.add(powerupFour);
+            temp.add(powerupFive);
+
+            // use this method to pass things to the model
+            this.game.initialiseGameObjects(carImage, temp);
+
+
+            // starts the game
             this.getGame().gameLoop();
+
         } catch (Exception ex) {
             System.out.println("Error when initializing ");
         }

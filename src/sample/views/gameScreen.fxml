@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import java.net.URL?>
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.game.GameController"
-            styleClass="backgroundImage"
-            onKeyPressed="#keyClicked"
-            onKeyReleased="#keyReleased">
+<BorderPane onKeyPressed="#keyClicked" onKeyReleased="#keyReleased" styleClass="backgroundImage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.game.GameController">
     <stylesheets>
         <URL value="@../resources/stylesheets/stylesheet.css" />
     </stylesheets>
     <ImageView fx:id="carImage">
-        <Image url="@../resources/images/car.png"/>
+        <Image url="@../resources/images/car.png" />
+    </ImageView>
+    <ImageView fx:id="powerupOne">
+        <Image url="@../resources/images/powerupBanana.png" />
+    </ImageView>
+    <ImageView fx:id="powerupTwo">
+        <Image url="@../resources/images/powerupBanana.png" />
+    </ImageView>
+    <ImageView fx:id="powerupThree">
+        <Image url="@../resources/images/powerupBanana.png" />
+    </ImageView>
+    <ImageView fx:id="powerupFour">
+        <Image url="@../resources/images/powerupBanana.png" />
+    </ImageView>
+    <ImageView fx:id="powerupFive">
+        <Image url="@../resources/images/powerupBanana.png" />
     </ImageView>
 </BorderPane>

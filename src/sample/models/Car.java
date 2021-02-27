@@ -3,11 +3,14 @@ package sample.models;
 import javafx.scene.image.ImageView;
 import sample.Main;
 
+import java.util.ArrayList;
+
 public class Car extends Sprite {
 
     private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationFactor, accelerationModerator;
     private double velocity, maximumVelocity;
+    private final ArrayList<Powerup> powerups;
 
     final double speedFactor = 10;
 
@@ -16,7 +19,13 @@ public class Car extends Sprite {
         this.setAccelerationFactor(0.001);
         this.setMaximumVelocity(speedFactor*0.45);
         this.setAccelerationModerator(speedFactor/100);
+        this.powerups = new ArrayList<>();
     }
+
+    public ArrayList<Powerup> getPowerups() {
+        return powerups;
+    }
+
 
     public ImageView getImageView() {
         return super.getImage();
@@ -187,7 +196,7 @@ public class Car extends Sprite {
     }
 
     public double getTurningSpeed(){
-        return((this.accelerationCalculator()) * 1.5);
+        return((this.accelerationCalculator()) * 1);
     }
 
     //TODO collisionHandler(object 2)
@@ -203,7 +212,7 @@ public class Car extends Sprite {
 
     /**
      * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter
-     * @param other
+     * @param other sd
      * */
     public boolean collisionDetection(Sprite other) {
         double widthCar = this.getImage().getBoundsInLocal().getWidth()/2;
