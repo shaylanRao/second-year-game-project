@@ -4,34 +4,18 @@ package sample.controllers.game;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import sample.models.Game;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
 
     @FXML
-    private ImageView carImage;
-
-    @FXML
-    private ImageView powerupOne;
-
-    @FXML
-    private ImageView powerupTwo;
-
-    @FXML
-    private ImageView powerupThree;
-
-    @FXML
-    private ImageView powerupFour;
-
-    @FXML
-    private ImageView powerupFive;
+    private BorderPane gameBackground;
 
     private Game game;
 
@@ -94,17 +78,7 @@ public class GameController implements Initializable {
             // temp
             // TODO - find a better way to do this
 
-            ArrayList<ImageView> temp = new ArrayList<>();
-
-            temp.add(powerupOne);
-            temp.add(powerupTwo);
-            temp.add(powerupThree);
-            temp.add(powerupFour);
-            temp.add(powerupFive);
-
-            // use this method to pass things to the model
-            this.game.initialiseGameObjects(carImage, temp);
-
+            this.game.initialiseGameObjects(gameBackground);
 
             // starts the game
             this.getGame().gameLoop();

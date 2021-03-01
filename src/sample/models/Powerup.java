@@ -2,19 +2,13 @@ package sample.models;
 
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 public class Powerup extends Sprite {
 
-    public Powerup(ImageView imageView) {
-        super(imageView);
+    public Powerup(BorderPane gameBackground, ImageView imageView) {
+        super(gameBackground, imageView);
     }
-
-    /* TODO
-       Powerup spawn method
-        • should randomly place the powerups on the screen
-       Powerup deactivate method - needs a timer
-        •
-    */
 
     public void deactivate() {
         this.getImage().setVisible(false);

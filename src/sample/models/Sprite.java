@@ -1,34 +1,25 @@
 package sample.models;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 public abstract class Sprite {
 
     private final ImageView image;
+    private final BorderPane gameBackground;
 
-    /**
-     * Creates the sprite object
-     * @param image
-     */
-    public Sprite(ImageView image) {
-        this.image = image;
+    public Sprite(BorderPane gameBackground, ImageView imageView) {
+        this.gameBackground = gameBackground;
+        this.image = imageView;
     }
 
-    /**
-     * Creates the sprite object and renders it at (x,y)
-     * @param image
-     * @param x
-     * @param y
-     */
-    public Sprite(ImageView image, int x, int y) {
-        this.image = image;
-        this.render(x, y);
+    protected BorderPane getGameBackground() {
+        return gameBackground;
     }
 
-    public ImageView getImage() {
+    protected ImageView getImage() {
         return image;
     }
-
 
     /**
      * @param x
@@ -36,6 +27,7 @@ public abstract class Sprite {
      */
     public void render(int x, int y) {
         // this method will place an item on the screen at an specified coordinate
+        this.gameBackground.getChildren().add(getImage());
         getImage().relocate(x, y);
     }
 

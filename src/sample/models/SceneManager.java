@@ -40,6 +40,10 @@ public class SceneManager {
         }
     }
 
+    public Scene getScene() {
+        return this.getSceneStack().peek();
+    }
+
 
     /**
      * @param currentScene

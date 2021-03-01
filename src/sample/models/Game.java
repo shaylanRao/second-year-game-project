@@ -1,7 +1,7 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,40 +11,37 @@ import java.util.Random;
  */
 public class Game {
 
+    private PlayerCar playerCar;
     private ArrayList<Powerup> powerups;
-
-    private Car playerCar;
 
     public Car getPlayerCar() {
         return playerCar;
     }
 
-    public void setPlayerCar(Car playerCar) {
-        this.playerCar = playerCar;
-    }
 
 
     /**
      * Sets initial game state
      */
     private void initialiser(){
-        playerCar.render(455, 287);
+        Random random = new Random(42);
 
-        Random random = new Random();
-
-        for (Powerup powerup: powerups) {
+        playerCar.render(300,450);
+        for (Powerup bananaPowerup: powerups) {
             int x = random.nextInt(1280);
             int y = random.nextInt(720);
-            powerup.render(x, y);
+            bananaPowerup.render(x, y);
         }
     }
 
-    public void initialiseGameObjects(ImageView playerOneImage, ArrayList<ImageView> powerupImages) {
+    public void initialiseGameObjects(BorderPane gameBackground) {
         // this method should take in all the necessary info from the GameController and initialise the playerCars
-        this.setPlayerCar(new Car(playerOneImage));
+        this.playerCar = new PlayerCar(gameBackground);
         this.powerups = new ArrayList<>();
-        for (ImageView image:powerupImages) {
-            this.powerups.add(new Powerup(image));
+        int maxPowerups = 10;
+        for(int i = 0; i < maxPowerups; i++) {
+            this.powerups.add(new BananaPowerup(gameBackground));
+            this.powerups.add(new SpeedboosterPowerup(gameBackground));
         }
     }
 
@@ -55,7 +52,6 @@ public class Game {
     public void gameLoop(){
 
         this.initialiser();
-
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -86,13 +82,12 @@ public class Game {
                     rot += turningSpeed;
                 }
 
-                for (Powerup powerup:powerups) {
+                for (Powerup powerup: powerups) {
                     if (playerCar.collisionDetection(powerup)) {
+                        playerCar.addPowerup(powerup);
                         powerup.deactivate();
                     }
                 }
-
-                // implement collision detection over here
 
                 playerCar.moveCarBy(dy);
                 playerCar.turn(rot);
