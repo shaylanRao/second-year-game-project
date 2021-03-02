@@ -26,7 +26,10 @@ public class SoundManager
         soundObjects.put("GoverFail", new SoundObject("GoverFail.wav"));
         soundObjects.put("GoverWin", new SoundObject("GoverWin.wav"));
         soundObjects.put("Login", new SoundObject("Login.wav"));
-        soundObjects.put("PlayPagesBGM", new SoundObject("PlayPagesBGM.wav"));
+        /*soundObjects.put("PlayPagesBGM", new SoundObject("PlayPagesBGM.wav")); Commenting this one out, because it is 
+        quite big and I am not able to upload it to github + I don't really remember what's the use for that particular 
+        sound ¯\_(ツ)_/¯ 
+        */
         soundObjects.put("SpeedUp", new SoundObject("SpeedUp.wav"));
         soundObjects.put("Starting", new SoundObject("Starting.wav"));
         soundObjects.put("ThrowProps", new SoundObject("ThrowProps.wav"));
