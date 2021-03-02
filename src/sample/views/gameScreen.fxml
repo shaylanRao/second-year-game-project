@@ -2,11 +2,7 @@
 
 <?import javafx.scene.layout.BorderPane?>
 <?import java.net.URL?>
-<BorderPane onKeyPressed="#keyClicked"
-            onKeyReleased="#keyReleased"
-            styleClass="backgroundImage" xmlns="http://javafx.com/javafx/11.0.1"
-            fx:id="gameBackground"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.game.GameController">
+<BorderPane fx:id="gameBackground" onKeyPressed="#keyClicked" onKeyReleased="#keyReleased" prefHeight="720.0" prefWidth="1280.0" styleClass="backgroundImage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.game.GameController">
     <stylesheets>
         <URL value="@../resources/stylesheets/stylesheet.css" />
     </stylesheets>
