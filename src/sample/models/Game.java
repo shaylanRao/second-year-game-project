@@ -91,12 +91,14 @@ public class Game {
                         powerup.deactivate();
                         if(powerup.getType().equals("banana")) {
                         	BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
-                        	ban.render(powerup.getImage().getLayoutX(), powerup.getImage().getLayoutY());
+                        	ban.render((playerCar.getImage().getLayoutX()-powerup.getImage().getBoundsInLocal().getWidth()), 
+                        			(playerCar.getImage().getLayoutY()-powerup.getImage().getBoundsInLocal().getHeight()));
                         	powerupsDischarge.add(ban);
                         }
                         else if(powerup.getType().equals("oilghost")) {
                         	OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
-                        	oil.render(powerup.getImage().getLayoutX(), powerup.getImage().getLayoutY());
+                        	oil.render((playerCar.getImage().getLayoutX()-powerup.getImage().getBoundsInLocal().getWidth()), 
+                        			(playerCar.getImage().getLayoutY()-powerup.getImage().getBoundsInLocal().getHeight()));
                         	powerupsDischarge.add(oil);
                         }
                     }
