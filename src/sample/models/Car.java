@@ -6,7 +6,7 @@ import sample.Main;
 
 public class Car extends Sprite {
 
-    private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
+    private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate, powerup;
     private double accelerationFactor, accelerationModerator;
     private double velocity, maximumVelocity;
 
@@ -82,6 +82,14 @@ public class Car extends Sprite {
     public void setTurnLeft(boolean turnLeft) {
         this.turnLeft = turnLeft;
     }
+    
+    public boolean isActivatedPowerup() {
+    	return powerup;
+    }
+    
+    public void setActivatePowerup(boolean powerup) {
+        this.powerup = powerup;
+    }
 
     private double getCX() {
         return this.getImageView().getBoundsInLocal().getWidth() / 2;
@@ -110,7 +118,7 @@ public class Car extends Sprite {
         return this.velocity;
     }
 
-    private void accelerateForward(){
+    public void accelerateForward(){
         if(this.velocity < this.getMaxVelocity()) {
             //if acceleration is starting from 0
             if (this.velocity == 0){
@@ -123,7 +131,7 @@ public class Car extends Sprite {
         }
     }
 
-    private void decelerateForward(){
+    public void decelerateForward(){
         if(this.velocity > 0) {
             if (this.velocity < speedFactor * 0.05) {
                 this.velocity -= (speedFactor * 0.001);
@@ -134,8 +142,6 @@ public class Car extends Sprite {
 
         }
     }
-
-
 
     /**
      * Explain what this function does
@@ -161,7 +167,7 @@ public class Car extends Sprite {
     /**
      * Explain what this function does
      * */
-    private void move(double x, double y) {
+    void move(double x, double y) {
         final double cx = this.getCX();
         final double cy = this.getCY();
 
