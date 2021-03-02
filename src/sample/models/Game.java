@@ -1,6 +1,7 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
+import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
@@ -9,16 +10,16 @@ import java.util.Random;
 /**
  * The class that contains the main game loop
  */
+
 public class Game {
 
     private PlayerCar playerCar;
     private ArrayList<Powerup> powerups;
+    private ArrayList<Powerup> powerupsDischarge;
 
     public Car getPlayerCar() {
         return playerCar;
     }
-
-
 
     /**
      * Sets initial game state
@@ -38,10 +39,12 @@ public class Game {
         // this method should take in all the necessary info from the GameController and initialise the playerCars
         this.playerCar = new PlayerCar(gameBackground);
         this.powerups = new ArrayList<>();
+        this.powerupsDischarge = new ArrayList<>();
         int maxPowerups = 10;
         for(int i = 0; i < maxPowerups; i++) {
             this.powerups.add(new BananaPowerup(gameBackground));
             this.powerups.add(new SpeedboosterPowerup(gameBackground));
+            this.powerups.add(new OilGhostPowerup(gameBackground));
         }
     }
 
@@ -56,8 +59,6 @@ public class Game {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-
-                //TODO powerup respawn
 
 
                 double dy = 0, rot = 0;
@@ -81,12 +82,30 @@ public class Game {
                 if (playerCar.isTurnRight()) {
                     rot += turningSpeed;
                 }
-
+                
+                //shouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
+                //then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
                 for (Powerup powerup: powerups) {
-                    if (playerCar.collisionDetection(powerup)) {
+                    if (playerCar.collisionDetection(powerup) && powerup.shouldCollide==true) {
                         playerCar.addPowerup(powerup);
                         powerup.deactivate();
+                        if(powerup.getType().equals("banana")) {
+                        	BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
+                        	ban.render(powerup.getImage().getLayoutX(), powerup.getImage().getLayoutY());
+                        	powerupsDischarge.add(ban);
+                        }
+                        else if(powerup.getType().equals("oilghost")) {
+                        	OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
+                        	oil.render(powerup.getImage().getLayoutX(), powerup.getImage().getLayoutY());
+                        	powerupsDischarge.add(oil);
+                        }
                     }
+                }
+                
+                for(Powerup pwr: powerupsDischarge) {
+                	if(playerCar.collisionDetection(pwr)) {
+                		pwr.deactivate();
+                	}
                 }
 
                 playerCar.moveCarBy(dy);

@@ -11,6 +11,7 @@ public class BananaPowerup extends Powerup {
 
     public BananaPowerup(BorderPane gameBackground) {
         super(gameBackground, generateCarImageView());
+        this.type = "banana";
     }
 
     protected ArrayList<BananaPowerup> generatePowerups(int total) {

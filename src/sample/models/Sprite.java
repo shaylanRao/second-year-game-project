@@ -22,13 +22,13 @@ public abstract class Sprite {
     }
 
     /**
-     * @param x
-     * @param y
+     * @param d
+     * @param e
      */
-    public void render(int x, int y) {
+    public void render(double d, double e) {
         // this method will place an item on the screen at an specified coordinate
         this.gameBackground.getChildren().add(getImage());
-        getImage().relocate(x, y);
+        getImage().relocate(d, e);
     }
 
 

@@ -6,16 +6,16 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.FileInputStream;
 
-public class SpeedboosterPowerup extends Powerup {
+public class BananaDischargePowerup extends Powerup {
 
-    public SpeedboosterPowerup(BorderPane gameBackground) {
+    public BananaDischargePowerup(BorderPane gameBackground) {
         super(gameBackground, generateImageView());
-        this.type = "speedbooster";
+        this.type = "bananapeel";
     }
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/powerupSpeedbooster.png");
+            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/bananapeel.png");
             Image carImage = new Image(carImageFile);
             return new ImageView(carImage);
         } catch (Exception ex) {
