@@ -6,7 +6,6 @@ import javafx.scene.layout.BorderPane;
 
 public class Powerup extends Sprite {
 	
-	protected String type;
 	protected boolean shouldCollide = true;
 
     public Powerup(BorderPane gameBackground, ImageView imageView) {
@@ -18,7 +17,4 @@ public class Powerup extends Sprite {
         this.shouldCollide = false;
     }
     
-    public String getType() {
-    	return this.type;
-    }
 }

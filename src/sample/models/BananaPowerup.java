@@ -5,21 +5,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
 
 public class BananaPowerup extends Powerup {
 
     public BananaPowerup(BorderPane gameBackground) {
         super(gameBackground, generateCarImageView());
-        this.type = "banana";
-    }
-
-    protected ArrayList<BananaPowerup> generatePowerups(int total) {
-        ArrayList<BananaPowerup> powerups = new ArrayList<>();
-        for (int i = 0 ; i < total ; i++) {
-            powerups.add(new BananaPowerup(super.getGameBackground()));
-        }
-        return powerups;
     }
 
     private static ImageView generateCarImageView() {

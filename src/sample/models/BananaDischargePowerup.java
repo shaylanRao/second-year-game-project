@@ -10,7 +10,6 @@ public class BananaDischargePowerup extends Powerup {
 
     public BananaDischargePowerup(BorderPane gameBackground) {
         super(gameBackground, generateImageView());
-        this.type = "bananapeel";
     }
 
     private static ImageView generateImageView() {

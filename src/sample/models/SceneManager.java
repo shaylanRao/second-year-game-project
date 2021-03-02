@@ -55,7 +55,6 @@ public class SceneManager {
         this.getCurrentStage().setScene(currentScene);
     }
 
-
     /**
      * @param nextButton
      * This function will activate nextButton i.e. set it's visibility to true

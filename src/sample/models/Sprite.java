@@ -31,7 +31,6 @@ public abstract class Sprite {
         getImage().relocate(d, e);
     }
 
-
 }
 
 

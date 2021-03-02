@@ -43,6 +43,9 @@ public class GameController implements Initializable {
             case RIGHT:
                 this.getGame().getPlayerCar().setTurnRight(true);
                 break;
+            case F:
+                this.getGame().getPlayerCar().activatePowerup();
+                break;
         }
     }
 
@@ -74,10 +77,6 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             this.setGame(new Game());
-
-            // temp
-            // TODO - find a better way to do this
-
             this.game.initialiseGameObjects(gameBackground);
 
             // starts the game
