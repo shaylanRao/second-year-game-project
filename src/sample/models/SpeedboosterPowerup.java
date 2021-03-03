@@ -10,7 +10,6 @@ public class SpeedboosterPowerup extends Powerup {
 
     public SpeedboosterPowerup(BorderPane gameBackground) {
         super(gameBackground, generateImageView());
-        this.type = "speedbooster";
     }
 
     private static ImageView generateImageView() {

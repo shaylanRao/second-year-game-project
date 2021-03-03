@@ -45,6 +45,7 @@ public class AlertBox {
         VBox layout = new VBox();
         layout.getChildren().addAll(alertBoxDescription, acceptButton,declineButton);
         layout.setAlignment(Pos.CENTER);
+        layout.setSpacing(20);
 
         Scene scene = new Scene(layout, alertBoxMaxWidth, alertBoxMaxHeight);
 

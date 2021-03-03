@@ -20,11 +20,11 @@ public class Main extends Application {
     public static Settings settings;
 
     /**
-     * @param primaryStage
+     * @param primaryStage - main stage onto which scenes are added
      * */
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         // Load font here instead of CSS to avoid weird path errors
         Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
 
@@ -35,7 +35,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("RACING GAME 2D");
         primaryStage.setScene(currentScene);
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
         try {
