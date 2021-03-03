@@ -55,9 +55,6 @@ public class GameController implements Initializable {
         switch (code) {
             case UP:
                 this.getGame().getPlayerCar().setAccelerate(false);
-                if (this.getGame().getPlayerCar().getAccelerationFactor() < 0.2) {
-                    this.getGame().getPlayerCar().setGoingForward(false);
-                }
                 break;
             case DOWN:
                 this.getGame().getPlayerCar().setGoingBackward(false);
@@ -69,8 +66,8 @@ public class GameController implements Initializable {
                 this.getGame().getPlayerCar().setTurnRight(false);
                 break;
             case F:
-            	this.getGame().getPlayerCar().setActivatePowerup(false);
-            	break;
+                this.getGame().getPlayerCar().setActivatePowerup(false);
+                break;
         }
     }
 

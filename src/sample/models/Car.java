@@ -1,22 +1,23 @@
 package sample.models;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import sample.Main;
+import javafx.scene.layout.BorderPane;
 
 public class Car extends Sprite {
 
-    private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate, powerup;
-    private double accelerationFactor, accelerationModerator;
-    private double velocity, maximumVelocity;
-
-    final double speedFactor = 10;
+    private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
+    private double accelerationModerator;
+    private double speed, maximumSpeed, minimumSpeed;
+    private boolean powerup;
+    final double SPEEDFACTOR = 6;
 
     public Car(BorderPane gameBackground, ImageView image) {
         super(gameBackground, image);
-        this.setAccelerationFactor(0.001);
-        this.setMaximumVelocity(speedFactor*0.45);
-        this.setAccelerationModerator(speedFactor/100);
+        this.setMaximumSpeed(SPEEDFACTOR *0.7);
+        //reverse speed
+        this.setMinimumSpeed(-2.5);
+        this.setAccelerationModerator(SPEEDFACTOR /20000);
     }
 
     public ImageView getImageView() {
@@ -27,23 +28,21 @@ public class Car extends Sprite {
         return accelerate;
     }
 
-    public double getAccelerationFactor() {
-        return accelerationFactor;
+    public double getMaxSpeed() {
+        return maximumSpeed;
     }
 
-    public void setAccelerationFactor(double accelerationFactor) {
-        this.accelerationFactor = accelerationFactor;
+    public void setMaximumSpeed(double maximumSpeed) {
+        this.maximumSpeed = maximumSpeed;
     }
 
-    public double getMaxVelocity() {
-        return maximumVelocity;
+    public double getMinSpeed() {
+        return minimumSpeed;
     }
 
-    public void setMaximumVelocity(double maximumVelocity) {
-        this.maximumVelocity = maximumVelocity;
+    public void setMinimumSpeed(double maximumSpeed) {
+        this.minimumSpeed = maximumSpeed;
     }
-
-    public double getAccelerationModerator(){ return accelerationModerator;}
 
     public void setAccelerationModerator(double accelerationModerator){ this.accelerationModerator = accelerationModerator; }
 
@@ -51,12 +50,13 @@ public class Car extends Sprite {
         this.accelerate = accelerate;
     }
 
-    public boolean isGoingForward() {
-        return goingForward;
-    }
-
     public void setGoingForward(boolean goingForward) {
         this.goingForward = goingForward;
+    }
+
+
+    public boolean isGoingForward() {
+        return goingForward;
     }
 
     public boolean isGoingBackward() {
@@ -82,14 +82,6 @@ public class Car extends Sprite {
     public void setTurnLeft(boolean turnLeft) {
         this.turnLeft = turnLeft;
     }
-    
-    public boolean isActivatedPowerup() {
-    	return powerup;
-    }
-    
-    public void setActivatePowerup(boolean powerup) {
-        this.powerup = powerup;
-    }
 
     private double getCX() {
         return this.getImageView().getBoundsInLocal().getWidth() / 2;
@@ -101,50 +93,158 @@ public class Car extends Sprite {
 
 
     /**
-     * Explain what this function does
+     * Either runs functions to accelerate/decelerate the car or let it roll
      * */
-    public double accelerationCalculator() {
-        if (this.isAccelerate()) {
+    public double speedCalculator() {
+        if (this.isAccelerate() || this.isGoingBackward()) {
             this.accelerateForward();
         }
         else {
             this.decelerateForward();
         }
-
-        if (this.velocity < 0){
-            //make positive again, 0
-            this.velocity = 0;
-        }
-        return this.velocity;
+        return this.speed;
     }
 
+    /**
+     * Keeps the without the speed bounds and calls to recalculate the speed
+     */
+    //todo make private
     public void accelerateForward(){
-        if(this.velocity < this.getMaxVelocity()) {
+        if(this.speed < this.getMaxSpeed() && this.speed > this.getMinSpeed()) {
             //if acceleration is starting from 0
-            if (this.velocity == 0){
-                this.velocity = 0.003;
+            if (this.speed == 0){
+                this.speed = 0.003;
             }
-            //this.accelerationFactor = 9.4*(1-Math.exp(0.01*this.velocity))+0.002;
-            //this.accelerationFactor += -((Math.log(1-(this.velocity / 1)))/0.3);
-            this.accelerationFactor = this.getAccelerationModerator()*((1/(Math.log10(this.velocity)+3.2))-0.25);
-            this.velocity += this.accelerationFactor;
-        }
-    }
-
-    public void decelerateForward(){
-        if(this.velocity > 0) {
-            if (this.velocity < speedFactor * 0.05) {
-                this.velocity -= (speedFactor * 0.001);
-            }
-            else {
-                this.velocity -= (speedFactor * 0.005);
-            }
-
+            this.newSpeedCalc();
         }
     }
 
     /**
-     * Explain what this function does
+     * Updates the speed by applying acceleration to the current speed
+     * Applies the acceleration moderator to adjust rate of acceleration
+     */
+    private void newSpeedCalc(){
+        this.speed = this.speed + (this.newAccCalc() * this.accelerationModerator);
+    }
+
+
+    /**
+     * Applies the calculated force to the mass of the car
+     * F=ma
+     * @return acceleration
+     */
+    private double newAccCalc(){
+        double mass = 1;
+        return (this.longForce()/mass);
+    }
+
+
+    /**
+     * Calculates the total longitudinal force on the car
+     * @return netForce
+     */
+    private double longForce(){
+        if (this.isGoingBackward()){
+            return(-(this.fBraking() +(this.fDrag() + this.fRolling())));
+        }
+        else{
+            return(this.fTraction() -(this.fDrag() + this.fRolling()));
+        }
+    }
+
+    /**
+     * Calculates the tractive force generated in the engine and applied to the wheels
+     * The force that moves the car forwards
+     * @return thrust
+     */
+    private double fTraction(){
+        double unitVector = 1;
+        double engineForce = 37;
+        return(unitVector*engineForce);
+    }
+
+    //todo needs to break less, more roll
+    /**
+     * The force applied by the brakes
+     * Used to decelerate the car
+     * Constant force being applied
+     * @return const
+     */
+    private double fBraking(){
+        return (100);
+    }
+
+    /**
+     * Air resistance, resistance force
+     * Squared line, starts at 0 and finishes increasingly high
+     * @return speed^2*dragConst
+     */
+    private double fDrag(){
+        double dragConst = 0.015;
+        return (this.speed * this.speed * dragConst);
+    }
+
+    //todo Needs to roll more
+
+    /**
+     * The resistive force from the tires on the road
+     * Linear line, starts higher but finishes lower
+     * @return Speed*rollingConstant
+     */
+    private double fRolling(){
+        double rollConst = 0.45;
+        return (this.speed *rollConst);
+    }
+
+    /**
+     * Controls the way the car rolls when not accelerating
+     * decelerates from current speed to 0 when no buttons being pressed
+     */
+
+    //todo make private
+    public void decelerateForward() {
+        if (this.speed < 0.005 && this.speed > -0.005) {
+            this.speed = 0;
+        } else if (this.speed > 0) {
+            if (this.speed < SPEEDFACTOR * 0.05) {
+                this.speed -= (SPEEDFACTOR * 0.001);
+            } else {
+                this.speed -= (SPEEDFACTOR * 0.005);
+            }
+
+        } else {
+            if (this.speed > -SPEEDFACTOR * 0.05) {
+                this.speed += (SPEEDFACTOR * 0.001);
+            } else {
+                this.speed += (SPEEDFACTOR * 0.005);
+            }
+        }
+    }
+
+    public boolean isActivatedPowerup() {
+        return powerup;
+    }
+
+    public void setActivatePowerup(boolean powerup) {
+        this.powerup = powerup;
+    }
+
+
+    //todo start-off boost
+    //
+
+
+    //todo momentum
+    //inheritance for other types of vehicles
+
+
+    //todo
+
+
+
+    /**
+     * Gets the coordinates and angle of the car
+     * Calculates the change in coordinates of where the car moves and the angle of rotation
      * */
     public void moveCarBy(double dy) {
         if (dy == 0) {
@@ -165,9 +265,9 @@ public class Car extends Sprite {
     }
 
     /**
-     * Explain what this function does
+     * Moves the car by calculates amount from 'moveCarBy'
      * */
-    void move(double x, double y) {
+    private void move(double x, double y) {
         final double cx = this.getCX();
         final double cy = this.getCY();
 
@@ -177,8 +277,10 @@ public class Car extends Sprite {
     }
 
     /**
-     * Explain what this function does
+     * Rotates the image of the car
      * */
+
+    //todo fine-tune
     public void turn(double angle) {
         final double cAngle = this.getImageView().getRotate();
         angle += cAngle;
@@ -187,37 +289,55 @@ public class Car extends Sprite {
         this.getImageView().setRotate(angle);
     }
 
-
-    public double getForwardVelocity(){
-        return (this.accelerationCalculator() * 1);
+    /**
+     * gets the speed of the car
+     * @return speed
+     */
+    public double getForwardSpeed(){
+        System.out.println(this.speed);
+        return (this.speedCalculator());
     }
 
+    /**
+     * gets the turning speed of the car
+     * @return speed
+     */
     public double getTurningSpeed(){
-        return (this.accelerationCalculator() * 1);
+        double turningSpeed;
+        if (this.speed < 0.7){
+            return (0.2*this.speed *this.speed);
+        }
+        turningSpeed = (((Math.log10(this.getForwardSpeed()/2))+0.5)*4);
+
+        return (turningSpeed);
     }
 
     //TODO collisionHandler(object 2)
-        //Handles collecting OR smashing into powerups OR bump into wall OR bump into car
+    //Handles collecting OR smashing into powerups OR bump into wall OR bump into car
 
 
     //TODO powerup pickup
-        //store powerup
+    //store powerup
 
 
     //TODO powerup crash
-        //make car spin and slowdown
+    //make car spin and slowdown
 
     /**
      * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter
-     * @param other sd
+     * @param other
+     * @return bool
      * */
     public boolean collisionDetection(Sprite other) {
         double widthCar = this.getImage().getBoundsInLocal().getWidth()/2;
         double heightCar = this.getImage().getBoundsInLocal().getHeight()/2;
+
         double widthOther = other.getImage().getBoundsInLocal().getWidth()/2;
         double heightOther = other.getImage().getBoundsInLocal().getHeight()/2;
+
         double cxCar = this.getImage().getLayoutX();
         double cyCar = this.getImage().getLayoutY();
+
         double cxOther = other.getImage().getLayoutX();
         double cyOther = other.getImage().getLayoutY();
 
@@ -235,6 +355,17 @@ public class Car extends Sprite {
 
     }
 
+    /*
+    1. forward acceleration
+    2. deceleration
+    2.5 backwards
+    3. turning speed
+
+
+    4. change the center of the car png
+
+
+     */
 
 
 }

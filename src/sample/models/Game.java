@@ -71,7 +71,7 @@ public class Game
 
 				double dy = 0, rot = 0;
 
-				double forwardVelocity = playerCar.getForwardVelocity();
+				double forwardVelocity = playerCar.getForwardSpeed();
 				double turningSpeed = playerCar.getTurningSpeed();
 
 				if (playerCar.isGoingForward())
@@ -143,8 +143,8 @@ public class Game
 						}
 						else if (powerup instanceof SpeedboosterPowerup)
 						{
-							playerCar.setMaximumVelocity(3);
-							playerCar.setAccelerationFactor(playerCar.getMaxVelocity() * 100);
+							playerCar.setMaximumSpeed(3);
+							playerCar.setAccelerationModerator(playerCar.getMaxSpeed() * 100);
 							playerCar.accelerateForward();
 						}
 					}
