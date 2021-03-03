@@ -141,31 +141,26 @@ public class Game
 							powerupsDischarge.remove(powerup);
 							powerupsDischarge.add(oil);
 						}
+						
+						//TODO increase the speed
 						else if (powerup instanceof SpeedboosterPowerup)
 						{
-							playerCar.setMaximumSpeed(3);
-							playerCar.setAccelerationModerator(playerCar.getMaxSpeed() * 100);
-							playerCar.accelerateForward();
+							//TODO speed boost 2 seconds
 						}
 					}
 				}
 				for (Powerup pwr : powerupsDischarge)
 				{
-//					double px = pwr.getImage().getLayoutX();
-//					double py = pwr.getImage().getLayoutY();
 					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
 					{
 						pwr.deactivate();
 						if (pwr instanceof OilSpillPowerup)
 						{
-							playerCar.decelerateForward();
-							playerCar.setAccelerate(false);
-							playerCar.turn(45);
-//							playerCar.move(px,py);
+							//TODO slide forwards a sec
 						}
 						else if (pwr instanceof BananaDischargePowerup)
 						{
-							
+							//TODO spin and go to one side
 						}
 					}
 				}
