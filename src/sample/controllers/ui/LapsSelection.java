@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
+import sample.audio.SoundObject;
 
 public class LapsSelection {
 
@@ -40,10 +41,18 @@ public class LapsSelection {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
         Main.sceneManager.setPrevScene();
+
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicleSelection.fxml"));
             Parent root = loader.load();

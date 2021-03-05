@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import sample.Main;
+import sample.audio.SoundObject;
 import sample.models.Settings;
 
 
@@ -15,6 +16,10 @@ public class VehicleSelection {
     private Button playButton;
 
     public void carOneSelected(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         System.out.println("Car one selected");
         Main.sceneManager.activateNextButton(playButton);
 
@@ -22,6 +27,10 @@ public class VehicleSelection {
     }
 
     public void carTwoSelected(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         System.out.println("Car two selected");
         Main.sceneManager.activateNextButton(playButton);
 
@@ -29,6 +38,10 @@ public class VehicleSelection {
     }
 
     public void carThreeSelected(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         System.out.println("Car three selected");
         Main.sceneManager.activateNextButton(playButton);
 
@@ -36,10 +49,18 @@ public class VehicleSelection {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
             Parent root = loader.load();

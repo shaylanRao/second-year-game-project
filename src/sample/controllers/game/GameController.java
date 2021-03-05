@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import sample.audio.SoundManager;
 import sample.models.Game;
 
 import java.net.URL;
@@ -18,6 +19,12 @@ public class GameController implements Initializable {
     private BorderPane gameBackground;
 
     private Game game;
+
+    private SoundManager sound_mngr = new SoundManager();
+    public GameController(){
+        sound_mngr.Init();
+    }
+
 
     public Game getGame() {
         return game;

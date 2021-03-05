@@ -7,6 +7,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
+import sample.audio.SoundObject;
 
 public class VisualScreen {
     @FXML
@@ -17,6 +18,10 @@ public class VisualScreen {
     private ToggleGroup colorBlind;
 
     public void brightSelected(MouseEvent mouseEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         float bright = (float) brightSlider.getValue();
         brightLabel.setText("brightness: " + bright);
         System.out.println(brightSlider.getValue());
@@ -24,5 +29,11 @@ public class VisualScreen {
         Main.settings.setBright(bright);
     }
 
-    public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene(); }
+    public void backClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
+        Main.sceneManager.setPrevScene();
+    }
 }

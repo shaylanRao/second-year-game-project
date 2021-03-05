@@ -5,6 +5,7 @@ package sample.controllers.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import sample.Main;
+import sample.audio.SoundObject;
 
 public class ControlsScreen {
 
@@ -16,6 +17,9 @@ public class ControlsScreen {
     @FXML
 
     public void backButtonClicked(ActionEvent actionEvent) {
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+        
         System.out.println("back button pressed");
         Main.sceneManager.setPrevScene();
     }

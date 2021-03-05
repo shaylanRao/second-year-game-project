@@ -6,10 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.audio.SoundObject;
 
 public class SettingsScreen {
 
     public void soundClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/soundScreen.fxml"));
             Parent root = loader.load();
@@ -22,6 +27,10 @@ public class SettingsScreen {
     }
 
     public void visualClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/visualScreen.fxml"));
             Parent root = loader.load();
@@ -34,6 +43,10 @@ public class SettingsScreen {
     }
 
     public void gameClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameSettingsScreen.fxml"));
             Parent root = loader.load();
@@ -45,5 +58,11 @@ public class SettingsScreen {
         }
     }
 
-    public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene(); }
+    public void backClicked(ActionEvent actionEvent) {
+
+        SoundObject button = new SoundObject("src\\sample\\resources\\audio\\button.wav");
+        button.play();
+
+        Main.sceneManager.setPrevScene();
+    }
 }
