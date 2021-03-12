@@ -3,6 +3,7 @@ package sample.models;
 import javafx.scene.image.ImageView;
 import sample.Main;
 import javafx.scene.layout.BorderPane;
+import java.util.Timer;
 
 public class Car extends Sprite {
 
@@ -11,11 +12,12 @@ public class Car extends Sprite {
     private double speed, maximumSpeed, minimumSpeed;
     private boolean powerup;
     final double SPEEDFACTOR = 6;
+    private boolean speedBoostOn = false;
 
     public Car(BorderPane gameBackground, ImageView image) {
         super(gameBackground, image);
         this.setMaximumSpeed(SPEEDFACTOR *0.7);
-        //reverse speed
+        //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-2.5);
         this.setAccelerationModerator(SPEEDFACTOR /20000);
     }
@@ -134,6 +136,7 @@ public class Car extends Sprite {
      * @return acceleration
      */
     private double newAccCalc(){
+        //f=ma
         double mass = 1;
         return (this.longForce()/mass);
     }
@@ -144,11 +147,12 @@ public class Car extends Sprite {
      * @return netForce
      */
     private double longForce(){
+        //braking if going forward already
         if (this.isGoingBackward()){
-            return(-(this.fBraking() +(this.fDrag() + this.fRolling())));
+            return(-(this.fBraking() + this.fDrag() + this.fRolling()));
         }
         else{
-            return(this.fTraction() -(this.fDrag() + this.fRolling()));
+            return(this.fTraction() - (this.fDrag() + this.fRolling()));
         }
     }
 
@@ -159,9 +163,12 @@ public class Car extends Sprite {
      */
     private double fTraction(){
         double unitVector = 1;
-        double engineForce = 37;
+        double engineForce = 37; // real-life m/s acceleration
+        //todo if up arrow, then this, else return 0
         return(unitVector*engineForce);
     }
+
+
 
     //todo needs to break less, more roll
     /**
@@ -171,7 +178,7 @@ public class Car extends Sprite {
      * @return const
      */
     private double fBraking(){
-        return (100);
+        return (130);
     }
 
     /**
@@ -203,15 +210,17 @@ public class Car extends Sprite {
 
     //todo make private
     public void decelerateForward() {
+        //if the speed is the speed is << then just make it 0
         if (this.speed < 0.005 && this.speed > -0.005) {
             this.speed = 0;
+            //if rolling forward, roll this way
         } else if (this.speed > 0) {
             if (this.speed < SPEEDFACTOR * 0.05) {
                 this.speed -= (SPEEDFACTOR * 0.001);
             } else {
                 this.speed -= (SPEEDFACTOR * 0.005);
             }
-
+        //if rolling backwards, roll this way
         } else {
             if (this.speed > -SPEEDFACTOR * 0.05) {
                 this.speed += (SPEEDFACTOR * 0.001);
@@ -238,7 +247,30 @@ public class Car extends Sprite {
     //inheritance for other types of vehicles
 
 
-    //todo
+    //todo speedBoost
+    public void activateSpeedBoost(){
+        this.speedBoostOn = true;
+    }
+
+    /**
+     * If funtion is activated, it will change the value of speedBoostOn to true
+     * for a specified time period (1 second)
+     */
+
+    public void speedBoost(){
+        speedBoostOn = true;
+        if (speedBoostOn){
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            speedBoostOn = false;
+                        }
+                    },
+                    1000
+            );
+        }
+    }
 
 
 
@@ -282,10 +314,13 @@ public class Car extends Sprite {
 
     //todo fine-tune
     public void turn(double angle) {
-        final double cAngle = this.getImageView().getRotate();
+        double cAngle = this.getImageView().getRotate();
+        if (cAngle > 360) {
+            cAngle = cAngle - 360;
+        } else if (cAngle < -360) {
+            cAngle = cAngle + 360;
+        }
         angle += cAngle;
-
-        // removed turnCarTo
         this.getImageView().setRotate(angle);
     }
 
@@ -294,8 +329,14 @@ public class Car extends Sprite {
      * @return speed
      */
     public double getForwardSpeed(){
-        System.out.println(this.speed);
-        return (this.speedCalculator());
+        //System.out.println(this.speed);
+        if (speedBoostOn == true){
+            //speed boost 140% max speed for a second
+            return (getMaxSpeed()+(getMaxSpeed()*0.4));
+        }
+        else{
+            return (this.speedCalculator());
+        }
     }
 
     /**
@@ -312,16 +353,6 @@ public class Car extends Sprite {
         return (turningSpeed);
     }
 
-    //TODO collisionHandler(object 2)
-    //Handles collecting OR smashing into powerups OR bump into wall OR bump into car
-
-
-    //TODO powerup pickup
-    //store powerup
-
-
-    //TODO powerup crash
-    //make car spin and slowdown
 
     /**
      * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter

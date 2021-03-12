@@ -73,7 +73,6 @@ public class Game
 
 				double forwardVelocity = playerCar.getForwardSpeed();
 				double turningSpeed = playerCar.getTurningSpeed();
-
 				if (playerCar.isGoingForward())
 				{
 					dy -= forwardVelocity;
@@ -95,8 +94,11 @@ public class Game
 					rot += turningSpeed;
 				}
 
-				//shouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
-				//then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
+				/*
+				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
+				 then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
+				*/
+
 				for (Powerup powerup : powerups)
 				{
 					if (playerCar.collisionDetection(powerup) && powerup.shouldCollide)
@@ -146,9 +148,23 @@ public class Game
 						else if (powerup instanceof SpeedboosterPowerup)
 						{
 							//TODO speed boost 2 seconds
+							playerCar.speedBoost();
 						}
 					}
 				}
+				this.powerupDrop();
+
+				playerCar.moveCarBy(dy);
+				if (rot > 2.3) {
+					rot = 2.3;
+				} else if (rot < - 2.3) {
+					rot = - 2.3;
+				}
+
+				playerCar.turn(rot);
+			}
+
+			private void powerupDrop(){
 				for (Powerup pwr : powerupsDischarge)
 				{
 					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
@@ -164,10 +180,10 @@ public class Game
 						}
 					}
 				}
-
-				playerCar.moveCarBy(dy);
-				playerCar.turn(rot);
 			}
+
+
+
 		};
 		timer.start();
 	}
