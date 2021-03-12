@@ -3,7 +3,6 @@ package sample.models;
 import javafx.scene.image.ImageView;
 import sample.Main;
 import javafx.scene.layout.BorderPane;
-import java.util.Timer;
 
 public class Car extends Sprite {
 
@@ -247,29 +246,21 @@ public class Car extends Sprite {
     //inheritance for other types of vehicles
 
 
-    //todo speedBoost
-    public void activateSpeedBoost(){
-        this.speedBoostOn = true;
-    }
-
     /**
-     * If funtion is activated, it will change the value of speedBoostOn to true
+     * If function is activated, it will change the value of speedBoostOn to true
      * for a specified time period (1 second)
      */
-
     public void speedBoost(){
         speedBoostOn = true;
-        if (speedBoostOn){
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            speedBoostOn = false;
-                        }
-                    },
-                    1000
-            );
-        }
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        speedBoostOn = false;
+                    }
+                },
+                1000
+        );
     }
 
 
@@ -330,8 +321,9 @@ public class Car extends Sprite {
      */
     public double getForwardSpeed(){
         //System.out.println(this.speed);
-        if (speedBoostOn == true){
+        if (speedBoostOn){
             //speed boost 140% max speed for a second
+            //todo make current speed + 50%, carry on at the same velocity after
             return (getMaxSpeed()+(getMaxSpeed()*0.4));
         }
         else{
