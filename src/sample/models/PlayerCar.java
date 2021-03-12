@@ -40,7 +40,7 @@ public class PlayerCar extends Car {
 
     private static ImageView generateCarImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/car.png");
+            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/original_car.png");
             Image carImage = new Image(carImageFile);
             return new ImageView(carImage);
         } catch (Exception ex) {

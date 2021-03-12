@@ -143,12 +143,9 @@ public class Game
 							powerupsDischarge.remove(powerup);
 							powerupsDischarge.add(oil);
 						}
-						
-						//TODO increase the speed
 						else if (powerup instanceof SpeedboosterPowerup)
 						{
-							//TODO speed boost 2 seconds
-							playerCar.speedBoost();
+							playerCar.activatePowerup("speedBoost");
 						}
 					}
 				}
@@ -173,10 +170,12 @@ public class Game
 						if (pwr instanceof OilSpillPowerup)
 						{
 							//TODO slide forwards a sec
+							playerCar.activatePowerup("carSlide");
+
 						}
 						else if (pwr instanceof BananaDischargePowerup)
 						{
-							//TODO spin and go to one side
+							playerCar.activatePowerup("carSpin");
 						}
 					}
 				}

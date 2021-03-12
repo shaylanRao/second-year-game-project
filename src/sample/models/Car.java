@@ -12,6 +12,9 @@ public class Car extends Sprite {
     private boolean powerup;
     final double SPEEDFACTOR = 6;
     private boolean speedBoostOn = false;
+    private boolean carSpinOn = false;
+    private boolean carSlideOn = false;
+
 
     public Car(BorderPane gameBackground, ImageView image) {
         super(gameBackground, image);
@@ -229,15 +232,6 @@ public class Car extends Sprite {
         }
     }
 
-    public boolean isActivatedPowerup() {
-        return powerup;
-    }
-
-    public void setActivatePowerup(boolean powerup) {
-        this.powerup = powerup;
-    }
-
-
     //todo start-off boost
     //
 
@@ -250,17 +244,39 @@ public class Car extends Sprite {
      * If function is activated, it will change the value of speedBoostOn to true
      * for a specified time period (1 second)
      */
-    public void speedBoost(){
-        speedBoostOn = true;
+    public void activatePowerup(String powerUp){
+        switch(powerUp){
+            case "carSpin":
+                carSpinOn = true;
+            case "speedBoost":
+                speedBoostOn = true;
+            case "carSlide":
+                carSlideOn = true;
+        }
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        speedBoostOn = false;
+                        switch(powerUp){
+                            case "carSpin":
+                                carSpinOn = false;
+                            case "speedBoost":
+                                speedBoostOn = false;
+                            case "carSlide":
+                                carSlideOn = false;
+                        }
                     }
                 },
                 1000
         );
+    }
+
+    public boolean isActivatedPowerup() {
+        return powerup;
+    }
+
+    public void setActivatePowerup(boolean powerup) {
+        this.powerup = powerup;
     }
 
 
@@ -268,7 +284,7 @@ public class Car extends Sprite {
     /**
      * Gets the coordinates and angle of the car
      * Calculates the change in coordinates of where the car moves and the angle of rotation
-     * */
+     */
     public void moveCarBy(double dy) {
         if (dy == 0) {
             return;
@@ -306,13 +322,24 @@ public class Car extends Sprite {
     //todo fine-tune
     public void turn(double angle) {
         double cAngle = this.getImageView().getRotate();
-        if (cAngle > 360) {
-            cAngle = cAngle - 360;
-        } else if (cAngle < -360) {
-            cAngle = cAngle + 360;
+        if(carSpinOn) {
+            System.out.println("CARSPIN");
+            this.speed = 0;
+            cAngle +=11.8;
+            this.getImageView().setRotate(cAngle);
         }
-        angle += cAngle;
-        this.getImageView().setRotate(angle);
+        else if(carSlideOn){
+            this.getImageView().setRotate(cAngle);
+        }
+        else {
+            if (cAngle > 360) {
+                cAngle = cAngle - 360;
+            } else if (cAngle < -360) {
+                cAngle = cAngle + 360;
+            }
+            angle += cAngle;
+            this.getImageView().setRotate(angle);
+        }
     }
 
     /**
@@ -320,11 +347,18 @@ public class Car extends Sprite {
      * @return speed
      */
     public double getForwardSpeed(){
-        //System.out.println(this.speed);
         if (speedBoostOn){
             //speed boost 140% max speed for a second
             //todo make current speed + 50%, carry on at the same velocity after
             return (getMaxSpeed()+(getMaxSpeed()*0.4));
+        }
+        else if(carSpinOn){
+            this.speed = 0;
+            return(this.speed);
+        }
+        else if (carSlideOn){
+            this.speed = this.speed;
+            return (speed);
         }
         else{
             return (this.speedCalculator());
