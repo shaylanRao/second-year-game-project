@@ -2,6 +2,10 @@ package sample.models;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import sample.Main;
+import sample.controllers.game.RandomTrackScreen;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,7 +42,7 @@ public class Game
 		}
 	}
 
-	public void initialiseGameObjects(BorderPane gameBackground)
+	public void initialiseGameObjects(Pane gameBackground)
 	{
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.playerCar = new PlayerCar(gameBackground);
@@ -167,6 +171,13 @@ public class Game
 
 				playerCar.moveCarBy(dy);
 				playerCar.turn(rot);
+
+				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
+					//TODO: what is the best way to do this???
+					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()), Point.unconvertY(playerCar.getImageView().getLayoutY())));
+					System.out.println(RandomTrackScreen.raycaster.getPos());
+					RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
+				}
 			}
 		};
 		timer.start();

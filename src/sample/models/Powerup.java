@@ -2,13 +2,13 @@ package sample.models;
 
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class Powerup extends Sprite {
 	
 	protected boolean shouldCollide = true;
 
-    public Powerup(BorderPane gameBackground, ImageView imageView) {
+    public Powerup(Pane gameBackground, ImageView imageView) {
         super(gameBackground, imageView);
     }
 

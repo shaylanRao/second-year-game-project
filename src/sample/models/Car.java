@@ -1,6 +1,7 @@
 package sample.models;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import sample.Main;
 import javafx.scene.layout.BorderPane;
 
@@ -12,7 +13,7 @@ public class Car extends Sprite {
     private boolean powerup;
     final double SPEEDFACTOR = 6;
 
-    public Car(BorderPane gameBackground, ImageView image) {
+    public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
         this.setMaximumSpeed(SPEEDFACTOR *0.7);
         //reverse speed
@@ -294,7 +295,7 @@ public class Car extends Sprite {
      * @return speed
      */
     public double getForwardSpeed(){
-        System.out.println(this.speed);
+        //System.out.println(this.speed);
         return (this.speedCalculator());
     }
 
@@ -354,6 +355,8 @@ public class Car extends Sprite {
         return false;
 
     }
+
+
 
     /*
     1. forward acceleration

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.models.Settings;
 import sample.utilities.AlertBox;
 
 public class MainScreen {
@@ -68,7 +69,8 @@ public class MainScreen {
     // just for debugging - only in dev
     public void startGame(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameScreen.fxml"));
+            Main.settings.setTrack(Settings.Track.TRACK3);
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml"));
             Parent root = loader.load();
             Scene gamePlay = new Scene(root,Main.maxWidth,Main.maxHeight);
             gamePlay.getRoot().requestFocus();

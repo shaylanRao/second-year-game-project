@@ -41,8 +41,14 @@ public class VehicleSelection {
 
     public void nextButtonClicked(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
-            Parent root = loader.load();
+            Parent root;
+            FXMLLoader loader;
+            if (Main.settings.getTrack()==Settings.Track.TRACK3) {
+                loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
+            } else {
+                loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
+            }
+            root = loader.load();
 
             Scene gameViewScene = new Scene(root,Main.maxWidth,Main.maxHeight);
 

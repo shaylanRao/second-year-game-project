@@ -3,12 +3,13 @@ package sample.models;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 
 public class BananaPowerup extends Powerup {
 
-    public BananaPowerup(BorderPane gameBackground) {
+    public BananaPowerup(Pane gameBackground) {
         super(gameBackground, generateCarImageView());
     }
 
