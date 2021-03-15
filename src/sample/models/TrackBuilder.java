@@ -26,7 +26,7 @@ public class TrackBuilder {
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 200);
             float theNoise = noise.GetNoise(xoff, yoff);
-            float r = Mapper.map(theNoise, 0, 1, 300, 500);
+            float r = Mapper.map(theNoise, 0, 1, 300, 400);
             x1 = r * Math.cos(a)*2;
             y1 = r * Math.sin(a);
             Point outerPoint = new Point(x1, y1);

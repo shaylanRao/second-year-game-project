@@ -8,6 +8,7 @@ import sample.Main;
 import sample.controllers.game.RandomTrackScreen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -174,9 +175,11 @@ public class Game
 
 				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
 					//TODO: what is the best way to do this???
-					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()), Point.unconvertY(playerCar.getImageView().getLayoutY())));
-					System.out.println(RandomTrackScreen.raycaster.getPos());
-					RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
+					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35), Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
+					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
+					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
+					System.out.println(Arrays.toString(distances));
+					//System.out.println(playerCar.getImageView().getRotate()%360);
 				}
 			}
 		};

@@ -25,8 +25,7 @@ public class RandomTrackScreen extends AbstractGameController {
         //TODO consider making BuildTrack() a static method
         //generate track lines
         Main.trackBuilder.BuildTrack();
-        raycaster = new Raycaster();
-        raycaster.setPane(pane);
+        raycaster = new Raycaster(pane);
         //display track on screen
         pane.getChildren().addAll(Main.trackBuilder.getTrackLines());
         try {
