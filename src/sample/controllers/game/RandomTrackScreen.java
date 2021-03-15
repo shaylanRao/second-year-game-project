@@ -21,9 +21,8 @@ public class RandomTrackScreen extends AbstractGameController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        pane.getChildren().clear();
-        //TODO consider making BuildTrack() a static method
         //generate track lines
+        //TODO consider making BuildTrack() a static method
         Main.trackBuilder.BuildTrack();
         raycaster = new Raycaster(pane);
         //display track on screen

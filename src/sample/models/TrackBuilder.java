@@ -1,6 +1,5 @@
 package sample.models;
 
-import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import sample.utilities.FastNoise;
 import sample.utilities.Mapper;

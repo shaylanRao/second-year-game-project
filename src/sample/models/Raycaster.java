@@ -6,7 +6,7 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 
 public class Raycaster {
-    //TODO make raycaster follow car rotation
+
     public void setPos(Point pos) {
         this.pos = pos;
     }
@@ -17,6 +17,7 @@ public class Raycaster {
         this.rot = convertRot(rotation);
     }
 
+    //converts from degrees to radians in the range -pi,pi
     private double convertRot(double rotation) {
         rotation = 180 - rotation;
         while (rotation > 180) {
@@ -30,13 +31,10 @@ public class Raycaster {
 
     private double rot;
     private Raycast[] rays = new Raycast[8];
-
-    public void setPane(Pane pane) {
-        this.pane = pane;
-    }
-
     private Pane pane;
     private ArrayList<Line> rayLines = new ArrayList<>();
+
+    //this is the list of angles in degrees that the rays should be casted at (from the car)
     private final double directions[] = {
             0,
             45,
@@ -47,12 +45,12 @@ public class Raycaster {
             -135,
             180,
     };
+
     public Raycaster(Pane pane) {
         this.pos = new Point(0, 0);
         this.pane = pane;
     }
 
-    //TODO consider renaming this e.g., toLine() might be more descriptive
     public Line[] show() {
         Line lines[] = new Line[8];
         for (int i=0; i<8; i++) {
@@ -64,10 +62,8 @@ public class Raycaster {
     public double[] castRays(ArrayList<Line> boundaries, boolean showLines) {
         //create 8 rays
         for (int i=0; i<8; i++) {
-            //TODO bit of a convoluted way of doing things using Point
             double cos = Math.cos(rot+convertRot(directions[i]));
             double sin = Math.sin(rot+convertRot(directions[i]));
-            //System.out.println(String.format("cos: %f, sin: %f", cos, sin));
             rays[i] = new Raycast(pos, new Point(cos,sin));
         }
         if (showLines) {
@@ -107,9 +103,5 @@ public class Raycaster {
             pane.getChildren().addAll(rayLines);
         }
         return distances;
-    }
-
-    public Point getPos() {
-        return this.pos;
     }
 }

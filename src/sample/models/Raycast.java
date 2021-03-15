@@ -12,7 +12,6 @@ public class Raycast {
         this.dir = dir;
     }
 
-    //TODO consider renaming this e.g., toLine() might be more descriptive
     public Line show() {
         Line line = new Line(pos.getXConverted(), pos.getYConverted(), pos.getXConverted()+dir.getX()*100, pos.getYConverted()+dir.getY()*100);
         return line;

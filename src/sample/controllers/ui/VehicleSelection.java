@@ -43,6 +43,7 @@ public class VehicleSelection {
         try {
             Parent root;
             FXMLLoader loader;
+            //if track 3 was selected then run the raycasting demo, else run the standard game
             if (Main.settings.getTrack()==Settings.Track.TRACK3) {
                 loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
             } else {
