@@ -118,6 +118,7 @@ public class SoundManager
         soundObjects.put("button", new SoundObject(audio_path + "/Button.wav"));
         soundObjects.put("engine", new SoundObject(audio_path + "/Engine.wav"));
         soundObjects.put("mainBgm", new SoundObject(audio_path + "/Bgm.wav"));
+        soundObjects.put("playPageBgm", new SoundObject(audio_path + "/playPagesBgm .wav"));
 
         // soundObjects.put("playBg", new SoundObject("src\\src.sample\\resources\\audio\\playPagesBgm.wav"));
         // ...

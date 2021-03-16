@@ -15,26 +15,36 @@ public class TrackSelection {
     private Button nextButton;
 
     public void trackOneSelected(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         Main.sceneManager.activateNextButton(nextButton);
 
         Main.settings.setTrack(Settings.Track.TRACK1);
     }
 
     public void trackTwoSelected(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         Main.sceneManager.activateNextButton(nextButton);
         Main.settings.setTrack(Settings.Track.TRACK2);
     }
 
     public void trackThreeSelected(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         Main.sceneManager.activateNextButton(nextButton);
         Main.settings.setTrack(Settings.Track.TRACK3);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/totalLapsScreen.fxml"));
             Parent root = loader.load();

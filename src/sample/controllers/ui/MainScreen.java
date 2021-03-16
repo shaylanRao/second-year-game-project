@@ -80,6 +80,10 @@ public class MainScreen {
 
     // just for debugging - only in dev
     public void startGame(ActionEvent actionEvent) {
+        Main.soundManager.stop("mainBgm");
+
+        Main.soundManager.loop("playPageBgm");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameScreen.fxml"));
             Parent root = loader.load();

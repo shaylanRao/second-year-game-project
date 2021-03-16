@@ -15,6 +15,8 @@ public class PlayMode {
     private Button nextButton;
 
     public void gameModeOneClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         // code to handle AI VS HUMAN
         System.out.println("AI VS HUMAN");
 
@@ -26,6 +28,8 @@ public class PlayMode {
     }
 
     public void gameModeTwoClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         // code to handle HUMAN VS HUMAN
         System.out.println("HUMAN VS HUMAN");
 
@@ -35,6 +39,8 @@ public class PlayMode {
     }
 
     public void gameModeThreeClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         // code to handle TIME TRIAL
         System.out.println("TIME TRIAL");
 
@@ -45,10 +51,14 @@ public class PlayMode {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         // code to handle next screen
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/trackSelection.fxml"));

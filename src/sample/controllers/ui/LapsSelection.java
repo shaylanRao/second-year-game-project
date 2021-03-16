@@ -23,6 +23,8 @@ public class LapsSelection {
     private Label lapsLabel;
 
     public void lapsSelected(MouseEvent mouseEvent) {
+        Main.soundManager.play("button");
+
         // getValue returns a float, so converting it to int
         int lapsSelected = (int) lapsSlider.getValue();
 
@@ -40,10 +42,14 @@ public class LapsSelection {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicleSelection.fxml"));
             Parent root = loader.load();
