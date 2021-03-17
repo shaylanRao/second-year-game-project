@@ -10,6 +10,8 @@ import sample.Main;
 public class SettingsScreen {
 
     public void soundClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/soundScreen.fxml"));
             Parent root = loader.load();
@@ -22,6 +24,8 @@ public class SettingsScreen {
     }
 
     public void visualClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/visualScreen.fxml"));
             Parent root = loader.load();
@@ -34,6 +38,8 @@ public class SettingsScreen {
     }
 
     public void gameClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameSettingsScreen.fxml"));
             Parent root = loader.load();
@@ -45,5 +51,9 @@ public class SettingsScreen {
         }
     }
 
-    public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene(); }
+    public void backClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
+        Main.sceneManager.setPrevScene();
+    }
 }

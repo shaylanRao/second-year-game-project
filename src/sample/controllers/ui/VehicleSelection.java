@@ -15,6 +15,8 @@ public class VehicleSelection {
     private Button playButton;
 
     public void carOneSelected(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         System.out.println("Car one selected");
         Main.sceneManager.activateNextButton(playButton);
 
@@ -22,6 +24,8 @@ public class VehicleSelection {
     }
 
     public void carTwoSelected(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         System.out.println("Car two selected");
         Main.sceneManager.activateNextButton(playButton);
 
@@ -29,6 +33,8 @@ public class VehicleSelection {
     }
 
     public void carThreeSelected(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         System.out.println("Car three selected");
         Main.sceneManager.activateNextButton(playButton);
 
@@ -36,10 +42,18 @@ public class VehicleSelection {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
+        Main.soundManager.stop("mainBgm");
+
+        Main.soundManager.loop("playPageBgm");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
             Parent root = loader.load();

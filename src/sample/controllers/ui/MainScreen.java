@@ -7,13 +7,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.utilities.AlertBox;
+import sample.controllers.audio.*;
 
 public class MainScreen {
+
+
     private Stage currentStage;
+
     private Stage getCurrentStage() {
         return currentStage;
     }
     public void setCurrentStage(Stage currentStage) {
+        Main.soundManager.loop("mainBgm");
         try {
             this.currentStage = currentStage;
         } catch (Exception e) {
@@ -21,6 +26,9 @@ public class MainScreen {
         }
     }
     public void playClicked(ActionEvent actionEvent) {
+
+        Main.soundManager.play("button");
+
         System.out.println("Play clicked");
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/playModeScreen.fxml"));
@@ -32,6 +40,9 @@ public class MainScreen {
         }
     }
     public void settingsClicked(ActionEvent actionEvent) {
+
+        Main.soundManager.play("button");
+
         System.out.println("Settings clicked");
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/settingsScreen.fxml"));
@@ -44,6 +55,7 @@ public class MainScreen {
         }
     }
     public void controlsClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
         System.out.println("Controls clicked");
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/controlsScreen.fxml"));
@@ -56,6 +68,7 @@ public class MainScreen {
         }
     }
     public void quitClicked(ActionEvent actionEvent) throws Exception {
+        Main.soundManager.play("button");
         try {
             System.out.println("Quit Clicked");
             AlertBox quitPrompt = new AlertBox(this.getCurrentStage(), "Are you sure you want to exit?", "YES", "NO", "QUIT");
@@ -67,6 +80,10 @@ public class MainScreen {
 
     // just for debugging - only in dev
     public void startGame(ActionEvent actionEvent) {
+        Main.soundManager.stop("mainBgm");
+
+        Main.soundManager.loop("playPageBgm");
+
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameScreen.fxml"));
             Parent root = loader.load();

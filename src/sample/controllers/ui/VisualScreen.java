@@ -17,6 +17,8 @@ public class VisualScreen {
     private ToggleGroup colorBlind;
 
     public void brightSelected(MouseEvent mouseEvent) {
+        Main.soundManager.play("button");
+
         float bright = (float) brightSlider.getValue();
         brightLabel.setText("brightness: " + bright);
         System.out.println(brightSlider.getValue());
@@ -24,5 +26,9 @@ public class VisualScreen {
         Main.settings.setBright(bright);
     }
 
-    public void backClicked(ActionEvent actionEvent) { Main.sceneManager.setPrevScene(); }
+    public void backClicked(ActionEvent actionEvent) {
+        Main.soundManager.play("button");
+
+        Main.sceneManager.setPrevScene();
+    }
 }

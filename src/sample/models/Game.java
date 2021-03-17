@@ -53,29 +53,7 @@ public class Game
 			this.powerups.add(new OilGhostPowerup(gameBackground));
 		}
 	}
-	
-//	public void initialisePowerups(BorderPane gameBackground) {
-//		
-//		// generates powerups
-//				int maxPowerups = 2;
-//				new java.util.Timer().schedule(
-//		                new java.util.TimerTask() {
-//		                	private ArrayList<Powerup>	powerups;
-//		                	
-//		                    @Override
-//		                    public void run() {
-//		                    	this.powerups = new ArrayList<>();
-//		                    	for (int i = 0; i < maxPowerups; i++)
-//		        				{
-//		        					this.powerups.add(new BananaPowerup(gameBackground));
-//		        					this.powerups.add(new SpeedboosterPowerup(gameBackground));
-//		        					this.powerups.add(new OilGhostPowerup(gameBackground));
-//		        				}
-//		                    }
-//		                },
-//		                2000
-//		        );
-//	}
+
 	/**
 	 * The game loop. This deals with game logic such as handling collisions and moving the car
 	 *
@@ -144,7 +122,7 @@ public class Game
 						}
 					}
 				if (playerCar.isActivatedPowerup())
-					
+
 				{
 					for (Powerup powerup : powerupsDischarge)
 					{
@@ -161,7 +139,6 @@ public class Game
 							ban.render(x, y);
 							powerupsDischarge.remove(powerup);
 							powerupsDischarge.add(ban);
-							System.out.println("BANANA");
 						}
 						else if (powerup instanceof OilGhostPowerup)
 						{
@@ -169,7 +146,6 @@ public class Game
 							oil.render(x, y);
 							powerupsDischarge.remove(powerup);
 							powerupsDischarge.add(oil);
-							System.out.println("OIL");
 						}
 						else if (powerup instanceof SpeedboosterPowerup)
 						{
@@ -198,7 +174,6 @@ public class Game
 						pwr.deactivate();
 						if (pwr instanceof OilSpillPowerup)
 						{
-							//TODO slide forwards a sec
 							playerCar.activatePowerup("carSlide");
 
 						}

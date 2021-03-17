@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.controllers.audio.SoundManager;
 import sample.controllers.ui.MainScreen;
 import sample.models.SceneManager;
 import sample.models.Settings;
@@ -17,6 +18,7 @@ public class Main extends Application {
 
     // TODO: is this the right way to do this
     public static SceneManager sceneManager;
+    public static SoundManager soundManager;
     public static Settings settings;
 
     /**
@@ -39,6 +41,12 @@ public class Main extends Application {
         primaryStage.show();
 
         try {
+
+
+            soundManager = new SoundManager(); // construct SoundManager
+            soundManager.Init();               // Initialize Sound
+            //SoundManager.getInstance().Init();
+
             MainScreen mainScreen =  new MainScreen();
             mainScreen.setCurrentStage(primaryStage);
 

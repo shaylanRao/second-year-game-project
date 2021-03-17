@@ -36,7 +36,8 @@
     </top>
 
     <left>
-        <VBox alignment="CENTER_LEFT" spacing="15">
+
+        <VBox alignment="CENTER_LEFT" spacing="10" >
             <Button styleClass="button-3" text="Accelerate " />
             <Button styleClass="button-3" text="Left" />
             <Button styleClass="button-3" text="Right" />
