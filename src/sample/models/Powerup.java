@@ -1,12 +1,15 @@
 package sample.models;
 
 
+import com.sun.javafx.geom.Rectangle;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class Powerup extends Sprite {
 	
 	protected boolean shouldCollide = true;
+	protected long pickUptime = -1;
 
     public Powerup(BorderPane gameBackground, ImageView imageView) {
         super(gameBackground, imageView);
@@ -15,6 +18,12 @@ public class Powerup extends Sprite {
     public void deactivate() {
         this.getImage().setVisible(false);
         this.shouldCollide = false;
+        this.pickUptime = System.currentTimeMillis();
     }
-    
+
+    public void activate() {
+    	this.getImage().setVisible(true);
+    	this.shouldCollide = true;
+        this.pickUptime = -1;
+    }
 }

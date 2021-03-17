@@ -78,7 +78,7 @@ public class GameController implements Initializable {
         try {
             this.setGame(new Game());
             this.game.initialiseGameObjects(gameBackground);
-
+            //this.game.initialisePowerups(gameBackground);
             // starts the game
             this.getGame().gameLoop();
 

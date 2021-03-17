@@ -42,11 +42,10 @@ public class Game
 	{
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.playerCar = new PlayerCar(gameBackground);
-		this.powerups = new ArrayList<>();
 		this.powerupsDischarge = new ArrayList<>();
-
-		// generates powerups
+		//initialisePowerups(gameBackground);
 		int maxPowerups = 2;
+		this.powerups = new ArrayList<>();
 		for (int i = 0; i < maxPowerups; i++)
 		{
 			this.powerups.add(new BananaPowerup(gameBackground));
@@ -54,7 +53,29 @@ public class Game
 			this.powerups.add(new OilGhostPowerup(gameBackground));
 		}
 	}
-
+	
+//	public void initialisePowerups(BorderPane gameBackground) {
+//		
+//		// generates powerups
+//				int maxPowerups = 2;
+//				new java.util.Timer().schedule(
+//		                new java.util.TimerTask() {
+//		                	private ArrayList<Powerup>	powerups;
+//		                	
+//		                    @Override
+//		                    public void run() {
+//		                    	this.powerups = new ArrayList<>();
+//		                    	for (int i = 0; i < maxPowerups; i++)
+//		        				{
+//		        					this.powerups.add(new BananaPowerup(gameBackground));
+//		        					this.powerups.add(new SpeedboosterPowerup(gameBackground));
+//		        					this.powerups.add(new OilGhostPowerup(gameBackground));
+//		        				}
+//		                    }
+//		                },
+//		                2000
+//		        );
+//	}
 	/**
 	 * The game loop. This deals with game logic such as handling collisions and moving the car
 	 *
@@ -101,7 +122,7 @@ public class Game
 
 				for (Powerup powerup : powerups)
 				{
-					if (playerCar.collisionDetection(powerup) && powerup.shouldCollide)
+					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
 					{
 
 						playerCar.addPowerup(powerup);
@@ -116,11 +137,16 @@ public class Game
 						//
 						//                        double x = playerCarLayoutX - powerupWidth;
 						//                        double y = playerCarLayoutY - powerupHeight;
+					} else if (!powerup.shouldCollide) {
+							if ((powerup.pickUptime + 5000) < System.currentTimeMillis()) {
+								powerup.activate();
+							}
+						}
 					}
-				}
-				for (Powerup powerup : powerupsDischarge)
+				if (playerCar.isActivatedPowerup())
+					
 				{
-					if (playerCar.isActivatedPowerup())
+					for (Powerup powerup : powerupsDischarge)
 					{
 						double playerCarLayoutX = playerCar.getImage().getLayoutX();
 						double playerCarLayoutY = playerCar.getImage().getLayoutY();
@@ -135,6 +161,7 @@ public class Game
 							ban.render(x, y);
 							powerupsDischarge.remove(powerup);
 							powerupsDischarge.add(ban);
+							System.out.println("BANANA");
 						}
 						else if (powerup instanceof OilGhostPowerup)
 						{
@@ -142,9 +169,11 @@ public class Game
 							oil.render(x, y);
 							powerupsDischarge.remove(powerup);
 							powerupsDischarge.add(oil);
+							System.out.println("OIL");
 						}
 						else if (powerup instanceof SpeedboosterPowerup)
 						{
+							powerupsDischarge.remove(powerup);
 							playerCar.activatePowerup("speedBoost");
 						}
 					}
@@ -180,9 +209,6 @@ public class Game
 					}
 				}
 			}
-
-
-
 		};
 		timer.start();
 	}

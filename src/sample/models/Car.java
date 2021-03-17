@@ -14,6 +14,7 @@ public class Car extends Sprite {
     private boolean speedBoostOn = false;
     private boolean carSpinOn = false;
     private boolean carSlideOn = false;
+    protected long pickedUpPwrtime = -1;
 
 
     public Car(BorderPane gameBackground, ImageView image) {
@@ -245,6 +246,7 @@ public class Car extends Sprite {
      * for a specified time period (1 second)
      */
     public void activatePowerup(String powerUp){
+    	this.pickedUpPwrtime = System.currentTimeMillis();
         switch(powerUp){
             case "carSpin":
                 carSpinOn = true;
@@ -272,10 +274,12 @@ public class Car extends Sprite {
     }
 
     public boolean isActivatedPowerup() {
+    	//this.pickedUpPwrtime = System.currentTimeMillis();
         return powerup;
     }
 
     public void setActivatePowerup(boolean powerup) {
+    	//this.pickedUpPwrtime = System.currentTimeMillis();
         this.powerup = powerup;
     }
 
