@@ -23,7 +23,6 @@ public class Game
 	private ArrayList<Powerup>	powerupsDischarge;
 
 
-
 	public PlayerCar getPlayerCar()
 	{
 		return playerCar;
@@ -70,8 +69,12 @@ public class Game
 	{
 		this.initialiser();
 
-		AnimationTimer timer = (now) ->
+		AnimationTimer timer = new AnimationTimer()
 		{
+			@Override
+			public void handle(long now)
+			{
+
 				double dy = 0, rot = 0;
 
 				double forwardVelocity = playerCar.getForwardSpeed();
@@ -168,7 +171,7 @@ public class Game
 				}
 
 				playerCar.turn(rot);
-
+			}
 
 			private void powerupDrop(){
 				for (Powerup pwr : powerupsDischarge)
@@ -187,7 +190,7 @@ public class Game
 						}
 					}
 				}
-			}
+
 				playerCar.moveCarBy(dy);
 				playerCar.turn(rot);
 
@@ -202,7 +205,6 @@ public class Game
 					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
 					System.out.println(Arrays.toString(distances));
 				}
-			}
 			}
 		};
 		timer.start();
