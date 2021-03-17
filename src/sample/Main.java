@@ -10,6 +10,7 @@ import sample.controllers.audio.SoundManager;
 import sample.controllers.ui.MainScreen;
 import sample.models.SceneManager;
 import sample.models.Settings;
+import sample.models.TrackBuilder;
 
 public class Main extends Application {
 
@@ -20,6 +21,9 @@ public class Main extends Application {
     public static SceneManager sceneManager;
     public static SoundManager soundManager;
     public static Settings settings;
+    public static FXMLLoader loader;
+
+    public static TrackBuilder trackBuilder;
 
     /**
      * @param primaryStage - main stage onto which scenes are added
@@ -31,7 +35,7 @@ public class Main extends Application {
         Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
+        loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
         Parent root = loader.load();
         Scene currentScene = new Scene(root, maxWidth, maxHeight);
 
@@ -53,7 +57,10 @@ public class Main extends Application {
             sceneManager = new SceneManager(primaryStage);
             settings = new Settings();
 
+
             sceneManager.setCurrentScene(currentScene);
+
+            trackBuilder = new TrackBuilder();
         } catch (Exception e) {
             System.out.println("Inside main");
         }

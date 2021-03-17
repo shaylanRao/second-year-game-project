@@ -3,6 +3,7 @@ package sample.models;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 import java.util.Stack;
@@ -11,7 +12,7 @@ public class PlayerCar extends Car {
 
     private final Stack<Powerup> powerups;
 
-    public PlayerCar(BorderPane gameBackground) {
+    public PlayerCar(Pane gameBackground) {
         super(gameBackground, generateCarImageView());
         this.powerups = new Stack<>();
     }

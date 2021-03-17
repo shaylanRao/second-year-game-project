@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.models.Settings;
 import sample.utilities.AlertBox;
 import sample.controllers.audio.*;
 
@@ -85,7 +86,8 @@ public class MainScreen {
         Main.soundManager.loop("playPageBgm");
 
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameScreen.fxml"));
+            Main.settings.setTrack(Settings.Track.TRACK3);
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml"));
             Parent root = loader.load();
             Scene gamePlay = new Scene(root,Main.maxWidth,Main.maxHeight);
             gamePlay.getRoot().requestFocus();

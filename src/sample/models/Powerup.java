@@ -4,14 +4,14 @@ package sample.models;
 import com.sun.javafx.geom.Rectangle;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class Powerup extends Sprite {
 	
 	protected boolean shouldCollide = true;
 	protected long pickUptime = -1;
 
-    public Powerup(BorderPane gameBackground, ImageView imageView) {
+    public Powerup(Pane gameBackground, ImageView imageView) {
         super(gameBackground, imageView);
     }
 

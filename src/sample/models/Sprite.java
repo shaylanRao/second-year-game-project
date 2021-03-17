@@ -2,18 +2,19 @@ package sample.models;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public abstract class Sprite {
 
     private final ImageView image;
-    private final BorderPane gameBackground;
+    private final Pane gameBackground;
 
-    public Sprite(BorderPane gameBackground, ImageView imageView) {
+    public Sprite(Pane gameBackground, ImageView imageView) {
         this.gameBackground = gameBackground;
         this.image = imageView;
     }
 
-    protected BorderPane getGameBackground() {
+    protected Pane getGameBackground() {
         return gameBackground;
     }
 

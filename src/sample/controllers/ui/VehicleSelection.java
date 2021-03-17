@@ -55,8 +55,15 @@ public class VehicleSelection {
         Main.soundManager.loop("playPageBgm");
 
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
-            Parent root = loader.load();
+            Parent root;
+            FXMLLoader loader;
+            //if track 3 was selected then run the raycasting demo, else run the standard game
+            if (Main.settings.getTrack()==Settings.Track.TRACK3) {
+                loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
+            } else {
+                loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
+            }
+            root = loader.load();
 
             Scene gameViewScene = new Scene(root,Main.maxWidth,Main.maxHeight);
 

@@ -1,6 +1,7 @@
 package sample.models;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import sample.Main;
 import javafx.scene.layout.BorderPane;
 
@@ -17,7 +18,7 @@ public class Car extends Sprite {
     protected long pickedUpPwrtime = -1;
 
 
-    public Car(BorderPane gameBackground, ImageView image) {
+    public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
         this.setMaximumSpeed(SPEEDFACTOR *0.7);
         //reverse speed (HARD-CODED)
@@ -139,7 +140,6 @@ public class Car extends Sprite {
      * @return acceleration
      */
     private double newAccCalc(){
-        //f=ma
         double mass = 1;
         return (this.longForce()/mass);
     }
@@ -170,8 +170,6 @@ public class Car extends Sprite {
         //todo if up arrow, then this, else return 0
         return(unitVector*engineForce);
     }
-
-
 
     //todo needs to break less, more roll
     /**
@@ -282,6 +280,17 @@ public class Car extends Sprite {
     	//this.pickedUpPwrtime = System.currentTimeMillis();
         this.powerup = powerup;
     }
+
+
+    //todo start-off boost
+    //
+
+
+    //todo momentum
+    //inheritance for other types of vehicles
+
+
+    //todo
 
 
 
@@ -415,6 +424,8 @@ public class Car extends Sprite {
         return false;
 
     }
+
+
 
     /*
     1. forward acceleration
