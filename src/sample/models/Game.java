@@ -171,6 +171,18 @@ public class Game
 				}
 
 				playerCar.turn(rot);
+
+				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
+					//set raycaster position and rotation = the car's position and rotation
+					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
+							Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
+
+					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
+
+					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
+					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
+					System.out.println(Arrays.toString(distances));
+				}
 			}
 
 			private void powerupDrop(){
@@ -189,21 +201,6 @@ public class Game
 							playerCar.activatePowerup("carSpin");
 						}
 					}
-				}
-
-				playerCar.moveCarBy(dy);
-				playerCar.turn(rot);
-
-				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
-					//set raycaster position and rotation = the car's position and rotation
-					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
-							Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
-
-					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
-
-					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
-					System.out.println(Arrays.toString(distances));
 				}
 			}
 		};
