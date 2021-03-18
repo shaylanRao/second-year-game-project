@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 import sample.models.Settings;
 
 public class TrackSelection {
@@ -15,7 +16,7 @@ public class TrackSelection {
     private Button nextButton;
 
     public void trackOneSelected(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.activateNextButton(nextButton);
 
@@ -23,27 +24,27 @@ public class TrackSelection {
     }
 
     public void trackTwoSelected(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.activateNextButton(nextButton);
         Main.settings.setTrack(Settings.Track.TRACK2);
     }
 
     public void trackThreeSelected(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.activateNextButton(nextButton);
         Main.settings.setTrack(Settings.Track.TRACK3);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/totalLapsScreen.fxml"));

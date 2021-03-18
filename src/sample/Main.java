@@ -19,7 +19,7 @@ public class Main extends Application {
 
     // TODO: is this the right way to do this
     public static SceneManager sceneManager;
-    public static SoundManager soundManager;
+    //public static SoundManager soundManager;
     public static Settings settings;
     public static FXMLLoader loader;
 
@@ -48,9 +48,8 @@ public class Main extends Application {
         try {
 
 
-            soundManager = new SoundManager(); // construct SoundManager
-            soundManager.Init();               // Initialize Sound
-            soundManager.configureSounds();
+            SoundManager.Init();               // Initialize Sound
+            SoundManager.configureSounds();
 
             mainScreen.setCurrentStage(primaryStage);
 
@@ -67,8 +66,13 @@ public class Main extends Application {
 
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
+    
+    @Override
+    public void stop() {
+        SoundManager.stopAll();
+    }
+
 }

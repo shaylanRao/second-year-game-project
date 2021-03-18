@@ -19,7 +19,7 @@ public class MainScreen {
         return currentStage;
     }
     public void setCurrentStage(Stage currentStage) {
-        Main.soundManager.loop("bgm");
+        SoundManager.loop("bgm");
         try {
             this.currentStage = currentStage;
         } catch (Exception e) {
@@ -28,7 +28,7 @@ public class MainScreen {
     }
     public void playClicked(ActionEvent actionEvent) {
 
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         System.out.println("Play clicked");
         try {
@@ -42,7 +42,7 @@ public class MainScreen {
     }
     public void settingsClicked(ActionEvent actionEvent) {
 
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         System.out.println("Settings clicked");
         try {
@@ -56,7 +56,7 @@ public class MainScreen {
         }
     }
     public void controlsClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
         System.out.println("Controls clicked");
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/controlsScreen.fxml"));
@@ -82,8 +82,8 @@ public class MainScreen {
 
     // just for debugging - only in dev
     public void startGame(ActionEvent actionEvent) {
-        Main.soundManager.stop("bgm");
-        Main.soundManager.loop("playBgm");
+        SoundManager.stop("bgm");
+        SoundManager.loop("playBgm");
 
         try {
             Main.settings.setTrack(Settings.Track.TRACK3);

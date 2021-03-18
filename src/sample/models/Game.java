@@ -21,7 +21,7 @@ public class Game
 	private PlayerCar			playerCar;
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
-
+	private boolean				ok;
 
 	public PlayerCar getPlayerCar()
 	{
@@ -123,41 +123,44 @@ public class Game
 						//                        double x = playerCarLayoutX - powerupWidth;
 						//                        double y = playerCarLayoutY - powerupHeight;
 					} else if (!powerup.shouldCollide) {
-							if ((powerup.pickUptime + 5000) < System.currentTimeMillis()) {
+							if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
 								powerup.activate();
 							}
 						}
 					}
 				if (playerCar.isActivatedPowerup())
-
 				{
-					for (Powerup powerup : powerupsDischarge)
-					{
-						double playerCarLayoutX = playerCar.getImage().getLayoutX();
-						double playerCarLayoutY = playerCar.getImage().getLayoutY();
-						double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
-						double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
-
-						double x = playerCarLayoutX - powerupWidth;
-						double y = playerCarLayoutY - powerupHeight;
-						if (powerup instanceof BananaPowerup)
-						{
-							BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
-							ban.render(x, y);
-							powerupsDischarge.remove(powerup);
-							powerupsDischarge.add(ban);
-						}
-						else if (powerup instanceof OilGhostPowerup)
-						{
-							OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
-							oil.render(x, y);
-							powerupsDischarge.remove(powerup);
-							powerupsDischarge.add(oil);
-						}
-						else if (powerup instanceof SpeedboosterPowerup)
-						{
-							powerupsDischarge.remove(powerup);
-							playerCar.activatePowerup("speedBoost");
+					ok = true;
+					System.out.println(ok);
+					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
+						for (Powerup powerup : powerupsDischarge) {
+							double playerCarLayoutX = playerCar.getImage().getLayoutX();
+							double playerCarLayoutY = playerCar.getImage().getLayoutY();
+							double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
+							double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
+	
+							double x = playerCarLayoutX - powerupWidth;
+							double y = playerCarLayoutY - powerupHeight;
+							if (powerup instanceof BananaPowerup)
+							{
+								BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
+								ban.render(x, y);
+								powerupsDischarge.remove(powerup);
+								powerupsDischarge.add(ban);
+							}
+							else if (powerup instanceof OilGhostPowerup)
+							{
+								OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
+								oil.render(x, y);
+								powerupsDischarge.remove(powerup);
+								powerupsDischarge.add(oil);
+							}
+							else if (powerup instanceof SpeedboosterPowerup)
+							{
+								powerupsDischarge.remove(powerup);
+								playerCar.activatePowerup("speedBoost");
+							}
+							playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 						}
 					}
 				}

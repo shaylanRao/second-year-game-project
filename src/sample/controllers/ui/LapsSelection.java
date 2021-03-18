@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 
 public class LapsSelection {
 
@@ -23,7 +24,7 @@ public class LapsSelection {
     private Label lapsLabel;
 
     public void lapsSelected(MouseEvent mouseEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         // getValue returns a float, so converting it to int
         int lapsSelected = (int) lapsSlider.getValue();
@@ -42,13 +43,13 @@ public class LapsSelection {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicleSelection.fxml"));

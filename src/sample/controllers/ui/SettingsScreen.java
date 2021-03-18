@@ -6,11 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 
 public class SettingsScreen {
 
     public void soundClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         try {
 
@@ -35,7 +36,7 @@ public class SettingsScreen {
     }
 
     public void visualClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/visualScreen.fxml"));
@@ -49,7 +50,7 @@ public class SettingsScreen {
     }
 
     public void gameClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameSettingsScreen.fxml"));
@@ -63,7 +64,7 @@ public class SettingsScreen {
     }
 
     public void backClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.setPrevScene();
     }

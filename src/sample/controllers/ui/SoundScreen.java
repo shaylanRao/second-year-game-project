@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 import sample.controllers.audio.SoundObject;
 
 public class SoundScreen {
@@ -48,28 +49,28 @@ public class SoundScreen {
 
 
         // get the actual master-volume from SoundManager and update the 'masterSlider' value
-        masterSlider.setValue(Main.soundManager.getMasterVolume() * 100.f);
+        masterSlider.setValue(SoundManager.getMasterVolume() * 100.f);
 
         // get the actual UI_SFX volume from SoundManager and update the 'sfxSlider' value
-        sfxSlider.setValue(Main.soundManager.getVolume(SoundObject.UI_SFX) * 100.f);
+        sfxSlider.setValue(SoundManager.getVolume(SoundObject.UI_SFX) * 100.f);
 
         // get the actual GAME_SFX volume from SoundManager and update the 'game_sfxSlider' value
-        game_sfxSlider.setValue(Main.soundManager.getVolume(SoundObject.GAME_SFX) * 100.f);
+        game_sfxSlider.setValue(SoundManager.getVolume(SoundObject.GAME_SFX) * 100.f);
 
 
         // get the actual BG volume from SoundManager and update the 'bgm_Slider' value
-        bgm_Slider.setValue(Main.soundManager.getVolume(SoundObject.BG_MUSIC) * 100.f);
+        bgm_Slider.setValue(SoundManager.getVolume(SoundObject.BG_MUSIC) * 100.f);
 
 
         // get the actual MUSIC volume from SoundManager and update the 'music_Slider' value
-        music_Slider.setValue(Main.soundManager.getVolume(SoundObject.MUSIC) * 100.f);
+        music_Slider.setValue(SoundManager.getVolume(SoundObject.MUSIC) * 100.f);
 
 
     }
 
 
     public void backClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
         Main.sceneManager.setPrevScene();
     }
 
@@ -79,18 +80,18 @@ public class SoundScreen {
         System.out.println(sfxSlider.getValue());
 
         Main.settings.setSfxVol(sfxVol);
-        Main.soundManager.setVolume(sfxVol / 100.0f, SoundObject.UI_SFX);
+        SoundManager.setVolume(sfxVol / 100.0f, SoundObject.UI_SFX);
     }
 
     public void masterSelected(MouseEvent mouseEvent) {
 
-        Main.soundManager.play("button");
+        SoundManager.play("button");
         float masterVol = (float) masterSlider.getValue();
         masterLabel.setText("master volume: " + masterVol);
         System.out.println(masterSlider.getValue());
 
         Main.settings.setMasterVol(masterVol);
-        Main.soundManager.setMasterVolume(masterVol / 100.0f);
+        SoundManager.setMasterVolume(masterVol / 100.0f);
     }
 
 
@@ -98,21 +99,21 @@ public class SoundScreen {
     {
         float game_sfxVol = (float) game_sfxSlider.getValue();
         game_sfxLabel.setText("game_sfx volume: " + game_sfxVol);
-        Main.soundManager.setVolume(game_sfxVol / 100.0f, SoundObject.GAME_SFX);
+        SoundManager.setVolume(game_sfxVol / 100.0f, SoundObject.GAME_SFX);
     }
 
     public void bgm_Selected(MouseEvent e)
     {
         float vol = (float) bgm_Slider.getValue();
         bgm_Label.setText("Background volume: " + vol);
-        Main.soundManager.setVolume(vol / 100.0f, SoundObject.BG_MUSIC);
+        SoundManager.setVolume(vol / 100.0f, SoundObject.BG_MUSIC);
     }
 
     public void music_Selected(MouseEvent e)
     {
         float vol = (float) music_Slider.getValue();
         music_Label.setText("Music volume: " + vol);
-        Main.soundManager.setVolume(vol / 100.0f, SoundObject.MUSIC);
+        SoundManager.setVolume(vol / 100.0f, SoundObject.MUSIC);
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {

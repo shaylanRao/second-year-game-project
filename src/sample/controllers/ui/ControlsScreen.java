@@ -17,7 +17,7 @@ public class ControlsScreen {
     @FXML
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         System.out.println("back button pressed");
         Main.sceneManager.setPrevScene();

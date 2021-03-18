@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 import sample.models.Settings;
 
 
@@ -15,7 +16,7 @@ public class VehicleSelection {
     private Button playButton;
 
     public void carOneSelected(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         System.out.println("Car one selected");
         Main.sceneManager.activateNextButton(playButton);
@@ -24,7 +25,7 @@ public class VehicleSelection {
     }
 
     public void carTwoSelected(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         System.out.println("Car two selected");
         Main.sceneManager.activateNextButton(playButton);
@@ -33,7 +34,7 @@ public class VehicleSelection {
     }
 
     public void carThreeSelected(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         System.out.println("Car three selected");
         Main.sceneManager.activateNextButton(playButton);
@@ -42,17 +43,17 @@ public class VehicleSelection {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.setPrevScene();
     }
 
     public void nextButtonClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
-        Main.soundManager.stop("bgm");
+        SoundManager.stop("bgm");
 
-        Main.soundManager.loop("playBgm");
+        SoundManager.loop("playBgm");
 
         try {
             Parent root;

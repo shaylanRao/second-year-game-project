@@ -220,8 +220,8 @@ public class SoundObject
     // - gets the scaled volume of current SoundObject
     public float getVolume_scaled()
     {
-        float master_volume = SoundManager.getInstance().getMasterVolume();
-        float type_volume   = SoundManager.getInstance().getVolume(type);
+    	float master_volume = SoundManager.getMasterVolume();
+        float type_volume   = SoundManager.getVolume(type);
         float scaled_volume = sound_volume * type_volume * master_volume;
         DecimalFormat df = new DecimalFormat("###.###");
         return Float.parseFloat(df.format(scaled_volume));
@@ -237,8 +237,8 @@ public class SoundObject
     // - returns true/false if muted {or} type muted {or} master muted
     public boolean isMuted_scaled(){
         return isMuted()
-                || SoundManager.getInstance().isMasterMuted()
-                || SoundManager.getInstance().isMuted(type);
+        		|| SoundManager.isMasterMuted()
+                || SoundManager.isMuted(type);
     }
 
 

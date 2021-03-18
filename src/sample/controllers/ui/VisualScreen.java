@@ -7,6 +7,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 
 public class VisualScreen {
     @FXML
@@ -17,7 +18,7 @@ public class VisualScreen {
     private ToggleGroup colorBlind;
 
     public void brightSelected(MouseEvent mouseEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         float bright = (float) brightSlider.getValue();
         brightLabel.setText("brightness: " + bright);
@@ -27,7 +28,7 @@ public class VisualScreen {
     }
 
     public void backClicked(ActionEvent actionEvent) {
-        Main.soundManager.play("button");
+        SoundManager.play("button");
 
         Main.sceneManager.setPrevScene();
     }

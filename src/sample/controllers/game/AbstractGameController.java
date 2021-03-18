@@ -6,11 +6,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import sample.models.Game;
+import sample.models.PlayerCar;
 
 public abstract class AbstractGameController implements Initializable {
     @FXML
     protected Pane pane;
     protected Game game;
+    protected PlayerCar playerCar;
 
     public Game getGame() {
         return game;
@@ -38,6 +40,7 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case F:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
+                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 break;
         }
     }

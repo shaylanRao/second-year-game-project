@@ -89,23 +89,10 @@ public class SoundManager
     private static boolean is_music_muted    = false;
     private static boolean is_bg_music_muted = false;
 
-
-
-    // (>) [Method]:: getInstance()
-    //
-    // - returns a static reference to a SoundManager object
-    public static SoundManager getInstance()
-    {
-        return new SoundManager();
-    }
-
-
-
-
     // (>) [Method]:: Init
     //
     // - Initializes SoundManager
-    public boolean Init()
+    public static boolean Init()
     {
         if(IS_INIT)
             return true;
@@ -117,7 +104,7 @@ public class SoundManager
     // (>) [Method]:: loadSounds
     //
     // - responsible for loading all the sounds
-    private boolean loadSounds()
+    private static boolean loadSounds()
     {
         try
         {
@@ -154,7 +141,7 @@ public class SoundManager
     //
     // - checks that inputs are valid and throws specific exceptions if not.
     // - loads the given soundFile and matches it with the requested soundId
-    private void LoadSound(String soundId, String soundFile, int type) throws Exception
+    private static void LoadSound(String soundId, String soundFile, int type) throws Exception
     {
 
         soundFile = AUDIO_FILES_PATH + soundFile;
@@ -187,7 +174,7 @@ public class SoundManager
     // (>) [Method]:: ConfigureSounds( .. )
     //
     // - configure sounds
-    public void configureSounds()
+    public static void configureSounds()
     {
         if(!IS_INIT)
             return;
@@ -213,7 +200,7 @@ public class SoundManager
     // e.g:{
     //         SoundManager.play("button");
     //	   }
-    public void play( String soundId )
+    public static void play( String soundId )
     {
         soundObjects.get(soundId).play(0);
     }
@@ -227,7 +214,7 @@ public class SoundManager
     // e.g:{
     //         SoundManager.loop("background_music");
     //	   }
-    public void loop( String soundId )
+    public static void loop( String soundId )
     {
         soundObjects.get(soundId).loop(0);
     }
@@ -241,7 +228,7 @@ public class SoundManager
     // e.g:{
     //         SoundManager.stop("background_music");
     //	   }
-    public void stop( String soundId )
+    public static void stop( String soundId )
     {
         soundObjects.get(soundId).stop();
     }
@@ -255,7 +242,7 @@ public class SoundManager
     // e.g:{
     //         SoundManager.pause("background_music");
     //	   }
-    public void pause( String soundId )
+    public static void pause( String soundId )
     {
         soundObjects.get(soundId).pause(1);
     }
@@ -269,7 +256,7 @@ public class SoundManager
     // e.g:{
     //         SoundManager.resume("background_music");
     //	   }
-    public void resume( String soundId )
+    public static void resume( String soundId )
     {
         soundObjects.get(soundId).resume(1);
     }
@@ -283,7 +270,7 @@ public class SoundManager
     // e.g:{
     //         SoundManager.restart("background_music");
     //	   }
-    public void restart( String soundId )
+    public static void restart( String soundId )
     {
         soundObjects.get(soundId).restart();
     }
@@ -301,7 +288,7 @@ public class SoundManager
     // (>) [Method]:: pauseAll()
     //
     // - pauses all sounds
-    public void pauseAll()
+    public static void pauseAll()
     {
         soundObjects.forEach((k,v) -> v.pause(1));
     }
@@ -312,7 +299,7 @@ public class SoundManager
     // (>) [Method]:: resumeAll()
     //
     // - resumes all paused sounds
-    public void resumeAll()
+    public static void resumeAll()
     {
         soundObjects.forEach((k,v) -> v.resume(1));
     }
@@ -323,7 +310,7 @@ public class SoundManager
     // (>) [Method]:: restartAll()
     //
     // - restarts all sounds
-    public void restartAll()
+    public static void restartAll()
     {
         soundObjects.forEach((k,v) -> v.restart());
     }
@@ -333,7 +320,7 @@ public class SoundManager
     // (>) [Method]:: stopAll()
     //
     // - stops all sounds
-    public void stopAll()
+    public static void stopAll()
     {
         soundObjects.forEach((k,v) -> v.stop());
     }
@@ -351,7 +338,7 @@ public class SoundManager
     // (>) [Method]:: pauseAll(sound_type)
     //
     // - pauses all sounds of given sound_type
-    public void pauseAll(int sound_type)
+    public static void pauseAll(int sound_type)
     {
         soundObjects.entrySet().stream()
                 .filter((e) -> (e.getValue().getType() == sound_type))
@@ -364,7 +351,7 @@ public class SoundManager
     // (>) [Method]:: resumeAll(sound_type)
     //
     // - resumesAll all sounds of given sound_type
-    public void resumeAll(int sound_type)
+    public static void resumeAll(int sound_type)
     {
         soundObjects.entrySet().stream()
                 .filter((e) -> (e.getValue().getType() == sound_type))
@@ -377,7 +364,7 @@ public class SoundManager
     // (>) [Method]:: restartsAll(sound_type)
     //
     // - restarts all sounds of given sound_type
-    public void restartAll(int sound_type)
+    public static void restartAll(int sound_type)
     {
         soundObjects.entrySet().stream()
                 .filter((e) -> (e.getValue().getType() == sound_type))
@@ -390,7 +377,7 @@ public class SoundManager
     // (>) [Method]:: stopAll()
     //
     // - stops all sounds
-    public void stopAll(int sound_type)
+    public static void stopAll(int sound_type)
     {
         soundObjects.entrySet().stream()
                 .filter((e) -> (e.getValue().getType() == sound_type))
@@ -410,7 +397,7 @@ public class SoundManager
     // (>) [Method]:: setSoundVolume(SoundId, value)
     //
     // - sets the volume for given sound
-    public void setVolume(String soundId, float value)
+    public static void setVolume(String soundId, float value)
     {
         soundObjects.get(soundId).setVolume(value);
     }
@@ -421,7 +408,7 @@ public class SoundManager
     // (>) [Method]:: mute(SoundId, state)
     //
     // - mutes / un-mutes sound
-    public void mute(boolean state, String soundId){ soundObjects.get(soundId).mute(state);}
+    public static void mute(boolean state, String soundId){ soundObjects.get(soundId).mute(state);}
 
 
 
@@ -429,7 +416,7 @@ public class SoundManager
     // (>) [Method]:: adjustVolume(SoundId, dv)
     //
     // - adjusts the volume for given sound such that : volume = volume + dv
-    public void adjustVolume(String soundId, float dv)
+    public static void adjustVolume(String soundId, float dv)
     {
         soundObjects.get(soundId).adjustVolume(dv);
     }
@@ -440,7 +427,7 @@ public class SoundManager
     // (>) [Method]:: getSoundVolume(soundId)
     //
     // - returns the volume of given sound
-    public float getVolume(String soundId)
+    public static float getVolume(String soundId)
     {
         return soundObjects.get(soundId).getVolume();
     }
@@ -451,7 +438,7 @@ public class SoundManager
     // (>) [Method]:: isMuted(soundId)
     //
     // - returns true/false if sound if muted
-    public boolean isMuted(String soundId){ return soundObjects.get(soundId).isMuted(); }
+    public static boolean isMuted(String soundId){ return soundObjects.get(soundId).isMuted(); }
 
 
 
@@ -466,7 +453,7 @@ public class SoundManager
     // (>) [Method]:: setMasterVolume(value)
     //
     // - sets the master volume
-    public void setMasterVolume(float value)
+    public static void setMasterVolume(float value)
     {
         value = value > 1? 1 : value;
         value = value < 0? 0 : value;
@@ -479,7 +466,7 @@ public class SoundManager
     // (>) [Method]:: muteMater(boolean state)
     //
     // - mutes / un-mutes master volume
-    public void muteMaster(boolean state){ is_muted = state; System.out.println(" - muting master: "+state); }
+    public static void muteMaster(boolean state){ is_muted = state; System.out.println(" - muting master: "+state); }
 
 
 
@@ -487,7 +474,7 @@ public class SoundManager
     // (>) [Method]:: deltaMasterVolume(dv)
     //
     // - adjusts the master volume such that : master_volume = master_volume + dv
-    public void adjustMasterVolume(float dv)
+    public static void adjustMasterVolume(float dv)
     {
         setMasterVolume(master_volume + dv);
     }
@@ -498,7 +485,7 @@ public class SoundManager
     // (>) [Method]:: getMasterVolume()
     //
     // - returns the master volume
-    public float getMasterVolume()
+    public static float getMasterVolume()
     {
         DecimalFormat df = new DecimalFormat("###.###");
         return Float.parseFloat(df.format(master_volume));
@@ -510,7 +497,7 @@ public class SoundManager
     // (>) [Method]:: isMasterMuted()
     //
     // - returns true/false if master volume is muted
-    public boolean isMasterMuted()
+    public static boolean isMasterMuted()
     {
         return is_muted;
     }
@@ -528,7 +515,7 @@ public class SoundManager
     // (>) [Method]:: setVolume(value, sound_type)
     //
     // - sets the volume for given type { sfx, music, etc.. }
-    public void setVolume(float value, int sound_type)
+    public static void setVolume(float value, int sound_type)
     {
         value = value > 1? 1 : value;
         value = value < 0? 0 : value;
@@ -547,7 +534,7 @@ public class SoundManager
     // (>) [Method]:: adjustVolume(value, sound_type)
     //
     // - adjusts the volume for given type { sfx, music, etc.. }
-    public void adjustVolume(float value, int sound_type)
+    public static void adjustVolume(float value, int sound_type)
     {
         setVolume(getVolume(sound_type)+value, sound_type);
     }
@@ -558,7 +545,7 @@ public class SoundManager
     // (>) [Method]:: mute(sound_type, state)
     //
     // - mutes/un-mutes given sound type
-    public void mute(boolean state, int sound_type)
+    public static void mute(boolean state, int sound_type)
     {
         switch (sound_type)
         {
@@ -575,7 +562,7 @@ public class SoundManager
     // (>) [Method]:: getVolume(sound_type)
     //
     // - returns the volume of given type { sfx, music, etc.. }
-    public float getVolume(int sound_type)
+    public static float getVolume(int sound_type)
     {
         switch (sound_type)
         {
@@ -593,7 +580,7 @@ public class SoundManager
     // (>) [Method]:: isMuted(sound_type)
     //
     // - returns true/false if sound type is muted
-    public boolean isMuted(int sound_type)
+    public static boolean isMuted(int sound_type)
     {
         switch (sound_type)
         {
