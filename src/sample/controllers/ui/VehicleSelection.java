@@ -50,9 +50,9 @@ public class VehicleSelection {
     public void nextButtonClicked(ActionEvent actionEvent) {
         Main.soundManager.play("button");
 
-        Main.soundManager.stop("mainBgm");
+        Main.soundManager.stop("bgm");
 
-        Main.soundManager.loop("playPageBgm");
+        Main.soundManager.loop("playBgm");
 
         try {
             Parent root;

@@ -82,7 +82,8 @@ public class MainScreen {
 
     // just for debugging - only in dev
     public void startGame(ActionEvent actionEvent) {
-
+        Main.soundManager.stop("bgm");
+        Main.soundManager.loop("playBgm");
 
         try {
             Main.settings.setTrack(Settings.Track.TRACK3);

@@ -124,6 +124,7 @@ public class SoundManager
             //{       'soundId' ,      'soundFile' ,          'soundType'         }
             LoadSound("button", "Button.wav", SoundObject.UI_SFX);
             LoadSound("bgm", "Bgm.wav",       SoundObject.BG_MUSIC);
+            LoadSound("playBgm", "playPagesBgm .wav",       SoundObject.BG_MUSIC);
             LoadSound("engine", "Engine.wav", SoundObject.GAME_SFX);
             LoadSound("drift","Drift.wav", SoundObject.GAME_SFX);
 
