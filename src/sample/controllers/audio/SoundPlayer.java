@@ -1,12 +1,6 @@
 package sample.controllers.audio;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
+import javax.sound.sampled.*;
 
 /*
  * ____SoundPlayer class____
@@ -36,11 +30,17 @@ import javax.sound.sampled.LineListener;
 public class SoundPlayer implements LineListener {
 
 
+    public int type;
+    public long clipTime;
+
     // a boolean flag keeping track of when the sound has done playing
     private boolean playingIsCompleted = false;
 
     // a reference to the SoundObject attached to the SoundPlayer ( which soundfile is being played )
     private final SoundObject soundObj;
+    private Clip audioClip;
+
+
 
     // constructor
     public SoundPlayer(SoundObject soundObj)
@@ -48,65 +48,44 @@ public class SoundPlayer implements LineListener {
         this.soundObj = soundObj;
     }
 
+
     // Method: playSound()
     // - responsible for transforming the initial SoundObject > AudioInputStream > Clip
     //   and playing it through the end, unless a stop call takes place from the corresponding SoundObject.
-    public void playSound()
+    public void playSound(int type, long _clipTime)
     {
+        this.type = type;
+        int loop_count = type == 0? 1 : -1;
+
         try
         {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundObj.getFile());
             AudioFormat format = audioStream.getFormat();
             DataLine.Info info = new DataLine.Info(Clip.class, format);
-            Clip audioClip     = (Clip) AudioSystem.getLine(info);
+            audioClip          = (Clip) AudioSystem.getLine(info);
             audioClip.addLineListener(this);
             audioClip.open(audioStream);
-            audioClip.start();
+            audioClip.setMicrosecondPosition(_clipTime % audioClip.getMicrosecondLength());
+            if(type == 0)
+                audioClip.start();
+            else
+                audioClip.loop(loop_count);
 
             while (!playingIsCompleted)
             {
-                try {
-                    Thread.sleep(1000);
-                }
-                catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
 
-            audioClip.close();
-            soundObj.removeSoundPlayer(this);
-
-        }
-        catch(Exception e)
-        {
-
-        }
-    }
+                // get audio clip's position
+                clipTime = audioClip.getMicrosecondPosition();
 
 
-    // Method: loopSound()
-    // - responsible for transforming the initial SoundObject > AudioInputStream > Clip
-    //   and looping it through, unless a stop call takes place from the corresponding SoundObject.
-    public void loopSound()
-    {
-        try
-        {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundObj.getFile());
-            AudioFormat format = audioStream.getFormat();
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-            Clip audioClip = (Clip) AudioSystem.getLine(info);
-            audioClip.addLineListener(this);
-            audioClip.open(audioStream);
-            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+                // adjust clip's volume
+                boolean is_muted = soundObj.isMuted_scaled();
+                FloatControl gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(20f * (float) Math.log10(is_muted? 0 : soundObj.getVolume_scaled()));
 
-            while (!playingIsCompleted)
-            {
-                try {
-                    Thread.sleep(1000);
-                }
-                catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+
+                try { Thread.sleep(0); }
+                catch (InterruptedException ex) { ex.printStackTrace(); }
             }
 
             audioClip.close();
@@ -127,8 +106,10 @@ public class SoundPlayer implements LineListener {
         playingIsCompleted = true;
     }
 
+
     // Auxillary Method
     public boolean isCompleted(){ return playingIsCompleted; }
+
 
 
     // LineListener:update(event)
@@ -143,4 +124,5 @@ public class SoundPlayer implements LineListener {
             playingIsCompleted = true;
 
     }
+
 }
