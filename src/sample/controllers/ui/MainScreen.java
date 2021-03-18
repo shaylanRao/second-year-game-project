@@ -19,7 +19,7 @@ public class MainScreen {
         return currentStage;
     }
     public void setCurrentStage(Stage currentStage) {
-        Main.soundManager.loop("mainBgm");
+        Main.soundManager.loop("bgm");
         try {
             this.currentStage = currentStage;
         } catch (Exception e) {
@@ -69,11 +69,12 @@ public class MainScreen {
         }
     }
     public void quitClicked(ActionEvent actionEvent) throws Exception {
-        Main.soundManager.play("button");
+        // Main.soundManager.play("button");
         try {
             System.out.println("Quit Clicked");
             AlertBox quitPrompt = new AlertBox(this.getCurrentStage(), "Are you sure you want to exit?", "YES", "NO", "QUIT");
             quitPrompt.displayPrompt();
+
         } catch (Exception e) {
             System.out.println("here");
         }
@@ -81,9 +82,7 @@ public class MainScreen {
 
     // just for debugging - only in dev
     public void startGame(ActionEvent actionEvent) {
-        Main.soundManager.stop("mainBgm");
 
-        Main.soundManager.loop("playPageBgm");
 
         try {
             Main.settings.setTrack(Settings.Track.TRACK3);

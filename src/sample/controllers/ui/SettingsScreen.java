@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 import sample.Main;
 
 public class SettingsScreen {
@@ -13,10 +13,21 @@ public class SettingsScreen {
         Main.soundManager.play("button");
 
         try {
+
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/soundScreen.fxml"));
             Parent root = loader.load();
-            Scene screen = new Scene(root, Main.maxWidth,Main.maxHeight);
+            Scene screen = new Scene(root, Main.maxWidth, Main.maxHeight);
             Main.sceneManager.setCurrentScene(screen);
+
+            // *** NEW - CHANGED ***
+            // get the actual class from the FXMLLoader
+            // and configure the ui-elements to represent corrected volume values
+            // every time the SoundScreen page is being loaded.
+            SoundScreen soundScreen_controller = (SoundScreen) loader.getController();
+            soundScreen_controller.setUp();
+            //
+
+
         } catch (Exception ex) {
             System.out.println("Error in sound clicked - SettingsScreen.java");
             ex.printStackTrace();

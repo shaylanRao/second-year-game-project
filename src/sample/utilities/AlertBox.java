@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sample.Main;
 
 public class AlertBox {
 
@@ -56,8 +57,11 @@ public class AlertBox {
         );
 
         acceptButton.setOnAction(e -> {
-                alertWindow.close();
-                currentStage.close();
+            alertWindow.close();
+            currentStage.close();
+
+            // stop all sounds only if quiting application
+            Main.soundManager.stopAll();
         });
 
         initializeAlertWindow(scene, alertBoxTitle);

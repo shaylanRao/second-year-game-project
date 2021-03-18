@@ -37,6 +37,7 @@ public class Main extends Application {
 
         loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
         Parent root = loader.load();
+        MainScreen mainScreen = (MainScreen) loader.getController();
         Scene currentScene = new Scene(root, maxWidth, maxHeight);
 
         primaryStage.setTitle("RACING GAME 2D");
@@ -49,9 +50,8 @@ public class Main extends Application {
 
             soundManager = new SoundManager(); // construct SoundManager
             soundManager.Init();               // Initialize Sound
-            //SoundManager.getInstance().Init();
+            soundManager.configureSounds();
 
-            MainScreen mainScreen =  new MainScreen();
             mainScreen.setCurrentStage(primaryStage);
 
             sceneManager = new SceneManager(primaryStage);
@@ -64,7 +64,7 @@ public class Main extends Application {
         } catch (Exception e) {
             System.out.println("Inside main");
         }
-        
+
     }
 
 
