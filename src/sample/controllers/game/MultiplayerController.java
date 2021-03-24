@@ -1,27 +1,10 @@
 package sample.controllers.game;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import sample.models.Game;
-import sample.models.PlayerCar;
 
-public abstract class AbstractGameController implements Initializable {
-    @FXML
-    protected Pane pane;
-    protected Game game;
-    protected PlayerCar playerCar;
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
+public class MultiplayerController extends GameController {
+    @Override
     public void keyClicked(KeyEvent event) {
         KeyCode code = event.getCode();
         switch (code) {
@@ -42,9 +25,27 @@ public abstract class AbstractGameController implements Initializable {
                 this.getGame().getPlayerCar().setActivatePowerup(true);
                 this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 break;
+            case W:
+                this.getGame().getPlayerCar2().setGoingForward(true);
+                this.getGame().getPlayerCar2().setAccelerate(true);
+                break;
+            case S:
+                this.getGame().getPlayerCar2().setGoingBackward(true);
+                break;
+            case A:
+                this.getGame().getPlayerCar2().setTurnLeft(true);
+                break;
+            case D:
+                this.getGame().getPlayerCar2().setTurnRight(true);
+                break;
+            case F:
+                this.getGame().getPlayerCar2().setActivatePowerup(true);
+                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                break;
         }
     }
 
+    @Override
     public void keyReleased(KeyEvent event) {
         // need to add 2nd player listeners
         KeyCode code = event.getCode();
@@ -63,6 +64,21 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(false);
+                break;
+            case W:
+                this.getGame().getPlayerCar2().setAccelerate(false);
+                break;
+            case S:
+                this.getGame().getPlayerCar2().setGoingBackward(false);
+                break;
+            case A:
+                this.getGame().getPlayerCar2().setTurnLeft(false);
+                break;
+            case D:
+                this.getGame().getPlayerCar2().setTurnRight(false);
+                break;
+            case F:
+                this.getGame().getPlayerCar2().setActivatePowerup(false);
                 break;
         }
     }

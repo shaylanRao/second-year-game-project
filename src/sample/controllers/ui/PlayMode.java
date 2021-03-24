@@ -36,7 +36,7 @@ public class PlayMode {
 
         Main.sceneManager.activateNextButton(nextButton);
 
-        Main.settings.setPlayMode(Settings.PlayMode.STANDARD);
+        Main.settings.setPlayMode(Settings.PlayMode.MULTIPLAYER);
     }
 
     public void gameModeThreeClicked(ActionEvent actionEvent) {

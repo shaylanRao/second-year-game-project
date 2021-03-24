@@ -40,7 +40,9 @@ public class Game
 		Random random = new Random();
 
 		playerCar.render(300, 450);
-		playerCar2.render(300, 450);
+		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+			playerCar2.render(300, 450);
+		}
 		for (Powerup bananaPowerup : powerups)
 		{
 			int x = random.nextInt(1280);
@@ -53,7 +55,9 @@ public class Game
 	{
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.playerCar = new PlayerCar(gameBackground);
-		this.playerCar2 = new PlayerCar(gameBackground);
+		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+			this.playerCar2 = new PlayerCar(gameBackground);
+		}
 		this.powerupsDischarge = new ArrayList<>();
 
 		// generates powerups
@@ -106,25 +110,7 @@ public class Game
 					rot += turningSpeed;
 				}
 
-				double dy2 = 0, rot2 = 0;
 
-				double forwardVelocity2 = playerCar2.getForwardSpeed();
-				double turningSpeed2 = playerCar2.getTurningSpeed();
-				if (playerCar2.isGoingForward()){
-					dy2 -= forwardVelocity2;
-				}
-				if (playerCar2.isGoingBackward())
-				{
-					dy2 += 1;
-				}
-				if (playerCar2.isTurnLeft())
-				{
-					rot2 -= turningSpeed2;
-				}
-				if (playerCar2.isTurnRight())
-				{
-					rot2 += turningSpeed2;
-				}
 
 				/*
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
@@ -201,14 +187,7 @@ public class Game
 
 				playerCar.turn(rot);
 
-				playerCar2.moveCarBy(dy2);
-				if (rot2 > 2.3) {
-					rot2 = 2.3;
-				} else if (rot2 < - 2.3) {
-					rot2 = - 2.3;
-				}
 
-				playerCar2.turn(rot2);
 
 				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
 					//set raycaster position and rotation = the car's position and rotation
@@ -220,6 +199,37 @@ public class Game
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
 					System.out.println(Arrays.toString(distances));
+				}
+
+				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					double dy2 = 0, rot2 = 0;
+
+					double forwardVelocity2 = playerCar2.getForwardSpeed();
+					double turningSpeed2 = playerCar2.getTurningSpeed();
+					if (playerCar2.isGoingForward()){
+						dy2 -= forwardVelocity2;
+					}
+					if (playerCar2.isGoingBackward())
+					{
+						dy2 += 1;
+					}
+					if (playerCar2.isTurnLeft())
+					{
+						rot2 -= turningSpeed2;
+					}
+					if (playerCar2.isTurnRight())
+					{
+						rot2 += turningSpeed2;
+					}
+
+					playerCar2.moveCarBy(dy2);
+					if (rot2 > 2.3) {
+						rot2 = 2.3;
+					} else if (rot2 < - 2.3) {
+						rot2 = - 2.3;
+					}
+
+					playerCar2.turn(rot2);
 				}
 			}
 
