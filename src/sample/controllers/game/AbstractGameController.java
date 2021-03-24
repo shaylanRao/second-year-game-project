@@ -38,7 +38,7 @@ public abstract class AbstractGameController implements Initializable {
             case RIGHT:
                 this.getGame().getPlayerCar().setTurnRight(true);
                 break;
-            case L:
+            case CONTROL:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
                 this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 break;
