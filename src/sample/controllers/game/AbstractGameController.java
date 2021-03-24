@@ -38,6 +38,29 @@ public abstract class AbstractGameController implements Initializable {
             case RIGHT:
                 this.getGame().getPlayerCar().setTurnRight(true);
                 break;
+            case L:
+                this.getGame().getPlayerCar().setActivatePowerup(true);
+                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                break;
+        }
+    }
+
+    public void keyClickedTwo(KeyEvent event) {
+        KeyCode code = event.getCode();
+        switch (code) {
+            case W:
+                this.getGame().getPlayerCar().setGoingForward(true);
+                this.getGame().getPlayerCar().setAccelerate(true);
+                break;
+            case S:
+                this.getGame().getPlayerCar().setGoingBackward(true);
+                break;
+            case A:
+                this.getGame().getPlayerCar().setTurnLeft(true);
+                break;
+            case D:
+                this.getGame().getPlayerCar().setTurnRight(true);
+                break;
             case F:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
                 this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
@@ -59,6 +82,28 @@ public abstract class AbstractGameController implements Initializable {
                 this.getGame().getPlayerCar().setTurnLeft(false);
                 break;
             case RIGHT:
+                this.getGame().getPlayerCar().setTurnRight(false);
+                break;
+            case L:
+                this.getGame().getPlayerCar().setActivatePowerup(false);
+                break;
+        }
+    }
+
+    public void keyReleasedTwo(KeyEvent event) {
+        // need to add 2nd player listeners
+        KeyCode code = event.getCode();
+        switch (code) {
+            case W:
+                this.getGame().getPlayerCar().setAccelerate(false);
+                break;
+            case S:
+                this.getGame().getPlayerCar().setGoingBackward(false);
+                break;
+            case A:
+                this.getGame().getPlayerCar().setTurnLeft(false);
+                break;
+            case D:
                 this.getGame().getPlayerCar().setTurnRight(false);
                 break;
             case F:

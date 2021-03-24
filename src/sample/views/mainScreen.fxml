@@ -17,7 +17,7 @@
             <Button text="Settings" onAction="#settingsClicked" styleClass="button"/>
             <Button text="Controls" onAction="#controlsClicked" styleClass="button"/>
             <Button text="Quit" onAction="#quitClicked" id="quitButton" styleClass="button"/>
-            <Button text="startGame" onAction="#startGame" id="startGame" styleClass="button"/>
+            <!--Button text="startGame" onAction="#startGame" id="startGame" styleClass="button"/-->
         </VBox>
     </left>
 </BorderPane>
