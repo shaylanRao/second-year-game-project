@@ -61,7 +61,7 @@ public abstract class AbstractGameController implements Initializable {
             case RIGHT:
                 this.getGame().getPlayerCar().setTurnRight(false);
                 break;
-            case L:
+            case CONTROL:
                 this.getGame().getPlayerCar().setActivatePowerup(false);
                 break;
         }
