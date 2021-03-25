@@ -33,13 +33,17 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		Random random = new Random();
-
 		playerCar.render(300, 450);
+		Random random = new Random();
+		double x, y;
+
 		for (Powerup bananaPowerup : powerups)
 		{
-			int x = random.nextInt(1280);
-			int y = random.nextInt(720);
+			Point spawnPoint = Main.trackBuilder.getPowerupSpawns().get(random.nextInt(Main.trackBuilder.getPowerupSpawns().size()));
+			x = spawnPoint.getXConverted();
+			y = spawnPoint.getYConverted();
+			x -= bananaPowerup.getImage().getFitWidth()/2;
+			y += bananaPowerup.getImage().getFitWidth()/2;
 			bananaPowerup.render(x, y);
 		}
 	}
@@ -183,8 +187,8 @@ public class Game
 					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
 
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
-					System.out.println(Arrays.toString(distances));
+					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), false);
+					//System.out.println(Arrays.toString(distances));
 				}
 			}
 

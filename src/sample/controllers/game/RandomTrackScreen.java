@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import sample.Main;
 import sample.models.Game;
+import sample.models.Point;
 import sample.models.Raycaster;
 import sample.models.TrackBuilder;
 
@@ -27,6 +28,11 @@ public class RandomTrackScreen extends AbstractGameController {
         raycaster = new Raycaster(pane);
         //display track on screen
         pane.getChildren().addAll(Main.trackBuilder.getTrackLines());
+/*        for (Point point : Main.trackBuilder.getPowerupSpawns()) {
+            Line line = new Line(point.getXConverted(), point.getYConverted(), point.getXConverted(), point.getYConverted());
+            line.setStrokeWidth(5);
+            pane.getChildren().add(line);
+        }*/
         try {
             game = new Game();
             game.initialiseGameObjects(pane);

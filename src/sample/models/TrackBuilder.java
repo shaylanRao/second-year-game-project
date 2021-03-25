@@ -10,6 +10,11 @@ public class TrackBuilder {
     private final int trackWidth = 150;
     private ArrayList<Line> trackLines;
 
+    public ArrayList<Point> getPowerupSpawns() {
+        return powerupSpawns;
+    }
+
+    private ArrayList<Point> powerupSpawns;
     public ArrayList<Line> getTrackLines() {
         return trackLines;
     }
@@ -20,7 +25,8 @@ public class TrackBuilder {
         //generate points
         ArrayList<Point> outerPoints = new ArrayList<>();
         ArrayList<Point> innerPoints = new ArrayList<>();
-        double x1, y1, x2, y2;
+        powerupSpawns = new ArrayList<>();
+        double x1, y1, x2, y2, x3, y3;
         for (double a = 0; a < 6.3; a += 0.1) {
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 200);
@@ -36,6 +42,12 @@ public class TrackBuilder {
             Point innerPoint = new Point(x2, y2);
             innerPoints.add(innerPoint);
 
+            //generate points halfway through track for powerups to spawn
+            double powerupNoise = (Math.random() - 0.5)*20;
+            x3 = (r-(trackWidth/4)) * Math.cos(a)*2 + powerupNoise;
+            y3 = (r-(trackWidth/4)) * Math.sin(a) + powerupNoise;
+            Point spawnPoint = new Point(x3, y3);
+            powerupSpawns.add(spawnPoint);
         }
         //generate lines
         ArrayList<Line> outerLines = new ArrayList<>();
