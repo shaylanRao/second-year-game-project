@@ -23,6 +23,8 @@ public class Game
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
 
+
+
 	public PlayerCar getPlayerCar()
 	{
 		return playerCar;
@@ -77,22 +79,32 @@ public class Game
 
 		AnimationTimer timer = new AnimationTimer()
 		{
+			private double dy;
+			private double rot;
+
 			@Override
 			public void handle(long now)
 			{
+				this.carMovement();
 
-				double dy = 0, rot = 0;
+				this.powerupPickup();
+
+				this.usePowerup();
+
+				this.powerupDrop();
+
+				this.makeRandomTrack();
+			}
+
+
+
+			private void carMovement(){
+				dy = 0;
+				rot = 0;
 
 				double forwardVelocity = playerCar.getForwardSpeed();
 				double turningSpeed = playerCar.getTurningSpeed();
-				if (playerCar.isGoingForward())
-				{
-					dy -= forwardVelocity;
-				}
-				else
-				{ //for car roll, needs to keep car moving forward
-					dy -= forwardVelocity;
-				}
+				this.dy -= forwardVelocity;
 				if (playerCar.isGoingBackward())
 				{
 					dy += 1;
@@ -106,11 +118,21 @@ public class Game
 					rot += turningSpeed;
 				}
 
+				playerCar.moveCarBy(dy);
+				if (rot > 2.3) {
+					rot = 2.3;
+				} else if (rot < - 2.3) {
+					rot = - 2.3;
+				}
+
+				playerCar.turn(rot);
+			}
+
+			private void powerupPickup(){
 				/*
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
 				 then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
 				*/
-
 				for (Powerup powerup : powerups)
 				{
 					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
@@ -128,12 +150,16 @@ public class Game
 						//
 						//                        double x = playerCarLayoutX - powerupWidth;
 						//                        double y = playerCarLayoutY - powerupHeight;
-					} else if (!powerup.shouldCollide) {
-							if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
-								powerup.activate();
-							}
+					}
+					else if (!powerup.shouldCollide) {
+						if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
+							powerup.activate();
 						}
 					}
+				}
+			}
+
+			private void usePowerup(){
 				if (playerCar.isActivatedPowerup())
 				{
 					ok = true;
@@ -144,7 +170,7 @@ public class Game
 							double playerCarLayoutY = playerCar.getImage().getLayoutY();
 							double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
 							double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
-	
+
 							double x = playerCarLayoutX - powerupWidth;
 							double y = playerCarLayoutY - powerupHeight;
 							if (powerup instanceof BananaPowerup)
@@ -170,28 +196,6 @@ public class Game
 						}
 					}
 				}
-				this.powerupDrop();
-
-				playerCar.moveCarBy(dy);
-				if (rot > 2.3) {
-					rot = 2.3;
-				} else if (rot < - 2.3) {
-					rot = - 2.3;
-				}
-
-				playerCar.turn(rot);
-
-				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
-					//set raycaster position and rotation = the car's position and rotation
-					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
-							Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
-
-					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
-
-					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), false);
-					//System.out.println(Arrays.toString(distances));
-				}
 			}
 
 			private void powerupDrop(){
@@ -212,7 +216,25 @@ public class Game
 					}
 				}
 			}
+
+			private void makeRandomTrack(){
+				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
+					//set raycaster position and rotation = the car's position and rotation
+					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
+							Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
+
+					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
+
+					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
+					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
+					//System.out.println(Arrays.toString(distances));
+				}
+			}
 		};
 		timer.start();
 	}
+
+
+
+
 }
