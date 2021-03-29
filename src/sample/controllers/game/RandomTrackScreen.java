@@ -28,11 +28,11 @@ public class RandomTrackScreen extends AbstractGameController {
         raycaster = new Raycaster(pane);
         //display track on screen
         pane.getChildren().addAll(Main.trackBuilder.getTrackLines());
-/*        for (Point point : Main.trackBuilder.getPowerupSpawns()) {
+        for (Point point : Main.trackBuilder.getPowerupSpawns()) {
             Line line = new Line(point.getXConverted(), point.getYConverted(), point.getXConverted(), point.getYConverted());
             line.setStrokeWidth(5);
             pane.getChildren().add(line);
-        }*/
+        }
         try {
             game = new Game();
             game.initialiseGameObjects(pane);

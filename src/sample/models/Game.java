@@ -36,14 +36,16 @@ public class Game
 		playerCar.render(300, 450);
 		Random random = new Random();
 		double x, y;
-
+		ArrayList<Point> spawnPoints = Main.trackBuilder.getPowerupSpawns();
 		for (Powerup bananaPowerup : powerups)
 		{
-			Point spawnPoint = Main.trackBuilder.getPowerupSpawns().get(random.nextInt(Main.trackBuilder.getPowerupSpawns().size()));
+			Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
+			spawnPoints.remove(spawnPoint);
 			x = spawnPoint.getXConverted();
 			y = spawnPoint.getYConverted();
-			x -= bananaPowerup.getImage().getFitWidth()/2;
-			y += bananaPowerup.getImage().getFitWidth()/2;
+			//TODO find a way to get image dimensions programmatically
+			x -= 25;
+			y -= 25;
 			bananaPowerup.render(x, y);
 		}
 	}
