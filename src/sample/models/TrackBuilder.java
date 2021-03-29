@@ -48,13 +48,12 @@ public class TrackBuilder {
             Point innerPoint = new Point(x2, y2);
             innerPoints.add(innerPoint);
 
-            //generate points halfway through track for powerups to spawn
-            double powerupNoise = (Math.random() - 0.5)*20;
-            x3 = (r-(trackWidth/4)) * Math.cos(a)*2 + powerupNoise;
-            y3 = (r-(trackWidth/4)) * Math.sin(a) + powerupNoise;
-            Point spawnPoint = new Point(x3, y3);
-            //TODO change 5 to a constant, i.e., spawnpoint factor
             if (counter % spawnFactor == 0) {
+                //generate points halfway through track for powerups to spawn
+                double powerupNoise = (Math.random() - 0.5)*20;
+                x3 = (r-(trackWidth/4)) * Math.cos(a)*2 + powerupNoise;
+                y3 = (r-(trackWidth/4)) * Math.sin(a) + powerupNoise;
+                Point spawnPoint = new Point(x3, y3);
                 powerupSpawns.add(spawnPoint);
             }
         }
