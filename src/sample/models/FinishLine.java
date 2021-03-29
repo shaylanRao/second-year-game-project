@@ -7,19 +7,20 @@ import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 
-public class BananaPowerup extends Powerup {
+public class FinishLine extends Powerup {
 
-    public BananaPowerup(Pane gameBackground) {
-        super(gameBackground, generateCarImageView());
+    public FinishLine(Pane gameBackground) {
+        super(gameBackground, generateFinishImageView());
     }
 
-    private static ImageView generateCarImageView() {
+    private static ImageView generateFinishImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/banana.png");
+            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/finishLine.png");
+
             Image carImage = new Image(carImageFile);
             return new ImageView(carImage);
         } catch (Exception ex) {
-            System.out.println("Error when loading car image");
+            System.out.println("Error when loading finish line");
         }
         return null;
     }
