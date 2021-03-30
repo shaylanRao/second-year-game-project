@@ -11,6 +11,7 @@ public class SpeedboosterPowerup extends Powerup {
 
     public SpeedboosterPowerup(Pane gameBackground) {
         super(gameBackground, generateImageView());
+        this.name = "powerupSpeedbooster";
     }
 
     private static ImageView generateImageView() {

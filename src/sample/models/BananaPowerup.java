@@ -11,6 +11,7 @@ public class BananaPowerup extends Powerup {
 
     public BananaPowerup(Pane gameBackground) {
         super(gameBackground, generateCarImageView());
+        this.name = "banana";
     }
 
     private static ImageView generateCarImageView() {

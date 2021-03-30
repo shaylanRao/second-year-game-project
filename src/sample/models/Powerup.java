@@ -10,6 +10,7 @@ public class Powerup extends Sprite {
 	
 	protected boolean shouldCollide = true;
 	protected long pickUptime = -1;
+	protected String name = "";
 
     public Powerup(Pane gameBackground, ImageView imageView) {
         super(gameBackground, imageView);
@@ -25,5 +26,9 @@ public class Powerup extends Sprite {
     	this.getImage().setVisible(true);
     	this.shouldCollide = true;
         this.pickUptime = -1;
+    }
+    
+    public String getName() {
+    	return this.name;
     }
 }
