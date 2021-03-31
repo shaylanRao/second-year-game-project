@@ -75,16 +75,10 @@
     <bottom>
         <HBox>
             <Button onAction="#backButtonClicked" text="Back">
-                <BorderPane.margin>
-                    <Insets bottom="20.0" />
-                </BorderPane.margin>
                 <HBox.margin>
-                    <Insets bottom="20.0" />
+                    <Insets bottom="100.0" />
                 </HBox.margin>
             </Button>
-         <padding>
-            <Insets top="20.0" />
-         </padding>
         </HBox>
     </bottom>
 

@@ -46,7 +46,7 @@ public class Main extends Application {
         //primaryStage.setFullScreen(true);
         primaryStage.setTitle("RACING GAME 2D");
         primaryStage.setScene(currentScene);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.show();
 
         try {

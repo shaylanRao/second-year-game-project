@@ -65,7 +65,7 @@
         <HBox>
             <Button text="BACK" onAction="#backClicked" styleClass="button">
                 <HBox.margin>
-                    <Insets bottom="30.0" left="30.0" />
+                    <Insets bottom="100.0" left="30.0" />
                 </HBox.margin>
             </Button>
         </HBox>

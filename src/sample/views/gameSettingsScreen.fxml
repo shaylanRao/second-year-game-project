@@ -18,7 +18,7 @@
     <center>
         <VBox alignment="CENTER" spacing="50">
             <Label styleClass="label" text="Choose a Difficulty Mode"/>
-        <HBox>
+        <HBox alignment="CENTER">
             <Button styleClass="card" text="EASY" onAction="#easyClicked">
                 <HBox.margin>
                     <Insets left="20.0" top="40.0" />
@@ -38,7 +38,7 @@
         <HBox>
             <Button text="BACK" onAction="#backClicked" styleClass="button">
                 <HBox.margin>
-                    <Insets bottom="30.0" left="30.0" />
+                    <Insets bottom="100.0" left="30.0" />
                 </HBox.margin>
             </Button>
         </HBox>

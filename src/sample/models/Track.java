@@ -4,6 +4,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
+import sample.Main;
 import sample.utilities.FastNoise;
 import sample.utilities.Mapper;
 
