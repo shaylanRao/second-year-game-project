@@ -1,38 +1,79 @@
 package sample.models;
 
 import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.PathElement;
 import sample.utilities.FastNoise;
 import sample.utilities.Mapper;
 
 import java.util.ArrayList;
 
-public class TrackBuilder {
-    private final int trackWidth = 150;
+public class Track {
+
+    private static final int trackWidth = 150;
     /**
      * Determines how many powerups should be spawned. The greater the spawnFactor, the fewer powerups
      */
-    private final int spawnFactor = 5;
+    private static final int spawnFactor = 5;
+    private ArrayList<Point> powerupSpawns;
+    private ArrayList<Point> outerPoints;
+    private ArrayList<Point> innerPoints;
     private ArrayList<Line> trackLines;
+
+    /**
+     * @return the list of the PathElement's making up the outer track. This gets used to create a Path object in RandomTrackScreen.java
+     */
+    public ArrayList<PathElement> getOuterPathElems() {
+        ArrayList<PathElement> outerPathElems = new ArrayList<>();
+        for (int i = 0; i< outerPoints.size(); i++) {
+            if (i == 0) {
+                outerPathElems.add(new MoveTo(outerPoints.get(0).getXConverted(), outerPoints.get(0).getYConverted()));
+            } else {
+                outerPathElems.add(new LineTo(outerPoints.get(i).getXConverted(), outerPoints.get(i).getYConverted()));
+            }
+        }
+        return outerPathElems;
+    }
+
+    /**
+     * @return the list of the PathElement's making up the inner track. This gets used to create a Path object in RandomTrackScreen.java
+     */
+    public ArrayList<PathElement> getInnerPathElems() {
+        ArrayList<PathElement> innerPathElems = new ArrayList<>();
+        for (int i = 0; i< outerPoints.size(); i++) {
+            if (i == 0) {
+                innerPathElems.add(new MoveTo(innerPoints.get(0).getXConverted(), innerPoints.get(0).getYConverted()));
+            } else {
+                innerPathElems.add(new LineTo(innerPoints.get(i).getXConverted(), innerPoints.get(i).getYConverted()));
+            }
+        }
+        return innerPathElems;
+    }
 
     public ArrayList<Point> getPowerupSpawns() {
         return powerupSpawns;
     }
 
-    private ArrayList<Point> powerupSpawns;
     public ArrayList<Line> getTrackLines() {
         return trackLines;
     }
-    public void BuildTrack() {
+
+    public Track() {
+        outerPoints = new ArrayList<>();
+        innerPoints = new ArrayList<>();
+        BuildTrack();
+    }
+
+    private void BuildTrack() {
         //setup perlin noise generator
         FastNoise noise = new FastNoise();
         noise.SetNoiseType(FastNoise.NoiseType.Perlin);
         //generate points
-        ArrayList<Point> outerPoints = new ArrayList<>();
-        ArrayList<Point> innerPoints = new ArrayList<>();
         powerupSpawns = new ArrayList<>();
         double x1, y1, x2, y2, x3, y3;
         int counter = 0;
-        for (double a = 0; a < 6.3; a += 0.1) {
+        for (double a = 0; a < 2*Math.PI; a += Math.toRadians(5)) {
             counter ++;
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 200);
@@ -78,6 +119,5 @@ public class TrackBuilder {
         }
         outerLines.addAll(innerLines);
         this.trackLines=outerLines;
-        return;
     }
 }

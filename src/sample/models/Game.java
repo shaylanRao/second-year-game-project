@@ -36,7 +36,7 @@ public class Game
 		playerCar.render(300, 450);
 		Random random = new Random();
 		double x, y;
-		ArrayList<Point> spawnPoints = Main.trackBuilder.getPowerupSpawns();
+		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
 		for (Powerup bananaPowerup : powerups)
 		{
 			Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
@@ -189,7 +189,7 @@ public class Game
 					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
 
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), false);
+					double distances[] = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
 					//System.out.println(Arrays.toString(distances));
 				}
 			}
