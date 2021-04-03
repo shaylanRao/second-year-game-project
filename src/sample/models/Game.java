@@ -104,8 +104,6 @@ public class Game
 				this.makeRandomTrack();
 			}
 
-
-
 			private void carMovement(){
 				dy = 0;
 				rot = 0;
