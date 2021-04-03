@@ -238,6 +238,7 @@ public class Game
 				}
 			}
 		};
+
 		timer.start();
 	}
 
