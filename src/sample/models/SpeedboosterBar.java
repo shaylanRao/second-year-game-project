@@ -7,17 +7,17 @@ import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 
-public class OilGhostPowerup extends Powerup {
+public class SpeedboosterBar extends Powerup {
 
-    public OilGhostPowerup(Pane gameBackground) {
+    public SpeedboosterBar(Pane gameBackground) {
         super(gameBackground, generateImageView());
     }
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream oilImageFile = new FileInputStream("src/sample/resources/images/oilghost.png");
-            Image oilImage = new Image(oilImageFile);
-            return new ImageView(oilImage);
+            FileInputStream speedImageFile = new FileInputStream("src/sample/resources/images/powerupSpeedboosterBar.png");
+            Image speedImage = new Image(speedImageFile);
+            return new ImageView(speedImage);
         } catch (Exception ex) {
             System.out.println("Error when loading car image");
         }

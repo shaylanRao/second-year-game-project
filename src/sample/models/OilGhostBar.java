@@ -7,15 +7,15 @@ import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 
-public class OilGhostPowerup extends Powerup {
+public class OilGhostBar extends Powerup {
 
-    public OilGhostPowerup(Pane gameBackground) {
+    public OilGhostBar(Pane gameBackground) {
         super(gameBackground, generateImageView());
     }
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream oilImageFile = new FileInputStream("src/sample/resources/images/oilghost.png");
+            FileInputStream oilImageFile = new FileInputStream("src/sample/resources/images/oilghostBar.png");
             Image oilImage = new Image(oilImageFile);
             return new ImageView(oilImage);
         } catch (Exception ex) {
