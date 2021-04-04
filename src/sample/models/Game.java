@@ -5,6 +5,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
 import java.util.ArrayList;
@@ -144,7 +145,7 @@ public class Game
 				{
 					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
 					{
-
+						SoundManager.play("prop");
 						playerCar.addPowerup(powerup);
 						powerup.deactivate();
 						powerupsDischarge.add(powerup);
@@ -172,6 +173,7 @@ public class Game
 					ok = true;
 					System.out.println(ok);
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
+						SoundManager.play("powerUp");
 						for (Powerup powerup : powerupsDischarge) {
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
 							double playerCarLayoutY = playerCar.getImage().getLayoutY();
