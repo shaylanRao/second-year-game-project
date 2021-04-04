@@ -211,6 +211,7 @@ public class Game
 				for (Powerup pwr : powerupsDischarge)
 				{
 					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
+
 					{
 						pwr.deactivate();
 						if (pwr instanceof OilSpillPowerup)
@@ -220,6 +221,7 @@ public class Game
 						}
 						else if (pwr instanceof BananaDischargePowerup)
 						{
+							SoundManager.play("bananaFall");
 							playerCar.activatePowerup("carSpin");
 						}
 					}
