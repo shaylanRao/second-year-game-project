@@ -57,11 +57,11 @@ public class Main extends Application {
 
             mainScreen.setCurrentStage(primaryStage);
 
-            sceneManager = new SceneManager(primaryStage);
+            sceneManager = new SceneManager(currentScene);
             settings = new Settings();
 
 
-            sceneManager.setCurrentScene(currentScene);
+            sceneManager.setCurrentRoot(root);
             //TODO is this the best place to do this?
             track = new Track();
         } catch (Exception e) {

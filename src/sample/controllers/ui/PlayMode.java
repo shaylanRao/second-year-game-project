@@ -64,10 +64,7 @@ public class PlayMode {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/trackSelection.fxml"));
             Parent root = loader.load();
-
-            Scene trackSelectionScene = new Scene(root, Main.maxWidth, Main.maxHeight);
-
-            Main.sceneManager.setCurrentScene(trackSelectionScene);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
             System.out.println("Error in PlayMode.next to TrackSelection");
         }

@@ -17,8 +17,7 @@ public class SettingsScreen {
 
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/soundScreen.fxml"));
             Parent root = loader.load();
-            Scene screen = new Scene(root, Main.maxWidth, Main.maxHeight);
-            Main.sceneManager.setCurrentScene(screen);
+            Main.sceneManager.setCurrentRoot(root);
 
             // *** NEW - CHANGED ***
             // get the actual class from the FXMLLoader
@@ -41,8 +40,7 @@ public class SettingsScreen {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/visualScreen.fxml"));
             Parent root = loader.load();
-            Scene screen = new Scene(root, Main.maxWidth,Main.maxHeight);
-            Main.sceneManager.setCurrentScene(screen);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
             System.out.println("Error in visual clicked - SettingsScreen.java");
             ex.printStackTrace();
@@ -55,8 +53,7 @@ public class SettingsScreen {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/gameSettingsScreen.fxml"));
             Parent root = loader.load();
-            Scene screen = new Scene(root, Main.maxWidth,Main.maxHeight);
-            Main.sceneManager.setCurrentScene(screen);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
             System.out.println("Error in game clicked - SettingsScreen.java");
             ex.printStackTrace();
@@ -65,7 +62,6 @@ public class SettingsScreen {
 
     public void backClicked(ActionEvent actionEvent) {
         SoundManager.play("button");
-
         Main.sceneManager.setPrevScene();
     }
 }

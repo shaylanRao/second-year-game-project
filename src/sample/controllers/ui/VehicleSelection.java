@@ -65,17 +65,14 @@ public class VehicleSelection {
                 loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
             }
             root = loader.load();
-
-            Scene gameViewScene = new Scene(root,Main.maxWidth,Main.maxHeight);
-
             // solves user key click issue
-            gameViewScene.getRoot().requestFocus();
+            root.requestFocus();
 
             // to see all the selected options - settings
             // for debugging
             System.out.println(Main.settings.toString());
 
-            Main.sceneManager.setCurrentScene(gameViewScene);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
             System.out.println("error inside VehicleSelection.java - next button clicked");
             ex.printStackTrace();

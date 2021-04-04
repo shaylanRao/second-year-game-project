@@ -1,58 +1,32 @@
 package sample.models;
 
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
 import java.util.Stack;
 
-/**
- * Handles scene changes, and initialised with the primary stage.
- * */
-
 public class SceneManager {
-    private final Stack<Scene> sceneStack;
-    private final Stage currentStage;
+    private final Stack<Parent> rootStack;
+    //TODO change currentStage to currentScene as we are only ever using stage to access the scene
+    private final Scene currentScene;
 
-    public SceneManager(Stage currentStage) {
-        this.sceneStack = new Stack<>();
-        this.currentStage = currentStage;
+    public SceneManager(Scene currentScene) {
+        this.rootStack = new Stack<>();
+        this.currentScene = currentScene;
     }
 
-    private Stack<Scene> getSceneStack() {
-        return sceneStack;
-    }
-
-    public Stage getCurrentStage() {
-        return currentStage;
-    }
-
-    /**
-     * This function will set the current scene of the primary stage to the previous scene
-     * This has to be called when the previous scene needs to be set as the current scene
-     * */
     public void setPrevScene() {
         // check for stack underflow
-        if (!(this.getSceneStack().isEmpty())) {
-            this.sceneStack.pop();
-            Scene prevScene = this.getSceneStack().peek();
-            this.getCurrentStage().setScene(prevScene);
+        if (!(this.rootStack.isEmpty())) {
+            this.rootStack.pop();
+            Parent root = this.rootStack.peek();
+            this.currentScene.setRoot(root);
         }
     }
 
-    public Scene getScene() {
-        return this.getSceneStack().peek();
-    }
-
-
-    /**
-     * @param currentScene
-     * This function will set the current scene of the primary stage to the new scene which is passed as a parameter
-     * This has to be called when the new scene needs to be set as the current scene
-     * */
-    public void setCurrentScene(Scene currentScene) {
-        this.getSceneStack().push(currentScene);
-        this.getCurrentStage().setScene(currentScene);
+    public void setCurrentRoot(Parent currentRoot) {
+        this.rootStack.push(currentRoot);
+        this.currentScene.setRoot(currentRoot);
     }
 
     /**
