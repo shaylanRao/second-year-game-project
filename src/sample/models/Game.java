@@ -17,7 +17,7 @@ public class Game
 
 	private PlayerCar			playerCar;
 	private ArrayList<Powerup>	powerups;
-	private ArrayList<Powerup>	powerupsDischarge;
+	//private ArrayList<Powerup>	powerupsDischarge;
 	private FinishLine			finishLine;
 
 	public PlayerCar getPlayerCar()
@@ -59,7 +59,7 @@ public class Game
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.playerCar = new PlayerCar(gameBackground);
 		this.finishLine = new FinishLine(gameBackground);
-		this.powerupsDischarge = new ArrayList<>();
+		this.playerCar.powerupsDischarge = new ArrayList<>();
 
 		// generates powerups
 		int maxPowerups = 2;
@@ -128,7 +128,6 @@ public class Game
 
 						playerCar.addPowerup(powerup);
 						powerup.deactivate();
-						powerupsDischarge.add(powerup);
 
 						// calculating the position of the powerup and playerCar to position it
 						//                        double playerCarLayoutX = playerCar.getImage().getLayoutX();
@@ -147,7 +146,7 @@ public class Game
 				if (playerCar.isActivatedPowerup())
 				{
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
-						for (Powerup powerup : powerupsDischarge) {
+						for (Powerup powerup : playerCar.powerupsDischarge) {
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
 							double playerCarLayoutY = playerCar.getImage().getLayoutY();
 							double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
@@ -160,21 +159,21 @@ public class Game
 							{
 								BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
 								ban.render(x, y);
-								powerupsDischarge.remove(powerup);
-								powerupsDischarge.add(ban);
+								playerCar.powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.add(ban);
 								playerCar.powerUpBar.removeFirstPowerup();
 							}
 							else if (powerup instanceof OilGhostPowerup)
 							{
 								OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
 								oil.render(x, y);
-								powerupsDischarge.remove(powerup);
-								powerupsDischarge.add(oil);
+								playerCar.powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.add(oil);
 								playerCar.powerUpBar.removeFirstPowerup();
 							}
 							else if (powerup instanceof SpeedboosterPowerup)
 							{
-								powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.remove(powerup);
 								playerCar.activatePowerup("speedBoost");
 								playerCar.powerUpBar.removeFirstPowerup();
 							}
@@ -209,7 +208,7 @@ public class Game
 			}
 
 			private void powerupDrop(){
-				for (Powerup pwr : powerupsDischarge)
+				for (Powerup pwr : playerCar.powerupsDischarge)
 				{
 					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
 					{
@@ -223,7 +222,7 @@ public class Game
 						{
 							playerCar.activatePowerup("carSpin");
 						}
-						powerupsDischarge.remove(pwr);
+						playerCar.powerupsDischarge.remove(pwr);
 					}
 				}
 			}

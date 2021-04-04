@@ -5,17 +5,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class PlayerCar extends Car {
 
     private final LinkedList<Powerup> powerups;
+    public ArrayList<Powerup> powerupsDischarge;
     public PowerUpBar powerUpBar;
 
     public PlayerCar(Pane gameBackground) {
         super(gameBackground, generateCarImageView());
         this.powerups = new LinkedList<>();
         this.powerUpBar = new PowerUpBar(gameBackground);
+        this.powerupsDischarge = new ArrayList<>();
     }
 
 //    @Override
@@ -30,14 +33,16 @@ public class PlayerCar extends Car {
         // TODO set max no of powerups - 3
         if (getPowerups().size() < 3) {
             this.getPowerups().add(powerup);
+			this.powerupsDischarge.add(powerup);
             this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup);
         }
         else {
-        	this.powerups.pop();
+        	this.powerupsDischarge.remove(this.powerups.pop());
             this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup);
         	this.powerUpBar.removeFirstPowerup();
             
             this.getPowerups().add(powerup);
+			this.powerupsDischarge.add(powerup);
         }
         System.out.println("costica");
         System.out.println(this.getPowerups());
