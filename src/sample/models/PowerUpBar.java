@@ -60,13 +60,13 @@ public class PowerUpBar
 	}
 	
 	public void removeFirstPowerup() {
-		System.out.println("bunny");
-		System.out.println(this.powerupsImagesInBar);
-		Powerup pwr = this.powerupsImagesInBar.getFirst();
-		pwr.deactivate();
-		this.powerupsImagesInBar.pop();
-		System.out.println(this.powerupsImagesInBar);
-		this.powerupsImagesInBar.get(0).render(addPowerupsToCord(1), this.y);
-		this.powerupsImagesInBar.get(1).render(addPowerupsToCord(2), this.y);
+		this.powerupsImagesInBar.peekFirst().deactivate();
+		this.powerupsImagesInBar.removeFirst();
+
+		int i = 1;
+		for (Powerup powerup : powerupsImagesInBar) {
+			powerup.getImage().relocate(addPowerupsToCord(i), this.y);
+			i++;
+		}
 	}
 }

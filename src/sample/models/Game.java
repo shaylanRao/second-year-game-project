@@ -1,14 +1,11 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import sample.Main;
 import sample.controllers.game.RandomTrackScreen;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -21,7 +18,6 @@ public class Game
 	private PlayerCar			playerCar;
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
-	private boolean				ok;
 	private FinishLine			finishLine;
 
 	public PlayerCar getPlayerCar()
@@ -150,8 +146,6 @@ public class Game
 					}
 				if (playerCar.isActivatedPowerup())
 				{
-					ok = true;
-					System.out.println(ok);
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
 						for (Powerup powerup : powerupsDischarge) {
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
@@ -161,12 +155,14 @@ public class Game
 	
 							double x = playerCarLayoutX - powerupWidth;
 							double y = playerCarLayoutY - powerupHeight;
+							
 							if (powerup instanceof BananaPowerup)
 							{
 								BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
 								ban.render(x, y);
 								powerupsDischarge.remove(powerup);
 								powerupsDischarge.add(ban);
+								playerCar.powerUpBar.removeFirstPowerup();
 							}
 							else if (powerup instanceof OilGhostPowerup)
 							{
@@ -174,13 +170,17 @@ public class Game
 								oil.render(x, y);
 								powerupsDischarge.remove(powerup);
 								powerupsDischarge.add(oil);
+								playerCar.powerUpBar.removeFirstPowerup();
 							}
 							else if (powerup instanceof SpeedboosterPowerup)
 							{
 								powerupsDischarge.remove(powerup);
 								playerCar.activatePowerup("speedBoost");
+								playerCar.powerUpBar.removeFirstPowerup();
 							}
+
 							playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+							playerCar.getPowerups().pop();
 						}
 					}
 				}
@@ -223,6 +223,7 @@ public class Game
 						{
 							playerCar.activatePowerup("carSpin");
 						}
+						powerupsDischarge.remove(pwr);
 					}
 				}
 			}

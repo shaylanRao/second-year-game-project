@@ -18,13 +18,13 @@ public class PlayerCar extends Car {
         this.powerUpBar = new PowerUpBar(gameBackground);
     }
 
-    @Override
-    public boolean isActivatedPowerup() {
-    	if (powerup) {
-    		this.powerUpBar.removeFirstPowerup();
-    	}
-        return powerup;
-    }
+//    @Override
+//    public boolean isActivatedPowerup() {
+//    	if (powerup) {
+//    		this.powerUpBar.removeFirstPowerup();
+//    	}
+//        return powerup;
+//    }
     
     public void addPowerup(Powerup powerup) {
         // TODO set max no of powerups - 3
@@ -34,7 +34,13 @@ public class PlayerCar extends Car {
         }
         else {
         	this.powerups.pop();
+            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup);
+        	this.powerUpBar.removeFirstPowerup();
+            
+            this.getPowerups().add(powerup);
         }
+        System.out.println("costica");
+        System.out.println(this.getPowerups());
     }
     /**
      * Should handle powerup activate here, like changing speed of the car or something
