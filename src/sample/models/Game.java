@@ -40,18 +40,16 @@ public class Game
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
 
 		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
-		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
-		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
-		finishLine.render(x, y);
-		for (Powerup bananaPowerup : powerups)
-		{
-
-		double x = spawnPoint.getXConverted();
-		double y = spawnPoint.getYConverted();
-		x -= 25;
-		y -= 25;
-
-		finishLine.render(x, y);
+		//finishLine.render(x, y);
+//		for (Powerup bananaPowerup : powerups)
+//		{
+//
+//		double x = spawnPoint.getXConverted();
+//		double y = spawnPoint.getYConverted();
+//		x -= 25;
+//		y -= 25;
+//
+//		finishLine.render(x, y);
 		for (Powerup bananaPowerup : powerups)
 		{
 			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
