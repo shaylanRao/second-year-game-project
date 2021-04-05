@@ -19,6 +19,7 @@ public class Game
 {
 
 	private PlayerCar			playerCar;
+	private PlayerCar           playerCar2;
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
@@ -28,13 +29,19 @@ public class Game
 	{
 		return playerCar;
 	}
-
+	public PlayerCar getPlayerCar2()
+	{
+		return playerCar2;
+	}
 	/**
 	 * Sets initial game state
 	 */
 	private void initialiser()
 	{
 		playerCar.render(300, 450);
+		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+			playerCar2.render(300, 450);
+		}
 		Random random = new Random();
 		double x, y;
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
@@ -68,6 +75,9 @@ public class Game
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.playerCar = new PlayerCar(gameBackground);
 		this.finishLine = new FinishLine(gameBackground);
+		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+			this.playerCar2 = new PlayerCar(gameBackground);
+		}
 		this.powerupsDischarge = new ArrayList<>();
 
 		// generates powerups
@@ -107,8 +117,6 @@ public class Game
 
 				this.makeRandomTrack();
 			}
-
-
 
 			private void carMovement(){
 				dy = 0;
@@ -249,6 +257,11 @@ public class Game
 				}
 			}
 		};
+
 		timer.start();
 	}
+
+
+
+
 }
