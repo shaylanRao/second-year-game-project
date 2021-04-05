@@ -22,8 +22,7 @@ public class Game
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
-
-
+	private FinishLine			finishLine;
 
 	public PlayerCar getPlayerCar()
 	{
@@ -39,9 +38,23 @@ public class Game
 		Random random = new Random();
 		double x, y;
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
+
+		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
+		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
+		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
+		finishLine.render(x, y);
 		for (Powerup bananaPowerup : powerups)
 		{
-			Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
+
+		double x = spawnPoint.getXConverted();
+		double y = spawnPoint.getYConverted();
+		x -= 25;
+		y -= 25;
+
+		finishLine.render(x, y);
+		for (Powerup bananaPowerup : powerups)
+		{
+			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
 			spawnPoints.remove(spawnPoint);
 			x = spawnPoint.getXConverted();
 			y = spawnPoint.getYConverted();
@@ -56,6 +69,7 @@ public class Game
 	{
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.playerCar = new PlayerCar(gameBackground);
+		this.finishLine = new FinishLine(gameBackground);
 		this.powerupsDischarge = new ArrayList<>();
 
 		// generates powerups
@@ -133,7 +147,12 @@ public class Game
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
 				 then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
 				*/
-
+				// TODO laps counting when crossing the finish line
+				if(playerCar.collisionDetection(finishLine)) {
+					// laps ++
+					// if(laps == 10)
+					// stop the car, end game, show winner screen
+				}
 				for (Powerup powerup : powerups)
 				{
 					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))

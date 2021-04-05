@@ -10,7 +10,7 @@ public class Car extends Sprite {
     private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationModerator;
     private double speed, maximumSpeed, minimumSpeed;
-    private boolean powerup;
+    protected boolean powerup;
     final double SPEEDFACTOR = 6;
     private boolean speedBoostOn = false;
     private boolean carSpinOn = false;

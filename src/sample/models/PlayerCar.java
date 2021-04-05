@@ -2,33 +2,46 @@ package sample.models;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
-import java.util.Stack;
+import java.util.LinkedList;
 
 public class PlayerCar extends Car {
 
-    private final Stack<Powerup> powerups;
+    private final LinkedList<Powerup> powerups;
+    public PowerUpBar powerUpBar;
 
     public PlayerCar(Pane gameBackground) {
         super(gameBackground, generateCarImageView());
-        this.powerups = new Stack<>();
+        this.powerups = new LinkedList<>();
+        this.powerUpBar = new PowerUpBar(gameBackground);
     }
 
+    @Override
+    public boolean isActivatedPowerup() {
+    	if (powerup) {
+    		this.powerUpBar.removeFirstPowerup();
+    	}
+        return powerup;
+    }
+    
     public void addPowerup(Powerup powerup) {
         // TODO set max no of powerups - 3
-        if (powerups.size() < 3) {
-            this.powerups.add(powerup);
+        if (getPowerups().size() < 3) {
+            this.getPowerups().add(powerup);
+            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup);
+        }
+        else {
+        	this.powerups.pop();
         }
     }
     /**
      * Should handle powerup activate here, like changing speed of the car or something
      * */
     public void activatePowerup() {
-        if (!(this.powerups.isEmpty())) {
-            Powerup powerup = powerups.pop();
+        if (!(this.getPowerups().isEmpty())) {
+            Powerup powerup = getPowerups().pop();
             if (powerup instanceof BananaPowerup) {
                 System.out.println("detected banana powerup");
             } else if (powerup instanceof SpeedboosterPowerup) {
@@ -49,4 +62,9 @@ public class PlayerCar extends Car {
         }
         return null;
     }
+
+	public LinkedList<Powerup> getPowerups()
+	{
+		return powerups;
+	}
 }

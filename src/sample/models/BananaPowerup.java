@@ -11,11 +11,12 @@ public class BananaPowerup extends Powerup {
 
     public BananaPowerup(Pane gameBackground) {
         super(gameBackground, generateCarImageView());
+        this.name = "banana";
     }
 
     private static ImageView generateCarImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/powerupBanana.png");
+            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/banana.png");
             Image carImage = new Image(carImageFile);
             return new ImageView(carImage);
         } catch (Exception ex) {

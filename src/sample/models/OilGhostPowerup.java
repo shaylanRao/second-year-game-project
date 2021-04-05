@@ -11,6 +11,7 @@ public class OilGhostPowerup extends Powerup {
 
     public OilGhostPowerup(Pane gameBackground) {
         super(gameBackground, generateImageView());
+        this.name = "oilghost";
     }
 
     private static ImageView generateImageView() {
