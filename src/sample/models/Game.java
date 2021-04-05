@@ -227,7 +227,7 @@ public class Game
 					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
 
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					double distances[] = RandomTrackScreen.raycaster.castRays(Main.trackBuilder.getTrackLines(), true);
+					double distances[] = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
 					//System.out.println(Arrays.toString(distances));
 				}
 			}
