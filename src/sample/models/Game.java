@@ -38,7 +38,7 @@ public class Game
 		playerCar.render(300, 450);
 		Random random = new Random();
 		double x, y;
-		ArrayList<Point> spawnPoints = Main.trackBuilder.getPowerupSpawns();
+		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
 		for (Powerup bananaPowerup : powerups)
 		{
 			Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
@@ -133,6 +133,7 @@ public class Game
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
 				 then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
 				*/
+
 				for (Powerup powerup : powerups)
 				{
 					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
@@ -233,8 +234,4 @@ public class Game
 		};
 		timer.start();
 	}
-
-
-
-
 }
