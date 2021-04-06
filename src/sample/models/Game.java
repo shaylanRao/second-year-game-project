@@ -43,7 +43,7 @@ public class Game
 			playerCar2.render(350, 500);
 		}
 		Random random = new Random();
-		ArrayList<Point> spawnPoints = Main.trackBuilder.getPowerupSpawns();
+		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
 		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
 		double x = spawnPoint.getXConverted();
 		double y = spawnPoint.getYConverted();
