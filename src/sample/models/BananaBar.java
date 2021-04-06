@@ -7,15 +7,15 @@ import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 
-public class BananaPowerup extends Powerup {
+public class BananaBar extends Powerup {
 
-    public BananaPowerup(Pane gameBackground) {
+    public BananaBar(Pane gameBackground) {
         super(gameBackground, generateBananaImageView());
     }
 
     private static ImageView generateBananaImageView() {
         try {
-            FileInputStream bananaImageFile = new FileInputStream("src/sample/resources/images/banana.png");
+            FileInputStream bananaImageFile = new FileInputStream("src/sample/resources/images/bananaBar.png");
             Image bananaImage = new Image(bananaImageFile);
             return new ImageView(bananaImage);
         } catch (Exception ex) {
