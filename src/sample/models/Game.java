@@ -40,23 +40,14 @@ public class Game
 	{
 		playerCar.render(300, 450);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			playerCar2.render(300, 450);
+			playerCar2.render(350, 500);
 		}
 		Random random = new Random();
 		double x, y;
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
 
-		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
-		//finishLine.render(x, y);
-//		for (Powerup bananaPowerup : powerups)
-//		{
-//
-//		double x = spawnPoint.getXConverted();
-//		double y = spawnPoint.getYConverted();
-//		x -= 25;
-//		y -= 25;
-//
-//		finishLine.render(x, y);
+		Point spawnPoint;
+
 		for (Powerup bananaPowerup : powerups)
 		{
 			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
@@ -103,6 +94,8 @@ public class Game
 		{
 			private double dy;
 			private double rot;
+			private double dy2;
+			private double rot2;
 
 			@Override
 			public void handle(long now)
@@ -146,6 +139,39 @@ public class Game
 				}
 
 				playerCar.turn(rot);
+
+				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					dy2 = 0;
+					rot2 = 0;
+					double forwardVelocity2 = playerCar2.getForwardSpeed();
+					double turningSpeed2 = playerCar2.getTurningSpeed();
+					if (playerCar2.isGoingForward()){
+						dy2 -= forwardVelocity2;
+					}
+					if (playerCar2.isGoingBackward())
+					{
+						dy2 += 1;
+					}
+					if (playerCar2.isTurnLeft())
+					{
+						rot2 -= turningSpeed2;
+					}
+					if (playerCar2.isTurnRight())
+					{
+						rot2 += turningSpeed2;
+					}
+
+					playerCar2.moveCarBy(dy2);
+					if (rot2 > 2.3) {
+						rot2 = 2.3;
+					} else if (rot2 < - 2.3) {
+						rot2 = - 2.3;
+					}
+
+					playerCar2.turn(rot2);
+				}
+
+
 			}
 
 			private void powerupPickup(){

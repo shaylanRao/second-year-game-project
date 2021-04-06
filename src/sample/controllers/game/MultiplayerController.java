@@ -3,7 +3,7 @@ package sample.controllers.game;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class MultiplayerController extends GameController {
+public class MultiplayerController extends RandomTrackScreen {
     @Override
     public void keyClicked(KeyEvent event) {
         KeyCode code = event.getCode();

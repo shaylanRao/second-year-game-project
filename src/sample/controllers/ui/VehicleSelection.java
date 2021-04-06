@@ -54,17 +54,20 @@ public class VehicleSelection {
         SoundManager.stop("bgm");
 
         SoundManager.loop("playBgm");
-
         try {
             Parent root;
             FXMLLoader loader;
             //if track 3 was selected then run the raycasting demo, else run the standard game
-            if (Main.settings.getTrack()==Settings.Track.TRACK3) {
-                loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
-            } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+            System.out.println("IF statement");
+
+            if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
                 loader = new FXMLLoader(Main.class.getResource("views/multiplayer.fxml"));
             }
+            else if (Main.settings.getTrack()==Settings.Track.TRACK3) {
+                loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
+            }
             else {
+                //TODO remove this and only have random generated track
                 loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
             }
             root = loader.load();
