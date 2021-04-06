@@ -5,6 +5,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class Game
 		double y = spawnPoint.getYConverted();
 		x -= 25;
 		y -= 25;
-		
+
 		finishLine.render(x, y);
 		for (Powerup bananaPowerup : powerups)
 		{
@@ -193,7 +194,7 @@ public class Game
 				{
 					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
 					{
-
+						SoundManager.play("prop");
 						playerCar.addPowerup(powerup);
 						powerup.deactivate();
 
@@ -219,6 +220,7 @@ public class Game
 				{
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
 						for (Powerup powerup : playerCar.powerupsDischarge) {
+						SoundManager.play("powerUp");
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
 							double playerCarLayoutY = playerCar.getImage().getLayoutY();
 							double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
@@ -261,6 +263,7 @@ public class Game
 				for (Powerup pwr : playerCar.powerupsDischarge)
 				{
 					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
+
 					{
 						pwr.deactivate();
 						if (pwr instanceof OilSpillPowerup)
@@ -270,6 +273,7 @@ public class Game
 						}
 						else if (pwr instanceof BananaDischargePowerup)
 						{
+							SoundManager.play("bananaFall");
 							playerCar.activatePowerup("carSpin");
 						}
 						playerCar.powerupsDischarge.remove(pwr);
