@@ -43,11 +43,14 @@ public class Game
 			playerCar2.render(350, 500);
 		}
 		Random random = new Random();
-		double x, y;
-		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
-
-		Point spawnPoint;
-
+		ArrayList<Point> spawnPoints = Main.trackBuilder.getPowerupSpawns();
+		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
+		double x = spawnPoint.getXConverted();
+		double y = spawnPoint.getYConverted();
+		x -= 25;
+		y -= 25;
+		
+		finishLine.render(x, y);
 		for (Powerup bananaPowerup : powerups)
 		{
 			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
@@ -70,6 +73,7 @@ public class Game
 			this.playerCar2 = new PlayerCar(gameBackground);
 		}
 		this.powerupsDischarge = new ArrayList<>();
+		this.playerCar.powerupsDischarge = new ArrayList<>();
 
 		// generates powerups
 		int maxPowerups = 2;
@@ -192,7 +196,6 @@ public class Game
 
 						playerCar.addPowerup(powerup);
 						powerup.deactivate();
-						powerupsDischarge.add(powerup);
 
 						// calculating the position of the powerup and playerCar to position it
 						//                        double playerCarLayoutX = playerCar.getImage().getLayoutX();
@@ -214,10 +217,8 @@ public class Game
 			private void usePowerup(){
 				if (playerCar.isActivatedPowerup())
 				{
-					ok = true;
-					System.out.println(ok);
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
-						for (Powerup powerup : powerupsDischarge) {
+						for (Powerup powerup : playerCar.powerupsDischarge) {
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
 							double playerCarLayoutY = playerCar.getImage().getLayoutY();
 							double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
@@ -225,33 +226,39 @@ public class Game
 
 							double x = playerCarLayoutX - powerupWidth;
 							double y = playerCarLayoutY - powerupHeight;
+
 							if (powerup instanceof BananaPowerup)
 							{
 								BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
 								ban.render(x, y);
-								powerupsDischarge.remove(powerup);
-								powerupsDischarge.add(ban);
+								playerCar.powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.add(ban);
+								playerCar.powerUpBar.removeFirstPowerup();
 							}
 							else if (powerup instanceof OilGhostPowerup)
 							{
 								OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
 								oil.render(x, y);
-								powerupsDischarge.remove(powerup);
-								powerupsDischarge.add(oil);
+								playerCar.powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.add(oil);
+								playerCar.powerUpBar.removeFirstPowerup();
 							}
 							else if (powerup instanceof SpeedboosterPowerup)
 							{
-								powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.remove(powerup);
 								playerCar.activatePowerup("speedBoost");
+								playerCar.powerUpBar.removeFirstPowerup();
 							}
+
 							playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+							playerCar.getPowerups().pop();
 						}
 					}
 				}
 			}
 
 			private void powerupDrop(){
-				for (Powerup pwr : powerupsDischarge)
+				for (Powerup pwr : playerCar.powerupsDischarge)
 				{
 					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
 					{
@@ -265,6 +272,7 @@ public class Game
 						{
 							playerCar.activatePowerup("carSpin");
 						}
+						playerCar.powerupsDischarge.remove(pwr);
 					}
 				}
 			}

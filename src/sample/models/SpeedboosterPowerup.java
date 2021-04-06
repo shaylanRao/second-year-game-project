@@ -11,14 +11,13 @@ public class SpeedboosterPowerup extends Powerup {
 
     public SpeedboosterPowerup(Pane gameBackground) {
         super(gameBackground, generateImageView());
-        this.name = "powerupSpeedbooster";
     }
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/powerupSpeedbooster.png");
-            Image carImage = new Image(carImageFile);
-            return new ImageView(carImage);
+            FileInputStream speedImageFile = new FileInputStream("src/sample/resources/images/powerupSpeedbooster.png");
+            Image speedImage = new Image(speedImageFile);
+            return new ImageView(speedImage);
         } catch (Exception ex) {
             System.out.println("Error when loading car image");
         }
