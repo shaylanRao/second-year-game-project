@@ -170,8 +170,6 @@ public class Game
 
 					playerCar2.turn(rot2);
 				}
-
-
 			}
 
 			private void powerupPickup(){
@@ -193,15 +191,6 @@ public class Game
 						playerCar.addPowerup(powerup);
 						powerup.deactivate();
 						powerupsDischarge.add(powerup);
-
-						// calculating the position of the powerup and playerCar to position it
-						//                        double playerCarLayoutX = playerCar.getImage().getLayoutX();
-						//                        double playerCarLayoutY = playerCar.getImage().getLayoutY();
-						//                        double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
-						//                        double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
-						//
-						//                        double x = playerCarLayoutX - powerupWidth;
-						//                        double y = playerCarLayoutY - powerupHeight;
 					}
 					else if (!powerup.shouldCollide) {
 						if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
