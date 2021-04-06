@@ -170,7 +170,7 @@ public class Game
 				if (playerCar.isActivatedPowerup())
 				{
 					ok = true;
-					System.out.println(ok);
+					//System.out.println(ok);
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
 						for (Powerup powerup : powerupsDischarge) {
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
