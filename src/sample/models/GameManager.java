@@ -2,7 +2,8 @@ package sample.models;
 
 import sample.Main;
 
-public class GameManager{
+public class
+GameManager{
 
     public int lapCounter = 0;
     private int maxLaps = Main.settings.getLaps();
