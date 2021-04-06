@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>sample</OriginalElement>
+  <nodes>
+    <node x="6132.089015151516" y="0.0">sample.views</node>
+    <node x="5023.139015151515" y="8573.0">sample.controllers.game.MultiplayerController</node>
+    <node x="4813.696158008658" y="5374.0">sample.models.Sprite</node>
+    <node x="2294.927083333334" y="6691.5">sample.controllers.ui.VisualScreen</node>
+    <node x="231.66534770462022" y="1433.0">sample.models.Settings.VehicleType</node>
+    <node x="667.791666666667" y="6680.5">sample.controllers.ui.PlayMode</node>
+    <node x="4305.867614265579" y="6141.0">sample.models.Car</node>
+    <node x="2805.927083333334" y="6736.0">sample.controllers.ui.ControlsScreen</node>
+    <node x="2538.927083333334" y="6680.5">sample.controllers.ui.LapsSelection</node>
+    <node x="5012.139015151515" y="8446.0">sample.controllers.game.GameController</node>
+    <node x="1884.8003310933238" y="304.0">sample.controllers.audio.SoundObject</node>
+    <node x="4001.8676142655786" y="5663.0">sample.models.Raycaster</node>
+    <node x="2325.3349963505475" y="1455.0">sample.utilities.FastNoise.Float2</node>
+    <node x="3949.0625000000005" y="3549.0">sample.models.Point</node>
+    <node x="3526.729931037954" y="1444.0">sample.utilities.FastNoise.Float3</node>
+    <node x="1028.4253310933238" y="1433.0">sample.models.Settings.Track</node>
+    <node x="1496.791666666667" y="6703.0">sample.controllers.ui.GameSettingsScreen</node>
+    <node x="3616.604166666667" y="5396.5">sample.models.TrackBuilder</node>
+    <node x="1674.91534770462" y="7467.0">sample.controllers.ui.SettingsScreen</node>
+    <node x="3342.729931037954" y="1433.0">sample.utilities.FastNoise.Interp</node>
+    <node x="3057.729931037954" y="1433.0">sample.utilities.FastNoise.CellularDistanceFunction</node>
+    <node x="5407.089015151516" y="6724.5">sample.models.OilSpillPowerup</node>
+    <node x="3158.7099963505475" y="2207.0">sample.utilities.FastNoise</node>
+    <node x="5034.18574775999" y="5740.0">sample.models.Powerup</node>
+    <node x="964.791666666667" y="6548.5">sample.controllers.ui.SoundScreen</node>
+    <node x="469.6653477046202" y="1433.0">sample.models.Settings.Difficulty</node>
+    <node x="4582.867614265579" y="6724.5">sample.models.BananaPowerup</node>
+    <node x="1913.6753310933238" y="982.0">sample.controllers.audio.SoundManager</node>
+    <node x="3672.1327657807306" y="3682.0">sample.utilities.Mapper</node>
+    <node x="1965.952083333334" y="5341.0">sample.models.SceneManager</node>
+    <node x="0.0" y="1433.0">sample.models.Settings.PlayMode</node>
+    <node x="4007.297348484849" y="7886.0">sample.controllers.game.RandomTrackScreen</node>
+    <node x="5164.089015151516" y="6724.5">sample.models.SpeedboosterPowerup</node>
+    <node x="343.3333333333335" y="3373.0">sample.models.Settings</node>
+    <node x="3993.130681818182" y="5385.0">sample.models.Raycast</node>
+    <node x="1884.505682447397" y="5696.5">sample.Main</node>
+    <node x="1914.8003310933238" y="0.0">sample.controllers.audio.SoundPlayer</node>
+    <node x="2491.3349963505475" y="1378.0">sample.utilities.FastNoise.CellularReturnType</node>
+    <node x="4842.867614265579" y="6724.5">sample.models.OilGhostPowerup</node>
+    <node x="400.79166666666697" y="6680.5">sample.controllers.ui.VehicleSelection</node>
+    <node x="4927.139015151515" y="8143.0">sample.models.Game</node>
+    <node x="1673.6666666666672" y="3538.0">sample.utilities.AlertBox</node>
+    <node x="5035.239015151516" y="7649.0">sample.controllers.game.AbstractGameController</node>
+    <node x="3722.729931037954" y="1356.0">sample.utilities.FastNoise.NoiseType</node>
+    <node x="1229.791666666667" y="6680.5">sample.controllers.ui.TrackSelection</node>
+    <node x="5650.089015151516" y="6724.5">sample.models.BananaDischargePowerup</node>
+    <node x="2744.3349963505475" y="1433.0">sample.utilities.FastNoise.FractalType</node>
+    <node x="4924.139015151515" y="7455.0">sample.models.PlayerCar</node>
+    <node x="5919.089015151516" y="0.0">sample.resources</node>
+    <node x="1694.8666666666672" y="5352.5">sample.controllers.ui.MainScreen</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="sample.controllers.ui.LapsSelection" target="sample.Main">
+      <point x="-61.75" y="-82.5" />
+      <point x="2600.677083333334" y="6091.0" />
+      <point x="2048.380682447397" y="6091.0" />
+      <point x="60.375" y="115.5" />
+    </edge>
+    <edge source="sample.controllers.ui.GameSettingsScreen" target="sample.controllers.audio.SoundManager">
+      <point x="28.875" y="-60.0" />
+      <point x="1641.166666666667" y="2167.0" />
+      <point x="2015.3003310933238" y="2167.0" />
+      <point x="-33.875" y="522.5" />
+    </edge>
+    <edge source="sample.Main" target="sample.controllers.audio.SoundManager">
+      <point x="31.050000000000182" y="-115.5" />
+      <point x="2019.0556824473972" y="5613.0" />
+      <point x="2197.452083333334" y="5613.0" />
+      <point x="2197.452083333334" y="2187.0" />
+      <point x="2083.0503310933236" y="2187.0" />
+      <point x="33.875" y="522.5" />
+    </edge>
+    <edge source="sample.models.OilSpillPowerup" target="sample.models.Powerup">
+      <point x="-55.5" y="-38.5" />
+      <point x="5462.589015151516" y="6091.0" />
+      <point x="5167.864319188562" y="6091.0" />
+      <point x="35.17857142857156" y="72.0" />
+    </edge>
+    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.FractalType">
+      <point x="-57.8125" y="-1502.0" />
+      <point x="3285.8974963505475" y="2087.0" />
+      <point x="2792.5849963505475" y="2087.0" />
+      <point x="-48.25" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.TrackSelection" target="sample.models.Settings.Track">
+      <point x="-30.875" y="-82.5" />
+      <point x="1322.416666666667" y="6001.0" />
+      <point x="998.791666666667" y="6001.0" />
+      <point x="998.791666666667" y="2107.0" />
+      <point x="1149.1753310933238" y="2107.0" />
+      <point x="40.25" y="71.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.OilSpillPowerup">
+      <point x="95.40000000000009" y="-126.5" />
+      <point x="5155.039015151516" y="8093.0" />
+      <point x="5523.389015151515" y="8093.0" />
+      <point x="5523.389015151515" y="7435.0" />
+      <point x="5573.589015151516" y="7435.0" />
+      <point x="55.5" y="38.5" />
+    </edge>
+    <edge source="sample.controllers.audio.SoundPlayer" target="sample.controllers.audio.SoundObject">
+      <point x="40.19999999999982" y="127.0" />
+      <point x="2055.5003310933234" y="279.0" />
+      <point x="2067.5003310933234" y="279.0" />
+      <point x="52.19999999999982" y="-314.0" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.OilGhostPowerup">
+      <point x="-10.599999999999909" y="-126.5" />
+      <point x="5049.039015151516" y="8013.0" />
+      <point x="4913.639015151515" y="8013.0" />
+      <point x="4913.639015151515" y="7435.0" />
+      <point x="4953.867614265579" y="7435.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="sample.models.TrackBuilder" target="sample.utilities.FastNoise.NoiseType">
+      <point x="-18.0" y="-60.5" />
+      <point x="3706.604166666667" y="5301.0" />
+      <point x="3661.6327657807306" y="5301.0" />
+      <point x="3661.6327657807306" y="2187.0" />
+      <point x="3879.396597704621" y="2187.0" />
+      <point x="62.66666666666663" y="148.5" />
+    </edge>
+    <edge source="sample.controllers.ui.PlayMode" target="sample.controllers.audio.SoundManager">
+      <point x="34.5" y="-82.5" />
+      <point x="840.291666666667" y="6071.0" />
+      <point x="1042.791666666667" y="6071.0" />
+      <point x="1042.791666666667" y="2137.0" />
+      <point x="1947.5503310933238" y="2137.0" />
+      <point x="-101.625" y="522.5" />
+    </edge>
+    <edge source="sample.models.Car" target="sample.models.Sprite">
+      <point x="85.66666666666652" y="-622.0" />
+      <point x="4520.034280932245" y="6121.0" />
+      <point x="4474.172348484849" y="6121.0" />
+      <point x="4474.172348484849" y="5643.0" />
+      <point x="4887.946158008658" y="5643.0" />
+      <point x="-24.75" y="83.0" />
+    </edge>
+    <edge source="sample.controllers.ui.TrackSelection" target="sample.controllers.audio.SoundManager">
+      <point x="30.875" y="-82.5" />
+      <point x="1384.166666666667" y="2157.0" />
+      <point x="1992.7169977599904" y="2157.0" />
+      <point x="-56.458333333333485" y="522.5" />
+    </edge>
+    <edge source="sample.models.PlayerCar" target="sample.models.OilGhostPowerup">
+      <point x="0.0" y="-72.0" />
+      <point x="5044.139015151515" y="7435.0" />
+      <point x="5027.867614265579" y="7435.0" />
+      <point x="74.0" y="38.5" />
+    </edge>
+    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.controllers.game.AbstractGameController">
+      <point x="95.20000000000005" y="-38.5" />
+      <point x="4221.497348484849" y="7866.0" />
+      <point x="5102.439015151516" y="7866.0" />
+      <point x="-44.80000000000018" y="93.5" />
+    </edge>
+    <edge source="sample.controllers.ui.PlayMode" target="sample.Main">
+      <point x="103.5" y="-82.5" />
+      <point x="909.291666666667" y="6091.0" />
+      <point x="1910.380682447397" y="6091.0" />
+      <point x="-77.625" y="115.5" />
+    </edge>
+    <edge source="sample.Main" target="sample.models.SceneManager">
+      <point x="-10.349999999999909" y="-115.5" />
+      <point x="1977.655682447397" y="5593.0" />
+      <point x="2021.202083333334" y="5593.0" />
+      <point x="-55.25" y="116.0" />
+    </edge>
+    <edge source="sample.models.SpeedboosterPowerup" target="sample.models.Powerup">
+      <point x="-55.5" y="-38.5" />
+      <point x="5219.589015151516" y="6121.0" />
+      <point x="5125.650033474276" y="6121.0" />
+      <point x="-7.035714285714221" y="72.0" />
+    </edge>
+    <edge source="sample.models.Settings" target="sample.models.Settings.VehicleType">
+      <point x="-42.0" y="-336.0" />
+      <point x="413.3333333333335" y="2157.0" />
+      <point x="329.6653477046202" y="2157.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.LapsSelection" target="sample.controllers.audio.SoundManager">
+      <point x="61.75" y="-82.5" />
+      <point x="2724.177083333334" y="2157.0" />
+      <point x="2150.8003310933236" y="2157.0" />
+      <point x="101.625" y="522.5" />
+    </edge>
+    <edge source="sample.controllers.ui.SettingsScreen" target="sample.Main">
+      <point x="0.0" y="-60.0" />
+      <point x="1784.41534770462" y="7425.0" />
+      <point x="1979.380682447397" y="7425.0" />
+      <point x="-8.625" y="115.5" />
+    </edge>
+    <edge source="sample.Main" target="sample.models.TrackBuilder">
+      <point x="51.75" y="-115.5" />
+      <point x="2039.755682447397" y="5623.0" />
+      <point x="3670.604166666667" y="5623.0" />
+      <point x="-54.0" y="60.5" />
+    </edge>
+    <edge source="sample.models.Powerup" target="sample.models.Sprite">
+      <point x="49.25" y="-72.0" />
+      <point x="5181.93574775999" y="5633.0" />
+      <point x="4986.946158008658" y="5633.0" />
+      <point x="74.25" y="83.0" />
+    </edge>
+    <edge source="sample.controllers.game.GameController" target="sample.controllers.game.AbstractGameController">
+      <point x="59.5" y="-38.5" />
+      <point x="5190.639015151515" y="8421.0" />
+      <point x="5213.789015151517" y="8421.0" />
+      <point x="5213.789015151517" y="7866.0" />
+      <point x="5236.839015151516" y="7866.0" />
+      <point x="89.59999999999991" y="93.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.BananaPowerup">
+      <point x="-42.40000000000009" y="-126.5" />
+      <point x="5017.239015151516" y="8043.0" />
+      <point x="4649.039015151515" y="8043.0" />
+      <point x="4649.039015151515" y="7435.0" />
+      <point x="4622.867614265579" y="7435.0" />
+      <point x="-80.0" y="38.5" />
+    </edge>
+    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.CellularReturnType">
+      <point x="-104.0625" y="-1502.0" />
+      <point x="3239.6474963505475" y="2107.0" />
+      <point x="2549.5849963505475" y="2107.0" />
+      <point x="-58.25" y="126.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.Settings">
+      <point x="-116.59999999999991" y="-126.5" />
+      <point x="4943.039015151516" y="8113.0" />
+      <point x="390.29166666666697" y="8113.0" />
+      <point x="390.29166666666697" y="5321.0" />
+      <point x="357.3333333333335" y="5321.0" />
+      <point x="-98.0" y="336.0" />
+    </edge>
+    <edge source="sample.models.PlayerCar" target="sample.models.SpeedboosterPowerup">
+      <point x="102.85714285714266" y="-72.0" />
+      <point x="5146.996158008658" y="7435.0" />
+      <point x="5201.089015151516" y="7435.0" />
+      <point x="-74.0" y="38.5" />
+    </edge>
+    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.models.Raycaster">
+      <point x="-47.59999999999991" y="-38.5" />
+      <point x="4078.697348484849" y="7866.0" />
+      <point x="4105.214015151516" y="7866.0" />
+      <point x="4105.214015151516" y="6121.0" />
+      <point x="4072.6176142655786" y="6121.0" />
+      <point x="-70.75" y="149.0" />
+    </edge>
+    <edge source="sample.controllers.game.AbstractGameController" target="sample.models.Game">
+      <point x="0.0" y="93.5" />
+      <point x="5147.239015151516" y="8033.0" />
+      <point x="5091.439015151516" y="8033.0" />
+      <point x="31.800000000000182" y="-126.5" />
+    </edge>
+    <edge source="sample.controllers.ui.SoundScreen" target="sample.controllers.audio.SoundObject">
+      <point x="-81.66666666666674" y="-214.5" />
+      <point x="1005.6250000000002" y="6021.0" />
+      <point x="196.5" y="6021.0" />
+      <point x="196.5" y="957.0" />
+      <point x="1910.9003310933238" y="957.0" />
+      <point x="-104.40000000000009" y="314.0" />
+    </edge>
+    <edge source="sample.models.TrackBuilder" target="sample.utilities.Mapper">
+      <point x="18.0" y="-60.5" />
+      <point x="3742.604166666667" y="5281.0" />
+      <point x="3798.1327657807306" y="5281.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="sample.controllers.ui.TrackSelection" target="sample.models.Settings">
+      <point x="-92.625" y="-82.5" />
+      <point x="1260.666666666667" y="6011.0" />
+      <point x="603.8333333333335" y="6011.0" />
+      <point x="603.8333333333335" y="5291.0" />
+      <point x="441.3333333333335" y="5291.0" />
+      <point x="-14.0" y="336.0" />
+    </edge>
+    <edge source="sample.Main" target="sample.controllers.ui.MainScreen">
+      <point x="-51.75" y="-115.5" />
+      <point x="1936.255682447397" y="5623.0" />
+      <point x="1752.1166666666672" y="5623.0" />
+      <point x="-57.25" y="104.5" />
+    </edge>
+    <edge source="sample.controllers.game.GameController" target="sample.models.Game">
+      <point x="-59.5" y="-38.5" />
+      <point x="5071.639015151515" y="8421.0" />
+      <point x="5059.639015151515" y="8421.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="sample.controllers.ui.VehicleSelection" target="sample.models.Settings">
+      <point x="-20.58333333333303" y="-82.5" />
+      <point x="503.70833333333394" y="6101.0" />
+      <point x="453.54166666666697" y="6101.0" />
+      <point x="453.54166666666697" y="5311.0" />
+      <point x="385.3333333333335" y="5311.0" />
+      <point x="-70.0" y="336.0" />
+    </edge>
+    <edge source="sample.models.Raycaster" target="sample.models.Raycast">
+      <point x="-117.91666666666663" y="-149.0" />
+      <point x="4025.450947598912" y="5643.0" />
+      <point x="4020.130681818182" y="5643.0" />
+      <point x="-54.0" y="72.0" />
+    </edge>
+    <edge source="sample.models.Settings" target="sample.models.Settings.Track">
+      <point x="70.0" y="-336.0" />
+      <point x="525.3333333333335" y="2067.0" />
+      <point x="1041.8419977599904" y="2067.0" />
+      <point x="-67.08333333333348" y="71.5" />
+    </edge>
+    <edge source="sample.models.PlayerCar" target="sample.models.Powerup">
+      <point x="34.28571428571422" y="-72.0" />
+      <point x="5078.42472943723" y="7435.0" />
+      <point x="5100.12472943723" y="7435.0" />
+      <point x="5100.12472943723" y="6121.0" />
+      <point x="5097.507176331419" y="6121.0" />
+      <point x="-35.17857142857156" y="72.0" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.Main">
+      <point x="-95.40000000000009" y="-126.5" />
+      <point x="4964.239015151516" y="8093.0" />
+      <point x="2273.427083333334" y="8093.0" />
+      <point x="2273.427083333334" y="6121.0" />
+      <point x="1996.630682447397" y="6121.0" />
+      <point x="8.625" y="115.5" />
+    </edge>
+    <edge source="sample.controllers.ui.VehicleSelection" target="sample.models.Settings.PlayMode">
+      <point x="-102.91666666666697" y="-82.5" />
+      <point x="421.375" y="6121.0" />
+      <point x="55.80000000000018" y="6121.0" />
+      <point x="-37.19999999999982" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.SettingsScreen" target="sample.controllers.audio.SoundManager">
+      <point x="73.0" y="-60.0" />
+      <point x="1857.41534770462" y="7435.0" />
+      <point x="2244.427083333334" y="7435.0" />
+      <point x="2244.427083333334" y="2177.0" />
+      <point x="2105.6336644266567" y="2177.0" />
+      <point x="56.45833333333303" y="522.5" />
+    </edge>
+    <edge source="sample.controllers.ui.PlayMode" target="sample.models.Settings">
+      <point x="-34.5" y="-82.5" />
+      <point x="771.291666666667" y="6031.0" />
+      <point x="592.8333333333335" y="6031.0" />
+      <point x="592.8333333333335" y="5301.0" />
+      <point x="413.3333333333335" y="5301.0" />
+      <point x="-42.0" y="336.0" />
+    </edge>
+    <edge source="sample.controllers.ui.GameSettingsScreen" target="sample.models.Settings">
+      <point x="-86.625" y="-60.0" />
+      <point x="1525.666666666667" y="5991.0" />
+      <point x="614.8333333333335" y="5991.0" />
+      <point x="614.8333333333335" y="5281.0" />
+      <point x="469.3333333333335" y="5281.0" />
+      <point x="14.0" y="336.0" />
+    </edge>
+    <edge source="sample.controllers.ui.SoundScreen" target="sample.controllers.audio.SoundManager">
+      <point x="0.0" y="-214.5" />
+      <point x="1087.291666666667" y="2147.0" />
+      <point x="1970.1336644266573" y="2147.0" />
+      <point x="-79.04166666666652" y="522.5" />
+    </edge>
+    <edge source="sample.controllers.ui.PlayMode" target="sample.models.Settings.PlayMode">
+      <point x="-103.5" y="-82.5" />
+      <point x="702.291666666667" y="6041.0" />
+      <point x="66.80000000000018" y="6041.0" />
+      <point x="66.80000000000018" y="2187.0" />
+      <point x="93.0" y="2187.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.BananaDischargePowerup">
+      <point x="127.19999999999982" y="-126.5" />
+      <point x="5186.839015151516" y="8123.0" />
+      <point x="5767.389015151515" y="8123.0" />
+      <point x="5767.389015151515" y="7435.0" />
+      <point x="5818.089015151516" y="7435.0" />
+      <point x="56.0" y="38.5" />
+    </edge>
+    <edge source="sample.models.BananaDischargePowerup" target="sample.models.Powerup">
+      <point x="56.0" y="-38.5" />
+      <point x="5818.089015151516" y="6051.0" />
+      <point x="5224.150033474276" y="6051.0" />
+      <point x="91.46428571428578" y="72.0" />
+    </edge>
+    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.models.Game">
+      <point x="59.5" y="38.5" />
+      <point x="4185.797348484849" y="8063.0" />
+      <point x="4996.039015151516" y="8063.0" />
+      <point x="-63.59999999999991" y="-126.5" />
+    </edge>
+    <edge source="sample.models.Car" target="sample.Main">
+      <point x="-85.66666666666652" y="-622.0" />
+      <point x="4348.7009475989125" y="6071.0" />
+      <point x="2082.880682447397" y="6071.0" />
+      <point x="94.875" y="115.5" />
+    </edge>
+    <edge source="sample.controllers.ui.MainScreen" target="sample.models.Settings">
+      <point x="-91.59999999999991" y="-104.5" />
+      <point x="1717.7666666666673" y="5251.0" />
+      <point x="553.3333333333335" y="5251.0" />
+      <point x="98.0" y="336.0" />
+    </edge>
+    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.CellularDistanceFunction">
+      <point x="-11.5625" y="-1502.0" />
+      <point x="3332.1474963505475" y="2067.0" />
+      <point x="3123.979931037954" y="2067.0" />
+      <point x="-66.25" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.audio.SoundObject" target="sample.controllers.audio.SoundManager">
+      <point x="104.40000000000009" y="314.0" />
+      <point x="2119.700331093324" y="957.0" />
+      <point x="2150.8003310933236" y="957.0" />
+      <point x="101.625" y="-522.5" />
+    </edge>
+    <edge source="sample.models.OilGhostPowerup" target="sample.models.Powerup">
+      <point x="55.5" y="-38.5" />
+      <point x="5009.367614265579" y="6121.0" />
+      <point x="5083.43574775999" y="6121.0" />
+      <point x="-49.25" y="72.0" />
+    </edge>
+    <edge source="sample.controllers.ui.VisualScreen" target="sample.Main">
+      <point x="-56.0" y="-71.5" />
+      <point x="2350.927083333334" y="6101.0" />
+      <point x="2031.130682447397" y="6101.0" />
+      <point x="43.125" y="115.5" />
+    </edge>
+    <edge source="sample.models.BananaPowerup" target="sample.models.Powerup">
+      <point x="-60.0" y="-38.5" />
+      <point x="4642.867614265579" y="6091.0" />
+      <point x="5041.221462045704" y="6091.0" />
+      <point x="-91.46428571428578" y="72.0" />
+    </edge>
+    <edge source="sample.controllers.ui.VehicleSelection" target="sample.Main">
+      <point x="102.91666666666697" y="-82.5" />
+      <point x="627.2083333333339" y="6081.0" />
+      <point x="1893.130682447397" y="6081.0" />
+      <point x="-94.875" y="115.5" />
+    </edge>
+    <edge source="sample.models.TrackBuilder" target="sample.utilities.FastNoise">
+      <point x="-90.0" y="-60.5" />
+      <point x="3634.604166666667" y="5321.0" />
+      <point x="3251.2099963505475" y="5321.0" />
+      <point x="-92.5" y="1502.0" />
+    </edge>
+    <edge source="sample.Main" target="sample.models.Settings">
+      <point x="-93.15000000000009" y="-115.5" />
+      <point x="1894.855682447397" y="5643.0" />
+      <point x="663.5833333333335" y="5643.0" />
+      <point x="663.5833333333335" y="5271.0" />
+      <point x="497.3333333333335" y="5271.0" />
+      <point x="42.0" y="336.0" />
+    </edge>
+    <edge source="sample.utilities.AlertBox" target="sample.controllers.audio.SoundManager">
+      <point x="0.0" y="-171.0" />
+      <point x="1814.6666666666672" y="2177.0" />
+      <point x="2037.8836644266573" y="2177.0" />
+      <point x="-11.291666666666515" y="522.5" />
+    </edge>
+    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.Main">
+      <point x="-95.19999999999982" y="-38.5" />
+      <point x="4031.097348484849" y="7866.0" />
+      <point x="2284.427083333334" y="7866.0" />
+      <point x="2284.427083333334" y="6111.0" />
+      <point x="2013.880682447397" y="6111.0" />
+      <point x="25.875" y="115.5" />
+    </edge>
+    <edge source="sample.models.Raycast" target="sample.models.Point">
+      <point x="-54.0" y="-72.0" />
+      <point x="4020.130681818182" y="5321.0" />
+      <point x="4032.107954545455" y="5321.0" />
+      <point x="-18.454545454545496" y="160.0" />
+    </edge>
+    <edge source="sample.controllers.audio.SoundObject" target="sample.controllers.audio.SoundPlayer">
+      <point x="-104.40000000000009" y="-314.0" />
+      <point x="1910.9003310933238" y="279.0" />
+      <point x="1934.9003310933238" y="279.0" />
+      <point x="-80.40000000000009" y="127.0" />
+    </edge>
+    <edge source="sample.models.PlayerCar" target="sample.models.Car">
+      <point x="-68.57142857142844" y="-72.0" />
+      <point x="4975.567586580088" y="7415.0" />
+      <point x="4498.617614265579" y="7415.0" />
+      <point x="64.25" y="622.0" />
+    </edge>
+    <edge source="sample.models.Settings" target="sample.models.Settings.Difficulty">
+      <point x="14.0" y="-336.0" />
+      <point x="469.3333333333335" y="2047.0" />
+      <point x="499.8320143712872" y="2047.0" />
+      <point x="-60.33333333333303" y="71.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.Powerup">
+      <point x="106.0" y="-126.5" />
+      <point x="5165.639015151515" y="8103.0" />
+      <point x="5639.589015151516" y="8103.0" />
+      <point x="5639.589015151516" y="6071.0" />
+      <point x="5196.007176331419" y="6071.0" />
+      <point x="63.32142857142844" y="72.0" />
+    </edge>
+    <edge source="sample.controllers.ui.ControlsScreen" target="sample.Main">
+      <point x="-61.75" y="-27.0" />
+      <point x="2867.677083333334" y="6081.0" />
+      <point x="2065.630682447397" y="6081.0" />
+      <point x="77.625" y="115.5" />
+    </edge>
+    <edge source="sample.models.Point" target="sample.Main">
+      <point x="-55.36363636363649" y="160.0" />
+      <point x="3995.198863636364" y="5311.0" />
+      <point x="3939.172348484849" y="5311.0" />
+      <point x="3939.172348484849" y="5643.0" />
+      <point x="2081.1556824473973" y="5643.0" />
+      <point x="93.15000000000009" y="-115.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.controllers.game.RandomTrackScreen">
+      <point x="-74.19999999999982" y="-126.5" />
+      <point x="4985.439015151516" y="8073.0" />
+      <point x="4066.797348484849" y="8073.0" />
+      <point x="-59.5" y="38.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.Settings.PlayMode">
+      <point x="-127.19999999999982" y="-126.5" />
+      <point x="4932.439015151516" y="8123.0" />
+      <point x="44.80000000000018" y="8123.0" />
+      <point x="44.80000000000018" y="2187.0" />
+      <point x="18.600000000000364" y="2187.0" />
+      <point x="-74.39999999999964" y="71.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.Point">
+      <point x="-53.0" y="-126.5" />
+      <point x="5006.639015151515" y="8053.0" />
+      <point x="4295.367614265579" y="8053.0" />
+      <point x="4295.367614265579" y="5271.0" />
+      <point x="4142.835227272728" y="5271.0" />
+      <point x="92.27272727272725" y="160.0" />
+    </edge>
+    <edge source="sample.controllers.ui.MainScreen" target="sample.Main">
+      <point x="57.25" y="104.5" />
+      <point x="1866.6166666666672" y="5613.0" />
+      <point x="1956.9556824473968" y="5613.0" />
+      <point x="-31.050000000000182" y="-115.5" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.SpeedboosterPowerup">
+      <point x="53.0" y="-126.5" />
+      <point x="5112.639015151515" y="8053.0" />
+      <point x="5275.089015151516" y="8053.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="sample.models.PlayerCar" target="sample.models.BananaPowerup">
+      <point x="-34.28571428571422" y="-72.0" />
+      <point x="5009.853300865801" y="7405.0" />
+      <point x="4782.867614265579" y="7405.0" />
+      <point x="80.0" y="38.5" />
+    </edge>
+    <edge source="sample.controllers.ui.VehicleSelection" target="sample.controllers.audio.SoundManager">
+      <point x="61.75" y="-82.5" />
+      <point x="586.041666666667" y="6061.0" />
+      <point x="1031.791666666667" y="6061.0" />
+      <point x="1031.791666666667" y="2127.0" />
+      <point x="1924.9669977599904" y="2127.0" />
+      <point x="-124.20833333333348" y="522.5" />
+    </edge>
+    <edge source="sample.controllers.game.MultiplayerController" target="sample.controllers.game.GameController">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.Interp">
+      <point x="34.6875" y="-1502.0" />
+      <point x="3378.3974963505475" y="2187.0" />
+      <point x="3383.729931037954" y="2187.0" />
+      <point x="-41.0" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.MainScreen" target="sample.utilities.AlertBox">
+      <point x="0.0" y="-104.5" />
+      <point x="1809.3666666666672" y="5231.0" />
+      <point x="1744.1666666666672" y="5231.0" />
+      <point x="-70.5" y="171.0" />
+    </edge>
+    <edge source="sample.controllers.ui.VisualScreen" target="sample.controllers.audio.SoundManager">
+      <point x="56.0" y="-71.5" />
+      <point x="2462.927083333334" y="2167.0" />
+      <point x="2128.2169977599906" y="2167.0" />
+      <point x="79.04166666666652" y="522.5" />
+    </edge>
+    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.NoiseType">
+      <point x="150.3125" y="-1502.0" />
+      <point x="3494.0224963505475" y="2167.0" />
+      <point x="3754.0632643712875" y="2167.0" />
+      <point x="-62.666666666666664" y="148.5" />
+    </edge>
+    <edge source="sample.controllers.ui.MainScreen" target="sample.models.Settings.Track">
+      <point x="-45.80000000000018" y="-104.5" />
+      <point x="1763.566666666667" y="5241.0" />
+      <point x="1009.791666666667" y="5241.0" />
+      <point x="1009.791666666667" y="2117.0" />
+      <point x="1176.0086644266573" y="2117.0" />
+      <point x="67.08333333333348" y="71.5" />
+    </edge>
+    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.Float2">
+      <point x="-173.4375" y="-1502.0" />
+      <point x="3170.2724963505475" y="2137.0" />
+      <point x="2349.668329683881" y="2137.0" />
+      <point x="-48.66666666666663" y="49.5" />
+    </edge>
+    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.Float3">
+      <point x="80.9375" y="-1502.0" />
+      <point x="3424.6474963505475" y="2137.0" />
+      <point x="3556.063264371287" y="2137.0" />
+      <point x="-58.66666666666674" y="60.5" />
+    </edge>
+    <edge source="sample.models.Settings" target="sample.models.Settings.PlayMode">
+      <point x="-98.0" y="-336.0" />
+      <point x="357.3333333333335" y="2177.0" />
+      <point x="130.19999999999982" y="2177.0" />
+      <point x="37.19999999999982" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.VehicleSelection" target="sample.models.Settings.Track">
+      <point x="20.58333333333303" y="-82.5" />
+      <point x="544.875" y="6051.0" />
+      <point x="685.5833333333335" y="6051.0" />
+      <point x="685.5833333333335" y="2087.0" />
+      <point x="1095.5086644266573" y="2087.0" />
+      <point x="-13.416666666666515" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.GameSettingsScreen" target="sample.Main">
+      <point x="86.625" y="-60.0" />
+      <point x="1698.916666666667" y="6121.0" />
+      <point x="1962.130682447397" y="6121.0" />
+      <point x="-25.875" y="115.5" />
+    </edge>
+    <edge source="sample.controllers.ui.SoundScreen" target="sample.Main">
+      <point x="81.66666666666674" y="-214.5" />
+      <point x="1168.9583333333337" y="6101.0" />
+      <point x="1927.630682447397" y="6101.0" />
+      <point x="-60.375" y="115.5" />
+    </edge>
+    <edge source="sample.controllers.audio.SoundManager" target="sample.controllers.audio.SoundObject">
+      <point x="-101.625" y="-522.5" />
+      <point x="1947.5503310933238" y="957.0" />
+      <point x="1963.100331093324" y="957.0" />
+      <point x="-52.19999999999982" y="314.0" />
+    </edge>
+    <edge source="sample.models.TrackBuilder" target="sample.models.Point">
+      <point x="54.0" y="-60.5" />
+      <point x="3778.604166666667" y="5291.0" />
+      <point x="3958.289772727273" y="5291.0" />
+      <point x="-92.27272727272725" y="160.0" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.Settings.Track">
+      <point x="-106.0" y="-126.5" />
+      <point x="4953.639015151515" y="8103.0" />
+      <point x="954.291666666667" y="8103.0" />
+      <point x="954.291666666667" y="2097.0" />
+      <point x="1122.3419977599904" y="2097.0" />
+      <point x="13.416666666666515" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.TrackSelection" target="sample.Main">
+      <point x="92.625" y="-82.5" />
+      <point x="1445.916666666667" y="6111.0" />
+      <point x="1944.880682447397" y="6111.0" />
+      <point x="-43.125" y="115.5" />
+    </edge>
+    <edge source="sample.controllers.ui.MainScreen" target="sample.controllers.audio.SoundManager">
+      <point x="91.59999999999991" y="-104.5" />
+      <point x="1900.9666666666672" y="5321.0" />
+      <point x="1966.1666666666672" y="5321.0" />
+      <point x="1966.1666666666672" y="2187.0" />
+      <point x="2060.4669977599906" y="2187.0" />
+      <point x="11.291666666666515" y="522.5" />
+    </edge>
+    <edge source="sample.controllers.ui.GameSettingsScreen" target="sample.models.Settings.Difficulty">
+      <point x="-28.875" y="-60.0" />
+      <point x="1583.416666666667" y="5981.0" />
+      <point x="1020.791666666667" y="5981.0" />
+      <point x="1020.791666666667" y="2057.0" />
+      <point x="620.4986810379532" y="2057.0" />
+      <point x="60.33333333333303" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.ui.ControlsScreen" target="sample.controllers.audio.SoundManager">
+      <point x="61.75" y="-27.0" />
+      <point x="2991.177083333334" y="2147.0" />
+      <point x="2173.3836644266567" y="2147.0" />
+      <point x="124.20833333333303" y="522.5" />
+    </edge>
+    <edge source="sample.controllers.ui.VehicleSelection" target="sample.models.Settings.VehicleType">
+      <point x="-61.75" y="-82.5" />
+      <point x="462.54166666666697" y="6111.0" />
+      <point x="294.3333333333335" y="6111.0" />
+      <point x="294.3333333333335" y="2187.0" />
+      <point x="264.3320143712872" y="2187.0" />
+      <point x="-65.33333333333303" y="71.5" />
+    </edge>
+    <edge source="sample.controllers.game.AbstractGameController" target="sample.models.PlayerCar">
+      <point x="0.0" y="-93.5" />
+      <point x="5147.239015151516" y="7624.0" />
+      <point x="5134.139015151515" y="7624.0" />
+      <point x="90.0" y="72.0" />
+    </edge>
+    <edge source="sample.models.Raycaster" target="sample.models.Point">
+      <point x="117.91666666666652" y="-149.0" />
+      <point x="4261.284280932245" y="5633.0" />
+      <point x="4187.630681818182" y="5633.0" />
+      <point x="4187.630681818182" y="5281.0" />
+      <point x="4124.380681818182" y="5281.0" />
+      <point x="73.81818181818176" y="160.0" />
+    </edge>
+    <edge source="sample.models.Game" target="sample.models.PlayerCar">
+      <point x="10.599999999999909" y="-126.5" />
+      <point x="5070.239015151516" y="7993.0" />
+      <point x="5014.139015151516" y="7993.0" />
+      <point x="-30.0" y="72.0" />
+    </edge>
+    <edge source="sample.controllers.ui.SettingsScreen" target="sample.controllers.ui.SoundScreen">
+      <point x="-73.0" y="-60.0" />
+      <point x="1711.41534770462" y="7435.0" />
+      <point x="1087.291666666667" y="7435.0" />
+      <point x="0.0" y="214.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3012804245010959" x="1787.438471552186" y="1437.1142507083237" />
+  <SelectedNodes>
+    <node>sample.controllers.ui.MainScreen</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
