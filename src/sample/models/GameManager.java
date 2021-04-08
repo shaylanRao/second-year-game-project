@@ -7,14 +7,13 @@ import java.util.Stack;
 
 public class GameManager{
 
+    final int[] millisecondsPassed = {0};
     public int lapCounter = 0;
+    final int lap[] = {lapCounter};
     private int maxLaps = Main.settings.getLaps();
     //Record lap times per lap (post race review thing)
-    private double lapTime[];
     private Stack<Integer> gateStack;
-    final int[] millisecondsPassed = {0};
-    final int lap[] = {lapCounter};
-    private int[] eachLap = new int[4];
+    private int[] eachLap = new int[maxLaps];
 
     public void setGateDistances(double[] gateDistances) {
         this.gateDistances = gateDistances;
@@ -52,24 +51,19 @@ public class GameManager{
     }
 
     public void lapCounter(){
+        //lapTimer();
         //if collision with lap gates (all 4 and back to 1) then lapCounter++
-        //start lapTimer
     }
 
     public void lapTimer(){
-        //Do the time
-        //final int[] secondsPassed = {0};
-        final int lap[] = {lapCounter};
         Timer myTimer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                int i = 0;
                 millisecondsPassed[0]++;
-                if (lapCounter != lap[0] && i <= lapCounter) {
-                    eachLap[i] = millisecondsPassed[0];
+                if (lap[0] != lapCounter && lap[0] < maxLaps + 1) {
+                    eachLap[lapCounter] = millisecondsPassed[0];
                     lap[0] = lapCounter;
-                    i++;
                 }
             }
         };
