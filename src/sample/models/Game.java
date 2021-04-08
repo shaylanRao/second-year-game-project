@@ -22,7 +22,7 @@ public class Game
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
-	private FinishLine			finishLine;
+	private GameManager gameManager;
 
 	public PlayerCar getPlayerCar()
 	{
@@ -37,7 +37,8 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		playerCar.render(300, 450);
+		playerCar.render(1400, 700);
+		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(350, 500);
 		}
@@ -49,7 +50,6 @@ public class Game
 		x -= 25;
 		y -= 25;
 
-		finishLine.render(x, y);
 		for (Powerup bananaPowerup : powerups)
 		{
 			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
@@ -61,13 +61,13 @@ public class Game
 			y -= 25;
 			bananaPowerup.render(x, y);
 		}
+		gameManager = new GameManager();
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
 	{
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.playerCar = new PlayerCar(gameBackground);
-		this.finishLine = new FinishLine(gameBackground);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.playerCar2 = new PlayerCar(gameBackground);
 		}
@@ -100,8 +100,7 @@ public class Game
 			private double rot2;
 
 			@Override
-			public void handle(long now)
-			{
+			public void handle(long now){
 				this.carMovement();
 
 				this.powerupPickup();
@@ -112,6 +111,7 @@ public class Game
 
 				this.makeRandomTrack();
 
+				this.lapSystem();
 			}
 
 			private void carMovement(){
@@ -182,12 +182,6 @@ public class Game
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
 				 then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
 				*/
-				// TODO laps counting when crossing the finish line
-				if(playerCar.collisionDetection(finishLine)) {
-					// laps ++
-					// if(laps == 10)
-					// stop the car, end game, show winner screen
-				}
 				for (Powerup powerup : powerups)
 				{
 					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
@@ -214,43 +208,48 @@ public class Game
 			}
 
 			private void usePowerup(){
-				if (playerCar.isActivatedPowerup()) {
-					if ((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
+				if (playerCar.isActivatedPowerup())
+				{
+					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
 						for (Powerup powerup : playerCar.powerupsDischarge) {
-							SoundManager.play("powerUp");
-								double playerCarLayoutX = playerCar.getImage().getLayoutX();
-								double playerCarLayoutY = playerCar.getImage().getLayoutY();
-								double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
-								double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
+						SoundManager.play("powerUp");
+							double playerCarLayoutX = playerCar.getImage().getLayoutX();
+							double playerCarLayoutY = playerCar.getImage().getLayoutY();
+							double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
+							double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
 
-								double x = playerCarLayoutX - powerupWidth;
-								double y = playerCarLayoutY - powerupHeight;
+							double x = playerCarLayoutX - powerupWidth;
+							double y = playerCarLayoutY - powerupHeight;
 
-								if (powerup instanceof BananaPowerup) {
-									BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
-									ban.render(x, y);
-									playerCar.powerupsDischarge.remove(powerup);
-									playerCar.powerupsDischarge.add(ban);
-									playerCar.powerUpBar.removeFirstPowerup();
-								} else if (powerup instanceof OilGhostPowerup) {
-									OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
-									oil.render(x, y);
-									playerCar.powerupsDischarge.remove(powerup);
-									playerCar.powerupsDischarge.add(oil);
-									playerCar.powerUpBar.removeFirstPowerup();
-								} else if (powerup instanceof SpeedboosterPowerup) {
-									playerCar.powerupsDischarge.remove(powerup);
-									playerCar.activatePowerup("speedBoost");
-									playerCar.powerUpBar.removeFirstPowerup();
-								}
-
-								playerCar.setPickedUpPwrtime(System.currentTimeMillis());
-								playerCar.getPowerups().pop();
+							if (powerup instanceof BananaPowerup)
+							{
+								BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
+								ban.render(x, y);
+								playerCar.powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.add(ban);
+								playerCar.powerUpBar.removeFirstPowerup();
 							}
+							else if (powerup instanceof OilGhostPowerup)
+							{
+								OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
+								oil.render(x, y);
+								playerCar.powerupsDischarge.remove(powerup);
+								playerCar.powerupsDischarge.add(oil);
+								playerCar.powerUpBar.removeFirstPowerup();
+							}
+							else if (powerup instanceof SpeedboosterPowerup)
+							{
+								playerCar.powerupsDischarge.remove(powerup);
+								playerCar.activatePowerup("speedBoost");
+								playerCar.powerUpBar.removeFirstPowerup();
+							}
+
+							playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+							playerCar.getPowerups().pop();
 						}
 					}
 				}
-
+			}
 
 			private void powerupDrop(){
 				for (Powerup pwr : playerCar.powerupsDischarge)
@@ -283,14 +282,23 @@ public class Game
 					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
 
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					double distances[] = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
-					//System.out.println(Arrays.toString(distances));
+					double distances[] = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
 				}
+			}
+
+			private void lapSystem(){
+				double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), true);
+//					System.out.println(Arrays.toString(gateDistances));
+				gameManager.setGateDistances(gateDistances);
+				//System.out.println(Arrays.toString(distances));
+				gameManager.hitGate();
 			}
 		};
 
 		timer.start();
 	}
+
+
 
 
 }
