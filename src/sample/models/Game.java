@@ -8,9 +8,7 @@ import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The class that contains the main game loop
@@ -94,7 +92,6 @@ public class Game
 	public synchronized void gameLoop() throws InterruptedException
 	{
 		this.initialiser();
-
 		AnimationTimer timer = new AnimationTimer()
 		{
 			private double dy;
@@ -114,6 +111,7 @@ public class Game
 				this.powerupDrop();
 
 				this.makeRandomTrack();
+
 			}
 
 			private void carMovement(){
@@ -293,8 +291,6 @@ public class Game
 
 		timer.start();
 	}
-
-
 
 
 }
