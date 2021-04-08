@@ -15,14 +15,14 @@ GameManager{
     public void setGateDistances(double[] gateDistances) {
         this.gateDistances = gateDistances;
     }
+    private int nextGate;
+
 
     private double[] gateDistances;
 
     public int getNextGate() {
         return nextGate;
     }
-
-    private int nextGate;
 
     public GameManager() {
         gateStack = new Stack<>();
@@ -33,20 +33,21 @@ GameManager{
         //logic for beginning of the race passing the finish line to start lap 1
     }
 
-    public void finishLine(){
+    public void hitGate(){
         //Collision detection for each gate (track gates order, do logic (should be in order 1, 2, 3, 4, 1))
 
         nextGate = gateStack.peek();
 
         for (double distance: this.gateDistances) {
-            if (distance < 20) {
+            if (0 < distance && distance < 5) {
                 //then it has hit the gate
-                System.out.println("hit a gate");
                 gateStack.pop();
+                System.out.println(gateStack);
                 if (gateStack.isEmpty()) {
                     lapCounter++;
                     resetGateStack();
                 }
+                break;
             }
         }
     }

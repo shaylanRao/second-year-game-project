@@ -285,8 +285,9 @@ public class Game
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 					double distances[] = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
 					double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), true);
-					System.out.println(Arrays.toString(gateDistances));
+//					System.out.println(Arrays.toString(gateDistances));
 					gameManager.setGateDistances(gateDistances);
+					gameManager.hitGate();
 					//System.out.println(Arrays.toString(distances));
 				}
 			}
