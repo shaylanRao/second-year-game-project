@@ -29,17 +29,18 @@ public class RandomTrackScreen extends AbstractGameController {
 
         Path outerPath = new Path(outerPathElems);
         Path innerPath = new Path(innerPathElems);
-
+        Line finishLine = Main.track.getFinishLine();
         /*for (Point point : Main.track.getPowerupSpawns()) {
             Line line = new Line(point.getXConverted(), point.getYConverted(), point.getXConverted(), point.getYConverted());
             line.setStrokeWidth(5);
             pane.getChildren().add(line);
         }*/
 
-        outerPath.setFill(Color.web("#444444"));
-        innerPath.setFill(Color.web("#013220"));
+        //outerPath.setFill(Color.web("#444444"));
+        //innerPath.setFill(Color.web("#013220"));
         pane.getChildren().add(outerPath);
         pane.getChildren().add(innerPath);
+        pane.getChildren().add(finishLine);
         try {
             game = new Game();
             game.initialiseGameObjects(pane);

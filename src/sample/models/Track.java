@@ -22,6 +22,12 @@ public class Track {
     private ArrayList<Point> innerPoints;
     private ArrayList<Line> trackLines;
 
+    public Line getFinishLine() {
+        return finishLine;
+    }
+
+    private Line finishLine;
+
     /**
      * @return the list of the PathElement's making up the outer track. This gets used to create a Path object in RandomTrackScreen.java
      */
@@ -75,6 +81,7 @@ public class Track {
         double x1, y1, x2, y2, x3, y3;
         int counter = 0;
         for (double a = 0; a < 2*Math.PI; a += Math.toRadians(5)) {
+            System.out.println("a: " + a);
             counter ++;
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 200);
@@ -90,6 +97,10 @@ public class Track {
             Point innerPoint = new Point(x2, y2);
             innerPoints.add(innerPoint);
 
+            if (a==1.570796326794896) {
+                System.out.println("pi over 2");
+                finishLine = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+            }
             if (counter % spawnFactor == 0) {
                 //generate points halfway through track for powerups to spawn
                 double powerupNoise = (Math.random() - 0.5)*20;
