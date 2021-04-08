@@ -35,20 +35,15 @@ GameManager{
 
     public void hitGate(){
         //Collision detection for each gate (track gates order, do logic (should be in order 1, 2, 3, 4, 1))
-
         nextGate = gateStack.peek();
-
-        for (double distance: this.gateDistances) {
-            if (0 < distance && distance < 5) {
-                //then it has hit the gate
-                gateStack.pop();
-                System.out.println(gateStack);
-                if (gateStack.isEmpty()) {
-                    lapCounter++;
-                    resetGateStack();
-                }
-                break;
-            }
+        //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
+        if (0 < gateDistances[7] && gateDistances[7] < 10) {
+            gateStack.pop();
+        }
+        if (gateStack.isEmpty()) {
+            lapCounter++;
+            resetGateStack();
+            nextGate = gateStack.peek();
         }
     }
 
@@ -66,9 +61,9 @@ GameManager{
     }
 
     private void resetGateStack() {
-        gateStack.push(1);
-        gateStack.push(2);
         gateStack.push(3);
+        gateStack.push(2);
+        gateStack.push(1);
         gateStack.push(0);
     }
 

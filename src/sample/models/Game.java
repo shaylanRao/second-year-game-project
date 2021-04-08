@@ -39,7 +39,8 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		playerCar.render(300, 450);
+		playerCar.render(1400, 700);
+		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(350, 500);
 		}
@@ -102,8 +103,7 @@ public class Game
 			private double rot2;
 
 			@Override
-			public void handle(long now)
-			{
+			public void handle(long now){
 				this.carMovement();
 
 				this.powerupPickup();
@@ -113,6 +113,8 @@ public class Game
 				this.powerupDrop();
 
 				this.makeRandomTrack();
+				gameManager.hitGate();
+
 			}
 
 			private void carMovement(){
@@ -287,7 +289,6 @@ public class Game
 					double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), true);
 //					System.out.println(Arrays.toString(gateDistances));
 					gameManager.setGateDistances(gateDistances);
-					gameManager.hitGate();
 					//System.out.println(Arrays.toString(distances));
 				}
 			}
