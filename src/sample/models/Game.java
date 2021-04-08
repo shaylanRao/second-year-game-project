@@ -24,6 +24,7 @@ public class Game
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
+	private GameManager gameManager;
 
 	public PlayerCar getPlayerCar()
 	{
@@ -61,6 +62,7 @@ public class Game
 			y -= 25;
 			bananaPowerup.render(x, y);
 		}
+		gameManager = new GameManager();
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
@@ -282,10 +284,9 @@ public class Game
 
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 					double distances[] = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
-					/*double gate0Distances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[0])), true);
-					double gate1Distances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[1])), true);
-					double gate2Distances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[2])), true);
-					double gate3Distances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[3])), true);*/
+					double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), true);
+					System.out.println(Arrays.toString(gateDistances));
+					gameManager.setGateDistances(gateDistances);
 					//System.out.println(Arrays.toString(distances));
 				}
 			}

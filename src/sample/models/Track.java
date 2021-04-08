@@ -111,16 +111,18 @@ public class Track {
                 gate.setStroke(Color.BLUE);
                 gates[1] = gate;
             }
-            if (a==4.712388980384686) {
+            if (a==3.141592653589791) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
                 gate.setStroke(Color.GREEN);
                 gates[2] = gate;
             }
-            if (a==3.141592653589791) {
+            if (a==4.712388980384686) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
                 gate.setStroke(Color.YELLOW);
                 gates[3] = gate;
-            }            if (counter % spawnFactor == 0) {
+            }
+
+            if (counter % spawnFactor == 0) {
                 //generate points halfway through track for powerups to spawn
                 double powerupNoise = (Math.random() - 0.5)*20;
                 x3 = (r-(trackWidth/4)) * Math.cos(a)*2 + powerupNoise;
