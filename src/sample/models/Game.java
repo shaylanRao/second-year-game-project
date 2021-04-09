@@ -22,6 +22,7 @@ public class Game
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
+	private boolean speedb = false;
 	private GameManager gameManager;
 
 	public PlayerCar getPlayerCar()
@@ -98,6 +99,7 @@ public class Game
 			private double rot;
 			private double dy2;
 			private double rot2;
+			int i;
 
 			@Override
 			public void handle(long now){
@@ -117,8 +119,18 @@ public class Game
 			private void carMovement(){
 				dy = 0;
 				rot = 0;
-
-				double forwardVelocity = playerCar.getForwardSpeed();
+				double forwardVelocity;
+				if (speedb) {
+					forwardVelocity = playerCar.getForwardSpeed()*2;
+					i++;
+					if (i > 100) {
+						speedb = false;
+						forwardVelocity = playerCar.getForwardSpeed() / 2;
+						i =0;
+					}
+				} else {
+					forwardVelocity = playerCar.getForwardSpeed();
+				}
 				double turningSpeed = playerCar.getTurningSpeed();
 				this.dy -= forwardVelocity;
 				if (playerCar.isGoingBackward())
@@ -240,7 +252,8 @@ public class Game
 							else if (powerup instanceof SpeedboosterPowerup)
 							{
 								playerCar.powerupsDischarge.remove(powerup);
-								playerCar.activatePowerup("speedBoost");
+								//playerCar.activatePowerup("speedBoost");
+								speedb = true;
 								playerCar.powerUpBar.removeFirstPowerup();
 							}
 

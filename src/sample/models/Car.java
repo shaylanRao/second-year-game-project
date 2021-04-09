@@ -17,7 +17,6 @@ public class Car extends Sprite {
     private boolean carSlideOn = false;
     private long pickedUpPwrtime = -1;
 
-
     public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
         this.setMaximumSpeed(SPEEDFACTOR *0.7);
@@ -341,7 +340,7 @@ public class Car extends Sprite {
     public void turn(double angle) {
         double cAngle = this.getImageView().getRotate();
         if(carSpinOn) {
-            System.out.println("CARSPIN");
+            //System.out.println("CARSPIN");
             this.speed = 0;
             cAngle +=11.8;
             this.getImageView().setRotate(cAngle);
@@ -393,7 +392,6 @@ public class Car extends Sprite {
             return (0.2*this.speed *this.speed);
         }
         turningSpeed = (((Math.log10(this.getForwardSpeed()/2))+0.5)*4);
-
         return (turningSpeed);
     }
 
@@ -436,11 +434,7 @@ public class Car extends Sprite {
     2. deceleration
     2.5 backwards
     3. turning speed
-
-
     4. change the center of the car png
-
-
      */
 
 
