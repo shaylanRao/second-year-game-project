@@ -1,9 +1,7 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
@@ -99,7 +97,7 @@ public class Game
 			private double rot;
 			private double dy2;
 			private double rot2;
-			int i;
+			int counter;
 
 			@Override
 			public void handle(long now){
@@ -122,11 +120,11 @@ public class Game
 				double forwardVelocity;
 				if (speedb) {
 					forwardVelocity = playerCar.getForwardSpeed()*2;
-					i++;
-					if (i > 100) {
+					counter++;
+					if (counter > 100) {
 						speedb = false;
 						forwardVelocity = playerCar.getForwardSpeed() / 2;
-						i =0;
+						counter =0;
 					}
 				} else {
 					forwardVelocity = playerCar.getForwardSpeed();
