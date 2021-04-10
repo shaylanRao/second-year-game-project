@@ -38,7 +38,7 @@ public class Main extends Application {
 
         loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
         Parent root = loader.load();
-        MainScreen mainScreen = (MainScreen) loader.getController();
+        MainScreen mainScreen = loader.getController();
         maxWidth = (int) Screen.getPrimary().getBounds().getWidth();
         maxHeight = (int) Screen.getPrimary().getBounds().getHeight();
         Scene currentScene = new Scene(root, maxWidth, maxHeight);

@@ -33,6 +33,8 @@ public class GameManager{
     }
     public void startingLap(){
         //logic for beginning of the race passing the finish line to start lap 1
+        //this.lapTimer();
+        //this.speedBoost
     }
 
     public void hitGate(){
@@ -42,14 +44,14 @@ public class GameManager{
             gateStack.pop();
         }
         if (gateStack.isEmpty()) {
-            lapCounter++;
-            System.out.println("laps: " + lapCounter);
             resetGateStack();
+            lapCounterIncrement();
         }
     }
 
-    public void lapCounter(){
-        //lapTimer();
+    public void lapCounterIncrement(){
+        lapCounter++;
+        lapTimer();
         //if collision with lap gates (all 4 and back to 1) then lapCounter++
     }
 
