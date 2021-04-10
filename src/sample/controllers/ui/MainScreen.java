@@ -87,6 +87,7 @@ public class MainScreen {
 
         try {
             Main.settings.setTrack(Settings.Track.TRACK3);
+            Main.settings.setLaps(3);
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml"));
             Parent root = loader.load();
             Scene gamePlay = new Scene(root,Main.maxWidth,Main.maxHeight);

@@ -11,9 +11,9 @@ public class GameManager{
     public int lapCounter = 0;
     final int lap[] = {lapCounter};
     private int maxLaps = Main.settings.getLaps();
-    //Record lap times per lap (post race review thing)
     private Stack<Integer> gateStack;
     private int[] eachLap = new int[maxLaps];
+    private int i = 0;
 
     public void setGateDistances(double[] gateDistances) {
         this.gateDistances = gateDistances;
@@ -44,6 +44,7 @@ public class GameManager{
             gateStack.pop();
         }
         if (gateStack.isEmpty()) {
+            gateStack.push(0);
             resetGateStack();
             lapCounterIncrement();
         }
@@ -51,8 +52,6 @@ public class GameManager{
 
     public void lapCounterIncrement(){
         lapCounter++;
-        lapTimer();
-        //if collision with lap gates (all 4 and back to 1) then lapCounter++
     }
 
     public void lapTimer(){
@@ -60,43 +59,21 @@ public class GameManager{
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                millisecondsPassed[0]++;
-                if (lap[0] != lapCounter && lap[0] < maxLaps + 1) {
-                    eachLap[lapCounter] = millisecondsPassed[0];
+                //millisecondsPassed[0]++;
+                if (lap[0] != lapCounter && lapCounter < maxLaps + 1) {
+                    eachLap[lapCounter - 1] = millisecondsPassed[0];
+                    /*if (lapCounter == maxLaps) {
+                        for (int o = 0; o < maxLaps; o++) {
+                            System.out.println(eachLap[o]);
+                        }
+                    }*/
+                    System.out.println(lapCounter);
                     lap[0] = lapCounter;
                 }
-            }
-        };
-        myTimer.scheduleAtFixedRate(task,1000,1);
-        /*TimerTask task2 = new TimerTask() {
-            @Override
-            public void run() {
-                if (lapCounter < 4) {
-                    lapCounter++;
-                    System.out.println(lapCounter);
-                }
-            }
-        };
-        myTimer.scheduleAtFixedRate(task,1000,1);
-        myTimer.scheduleAtFixedRate(task2,1000,5000);
-        //lapTime[0] = secondsPassed[0];
-        @Override
-            public void run() {
                 millisecondsPassed[0]++;
-				if (lapCounter != lap[0] && lapCounter < 4) {
-					eachLap[lapCounter] = millisecondsPassed[0];
-					lap[0] = lapCounter;
-				}
-
             }
-        DECOMMENT THIS IF YOU WANT TO TEST TIMER FUNCTION IN GAME */
-        /*if (lapCounter == 4) {
-            for (int i = 0; i < eachLap.length; i++) {
-                System.out.println(eachLap[i]);
-            }
-        }
-        PASTE THIS INTO GAME HANDLE TO TEST TIMER*/
-        //System.out.println(millisecondsPassed[0]);
+        };
+        myTimer.scheduleAtFixedRate(task,1000,1);
     }
 
     public void finishPosition(){

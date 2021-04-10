@@ -98,9 +98,14 @@ public class Game
 			private double dy2;
 			private double rot2;
 			int counter;
+			int j = 0;
 
 			@Override
 			public void handle(long now){
+				if (j == 0) {
+					gameManager.lapTimer();
+					j++;
+				}
 				this.carMovement();
 
 				this.powerupPickup();
