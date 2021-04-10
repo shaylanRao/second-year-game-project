@@ -43,6 +43,7 @@ public class GameManager{
         }
         if (gateStack.isEmpty()) {
             lapCounter++;
+            System.out.println("laps: " + lapCounter);
             resetGateStack();
         }
     }

@@ -84,7 +84,6 @@ public class Track {
         double x1, y1, x2, y2, x3, y3;
         int counter = 0;
         for (double a = 0; a < 2*Math.PI; a += Math.toRadians(5)) {
-            System.out.println("a: " + a);
             counter ++;
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 200);
@@ -101,7 +100,6 @@ public class Track {
             innerPoints.add(innerPoint);
 
             if (a==0) {
-                System.out.println("pi over 2");
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
                 gate.setStroke(Color.RED);
                 gates[0] = gate;
