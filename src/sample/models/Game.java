@@ -222,7 +222,7 @@ public class Game
 				{
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
 						for (Powerup powerup : playerCar.powerupsDischarge) {
-						SoundManager.play("powerUp");
+							SoundManager.play("powerUp");
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
 							double playerCarLayoutY = playerCar.getImage().getLayoutY();
 							double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
@@ -250,6 +250,8 @@ public class Game
 							else if (powerup instanceof SpeedboosterPowerup)
 							{
 								playerCar.powerupsDischarge.remove(powerup);
+								SoundManager.stop("powerUp");
+								SoundManager.play("SpeedBoost");
 								//playerCar.activatePowerup("speedBoost");
 								speedb = true;
 								playerCar.powerUpBar.removeFirstPowerup();
@@ -271,6 +273,7 @@ public class Game
 						pwr.deactivate();
 						if (pwr instanceof OilSpillPowerup)
 						{
+							SoundManager.play("OilFall");
 							playerCar.activatePowerup("carSlide");
 
 						}

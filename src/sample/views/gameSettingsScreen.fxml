@@ -17,7 +17,10 @@
     </stylesheets>
     <center>
         <VBox alignment="CENTER" spacing="50">
-            <Label styleClass="label" text="Choose a Difficulty Mode"/>
+            <Label styleClass="label" text="Choose a Difficulty Mode" >
+            <BorderPane.margin>
+                <Insets left="780.0" top="60.0" />
+            </BorderPane.margin></Label>>
         <HBox alignment="CENTER">
             <Button styleClass="card" text="EASY" onAction="#easyClicked">
                 <HBox.margin>

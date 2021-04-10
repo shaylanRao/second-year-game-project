@@ -220,7 +220,7 @@ public class Car extends Sprite {
             } else {
                 this.speed -= (SPEEDFACTOR * 0.005);
             }
-        //if rolling backwards, roll this way
+            //if rolling backwards, roll this way
         } else {
             if (this.speed > -SPEEDFACTOR * 0.05) {
                 this.speed += (SPEEDFACTOR * 0.001);
@@ -277,15 +277,15 @@ public class Car extends Sprite {
         this.powerup = powerup;
     }
 
-	public long getPickedUpPwrtime()
-	{
-		return pickedUpPwrtime;
-	}
+    public long getPickedUpPwrtime()
+    {
+        return pickedUpPwrtime;
+    }
 
-	public void setPickedUpPwrtime(long pickedUpPwrtime)
-	{
-		this.pickedUpPwrtime = pickedUpPwrtime;
-	}
+    public void setPickedUpPwrtime(long pickedUpPwrtime)
+    {
+        this.pickedUpPwrtime = pickedUpPwrtime;
+    }
     //todo start-off boost
     //
 
