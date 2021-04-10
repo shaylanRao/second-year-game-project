@@ -1,9 +1,7 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
@@ -22,6 +20,7 @@ public class Game
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
+	private boolean speedb = false;
 	private GameManager gameManager;
 
 	public PlayerCar getPlayerCar()
@@ -98,6 +97,7 @@ public class Game
 			private double rot;
 			private double dy2;
 			private double rot2;
+			int counter;
 
 			@Override
 			public void handle(long now){
@@ -117,8 +117,18 @@ public class Game
 			private void carMovement(){
 				dy = 0;
 				rot = 0;
-
-				double forwardVelocity = playerCar.getForwardSpeed();
+				double forwardVelocity;
+				if (speedb) {
+					forwardVelocity = playerCar.getForwardSpeed()*2;
+					counter++;
+					if (counter > 100) {
+						speedb = false;
+						forwardVelocity = playerCar.getForwardSpeed() / 2;
+						counter =0;
+					}
+				} else {
+					forwardVelocity = playerCar.getForwardSpeed();
+				}
 				double turningSpeed = playerCar.getTurningSpeed();
 				this.dy -= forwardVelocity;
 				if (playerCar.isGoingBackward())
@@ -240,9 +250,10 @@ public class Game
 							else if (powerup instanceof SpeedboosterPowerup)
 							{
 								playerCar.powerupsDischarge.remove(powerup);
-                                SoundManager.stop("powerUp");
-                                SoundManager.play("SpeedBoost");
-								playerCar.activatePowerup("speedBoost");
+								SoundManager.stop("powerUp");
+								SoundManager.play("SpeedBoost");
+								//playerCar.activatePowerup("speedBoost");
+								speedb = true;
 								playerCar.powerUpBar.removeFirstPowerup();
 							}
 
