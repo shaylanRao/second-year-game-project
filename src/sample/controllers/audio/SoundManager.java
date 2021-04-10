@@ -117,6 +117,8 @@ public class SoundManager
             LoadSound("powerUp","SpeedUp.wav",SoundObject.GAME_SFX);
             LoadSound("prop","CrashProps.wav",SoundObject.GAME_SFX);
             LoadSound("bananaFall","bananaFall.wav",SoundObject.GAME_SFX);
+            LoadSound("SpeedBoost","BoostSfx.wav",SoundObject.GAME_SFX);
+            LoadSound("OilFall","OilFall.wav",SoundObject.GAME_SFX);
 
 
             // example:

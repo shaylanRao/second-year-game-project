@@ -12,7 +12,7 @@
     <top>
         <Label styleClass="label" text="Choose a track">
             <BorderPane.margin>
-                <Insets left="420.0" top="20.0" />
+                <Insets left="780.0" top="60.0" />
             </BorderPane.margin></Label>
     </top>
     <center>

@@ -1,5 +1,6 @@
 package sample.controllers.game;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
@@ -9,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 import sample.models.*;
 
 import java.lang.reflect.Array;
@@ -51,5 +53,13 @@ public class RandomTrackScreen extends AbstractGameController {
             System.out.println("Error when initializing ");
             ex.printStackTrace();
         }
+    }
+
+    public void backClicked(ActionEvent actionEvent) {
+        SoundManager.play("button");
+        SoundManager.stop("playBgm");
+        SoundManager.play("bgm");
+        System.out.println("back button pressed");
+        Main.sceneManager.setPrevScene();
     }
 }
