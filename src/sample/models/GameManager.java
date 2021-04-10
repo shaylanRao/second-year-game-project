@@ -18,13 +18,12 @@ public class GameManager{
     public void setGateDistances(double[] gateDistances) {
         this.gateDistances = gateDistances;
     }
-    private int nextGate;
 
 
     private double[] gateDistances;
 
     public int getNextGate() {
-        return nextGate;
+        return gateStack.peek();
     }
 
     public GameManager() {
@@ -38,15 +37,13 @@ public class GameManager{
 
     public void hitGate(){
         //Collision detection for each gate (track gates order, do logic (should be in order 1, 2, 3, 4, 1))
-        nextGate = gateStack.peek();
         //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
-        if (0 < gateDistances[7] && gateDistances[7] < 1) {
+        if (0 < gateDistances[7] && gateDistances[7] < 10) {
             gateStack.pop();
         }
         if (gateStack.isEmpty()) {
             lapCounter++;
             resetGateStack();
-            nextGate = gateStack.peek();
         }
     }
 
