@@ -13,7 +13,6 @@ public class GameManager{
     private int maxLaps = Main.settings.getLaps();
     private Stack<Integer> gateStack;
     private int[] eachLap = new int[maxLaps];
-    private int i = 0;
 
     public void setGateDistances(double[] gateDistances) {
         this.gateDistances = gateDistances;
