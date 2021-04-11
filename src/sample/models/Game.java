@@ -20,8 +20,10 @@ public class Game
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
-	private boolean speedb = false;
+	private boolean speedBoost = false;
 	private GameManager gameManager;
+	private double distances[];
+
 
 	public PlayerCar getPlayerCar()
 	{
@@ -36,7 +38,7 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		playerCar.render(1400, 700);
+		playerCar.render(1700, 600);
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(350, 500);
@@ -106,6 +108,8 @@ public class Game
 					gameManager.lapTimer();
 					j++;
 				}
+				this.makeRandomTrack();
+
 				this.carMovement();
 
 				this.powerupPickup();
@@ -114,26 +118,32 @@ public class Game
 
 				this.powerupDrop();
 
-				this.makeRandomTrack();
-
 				this.lapSystem();
+
 			}
 
 			private void carMovement(){
 				dy = 0;
 				rot = 0;
-				double forwardVelocity;
-				if (speedb) {
+				double forwardVelocity = 0;
+
+
+				if (playerCar.wallCollision(distances)){
+					//add stop functionality
+					forwardVelocity
+				}
+				else if (speedBoost) {
 					forwardVelocity = playerCar.getForwardSpeed()*2;
 					counter++;
 					if (counter > 100) {
-						speedb = false;
+						speedBoost = false;
 						forwardVelocity = playerCar.getForwardSpeed() / 2;
 						counter =0;
 					}
 				} else {
 					forwardVelocity = playerCar.getForwardSpeed();
 				}
+
 				double turningSpeed = playerCar.getTurningSpeed();
 				this.dy -= forwardVelocity;
 				if (playerCar.isGoingBackward())
@@ -258,7 +268,7 @@ public class Game
 								SoundManager.stop("powerUp");
 								SoundManager.play("SpeedBoost");
 								//playerCar.activatePowerup("speedBoost");
-								speedb = true;
+								speedBoost = true;
 								playerCar.powerUpBar.removeFirstPowerup();
 							}
 
@@ -301,18 +311,28 @@ public class Game
 					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
 
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					double distances[] = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
+					distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
 				}
 			}
 
 			private void lapSystem(){
-				double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), true);
-//					System.out.println(Arrays.toString(gateDistances));
+				//Gets ray cast for next gate
+				double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), false);
+//				System.out.println(Arrays.toString(gateDistances));
 				gameManager.setGateDistances(gateDistances);
 				//System.out.println(Arrays.toString(distances));
 				gameManager.hitGate();
 			}
+
+			private void boundaryCollision(){
+				playerCar.wallCollision(distances);
+
+			}
+
 		};
+
+
+
 
 		timer.start();
 	}

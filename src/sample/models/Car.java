@@ -5,6 +5,8 @@ import javafx.scene.layout.Pane;
 import sample.Main;
 import javafx.scene.layout.BorderPane;
 
+import java.util.Arrays;
+
 public class Car extends Sprite {
 
     private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
@@ -199,7 +201,8 @@ public class Car extends Sprite {
      * @return Speed*rollingConstant
      */
     private double fRolling(){
-        double rollConst = 0.45;
+        //todo need to change
+        double rollConst = 0.1;
         return (this.speed *rollConst);
     }
 
@@ -428,6 +431,38 @@ public class Car extends Sprite {
 
     }
 
+    /**
+     * Returns speed after 3 seconds
+     * @return speed
+     */
+    public double getStartSpeed(){
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        System.out.println("Speed after 3 seconds");
+                        System.out.println(getForwardSpeed());
+                    }
+                },
+                3000
+        );
+        return(10.0);
+    }
+
+
+    public boolean wallCollision(double gateDistances[]){
+        for (double distance:gateDistances){
+            if (distance <= 37){
+                System.out.println("CRASH");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void crashed(){
+        speed = 0;
+    }
 
     /*
     1. forward acceleration

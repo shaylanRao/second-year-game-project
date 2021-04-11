@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Track {
 
-    private static final int trackWidth = 150;
+    private static final int trackWidth = 300;
     /**
      * Determines how many powerups should be spawned. The greater the spawnFactor, the fewer powerups
      */

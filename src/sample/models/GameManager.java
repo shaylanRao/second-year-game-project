@@ -46,8 +46,6 @@ public class GameManager{
         //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
         if (0 < gateDistances[7] && gateDistances[7] < 10) {
             gateStack.pop();
-            System.out.println(Arrays.toString(eachLap));
-
         }
         if (gateStack.isEmpty()) {
             resetGateStack();
@@ -79,9 +77,14 @@ public class GameManager{
         myTimer.scheduleAtFixedRate(task,1000,1);
     }
 
-    public void finishPosition(){
-        //If finished return true
+    public int totalTime(){
+        int totalTimeElapsed = 0;
+        for (int i = 0; i < maxLaps; i++) {
+            totalTimeElapsed += eachLap[i];
+        }
+        return totalTimeElapsed;
     }
+
 
     private void resetGateStack() {
         gateStack.push(0);
