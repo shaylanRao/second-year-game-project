@@ -49,10 +49,7 @@ public class TrackSelection {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/totalLapsScreen.fxml"));
             Parent root = loader.load();
-
-            Scene totalLapsScene = new Scene(root,Main.maxWidth,Main.maxHeight);
-
-            Main.sceneManager.setCurrentScene(totalLapsScene);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
             System.out.println("Error in TrackSelection.java -> next button clicked");
         }

@@ -54,10 +54,7 @@ public class LapsSelection {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicleSelection.fxml"));
             Parent root = loader.load();
-
-            Scene carSelectionScene = new Scene(root,Main.maxWidth,Main.maxHeight);
-
-            Main.sceneManager.setCurrentScene(carSelectionScene);
+            Main.sceneManager.setCurrentRoot(root);
         }catch (Exception ex ) {
             System.out.println("error in LapsSelection.java -> next button");
         }
