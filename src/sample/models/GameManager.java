@@ -10,10 +10,10 @@ import java.util.Stack;
 public class GameManager{
     final int[] millisecondsPassed = {0};
     public int lapCounter = 0;
-    final int lap[] = {lapCounter};
-    private int maxLaps = Main.settings.getLaps();
-    private Stack<Integer> gateStack;
-    private int[] eachLap = new int[maxLaps];
+    final int[] lap = {lapCounter};
+    private final int maxLaps = Main.settings.getLaps();
+    private final Stack<Integer> gateStack;
+    private final int[] eachLap = new int[maxLaps];
 
 
     public GameManager() {
