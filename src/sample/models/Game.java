@@ -130,7 +130,7 @@ public class Game
 
 				if (playerCar.wallCollision(distances)){
 					//add stop functionality
-					forwardVelocity
+					forwardVelocity = 0;
 				}
 				else if (speedBoost) {
 					forwardVelocity = playerCar.getForwardSpeed()*2;
