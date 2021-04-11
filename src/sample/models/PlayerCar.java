@@ -39,7 +39,7 @@ public class PlayerCar extends Car {
     /**
      * Should handle powerup activate here, like changing speed of the car or something
      * */
-    public void activatePowerup() {
+    public boolean activatePowerup() {
         if (!(this.getPowerups().isEmpty())) {
             Powerup powerup = getPowerups().pop();
             if (powerup instanceof BananaPowerup) {
@@ -49,7 +49,9 @@ public class PlayerCar extends Car {
             } else if (powerup instanceof OilGhostPowerup) {
                 System.out.println("detected oil ghost powerup");
             }
+            return true;
         }
+        return false;
     }
 
     private static ImageView generateCarImageView() {

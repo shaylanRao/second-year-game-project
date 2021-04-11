@@ -40,7 +40,12 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
-                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                try {
+                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                }
+                catch(Exception e) {
+                    System.out.println("Controller ERROR");
+                }
                 break;
         }
     }

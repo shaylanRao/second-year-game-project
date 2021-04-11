@@ -197,6 +197,7 @@ public class Game
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
 				 then the powerup is set to visible(false), but the collision is still happening so a discharge powerup keeps popping on the screen)
 				*/
+
 				for (Powerup powerup : powerups)
 				{
 					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
@@ -227,6 +228,7 @@ public class Game
 				{
 					if((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
 						for (Powerup powerup : playerCar.powerupsDischarge) {
+							System.out.println("");
 							SoundManager.play("powerUp");
 							double playerCarLayoutX = playerCar.getImage().getLayoutX();
 							double playerCarLayoutY = playerCar.getImage().getLayoutY();
@@ -261,15 +263,22 @@ public class Game
 								speedb = true;
 								playerCar.powerUpBar.removeFirstPowerup();
 							}
-
 							playerCar.setPickedUpPwrtime(System.currentTimeMillis());
-							playerCar.getPowerups().pop();
+
+							try {
+								playerCar.getPowerups().pop();
+							}
+							catch(Exception e) {
+								System.out.println("usePowerup ERROR");
+								System.out.println(playerCar.getPowerups().peek());
+							}
 						}
 					}
 				}
 			}
 
 			private void powerupDrop(){
+
 				for (Powerup pwr : playerCar.powerupsDischarge)
 				{
 					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
@@ -287,7 +296,9 @@ public class Game
 							SoundManager.play("bananaFall");
 							playerCar.activatePowerup("carSpin");
 						}
-						playerCar.powerupsDischarge.remove(pwr);
+						if (playerCar.activatePowerup()){
+							playerCar.powerupsDischarge.remove(pwr);
+						}
 					}
 				}
 			}
