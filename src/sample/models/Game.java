@@ -21,8 +21,8 @@ public class Game
 
 	private PlayerCar			playerCar;
 	private PlayerCar           playerCar2;
-	private ArrayList<Powerup>	powerups;
-	private ArrayList<Powerup>	powerupsDischarge;
+	private ArrayList<PlayerCar> players;
+	private ArrayList<Powerup>	powerupsOnMap;
 	private boolean				ok;
 	private FinishLine			finishLine;
 
@@ -52,7 +52,7 @@ public class Game
 		y -= 25;
 
 		finishLine.render(x, y);
-		for (Powerup bananaPowerup : powerups)
+		for (Powerup bananaPowerup : powerupsOnMap)
 		{
 			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
 			spawnPoints.remove(spawnPoint);
@@ -68,22 +68,29 @@ public class Game
 	public void initialiseGameObjects(Pane gameBackground)
 	{
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
+		this.players = new ArrayList<>();
 		this.playerCar = new PlayerCar(gameBackground);
+		this.playerCar.playerNumber = 1;
+		this.players.add(playerCar);
 		this.finishLine = new FinishLine(gameBackground);
+		
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.playerCar2 = new PlayerCar(gameBackground);
+			this.playerCar2.playerNumber = 2;
+			this.players.add(playerCar2);
 		}
-		this.powerupsDischarge = new ArrayList<>();
-		this.playerCar.powerupsDischarge = new ArrayList<>();
+		
+//		this.playerCar.powerupsDischarge = new ArrayList<>();
+//		this.playerCar2.powerupsDischarge = new ArrayList<>();
 
 		// generates powerups
 		int maxPowerups = 2;
-		this.powerups = new ArrayList<>();
+		this.powerupsOnMap = new ArrayList<>();
 		for (int i = 0; i < maxPowerups; i++)
 		{
-			this.powerups.add(new BananaPowerup(gameBackground));
-			this.powerups.add(new SpeedboosterPowerup(gameBackground));
-			this.powerups.add(new OilGhostPowerup(gameBackground));
+			this.powerupsOnMap.add(new BananaPowerup(gameBackground));
+			this.powerupsOnMap.add(new SpeedboosterPowerup(gameBackground));
+			this.powerupsOnMap.add(new OilGhostPowerup(gameBackground));
 		}
 	}
 
@@ -190,88 +197,47 @@ public class Game
 					// if(laps == 10)
 					// stop the car, end game, show winner screen
 				}
-				for (Powerup powerup : powerups)
+				for (Powerup powerup : powerupsOnMap)
 				{
-					if (powerup.shouldCollide && playerCar.collisionDetection(powerup))
-					{
-						SoundManager.play("prop");
-						playerCar.addPowerup(powerup);
-						powerup.deactivate();
-
-						// calculating the position of the powerup and playerCar to position it
-						//                        double playerCarLayoutX = playerCar.getImage().getLayoutX();
-						//                        double playerCarLayoutY = playerCar.getImage().getLayoutY();
-						//                        double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
-						//                        double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
-						//
-						//                        double x = playerCarLayoutX - powerupWidth;
-						//                        double y = playerCarLayoutY - powerupHeight;
-					}
-					else if (!powerup.shouldCollide) {
-						if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
-							powerup.activate();
-						}
+					if (powerup instanceof BananaPowerup || powerup instanceof OilGhostPowerup || powerup instanceof SpeedboosterPowerup) {
+						playerCar.handleMapPowerups(powerup);
+						playerCar2.handleMapPowerups(powerup);
 					}
 				}
 			}
 
 			private void usePowerup(){
-				if (playerCar.isActivatedPowerup()) {
-					if ((playerCar.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
-						for (Powerup powerup : playerCar.powerupsDischarge) {
-							SoundManager.play("powerUp");
-								double playerCarLayoutX = playerCar.getImage().getLayoutX();
-								double playerCarLayoutY = playerCar.getImage().getLayoutY();
-								double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
-								double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
-
-								double x = playerCarLayoutX - powerupWidth;
-								double y = playerCarLayoutY - powerupHeight;
-
-								if (powerup instanceof BananaPowerup) {
-									BananaDischargePowerup ban = new BananaDischargePowerup(powerup.getGameBackground());
-									ban.render(x, y);
-									playerCar.powerupsDischarge.remove(powerup);
-									playerCar.powerupsDischarge.add(ban);
-									playerCar.powerUpBar.removeFirstPowerup();
-								} else if (powerup instanceof OilGhostPowerup) {
-									OilSpillPowerup oil = new OilSpillPowerup(powerup.getGameBackground());
-									oil.render(x, y);
-									playerCar.powerupsDischarge.remove(powerup);
-									playerCar.powerupsDischarge.add(oil);
-									playerCar.powerUpBar.removeFirstPowerup();
-								} else if (powerup instanceof SpeedboosterPowerup) {
-									playerCar.powerupsDischarge.remove(powerup);
-									playerCar.activatePowerup("speedBoost");
-									playerCar.powerUpBar.removeFirstPowerup();
-								}
-
-								playerCar.setPickedUpPwrtime(System.currentTimeMillis());
-								playerCar.getPowerups().pop();
+				for (PlayerCar player : players) {
+					if (player.isActivatedPowerup()) {
+						if (!player.getPowerups().isEmpty()) {
+							if ((player.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
+								checkPowerupNotNull(player.usePowerup());
 							}
 						}
 					}
 				}
+			}
 
 
 			private void powerupDrop(){
-				for (Powerup pwr : playerCar.powerupsDischarge)
+				for (Powerup pwr : powerupsOnMap)
 				{
-					if (playerCar.collisionDetection(pwr) && pwr.shouldCollide)
-
-					{
-						pwr.deactivate();
-						if (pwr instanceof OilSpillPowerup)
+					for (PlayerCar player : players) {
+						if (player.collisionDetection(pwr) && pwr.shouldCollide)
 						{
-							playerCar.activatePowerup("carSlide");
-
+							if (pwr instanceof OilSpillPowerup)
+							{
+								pwr.deactivate();
+								player.activatePowerup("carSlide");
+							}
+							else if (pwr instanceof BananaDischargePowerup)
+							{
+								pwr.deactivate();
+								SoundManager.play("bananaFall");
+								player.activatePowerup("carSpin");
+							}
+							powerupsOnMap.remove(pwr);
 						}
-						else if (pwr instanceof BananaDischargePowerup)
-						{
-							SoundManager.play("bananaFall");
-							playerCar.activatePowerup("carSpin");
-						}
-						playerCar.powerupsDischarge.remove(pwr);
 					}
 				}
 			}
@@ -294,7 +260,11 @@ public class Game
 		timer.start();
 	}
 
-
+	public void checkPowerupNotNull (Powerup powerup) {
+		if (powerup != null) {
+			powerupsOnMap.add(powerup);
+		}
+	}
 
 
 }

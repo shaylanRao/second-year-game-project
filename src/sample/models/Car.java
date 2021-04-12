@@ -1,8 +1,12 @@
 package sample.models;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
 import javafx.scene.layout.BorderPane;
 
 public class Car extends Sprite {
@@ -16,6 +20,48 @@ public class Car extends Sprite {
     private boolean carSpinOn = false;
     private boolean carSlideOn = false;
     private long pickedUpPwrtime = -1;
+    public int playerNumber;
+    
+    private final LinkedList<Powerup> powerups;
+//    public ArrayList<Powerup> powerupsDischarge;
+    public PowerUpBar powerUpBar;
+    
+    public void addPowerup(Powerup powerup) {
+        if (getPowerups().size() < 3) {
+            this.getPowerups().add(powerup);
+//			this.powerupsDischarge.add(powerup);
+            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
+        }
+        else {
+//        	this.powerupsDischarge.remove(this.powerups.pop());
+        	this.powerups.pop();
+        	this.powerUpBar.removeFirstPowerup(playerNumber);
+            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
+            
+            this.getPowerups().add(powerup);
+//			this.powerupsDischarge.add(powerup);
+        }
+    }
+    
+    public LinkedList<Powerup> getPowerups()
+	{
+		return powerups;
+	}
+    /**
+     * Should handle powerup activate here, like changing speed of the car or something
+     * */
+    public void activatePowerup() {
+        if (!(this.getPowerups().isEmpty())) {
+            Powerup powerup = getPowerups().pop();
+            if (powerup instanceof BananaPowerup) {
+                System.out.println("detected banana powerup");
+            } else if (powerup instanceof SpeedboosterPowerup) {
+                System.out.println("detected speed boosted powerup");
+            } else if (powerup instanceof OilGhostPowerup) {
+                System.out.println("detected oil ghost powerup");
+            }
+        }
+    }
 
 
     public Car(Pane gameBackground, ImageView image) {
@@ -24,6 +70,8 @@ public class Car extends Sprite {
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-2.5);
         this.setAccelerationModerator(SPEEDFACTOR /20000);
+        this.powerups = new LinkedList<>();
+        this.powerUpBar = new PowerUpBar(gameBackground);
     }
 
     public ImageView getImageView() {
@@ -430,6 +478,64 @@ public class Car extends Sprite {
 
     }
 
+    public void handleMapPowerups(Powerup powerup) {
+    	if (powerup.shouldCollide && collisionDetection(powerup))
+		{
+			SoundManager.play("prop");
+			addPowerup(powerup);
+			powerup.deactivate();
+
+			// calculating the position of the powerup and playerCar to position it
+			//                        double playerCarLayoutX = playerCar.getImage().getLayoutX();
+			//                        double playerCarLayoutY = playerCar.getImage().getLayoutY();
+			//                        double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
+			//                        double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
+			//
+			//                        double x = playerCarLayoutX - powerupWidth;
+			//                        double y = playerCarLayoutY - powerupHeight;
+		}
+		else if (!powerup.shouldCollide) {
+			if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
+				powerup.activate();
+			}
+		}
+    }
+    
+    public Powerup usePowerup () {
+		SoundManager.play("powerUp");
+		double playerCarLayoutX = getImage().getLayoutX();
+		double playerCarLayoutY = getImage().getLayoutY();
+		double powerupWidth = powerups.getFirst().getImage().getBoundsInLocal().getWidth();
+		double powerupHeight = powerups.getFirst().getImage().getBoundsInLocal().getHeight();
+
+		double x = playerCarLayoutX - powerupWidth;
+		double y = playerCarLayoutY - powerupHeight;
+
+		if (powerups.getFirst() instanceof BananaPowerup) {
+			BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
+			drop.render(x, y);
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return drop;
+		} else if (powerups.getFirst() instanceof OilGhostPowerup) {
+			OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
+			drop.render(x, y);
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return drop;
+		} else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
+			activatePowerup("speedBoost");
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return null;
+		}
+		
+		// Had to put this in otherwise java cries. Should never reach it anyway
+		return powerups.getFirst();
+    }
 
     /*
     1. forward acceleration

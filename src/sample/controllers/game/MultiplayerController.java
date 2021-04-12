@@ -79,6 +79,7 @@ public class MultiplayerController extends RandomTrackScreen {
                 break;
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(false);
+                this.getGame().getPlayerCar2().setPickedUpPwrtime(System.currentTimeMillis());
                 break;
         }
     }
