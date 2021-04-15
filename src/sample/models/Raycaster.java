@@ -37,12 +37,12 @@ public class Raycaster {
     //this is the list of angles in degrees that the rays should be casted at (from the car)
     private final double directions[] = {
             0,
-            45,
-            -45,
+            23,
+            -23,
             90,
             -90,
-            135,
-            -135,
+            158,
+            -158,
             180,
     };
 

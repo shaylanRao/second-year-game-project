@@ -38,7 +38,7 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		playerCar.render(1350, 600);
+		playerCar.render(1750, 600);
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(350, 500);
@@ -111,6 +111,7 @@ public class Game
 				this.makeRandomTrack();
 
 				this.carMovement();
+				System.out.println(playerCar.getForwardSpeed());
 
 				this.powerupPickup();
 
@@ -129,18 +130,21 @@ public class Game
 
 
 				if (playerCar.wallCollision(distances)){
-					double ip = distances[0] + distances[1] + distances[2];
-					double ipp = distances[7] + distances[6] + distances[5];
-					if (ip > ipp) {
+					double sumBackwards = distances[0] + distances[1] + distances[2];
+					double sumForwards = distances[7] + distances[6] + distances[5];
+					if (sumBackwards > sumForwards) {
 						if (playerCar.isGoingBackward()) {
 							forwardVelocity = playerCar.getForwardSpeed();
-							System.out.println("BACKWARDS");
+//							System.out.println("BACKWARDS");
 							this.dy -= forwardVelocity;
 						}
 					} else {
 						if (playerCar.isGoingForward()) {
 							forwardVelocity = playerCar.getForwardSpeed();
-							System.out.println("FORWARDS");
+//							System.out.println("FORWARDS");
+							if (forwardVelocity == 0){
+								playerCar.setSpeed(0.5);
+							}
 							this.dy -= forwardVelocity;
 						}
 					}
@@ -156,7 +160,7 @@ public class Game
 					this.dy -= forwardVelocity;
 				} else {
 					forwardVelocity = playerCar.getForwardSpeed();
-					System.out.println(forwardVelocity);
+//					System.out.println(forwardVelocity);
 					this.dy -= forwardVelocity;
 				}
 

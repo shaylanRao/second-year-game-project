@@ -3,9 +3,6 @@ package sample.models;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
-import javafx.scene.layout.BorderPane;
-
-import java.util.Arrays;
 
 public class Car extends Sprite {
 
@@ -100,6 +97,10 @@ public class Car extends Sprite {
     }
 
 
+    public void setSpeed(double newSpeed){
+        this.speed = newSpeed;
+    }
+
     /**
      * Either runs functions to accelerate/decelerate the car or let it roll
      * */
@@ -108,7 +109,7 @@ public class Car extends Sprite {
             this.accelerateForward();
         }
         else {
-            this.decelerateForward();
+            this.rolling();
         }
         return this.speed;
     }
@@ -116,9 +117,12 @@ public class Car extends Sprite {
     /**
      * Keeps the without the speed bounds and calls to recalculate the speed
      */
-    //todo make private
-    public void accelerateForward(){
+    private void accelerateForward(){
         if(this.speed < this.getMaxSpeed() && this.speed > this.getMinSpeed()) {
+            //if accelerating forwards when rolling backwards, speeds it up
+            if(this.isAccelerate() && this.speed <0) {
+                    this.speed += Math.abs(this.speed * 0.15);
+            }
             //if acceleration is starting from 0
             if (this.speed == 0){
                 this.speed = 0.003;
@@ -139,6 +143,7 @@ public class Car extends Sprite {
     /**
      * Applies the calculated force to the mass of the car
      * F=ma
+     * a = f/m
      * @return acceleration
      */
     private double newAccCalc(){
@@ -170,10 +175,15 @@ public class Car extends Sprite {
         double unitVector = 1;
         double engineForce = 37; // real-life m/s acceleration
         //todo if up arrow, then this, else return 0
-        return(unitVector*engineForce);
+        if(this.isAccelerate()){
+            return(unitVector*engineForce);
+        }
+        else{
+            System.out.println("RUNNING");
+            return 0;
+        }
     }
 
-    //todo needs to break less, more roll
     /**
      * The force applied by the brakes
      * Used to decelerate the car
@@ -194,7 +204,6 @@ public class Car extends Sprite {
         return (this.speed * this.speed * dragConst);
     }
 
-    //todo Needs to roll more
 
     /**
      * The resistive force from the tires on the road
@@ -213,7 +222,7 @@ public class Car extends Sprite {
      */
 
     //todo make private
-    public void decelerateForward() {
+    private void rolling() {
         //if the speed is the speed is << then just make it 0
         if (this.speed < 0.005 && this.speed > -0.005) {
             this.speed = 0;
@@ -452,21 +461,21 @@ public class Car extends Sprite {
 
 
     public boolean wallCollision(double[] gateDistances){
+        boolean retVal = false;
+
         for (int i = 0; i < gateDistances.length; i++){
-            if (gateDistances[i] <= 37){
-                if (i == 4 || i == 3) {
-                    return false;
-                } else if ((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] > 23) {
-                    return false;
+                //if diagonal has crashed or if forward or backwards have crashed
+                if (((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] < 34) || ((i == 0 || i == 7) && (gateDistances[i] < 37))){
+                    rayHit = i;
+                    retVal = true;
+                    this.speed = 0;
+                    break;
                 }
-                System.out.println("CRASH");
-                System.out.println(i);
-                rayHit = i;
-                this.speed = this.speed/2;
-                return true;
+                else{
+                    retVal = false;
+                }
             }
-        }
-        return false;
+        return retVal;
     }
 
     private void crashed(){
