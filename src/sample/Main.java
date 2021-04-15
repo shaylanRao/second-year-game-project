@@ -38,7 +38,7 @@ public class Main extends Application {
 
         loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
         Parent root = loader.load();
-        MainScreen mainScreen = (MainScreen) loader.getController();
+        MainScreen mainScreen = loader.getController();
         maxWidth = (int) Screen.getPrimary().getBounds().getWidth();
         maxHeight = (int) Screen.getPrimary().getBounds().getHeight();
         Scene currentScene = new Scene(root, maxWidth, maxHeight);
@@ -57,11 +57,11 @@ public class Main extends Application {
 
             mainScreen.setCurrentStage(primaryStage);
 
-            sceneManager = new SceneManager(primaryStage);
+            sceneManager = new SceneManager(currentScene);
             settings = new Settings();
 
 
-            sceneManager.setCurrentScene(currentScene);
+            sceneManager.setCurrentRoot(root);
             //TODO is this the best place to do this?
             track = new Track();
         } catch (Exception e) {

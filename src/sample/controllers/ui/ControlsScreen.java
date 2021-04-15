@@ -18,7 +18,6 @@ public class ControlsScreen {
 
     public void backButtonClicked(ActionEvent actionEvent) {
         SoundManager.play("button");
-
         System.out.println("back button pressed");
         Main.sceneManager.setPrevScene();
     }

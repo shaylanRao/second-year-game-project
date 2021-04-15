@@ -1,5 +1,6 @@
 package sample.models;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -21,6 +22,13 @@ public class Track {
     private ArrayList<Point> outerPoints;
     private ArrayList<Point> innerPoints;
     private ArrayList<Line> trackLines;
+
+
+    public Line[] getGates() {
+        return gates;
+    }
+
+    private Line[] gates;
 
     /**
      * @return the list of the PathElement's making up the outer track. This gets used to create a Path object in RandomTrackScreen.java
@@ -61,6 +69,7 @@ public class Track {
     }
 
     public Track() {
+        gates = new Line[4];
         outerPoints = new ArrayList<>();
         innerPoints = new ArrayList<>();
         BuildTrack();
@@ -89,6 +98,27 @@ public class Track {
             y2 = (r-(trackWidth/2)) * Math.sin(a);
             Point innerPoint = new Point(x2, y2);
             innerPoints.add(innerPoint);
+
+            if (a==0) {
+                Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+                gate.setStroke(Color.RED);
+                gates[0] = gate;
+            }
+            if (a==1.570796326794896) {
+                Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+                gate.setStroke(Color.BLUE);
+                gates[1] = gate;
+            }
+            if (a==3.141592653589791) {
+                Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+                gate.setStroke(Color.GREEN);
+                gates[2] = gate;
+            }
+            if (a==4.712388980384686) {
+                Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+                gate.setStroke(Color.YELLOW);
+                gates[3] = gate;
+            }
 
             if (counter % spawnFactor == 0) {
                 //generate points halfway through track for powerups to spawn

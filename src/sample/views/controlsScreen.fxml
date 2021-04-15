@@ -17,16 +17,16 @@
         <VBox>
             <Label prefWidth="256.0" styleClass="label" text="Controls">
                 <VBox.margin>
-                    <Insets left="470.0" />
+                    <Insets left="780.0" top="60.0" />
                 </VBox.margin></Label>
             <HBox>
                 <Button defaultButton="true" styleClass="button-2" text="Player 1">
                     <HBox.margin>
-                        <Insets left="400.0" top="10.0" />
+                        <Insets left="700.0" top="100.0" />
                     </HBox.margin></Button>
                 <Button styleClass="button-2" stylesheets="@../resources/stylesheets/stylesheet.css" text="Player 2">
                     <HBox.margin>
-                        <Insets left="200.0" top="10.0" />
+                        <Insets left="500.0" top="100.0" />
                     </HBox.margin></Button>
             </HBox>
          <padding>

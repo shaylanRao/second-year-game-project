@@ -34,10 +34,10 @@ public class MainScreen {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/playModeScreen.fxml"));
             Parent root = loader.load();
-            Scene playModeScene = new Scene(root, Main.maxWidth,Main.maxHeight);
-            Main.sceneManager.setCurrentScene(playModeScene);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
             System.out.println("Error in play clicked - MainScreen.java");
+            ex.printStackTrace();
         }
     }
     public void settingsClicked(ActionEvent actionEvent) {
@@ -48,8 +48,7 @@ public class MainScreen {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/settingsScreen.fxml"));
             Parent root = loader.load();
-            Scene settingsScene = new Scene(root,Main.maxWidth,Main.maxHeight);
-            Main.sceneManager.setCurrentScene(settingsScene);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
             System.out.println("Error in settings clicked - MainScreen.java");
             ex.printStackTrace();
@@ -61,8 +60,7 @@ public class MainScreen {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/controlsScreen.fxml"));
             Parent root = loader.load();
-            Scene controlScene = new Scene(root,Main.maxWidth,Main.maxHeight);
-            Main.sceneManager.setCurrentScene(controlScene);
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception e) {
             System.out.println("Error in controls clicked - MainScreen.java");
             e.printStackTrace();
@@ -87,11 +85,11 @@ public class MainScreen {
 
         try {
             Main.settings.setTrack(Settings.Track.TRACK3);
+            Main.settings.setLaps(3);
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml"));
             Parent root = loader.load();
-            Scene gamePlay = new Scene(root,Main.maxWidth,Main.maxHeight);
-            gamePlay.getRoot().requestFocus();
-            Main.sceneManager.setCurrentScene(gamePlay);
+            root.requestFocus();
+            Main.sceneManager.setCurrentRoot(root);
         } catch (Exception e) {
             System.out.println("Error in startGame clicked - MainScreen.java");
             e.printStackTrace();
