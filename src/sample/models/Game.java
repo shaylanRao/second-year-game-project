@@ -209,7 +209,7 @@ public class Game
 				{
 					if (powerup instanceof BananaPowerup || powerup instanceof OilGhostPowerup || powerup instanceof SpeedboosterPowerup) {
 						playerCar.handleMapPowerups(powerup);
-						playerCar2.handleMapPowerups(powerup);
+						//playerCar2.handleMapPowerups(powerup);
 					}
 				}
 			}
