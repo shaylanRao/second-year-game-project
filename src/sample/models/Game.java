@@ -219,7 +219,15 @@ public class Game
 					if (player.isActivatedPowerup()) {
 						if (!player.getPowerups().isEmpty()) {
 							if ((player.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
+								/*if (playerCar.powerups.getFirst() instanceof SpeedboosterPowerup) {
+									speedb = true;
+									playerCar.powerups.pop();
+									playerCar.powerUpBar.removeFirstPowerup(playerCar.playerNumber);
+									playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+								} else {
+								}*/
 								checkPowerupNotNull(player.usePowerup());
+
 							}
 						}
 					}
