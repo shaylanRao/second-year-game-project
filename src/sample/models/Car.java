@@ -18,6 +18,7 @@ public class Car extends Sprite {
     private boolean carSpinOn = false;
     private boolean carSlideOn = false;
     private long pickedUpPwrtime = -1;
+    public int rayHit;
 
     public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
@@ -450,10 +451,18 @@ public class Car extends Sprite {
     }
 
 
-    public boolean wallCollision(double gateDistances[]){
-        for (double distance:gateDistances){
-            if (distance <= 37){
+    public boolean wallCollision(double[] gateDistances){
+        for (int i = 0; i < gateDistances.length; i++){
+            if (gateDistances[i] <= 37){
+                if (i == 4 || i == 3) {
+                    return false;
+                } else if ((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] > 23) {
+                    return false;
+                }
                 System.out.println("CRASH");
+                System.out.println(i);
+                rayHit = i;
+                this.speed = this.speed/2;
                 return true;
             }
         }
