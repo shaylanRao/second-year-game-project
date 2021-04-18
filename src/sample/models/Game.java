@@ -111,7 +111,6 @@ public class Game
 				this.makeRandomTrack();
 
 				this.carMovement();
-				System.out.println(playerCar.getForwardSpeed());
 
 				this.powerupPickup();
 

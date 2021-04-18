@@ -8,6 +8,8 @@ public class Car extends Sprite {
 
     private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
     private double accelerationModerator;
+    private double forceSpeed;
+    private double speedConverter;
     private double speed, maximumSpeed, minimumSpeed;
     protected boolean powerup;
     final double SPEEDFACTOR = 6;
@@ -19,10 +21,11 @@ public class Car extends Sprite {
 
     public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
-        this.setMaximumSpeed(SPEEDFACTOR *0.7);
+        this.setMaximumSpeed(4);
         //reverse speed (HARD-CODED)
-        this.setMinimumSpeed(-2.5);
-        this.setAccelerationModerator(SPEEDFACTOR /20000);
+        this.setMinimumSpeed(-1.5);
+        this.setAccelerationModerator(0.005);
+        this.setSpeedConverter(0.09);
     }
 
     public ImageView getImageView() {
@@ -59,6 +62,9 @@ public class Car extends Sprite {
         this.goingForward = goingForward;
     }
 
+    public void setSpeedConverter(double speedConverter) {
+        this.speedConverter = speedConverter;
+    }
 
     public boolean isGoingForward() {
         return goingForward;
@@ -105,12 +111,7 @@ public class Car extends Sprite {
      * Either runs functions to accelerate/decelerate the car or let it roll
      * */
     public double speedCalculator() {
-        if (this.isAccelerate() || this.isGoingBackward()) {
-            this.accelerateForward();
-        }
-        else {
-            this.rolling();
-        }
+        this.accelerateForward();
         return this.speed;
     }
 
@@ -127,16 +128,34 @@ public class Car extends Sprite {
             if (this.speed == 0){
                 this.speed = 0.003;
             }
-            this.newSpeedCalc();
         }
+        this.speedCalc();
     }
 
     /**
      * Updates the speed by applying acceleration to the current speed
      * Applies the acceleration moderator to adjust rate of acceleration
      */
-    private void newSpeedCalc(){
-        this.speed = this.speed + (this.newAccCalc() * this.accelerationModerator);
+    private void speedCalc(){
+        //if max speed reached, only change if slowing down
+        if (this.speed >= this.maximumSpeed){
+            if (this.accCalc() < 0){
+                this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
+                this.speed = this.forceSpeed * this.speedConverter;
+            }
+        }
+        //if min speed reached, only change if moving forward
+        else if (this.speed <= minimumSpeed){
+            if (this.accCalc() > 0){
+                this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
+                this.speed = this.forceSpeed * this.speedConverter;
+            }
+        }
+        //else just get new speed
+        else{
+            this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
+            this.speed = this.forceSpeed * this.speedConverter;
+        }
     }
 
 
@@ -146,7 +165,7 @@ public class Car extends Sprite {
      * a = f/m
      * @return acceleration
      */
-    private double newAccCalc(){
+    private double accCalc(){
         double mass = 1;
         return (this.longForce()/mass);
     }
@@ -159,10 +178,11 @@ public class Car extends Sprite {
     private double longForce(){
         //braking if going forward already
         if (this.isGoingBackward()){
+            System.out.println("BACKWARDS: " + this.speed);
             return(-(this.fBraking() + this.fDrag() + this.fRolling()));
         }
         else{
-            return(this.fTraction() - (this.fDrag() + this.fRolling()));
+            return(this.fTraction() - ((this.fDrag()+ this.fRolling())));
         }
     }
 
@@ -179,7 +199,6 @@ public class Car extends Sprite {
             return(unitVector*engineForce);
         }
         else{
-            System.out.println("RUNNING");
             return 0;
         }
     }
@@ -200,8 +219,8 @@ public class Car extends Sprite {
      * @return speed^2*dragConst
      */
     private double fDrag(){
-        double dragConst = 0.015;
-        return (this.speed * this.speed * dragConst);
+        double dragConst = (0.006666);
+        return (forceSpeed * forceSpeed * dragConst);
     }
 
 
@@ -212,36 +231,14 @@ public class Car extends Sprite {
      */
     private double fRolling(){
         //todo need to change
-        double rollConst = 0.1;
-        return (this.speed *rollConst);
+        double rollConst = 0.2;
+        return ((forceSpeed) *rollConst);
     }
 
     /**
      * Controls the way the car rolls when not accelerating
      * decelerates from current speed to 0 when no buttons being pressed
      */
-
-    //todo make private
-    private void rolling() {
-        //if the speed is the speed is << then just make it 0
-        if (this.speed < 0.005 && this.speed > -0.005) {
-            this.speed = 0;
-            //if rolling forward, roll this way
-        } else if (this.speed > 0) {
-            if (this.speed < SPEEDFACTOR * 0.05) {
-                this.speed -= (SPEEDFACTOR * 0.001);
-            } else {
-                this.speed -= (SPEEDFACTOR * 0.005);
-            }
-            //if rolling backwards, roll this way
-        } else {
-            if (this.speed > -SPEEDFACTOR * 0.05) {
-                this.speed += (SPEEDFACTOR * 0.001);
-            } else {
-                this.speed += (SPEEDFACTOR * 0.005);
-            }
-        }
-    }
 
     //todo start-off boost
     //
