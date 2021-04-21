@@ -21,13 +21,7 @@ public class PowerUpBar
 	final double im2x3 = 630;
 	
 	final double y = 30;
-	
-	/*for multiplayer
-	final double im1x = 530;
-	final double im2x = 380;
-	final double im3x = 630;
-	*/
-	
+
 	Pane gameBackground;
 	
 	public PowerUpBar(Pane gameBackground)
@@ -86,7 +80,7 @@ public class PowerUpBar
 	}
 	
 	public void removeFirstPowerup(int player) {
-		this.powerupsImagesInBar.peekFirst().deactivate();
+		this.powerupsImagesInBar.getFirst().deactivate();
 		this.powerupsImagesInBar.removeFirst();
 
 		int i = 1;

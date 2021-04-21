@@ -41,6 +41,13 @@ public class MultiplayerController extends RandomTrackScreen {
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(true);
                 this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                try {
+                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                }
+                catch(Exception e) {
+                    System.out.println("KEY PRESSED ERROR");
+                    e.notify();
+                }
                 break;
         }
     }
@@ -80,6 +87,13 @@ public class MultiplayerController extends RandomTrackScreen {
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(false);
                 this.getGame().getPlayerCar2().setPickedUpPwrtime(System.currentTimeMillis());
+                try {
+                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                }
+                catch(Exception e) {
+                    System.out.println("KEY RELEASED ERROR");
+                    e.getCause();
+                }
                 break;
         }
     }
