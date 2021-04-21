@@ -127,28 +127,28 @@ public class Game
 				rot = 0;
 				double forwardVelocity;
 
-
-				if (playerCar.wallCollision(distances)){
-					double sumBackwards = distances[0] + distances[1] + distances[2];
-					double sumForwards = distances[7] + distances[6] + distances[5];
-					if (sumBackwards > sumForwards) {
-						if (playerCar.isGoingBackward()) {
-							forwardVelocity = playerCar.getForwardSpeed();
-//							System.out.println("BACKWARDS");
-							this.dy -= forwardVelocity;
-						}
-					} else {
-						if (playerCar.isGoingForward()) {
-							forwardVelocity = playerCar.getForwardSpeed();
-//							System.out.println("FORWARDS");
-							if (forwardVelocity == 0){
-								playerCar.setSpeed(0.5);
-							}
-							this.dy -= forwardVelocity;
-						}
-					}
-				}
-				else if (speedBoost) {
+//				if (playerCar.wallCollision(distances)){
+//					double sumBackwards = distances[0] + distances[1] + distances[2];
+//					double sumForwards = distances[7] + distances[6] + distances[5];
+//					playerCar.setForceSpeed(0);
+//					if (sumBackwards > sumForwards) {
+//						if (playerCar.isGoingBackward()) {
+//							forwardVelocity = playerCar.getForwardSpeed();
+////							System.out.println("BACKWARDS");
+//							this.dy -= forwardVelocity;
+//						}
+//					} else {
+//						if (playerCar.isGoingForward()) {
+//							forwardVelocity = playerCar.getForwardSpeed();
+////							System.out.println("FORWARDS");
+//							if (forwardVelocity == 0){
+//								playerCar.setSpeed(0.5);
+//							}
+//							this.dy -= forwardVelocity;
+//						}
+//					}
+//				}
+				/*else */if (speedBoost) {
 					forwardVelocity = playerCar.getForwardSpeed()*2;
 					counter++;
 					if (counter > 100) {
@@ -318,16 +318,21 @@ public class Game
 			}
 
 			private void makeRandomTrack(){
-				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
-					//set raycaster position and rotation = the car's position and rotation
-					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
-							Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
+				//set raycaster position and rotation = the car's position and rotation
+				RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
+						Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
+				RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
 
-					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
 
-					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
+				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar2.getImageView().getLayoutX()+35),
+							Point.unconvertY(playerCar2.getImageView().getLayoutY()+18)));
+					RandomTrackScreen.raycaster.setRot(playerCar2.getImageView().getRotate());
 				}
+
+
+				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
+				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
 			}
 
 			private void lapSystem(){
@@ -346,13 +351,7 @@ public class Game
 
 		};
 
-
-
-
 		timer.start();
 	}
-
-
-
 
 }

@@ -74,7 +74,6 @@ public class MainScreen {
             quitPrompt.displayPrompt();
 
         } catch (Exception e) {
-            System.out.println("here");
         }
     }
 

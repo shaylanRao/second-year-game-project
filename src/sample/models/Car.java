@@ -28,6 +28,11 @@ public class Car extends Sprite {
         this.setSpeedConverter(0.09);
     }
 
+    public void setForceSpeed(double forceSpeed) {
+        this.forceSpeed = forceSpeed;
+    }
+
+
     public ImageView getImageView() {
         return super.getImage();
     }
@@ -178,7 +183,6 @@ public class Car extends Sprite {
     private double longForce(){
         //braking if going forward already
         if (this.isGoingBackward()){
-            System.out.println("BACKWARDS: " + this.speed);
             return(-(this.fBraking() + this.fDrag() + this.fRolling()));
         }
         else{
