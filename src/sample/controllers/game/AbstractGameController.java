@@ -40,12 +40,20 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
-                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                try {
+                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                }
+                catch(NullPointerException e) {
+                    System.out.println("KEY PRESSED ERROR");
+                    e.getCause();
+                    e.getLocalizedMessage();
+                    e.printStackTrace();
+                }
                 break;
         }
     }
 
-    public void keyReleased(KeyEvent event) {
+    public void keyReleased(KeyEvent event) throws InterruptedException {
         // need to add 2nd player listeners
         KeyCode code = event.getCode();
         switch (code) {
@@ -63,6 +71,12 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(false);
+                try {
+                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                }
+                catch(Exception e) {
+                	System.out.println("KEY RELEASED ERROR");
+                }
                 break;
         }
     }

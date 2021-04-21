@@ -1,8 +1,13 @@
 package sample.models;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
+import sample.controllers.audio.SoundManager;
+import javafx.scene.layout.BorderPane;
 
 public class Car extends Sprite {
 
@@ -17,7 +22,96 @@ public class Car extends Sprite {
     private boolean carSpinOn = false;
     private boolean carSlideOn = false;
     private long pickedUpPwrtime = -1;
-    public int rayHit;
+    public int playerNumber;
+
+    private final LinkedList<Powerup> powerups;
+//    public ArrayList<Powerup> powerupsDischarge;
+    public PowerUpBar powerUpBar;
+
+    public void addPowerup(Powerup powerup) {
+        if (getPowerups().size() < 3) {
+            this.getPowerups().add(powerup);
+//			this.powerupsDischarge.add(powerup);
+            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
+        }
+        else {
+//        	this.powerupsDischarge.remove(this.powerups.pop());
+        	this.powerups.pop();
+        	this.powerUpBar.removeFirstPowerup(playerNumber);
+        	this.getPowerups().add(powerup);
+            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
+//			this.powerupsDischarge.add(powerup);
+        }
+    }
+
+    public LinkedList<Powerup> getPowerups()
+	{
+		return powerups;
+	}
+    /**
+     * Should handle powerup activate here, like changing speed of the car or something
+     * */
+    public void activatePowerup() {
+        if (!(this.getPowerups().isEmpty())) {
+            Powerup powerup = getPowerups().pop();
+            if (powerup instanceof BananaPowerup) {
+                System.out.println("detected banana powerup");
+            } else if (powerup instanceof SpeedboosterPowerup) {
+                System.out.println("detected speed boosted powerup");
+            } else if (powerup instanceof OilGhostPowerup) {
+                System.out.println("detected oil ghost powerup");
+            }
+        }
+    }
+
+    public void handleMapPowerups(Powerup powerup) {
+    	if (powerup.shouldCollide && collisionDetection(powerup))
+		{
+			SoundManager.play("prop");
+			addPowerup(powerup);
+			powerup.deactivate();
+		}
+		else if (!powerup.shouldCollide) {
+			if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
+				powerup.activate();
+			}
+		}
+    }
+
+    public Powerup usePowerup () {
+		SoundManager.play("powerUp");
+		double playerCarLayoutX = getImage().getLayoutX();
+		double playerCarLayoutY = getImage().getLayoutY();
+		double powerupWidth = powerups.getFirst().getImage().getBoundsInLocal().getWidth();
+		double powerupHeight = powerups.getFirst().getImage().getBoundsInLocal().getHeight();
+
+		double x = playerCarLayoutX - powerupWidth;
+		double y = playerCarLayoutY - powerupHeight;
+
+		if (powerups.getFirst() instanceof BananaPowerup) {
+			BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
+			drop.render(x, y);
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return drop;
+		} else if (powerups.getFirst() instanceof OilGhostPowerup) {
+			OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
+			drop.render(x, y);
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return drop;
+		} else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
+			activatePowerup("speedBoost");
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return null;
+		}
+		//had to return something, but it shouldn't get this far
+		return powerups.getFirst();
+    }
 
     public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
@@ -26,6 +120,8 @@ public class Car extends Sprite {
         this.setMinimumSpeed(-1.5);
         this.setAccelerationModerator(0.005);
         this.setSpeedConverter(0.09);
+        this.powerups = new LinkedList<>();
+        this.powerUpBar = new PowerUpBar(gameBackground);
     }
 
     public void setForceSpeed(double forceSpeed) {
@@ -467,7 +563,6 @@ public class Car extends Sprite {
         for (int i = 0; i < gateDistances.length; i++){
                 //if diagonal has crashed or if forward or backwards have crashed
                 if (((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] < 34) || ((i == 0 || i == 7) && (gateDistances[i] < 37))){
-                    rayHit = i;
                     retVal = true;
                     this.speed = 0;
                     break;
