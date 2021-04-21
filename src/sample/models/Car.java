@@ -36,9 +36,8 @@ public class Car extends Sprite {
 //        	this.powerupsDischarge.remove(this.powerups.pop());
         	this.powerups.pop();
         	this.powerUpBar.removeFirstPowerup(playerNumber);
+        	this.getPowerups().add(powerup);
             this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
-            
-            this.getPowerups().add(powerup);
 //			this.powerupsDischarge.add(powerup);
         }
     }
@@ -61,6 +60,55 @@ public class Car extends Sprite {
                 System.out.println("detected oil ghost powerup");
             }
         }
+    }
+    
+    public void handleMapPowerups(Powerup powerup) {
+    	if (powerup.shouldCollide && collisionDetection(powerup))
+		{
+			SoundManager.play("prop");
+			addPowerup(powerup);
+			powerup.deactivate();
+		}
+		else if (!powerup.shouldCollide) {
+			if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
+				powerup.activate();
+			}
+		}
+    }
+    
+    public Powerup usePowerup () {
+		SoundManager.play("powerUp");
+		double playerCarLayoutX = getImage().getLayoutX();
+		double playerCarLayoutY = getImage().getLayoutY();
+		double powerupWidth = powerups.getFirst().getImage().getBoundsInLocal().getWidth();
+		double powerupHeight = powerups.getFirst().getImage().getBoundsInLocal().getHeight();
+
+		double x = playerCarLayoutX - powerupWidth;
+		double y = playerCarLayoutY - powerupHeight;
+
+		if (powerups.getFirst() instanceof BananaPowerup) {
+			BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
+			drop.render(x, y);
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return drop;
+		} else if (powerups.getFirst() instanceof OilGhostPowerup) {
+			OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
+			drop.render(x, y);
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return drop;
+		} else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
+			activatePowerup("speedBoost");
+			powerups.pop();
+			powerUpBar.removeFirstPowerup(playerNumber);
+			setPickedUpPwrtime(System.currentTimeMillis());
+			return null;
+		}
+		//had to return something, but it shouldn't get this far
+		return powerups.getFirst();
     }
 
     public Car(Pane gameBackground, ImageView image) {
@@ -475,72 +523,6 @@ public class Car extends Sprite {
         return false;
 
     }
-
-    public void handleMapPowerups(Powerup powerup) {
-    	if (powerup.shouldCollide && collisionDetection(powerup))
-		{
-			SoundManager.play("prop");
-			addPowerup(powerup);
-			powerup.deactivate();
-
-			// calculating the position of the powerup and playerCar to position it
-			//                        double playerCarLayoutX = playerCar.getImage().getLayoutX();
-			//                        double playerCarLayoutY = playerCar.getImage().getLayoutY();
-			//                        double powerupWidth = powerup.getImage().getBoundsInLocal().getWidth();
-			//                        double powerupHeight = powerup.getImage().getBoundsInLocal().getHeight();
-			//
-			//                        double x = playerCarLayoutX - powerupWidth;
-			//                        double y = playerCarLayoutY - powerupHeight;
-		}
-		else if (!powerup.shouldCollide) {
-			if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
-				powerup.activate();
-			}
-		}
-    }
-    
-    public Powerup usePowerup () {
-		SoundManager.play("powerUp");
-		double playerCarLayoutX = getImage().getLayoutX();
-		double playerCarLayoutY = getImage().getLayoutY();
-		double powerupWidth = powerups.getFirst().getImage().getBoundsInLocal().getWidth();
-		double powerupHeight = powerups.getFirst().getImage().getBoundsInLocal().getHeight();
-
-		double x = playerCarLayoutX - powerupWidth;
-		double y = playerCarLayoutY - powerupHeight;
-
-		if (powerups.getFirst() instanceof BananaPowerup) {
-			BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
-			drop.render(x, y);
-			powerups.pop();
-			powerUpBar.removeFirstPowerup(playerNumber);
-			setPickedUpPwrtime(System.currentTimeMillis());
-			return drop;
-		} else if (powerups.getFirst() instanceof OilGhostPowerup) {
-			OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
-			drop.render(x, y);
-			powerups.pop();
-			powerUpBar.removeFirstPowerup(playerNumber);
-			setPickedUpPwrtime(System.currentTimeMillis());
-			return drop;
-		} else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
-			activatePowerup("speedBoost");
-			powerups.pop();
-			powerUpBar.removeFirstPowerup(playerNumber);
-			setPickedUpPwrtime(System.currentTimeMillis());
-			return null;
-		}
-		
-		// Had to put this in otherwise java cries. Should never reach it anyway
-		return powerups.getFirst();
-    }
-
-
-
-
-
-
-
 
 
     /*
