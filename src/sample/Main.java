@@ -77,7 +77,7 @@ public class Main extends Application {
     
     @Override
     public void stop() {
-        SoundManager.stopAll();
+        System.exit(0);
     }
 
 }
