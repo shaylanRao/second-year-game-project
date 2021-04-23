@@ -26,6 +26,7 @@ public class Game
 	private boolean				ok;
 	private boolean speedBoost = false;
 	private GameManager gameManager;
+	private GameManager g2;
 	private double distances[];
 	private double distances2[];
 
@@ -68,6 +69,7 @@ public class Game
 			bananaPowerup.render(x, y);
 		}
 		gameManager = new GameManager();
+		g2 = new GameManager();
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
@@ -344,6 +346,13 @@ public class Game
 				double gateDistances[] = raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), false);
 				gameManager.setGateDistances(gateDistances);
 				gameManager.hitGate();
+				//System.out.println(gameManager.lapCounter);
+				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					double gateDistances2[] = r2.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[g2.getNextGate()])), false);
+					g2.setGateDistances(gateDistances2);
+					g2.hitGate();
+					//System.out.println(g2.lapCounter);
+				}
 			}
 
 			private void boundaryCollision(){
