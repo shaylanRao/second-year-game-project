@@ -8,6 +8,10 @@ import sample.controllers.game.RandomTrackScreen;
 
 import java.util.*;
 
+import static sample.controllers.game.RandomTrackScreen.r2;
+import static sample.controllers.game.RandomTrackScreen.raycaster;
+
+
 /**
  * The class that contains the main game loop
  */
@@ -23,6 +27,7 @@ public class Game
 	private boolean speedBoost = false;
 	private GameManager gameManager;
 	private double distances[];
+	private double distances2[];
 
 
 	public PlayerCar getPlayerCar()
@@ -319,17 +324,16 @@ public class Game
 
 			private void makeRandomTrack(){
 				//set raycaster position and rotation = the car's position and rotation
-				RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
+				raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
 						Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
-				RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
-
+				raycaster.setRot(playerCar.getImageView().getRotate());
 
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar2.getImageView().getLayoutX()+35),
+					r2.setPos(new Point(Point.unconvertX(playerCar2.getImageView().getLayoutX()+35),
 							Point.unconvertY(playerCar2.getImageView().getLayoutY()+18)));
-					RandomTrackScreen.raycaster.setRot(playerCar2.getImageView().getRotate());
+					r2.setRot(playerCar2.getImageView().getRotate());
+					distances2 = r2.castRays(Main.track.getTrackLines(), true);
 				}
-
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
@@ -337,16 +341,16 @@ public class Game
 
 			private void lapSystem(){
 				//Gets ray cast for next gate
-				double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), false);
-//				System.out.println(Arrays.toString(gateDistances));
+				double gateDistances[] = raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), false);
 				gameManager.setGateDistances(gateDistances);
-				//System.out.println(Arrays.toString(distances));
 				gameManager.hitGate();
 			}
 
 			private void boundaryCollision(){
 				playerCar.wallCollision(distances);
-
+				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					playerCar2.wallCollision(distances2);
+				}
 			}
 
 		};

@@ -2,6 +2,7 @@ package sample.models;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import sample.Main;
 
 import java.util.ArrayList;
 
