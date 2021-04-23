@@ -48,6 +48,7 @@ public class Game
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(350, 500);
+			g2 = new GameManager();
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
@@ -69,7 +70,6 @@ public class Game
 			bananaPowerup.render(x, y);
 		}
 		gameManager = new GameManager();
-		g2 = new GameManager();
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
