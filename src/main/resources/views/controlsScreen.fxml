@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.controllers.ui.ControlsScreen">
+    <stylesheets>
+        <URL value="@../stylesheets/stylesheet.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets left="50" top="50" />
+    </padding>
+
+    <top>
+        <VBox>
+            <Label prefWidth="256.0" styleClass="label" text="Controls">
+                <VBox.margin>
+                    <Insets left="780.0" top="60.0" />
+                </VBox.margin></Label>
+            <HBox>
+                <Button defaultButton="true" styleClass="button-2" text="Player 1">
+                    <HBox.margin>
+                        <Insets left="700.0" top="100.0" />
+                    </HBox.margin></Button>
+                <Button styleClass="button-2" stylesheets="@../stylesheets/stylesheet.css" text="Player 2">
+                    <HBox.margin>
+                        <Insets left="500.0" top="100.0" />
+                    </HBox.margin></Button>
+            </HBox>
+         <padding>
+            <Insets top="-30.0" />
+         </padding>
+        </VBox>
+    </top>
+
+    <left>
+
+        <VBox alignment="CENTER_LEFT" spacing="10" >
+            <Button styleClass="button-3" text="Accelerate " />
+            <Button styleClass="button-3" text="Left" />
+            <Button styleClass="button-3" text="Right" />
+            <Button styleClass="button-3" text="Reverse" />
+            <Button styleClass="button-3" text="Use powerup" />
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER" spacing="5.0">
+            <Label styleClass="label-4" text="Up" />
+            <Label styleClass="label-4" text="Left" />
+            <Label styleClass="label-4" text="Right" />
+            <Label styleClass="label-4" text="Down" />
+            <Label styleClass="label-4" text="RCtrl" />
+         <BorderPane.margin>
+            <Insets right="150.0" />
+         </BorderPane.margin>
+        </VBox>
+    </center>
+
+    <right>
+        <VBox alignment="CENTER_RIGHT" spacing="10.0">
+            <Label styleClass="label-4" text="W" />
+            <Label styleClass="label-4" text="A" />
+            <Label styleClass="label-4" text="D" />
+            <Label styleClass="label-4" text="S" />
+            <Label styleClass="label-4" text="F" />
+         <padding>
+            <Insets right="250.0" />
+         </padding>
+        </VBox>
+    </right>
+
+    <bottom>
+        <HBox>
+            <Button onAction="#backButtonClicked" text="Back">
+                <HBox.margin>
+                    <Insets bottom="100.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>

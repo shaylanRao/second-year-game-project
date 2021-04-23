@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controllers.ui.SettingsScreen">
+    <stylesheets>
+        <URL value="@../stylesheets/stylesheet.css"/>
+    </stylesheets>
+    <padding>
+        <Insets left="50"/>
+    </padding>
+
+    <left>
+        <VBox alignment="CENTER" spacing="25">
+            <Button text="Sound" onAction="#soundClicked" styleClass="button"/>
+            <Button text="Visual" onAction="#visualClicked" styleClass="button"/>
+            <Button text="Game" onAction="#gameClicked" styleClass="button"/>
+        </VBox>
+    </left>
+    <bottom>
+        <HBox>
+            <Button text="BACK" onAction="#backClicked" styleClass="button">
+                <HBox.margin>
+                    <Insets bottom="100.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
