@@ -5,7 +5,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
-import sample.utilities.FastNoise;
+import sample.utilities.imported.FastNoise;
 import sample.utilities.Mapper;
 
 import java.util.ArrayList;

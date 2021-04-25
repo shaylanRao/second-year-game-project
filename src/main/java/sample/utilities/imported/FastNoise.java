@@ -26,7 +26,7 @@
 // off every 'zix'.)
 //
 
-package sample.utilities;
+package sample.utilities.imported;
 
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;

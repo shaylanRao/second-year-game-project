@@ -15,17 +15,17 @@
     <node x="5012.139015151515" y="8446.0">sample.controllers.game.GameController</node>
     <node x="1884.8003310933238" y="304.0">sample.controllers.audio.SoundObject</node>
     <node x="4001.8676142655786" y="5663.0">sample.models.Raycaster</node>
-    <node x="2325.3349963505475" y="1455.0">sample.utilities.FastNoise.Float2</node>
+    <node x="2325.3349963505475" y="1455.0">sample.utilities.imported.FastNoise.Float2</node>
     <node x="3949.0625000000005" y="3549.0">sample.models.Point</node>
-    <node x="3526.729931037954" y="1444.0">sample.utilities.FastNoise.Float3</node>
+    <node x="3526.729931037954" y="1444.0">sample.utilities.imported.FastNoise.Float3</node>
     <node x="1028.4253310933238" y="1433.0">sample.models.Settings.Track</node>
     <node x="1496.791666666667" y="6703.0">sample.controllers.ui.GameSettingsScreen</node>
     <node x="3616.604166666667" y="5396.5">sample.models.TrackBuilder</node>
     <node x="1674.91534770462" y="7467.0">sample.controllers.ui.SettingsScreen</node>
-    <node x="3342.729931037954" y="1433.0">sample.utilities.FastNoise.Interp</node>
-    <node x="3057.729931037954" y="1433.0">sample.utilities.FastNoise.CellularDistanceFunction</node>
+    <node x="3342.729931037954" y="1433.0">sample.utilities.imported.FastNoise.Interp</node>
+    <node x="3057.729931037954" y="1433.0">sample.utilities.imported.FastNoise.CellularDistanceFunction</node>
     <node x="5407.089015151516" y="6724.5">sample.models.OilSpillPowerup</node>
-    <node x="3158.7099963505475" y="2207.0">sample.utilities.FastNoise</node>
+    <node x="3158.7099963505475" y="2207.0">sample.utilities.imported.FastNoise</node>
     <node x="5034.18574775999" y="5740.0">sample.models.Powerup</node>
     <node x="964.791666666667" y="6548.5">sample.controllers.ui.SoundScreen</node>
     <node x="469.6653477046202" y="1433.0">sample.models.Settings.Difficulty</node>
@@ -40,16 +40,16 @@
     <node x="3993.130681818182" y="5385.0">sample.models.Raycast</node>
     <node x="1884.505682447397" y="5696.5">sample.Main</node>
     <node x="1914.8003310933238" y="0.0">sample.controllers.audio.SoundPlayer</node>
-    <node x="2491.3349963505475" y="1378.0">sample.utilities.FastNoise.CellularReturnType</node>
+    <node x="2491.3349963505475" y="1378.0">sample.utilities.imported.FastNoise.CellularReturnType</node>
     <node x="4842.867614265579" y="6724.5">sample.models.OilGhostPowerup</node>
     <node x="400.79166666666697" y="6680.5">sample.controllers.ui.VehicleSelection</node>
     <node x="4927.139015151515" y="8143.0">sample.models.Game</node>
     <node x="1673.6666666666672" y="3538.0">sample.utilities.AlertBox</node>
     <node x="5035.239015151516" y="7649.0">sample.controllers.game.AbstractGameController</node>
-    <node x="3722.729931037954" y="1356.0">sample.utilities.FastNoise.NoiseType</node>
+    <node x="3722.729931037954" y="1356.0">sample.utilities.imported.FastNoise.NoiseType</node>
     <node x="1229.791666666667" y="6680.5">sample.controllers.ui.TrackSelection</node>
     <node x="5650.089015151516" y="6724.5">sample.models.BananaDischargePowerup</node>
-    <node x="2744.3349963505475" y="1433.0">sample.utilities.FastNoise.FractalType</node>
+    <node x="2744.3349963505475" y="1433.0">sample.utilities.imported.FastNoise.FractalType</node>
     <node x="4924.139015151515" y="7455.0">sample.models.PlayerCar</node>
     <node x="5919.089015151516" y="0.0">sample.resources</node>
     <node x="1694.8666666666672" y="5352.5">sample.controllers.ui.MainScreen</node>
@@ -82,7 +82,7 @@
       <point x="5167.864319188562" y="6091.0" />
       <point x="35.17857142857156" y="72.0" />
     </edge>
-    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.FractalType">
+    <edge source="sample.utilities.imported.FastNoise" target="sample.utilities.imported.FastNoise.FractalType">
       <point x="-57.8125" y="-1502.0" />
       <point x="3285.8974963505475" y="2087.0" />
       <point x="2792.5849963505475" y="2087.0" />
@@ -118,7 +118,7 @@
       <point x="4953.867614265579" y="7435.0" />
       <point x="0.0" y="38.5" />
     </edge>
-    <edge source="sample.models.TrackBuilder" target="sample.utilities.FastNoise.NoiseType">
+    <edge source="sample.models.TrackBuilder" target="sample.utilities.imported.FastNoise.NoiseType">
       <point x="-18.0" y="-60.5" />
       <point x="3706.604166666667" y="5301.0" />
       <point x="3661.6327657807306" y="5301.0" />
@@ -224,7 +224,7 @@
       <point x="4622.867614265579" y="7435.0" />
       <point x="-80.0" y="38.5" />
     </edge>
-    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.CellularReturnType">
+    <edge source="sample.utilities.imported.FastNoise" target="sample.utilities.imported.FastNoise.CellularReturnType">
       <point x="-104.0625" y="-1502.0" />
       <point x="3239.6474963505475" y="2107.0" />
       <point x="2549.5849963505475" y="2107.0" />
@@ -404,7 +404,7 @@
       <point x="553.3333333333335" y="5251.0" />
       <point x="98.0" y="336.0" />
     </edge>
-    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.CellularDistanceFunction">
+    <edge source="sample.utilities.imported.FastNoise" target="sample.utilities.imported.FastNoise.CellularDistanceFunction">
       <point x="-11.5625" y="-1502.0" />
       <point x="3332.1474963505475" y="2067.0" />
       <point x="3123.979931037954" y="2067.0" />
@@ -440,7 +440,7 @@
       <point x="1893.130682447397" y="6081.0" />
       <point x="-94.875" y="115.5" />
     </edge>
-    <edge source="sample.models.TrackBuilder" target="sample.utilities.FastNoise">
+    <edge source="sample.models.TrackBuilder" target="sample.utilities.imported.FastNoise">
       <point x="-90.0" y="-60.5" />
       <point x="3634.604166666667" y="5321.0" />
       <point x="3251.2099963505475" y="5321.0" />
@@ -566,7 +566,7 @@
       <point x="0.0" y="-38.0" />
       <point x="0.0" y="38.5" />
     </edge>
-    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.Interp">
+    <edge source="sample.utilities.imported.FastNoise" target="sample.utilities.imported.FastNoise.Interp">
       <point x="34.6875" y="-1502.0" />
       <point x="3378.3974963505475" y="2187.0" />
       <point x="3383.729931037954" y="2187.0" />
@@ -584,7 +584,7 @@
       <point x="2128.2169977599906" y="2167.0" />
       <point x="79.04166666666652" y="522.5" />
     </edge>
-    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.NoiseType">
+    <edge source="sample.utilities.imported.FastNoise" target="sample.utilities.imported.FastNoise.NoiseType">
       <point x="150.3125" y="-1502.0" />
       <point x="3494.0224963505475" y="2167.0" />
       <point x="3754.0632643712875" y="2167.0" />
@@ -598,13 +598,13 @@
       <point x="1176.0086644266573" y="2117.0" />
       <point x="67.08333333333348" y="71.5" />
     </edge>
-    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.Float2">
+    <edge source="sample.utilities.imported.FastNoise" target="sample.utilities.imported.FastNoise.Float2">
       <point x="-173.4375" y="-1502.0" />
       <point x="3170.2724963505475" y="2137.0" />
       <point x="2349.668329683881" y="2137.0" />
       <point x="-48.66666666666663" y="49.5" />
     </edge>
-    <edge source="sample.utilities.FastNoise" target="sample.utilities.FastNoise.Float3">
+    <edge source="sample.utilities.imported.FastNoise" target="sample.utilities.imported.FastNoise.Float3">
       <point x="80.9375" y="-1502.0" />
       <point x="3424.6474963505475" y="2137.0" />
       <point x="3556.063264371287" y="2137.0" />
