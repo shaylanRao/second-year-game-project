@@ -208,8 +208,19 @@ public class Game
 				for (Powerup powerup : powerupsOnMap)
 				{
 					if (powerup instanceof BananaPowerup || powerup instanceof OilGhostPowerup || powerup instanceof SpeedboosterPowerup) {
-						playerCar.handleMapPowerups(powerup);
-					}
+				    	if (powerup.shouldCollide)
+						{ 
+							if (playerCar.collisionDetection(powerup)) {
+								playerCar.handleMapPowerups(powerup);
+							} else if (playerCar2.collisionDetection(powerup)) {
+								playerCar2.handleMapPowerups(powerup); 
+							}
+						} else if (!powerup.shouldCollide) {
+							if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
+								powerup.activate();
+							}
+						}
+					}		
 				}
 			}
 
