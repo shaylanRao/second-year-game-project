@@ -1,22 +1,12 @@
 package sample.models;
 
-import ai.djl.modality.rl.ActionSpace;
-import ai.djl.modality.rl.agent.RlAgent;
-import ai.djl.ndarray.NDArray;
-import ai.djl.ndarray.NDArrays;
-import ai.djl.ndarray.NDList;
-import ai.djl.ndarray.NDManager;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import sample.Main;
-import sample.ai.CarAgent;
-import sample.ai.RlEnv;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
 import java.util.*;
-
-import static sample.ai.TrainCar.OBSERVE;
 
 /**
  * The class that contains the main game loop
@@ -71,8 +61,6 @@ public class Game {
 			bananaPowerup.render(x, y);
 		}
 		gameManager = new GameManager();
-		//TODO is this the right place for this?
-		CarAgent carAgent = new CarAgent();
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)

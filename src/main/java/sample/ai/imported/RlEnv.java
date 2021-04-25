@@ -1,4 +1,4 @@
-package sample.ai;
+package sample.ai.imported;
 
 import ai.djl.modality.rl.ActionSpace;
 import ai.djl.modality.rl.agent.RlAgent;

@@ -19,7 +19,7 @@ import ai.djl.training.loss.Loss;
 import ai.djl.training.optimizer.Adam;
 import ai.djl.training.tracker.LinearTracker;
 import ai.djl.training.tracker.Tracker;
-import sample.models.Game;
+import sample.ai.imported.RlEnv;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -33,7 +33,10 @@ public class TrainCar {
     public static final float FINAL_EPSILON = 0.0001f;
     public static final int EXPLORE = 3000000;
     public static final int SAVE_EVERY_STEPS = 100000;
+    private static final long INPUT_SIZE = 32;
+    private static final long OUTPUT_SIZE = 5;
     private static GameEnv gameEnv;
+    //TODO this might have to be changed to target/main/resources/model
     private static final String MODEL_PATH = "src/main/resources/model";
 
     static RlEnv.Step[] batchSteps;
@@ -49,37 +52,19 @@ public class TrainCar {
     }
 
     private static SequentialBlock getBlock() {
-        //TODO will need to change this architecture for our purposes
-        // conv -> conv -> conv -> fc -> fc
+        //for now, using this architecture under the assumption that the input is 8x4 - the last 4 frames
+        //it may be the case that we change the input size to be 8 in the future
         return new SequentialBlock()
-                .add(Conv2d.builder()
-                        .setKernelShape(new Shape(8, 8))
-                        .optStride(new Shape(4, 4))
-                        .optPadding(new Shape(3, 3))
-                        .setFilters(4).build())
-                .add(Activation::relu)
-
-                .add(Conv2d.builder()
-                        .setKernelShape(new Shape(4, 4))
-                        .optStride(new Shape(2, 2))
-                        .setFilters(32).build())
-                .add(Activation::relu)
-
-                .add(Conv2d.builder()
-                        .setKernelShape(new Shape(3, 3))
-                        .optStride(new Shape(1, 1))
-                        .setFilters(64).build())
-                .add(Activation::relu)
-
-                .add(Blocks.batchFlattenBlock())
-                .add(Linear
-                        .builder()
-                        .setUnits(512).build())
-                .add(Activation::relu)
-
-                .add(Linear
-                        .builder()
-                        .setUnits(2).build());
+                .add(Blocks.batchFlattenBlock(INPUT_SIZE))
+                .add(Linear.builder().setUnits(24).build())
+                        .add(Activation::relu)
+                .add(Linear.builder().setUnits(OUTPUT_SIZE).build());
+        /*
+        this creates a network with the following structure:
+            input layer: 8*4 = 32 neurons
+            1 hidden layer of 24 neurons (relu activation function)
+            output layer: 5 neurons
+        */
     }
 
     public static void train(int batchSize) {
