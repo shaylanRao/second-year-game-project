@@ -195,8 +195,12 @@ public class Game
 				} else if (coordRot < - 2.3) {
 					coordRot = - 2.3;
 				}
+				gameManager.updateBar(95,80,playerCar);
 
 				player.turn(coordRot);
+				if (player == playerCar2) {
+					g2.updateBar(1745, 80, playerCar2);
+				}
 				coordPos = 0;
 				coordRot = 0;
 			}
