@@ -48,7 +48,6 @@ public class Game
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(1750, 600);
-			g2 = new GameManager();
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
@@ -69,7 +68,6 @@ public class Game
 			y -= 25;
 			bananaPowerup.render(x, y);
 		}
-		gameManager = new GameManager();
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
@@ -140,8 +138,10 @@ public class Game
 
 			}
 
+
 			private void carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances){
 				double forwardVelocity;
+
 				if (player.wallCollision(rcDistances)){
 					double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
 					double sumForwards = rcDistances[7] + rcDistances[6] + rcDistances[5];
@@ -180,46 +180,27 @@ public class Game
 
 				double turningSpeed = player.getTurningSpeed();
 
-				gameManager.updateBar(95,80,playerCar);
-
-				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-					dy2 = 0;
-					rot2 = 0;
-					double forwardVelocity2 = playerCar2.getForwardSpeed();
-					double turningSpeed2 = playerCar2.getTurningSpeed();
-					if (playerCar2.isGoingForward()) {
-						dy2 -= forwardVelocity2;
-					}
-					if (playerCar2.isGoingBackward()) {
-						dy2 += 1;
-					}
-					if (playerCar2.isTurnLeft()) {
-						rot2 -= turningSpeed2;
-					}
-					if (playerCar2.isTurnRight()) {
-						rot2 += turningSpeed2;
-					}
-					if (player.isTurnLeft()) {
-						coordRot -= turningSpeed;
-					}
-					if (player.isTurnRight()) {
-						coordRot += turningSpeed;
-					}
-
-					player.moveCarBy(coordPos);
-					if (coordRot > 2.3) {
-						coordRot = 2.3;
-					} else if (coordRot < -2.3) {
-						coordRot = -2.3;
-					}
-
-					player.turn(coordRot);
-					coordPos = 0;
-					coordRot = 0;
-					g2.updateBar(1745, 80, playerCar2);
+				if (player.isTurnLeft())
+				{
+					coordRot -= turningSpeed;
+				}
+				if (player.isTurnRight())
+				{
+					coordRot += turningSpeed;
 				}
 
+				player.moveCarBy(coordPos);
+				if (coordRot > 2.3) {
+					coordRot = 2.3;
+				} else if (coordRot < - 2.3) {
+					coordRot = - 2.3;
+				}
+
+				player.turn(coordRot);
+				coordPos = 0;
+				coordRot = 0;
 			}
+
 
 			private void powerupPickup(){
 				/*
