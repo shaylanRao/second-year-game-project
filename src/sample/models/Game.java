@@ -91,7 +91,7 @@ public class Game
 			this.players.add(playerCar2);
 		}
 		this.powerupsDischarge = new ArrayList<>();
-		this.playerCar.powerupsDischarge = new ArrayList<>();
+//		this.playerCar.powerupsDischarge = new ArrayList<>();
 		gameManager = new GameManager(gameBackground);
 		gameManager.wordBar(0,60,playerCar);
 		gameManager.fixBar(150,80,playerCar);
