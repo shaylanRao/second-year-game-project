@@ -1,5 +1,8 @@
 package sample.models;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import sample.Main;
 
 import java.util.Arrays;
@@ -16,7 +19,16 @@ public class GameManager{
     private final int[] eachLap = new int[maxLaps];
 
 
-    public GameManager() {
+    Pane gameBackground;
+
+
+//    public GameManager() {
+//        gateStack = new Stack<>();
+//        resetGateStack();
+//    }
+
+    public GameManager(Pane gameBackground) {
+        this.gameBackground = gameBackground;
         gateStack = new Stack<>();
         resetGateStack();
     }
@@ -92,6 +104,118 @@ public class GameManager{
         gateStack.push(2);
         gateStack.push(1);
         gateStack.push(0);
+    }
+
+    Image image = new Image("file:src/sample/resources/images/LapCounter/lap.png");
+
+    public void wordBar(double x, double y,PlayerCar playerCar) {
+        LapBar lapBar = new LapBar(gameBackground, new ImageView(image));
+        lapBar.render(x, y);
+        System.out.println("LAPImage done");
+    }
+
+    Image[] updateNumbers = new Image[]{
+            new Image("file:src/sample/resources/images/LapCounter/0.png"),
+            new Image("file:src/sample/resources/images/LapCounter/1.png"),
+            new Image("file:src/sample/resources/images/LapCounter/2.png"),
+            new Image("file:src/sample/resources/images/LapCounter/3.png"),
+            new Image("file:src/sample/resources/images/LapCounter/4.png"),
+            new Image("file:src/sample/resources/images/LapCounter/5.png"),
+            new Image("file:src/sample/resources/images/LapCounter/6.png"),
+            new Image("file:src/sample/resources/images/LapCounter/7.png"),
+            new Image("file:src/sample/resources/images/LapCounter/8.png"),
+            new Image("file:src/sample/resources/images/LapCounter/9.png"),
+            new Image("file:src/sample/resources/images/LapCounter/10.png")
+    };
+
+    public void updateBar(double x, double y, PlayerCar player) {
+
+        if (lapCounter==0){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[0]));
+            lapBar.render(x, y);
+        }else if (lapCounter==1){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[1]));
+            lapBar.render(x, y);
+        }else if (lapCounter==2){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[2]));
+            lapBar.render(x, y);
+        }else if (lapCounter==3){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[3]));
+            lapBar.render(x, y);
+        }else if (lapCounter==4){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[4]));
+            lapBar.render(x, y);
+        }else if (lapCounter==5){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[5]));
+            lapBar.render(x, y);
+        }else if (lapCounter==6){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[6]));
+            lapBar.render(x, y);
+        }else if (lapCounter==7){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[7]));
+            lapBar.render(x, y);
+        }else if (lapCounter==8){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[8]));
+            lapBar.render(x, y);
+        }else if (lapCounter==9){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[9]));
+            lapBar.render(x, y);
+        }else if (lapCounter==10){
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[10]));
+            lapBar.render(x, y);
+        }
+//        System.out.println("updateImageDone");
+
+    }
+
+    Image[] fixNumbers = new Image[]{
+            new Image("file:src/sample/resources/images/LapCounter/max1.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max2.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max3.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max4.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max5.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max6.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max7.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max8.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max9.png"),
+            new Image("file:src/sample/resources/images/LapCounter/max10.png")
+    };
+
+    public void fixBar ( double x, double y, PlayerCar player){
+        if (maxLaps == 1) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[0]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 2) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[1]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 3) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[2]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 4) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[3]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 5) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[4]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 6) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[5]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 7) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[6]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 8) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[7]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 9) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[8]));
+            lapBar.render(x, y);
+        } else if (maxLaps == 10) {
+            LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[9]));
+            lapBar.render(x, y);
+        }
+        System.out.println("FixNumberImage done");
+
+
     }
 
 }

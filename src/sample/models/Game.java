@@ -78,9 +78,16 @@ public class Game
 		this.playerCar = new PlayerCar(gameBackground);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.playerCar2 = new PlayerCar(gameBackground);
+			g2 = new GameManager(gameBackground);
+			g2.wordBar(1650,60,playerCar2);
+			g2.fixBar(1800,80,playerCar2);
 		}
 		this.powerupsDischarge = new ArrayList<>();
 		this.playerCar.powerupsDischarge = new ArrayList<>();
+		gameManager = new GameManager(gameBackground);
+		gameManager.wordBar(0,60,playerCar);
+		gameManager.fixBar(150,80,playerCar);
+
 
 		// generates powerups
 		int maxPowerups = 2;
@@ -174,25 +181,45 @@ public class Game
 
 				double turningSpeed = player.getTurningSpeed();
 
-				if (player.isTurnLeft())
-				{
-					coordRot -= turningSpeed;
-				}
-				if (player.isTurnRight())
-				{
-					coordRot += turningSpeed;
+				gameManager.updateBar(95,80,playerCar);
+
+				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					dy2 = 0;
+					rot2 = 0;
+					double forwardVelocity2 = playerCar2.getForwardSpeed();
+					double turningSpeed2 = playerCar2.getTurningSpeed();
+					if (playerCar2.isGoingForward()) {
+						dy2 -= forwardVelocity2;
+					}
+					if (playerCar2.isGoingBackward()) {
+						dy2 += 1;
+					}
+					if (playerCar2.isTurnLeft()) {
+						rot2 -= turningSpeed2;
+					}
+					if (playerCar2.isTurnRight()) {
+						rot2 += turningSpeed2;
+					}
+					if (player.isTurnLeft()) {
+						coordRot -= turningSpeed;
+					}
+					if (player.isTurnRight()) {
+						coordRot += turningSpeed;
+					}
+
+					player.moveCarBy(coordPos);
+					if (coordRot > 2.3) {
+						coordRot = 2.3;
+					} else if (coordRot < -2.3) {
+						coordRot = -2.3;
+					}
+
+					player.turn(coordRot);
+					coordPos = 0;
+					coordRot = 0;
+					g2.updateBar(1745, 80, playerCar2);
 				}
 
-				player.moveCarBy(coordPos);
-				if (coordRot > 2.3) {
-					coordRot = 2.3;
-				} else if (coordRot < - 2.3) {
-					coordRot = - 2.3;
-				}
-
-				player.turn(coordRot);
-				coordPos = 0;
-				coordRot = 0;
 			}
 
 			private void powerupPickup(){
