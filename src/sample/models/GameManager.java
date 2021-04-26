@@ -115,7 +115,6 @@ public class GameManager{
     }
 
     Image[] updateNumbers = new Image[]{
-            new Image("file:src/sample/resources/images/LapCounter/0.png"),
             new Image("file:src/sample/resources/images/LapCounter/1.png"),
             new Image("file:src/sample/resources/images/LapCounter/2.png"),
             new Image("file:src/sample/resources/images/LapCounter/3.png"),
