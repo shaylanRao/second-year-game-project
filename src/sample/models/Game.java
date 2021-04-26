@@ -21,6 +21,10 @@ public class Game
 
 	private PlayerCar			playerCar;
 	private PlayerCar           playerCar2;
+
+	private ArrayList<Powerup>	powerups;
+	private ArrayList<Powerup>	powerupsDischarge;
+
 	private ArrayList<PlayerCar> players;
 	private ArrayList<Powerup>	powerupsOnMap;
 	private boolean				ok;
@@ -111,8 +115,7 @@ public class Game
 	public synchronized void gameLoop() throws InterruptedException
 	{
 		this.initialiser();
-		AnimationTimer timer = new AnimationTimer()
-		{
+		AnimationTimer timer = new AnimationTimer() {
 			private double dy = 0;
 			private double rot = 0;
 			private double dy2 = 0;
@@ -121,7 +124,7 @@ public class Game
 			int j = 0;
 
 			@Override
-			public void handle(long now){
+			public void handle(long now) {
 				if (j == 0) {
 					gameManager.lapTimer();
 					j++;
@@ -130,7 +133,7 @@ public class Game
 
 				this.carMovement(playerCar, this.dy, this.rot, distances);
 
-				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 					this.carMovement(playerCar2, this.dy2, this.rot2, distances2);
 				}
 
@@ -145,10 +148,10 @@ public class Game
 			}
 
 
-			private void carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances){
+			private void carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances) {
 				double forwardVelocity;
 
-				if (player.wallCollision(rcDistances)){
+				if (player.wallCollision(rcDistances)) {
 					double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
 					double sumForwards = rcDistances[7] + rcDistances[6] + rcDistances[5];
 					player.setForceSpeed(0);
@@ -162,15 +165,14 @@ public class Game
 						if (player.isGoingForward()) {
 							forwardVelocity = player.getForwardSpeed();
 //							System.out.println("FORWARDS");
-							if (forwardVelocity == 0){
+							if (forwardVelocity == 0) {
 								player.setSpeed(0.5);
 							}
 							coordPos -= forwardVelocity;
 						}
 					}
-				}
-				else if (speedBoost){
-					forwardVelocity = player.getForwardSpeed()*2;
+				} else if (speedBoost) {
+					forwardVelocity = player.getForwardSpeed() * 2;
 					counter++;
 					if (counter > 100) {
 						speedBoost = false;
@@ -186,22 +188,20 @@ public class Game
 
 				double turningSpeed = player.getTurningSpeed();
 
-				if (player.isTurnLeft())
-				{
+				if (player.isTurnLeft()) {
 					coordRot -= turningSpeed;
 				}
-				if (player.isTurnRight())
-				{
+				if (player.isTurnRight()) {
 					coordRot += turningSpeed;
 				}
 
 				player.moveCarBy(coordPos);
 				if (coordRot > 2.3) {
 					coordRot = 2.3;
-				} else if (coordRot < - 2.3) {
-					coordRot = - 2.3;
+				} else if (coordRot < -2.3) {
+					coordRot = -2.3;
 				}
-				gameManager.updateBar(95,80,playerCar);
+				gameManager.updateBar(95, 80, playerCar);
 
 				player.turn(coordRot);
 				if (player == playerCar2) {
@@ -211,8 +211,6 @@ public class Game
 				coordRot = 0;
 			}
 
-
-			}
 
 			private void powerupPickup(){
 				/*
