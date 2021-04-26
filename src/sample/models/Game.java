@@ -48,7 +48,7 @@ public class Game
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(350, 500);
-			g2 = new GameManager();
+			//g2 = new GameManager();
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
@@ -69,7 +69,7 @@ public class Game
 			y -= 25;
 			bananaPowerup.render(x, y);
 		}
-		gameManager = new GameManager();
+		//gameManager = new GameManager();
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
@@ -78,9 +78,16 @@ public class Game
 		this.playerCar = new PlayerCar(gameBackground);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.playerCar2 = new PlayerCar(gameBackground);
+			g2 = new GameManager(gameBackground);
+			g2.wordBar(1650,60,playerCar2);
+			g2.fixBar(1800,80,playerCar2);
 		}
 		this.powerupsDischarge = new ArrayList<>();
 		this.playerCar.powerupsDischarge = new ArrayList<>();
+		gameManager = new GameManager(gameBackground);
+		gameManager.wordBar(0,60,playerCar);
+		gameManager.fixBar(150,80,playerCar);
+
 
 		// generates powerups
 		int maxPowerups = 2;
@@ -190,6 +197,8 @@ public class Game
 
 				playerCar.turn(rot);
 
+				gameManager.updateBar(95,80,playerCar);
+
 				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 					dy2 = 0;
 					rot2 = 0;
@@ -219,8 +228,8 @@ public class Game
 					}
 
 					playerCar2.turn(rot2);
+					g2.updateBar(1745,80,playerCar2);
 				}
-
 
 			}
 
