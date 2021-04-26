@@ -212,6 +212,11 @@ public class Game
 			}
 
 
+			private	void carOnCarColl(){
+
+			}
+
+
 			private void powerupPickup(){
 				/*
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
