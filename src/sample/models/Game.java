@@ -22,6 +22,24 @@ public class Game
 	private boolean				ok;
 	private boolean speedb = false;
 	private GameManager gameManager;
+	private IntroCountdown intro[];
+	private int  intro_frame   = 0;
+	private long dt = 0;
+	private long start_time = 0;
+
+
+	public void updateTime()
+	{
+		Date date = new Date();
+		long current_time = date.getTime();
+
+		this.dt += (current_time - this.start_time);
+		this.start_time = current_time;
+	}
+	public long getTimePassed()
+	{
+		return this.dt;
+	}
 
 	public PlayerCar getPlayerCar()
 	{
@@ -61,10 +79,21 @@ public class Game
 			bananaPowerup.render(x, y);
 		}
 		gameManager = new GameManager();
+
+		// render first intro frame : 3
+		intro[intro_frame].render(400,90);
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
 	{
+
+
+		intro = new IntroCountdown[4];
+		intro[0] = new IntroCountdown(gameBackground, 0) ;
+		intro[1] = new IntroCountdown(gameBackground, 1);
+		intro[2] = new IntroCountdown(gameBackground, 2) ;
+		intro[3] = new IntroCountdown(gameBackground, 3);
+
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.players = new ArrayList<>();
 		this.playerCar = new PlayerCar(gameBackground);
@@ -109,10 +138,18 @@ public class Game
 
 			@Override
 			public void handle(long now){
+
+
+
+
+
 				if (j == 0) {
 					gameManager.lapTimer();
 					j++;
 				}
+
+				this.renderIntroCountdown();
+
 				this.carMovement();
 
 				this.powerupPickup();
@@ -124,6 +161,43 @@ public class Game
 				this.makeRandomTrack();
 
 				this.lapSystem();
+			}
+
+			private void renderIntroCountdown()
+			{
+				// case : we have played all the intro countdown, so we just return
+				if(intro_frame > 3)
+					return;
+
+				updateTime();
+				long time_passed = getTimePassed();
+				if(time_passed > 5000) // an error case preventing just for the first frame
+				{
+					time_passed = 0;
+					dt = 0;
+				}
+
+				// if time passed on current frame >= 1000 (1second)
+				// go to next frame
+				if(time_passed >= 1000)
+				{
+
+					intro[intro_frame].deactivate(); // deactivate previous frame
+					intro_frame++;					 // increment frame index
+					dt = 0;							 // reset dt (time passed)
+
+					// render the new frame
+					try
+					{
+						if(intro_frame <= 3 && intro_frame != 0)
+						{
+							intro[intro_frame].render(350, 50); // render( x, y )
+						}
+
+					}
+					catch(Exception e){}
+
+				}
 			}
 
 			private void carMovement(){
