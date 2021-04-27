@@ -118,6 +118,9 @@ public class Car extends Sprite {
         this.forceSpeed = forceSpeed;
     }
 
+    public double getForceSpeed() {
+        return forceSpeed;
+    }
 
     public ImageView getImageView() {
         return super.getImage();

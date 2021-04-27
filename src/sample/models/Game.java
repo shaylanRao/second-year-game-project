@@ -32,6 +32,7 @@ public class Game
 	private GameManager g2;
 	private double[] distances;
 	private double[] distances2;
+	private boolean raceStart = false;
 
 
 	public void updateTime()
@@ -157,8 +158,6 @@ public class Game
 					this.carMovement(playerCar2, dy2, rot2, distances2);
 				}
 
-
-
 				this.renderIntroCountdown();
 
 				this.powerupPickup();
@@ -171,12 +170,12 @@ public class Game
 
 			}
 
-			private void renderIntroCountdown()
-			{
-				// case : we have played all the intro countdown, so we just return
-				if(intro_frame > 3)
-					return;
 
+			private void renderIntroCountdown() {
+				// case : we have played all the intro countdown, so we just return
+				if(intro_frame > 3) {
+					return;
+				}
 				updateTime();
 				long time_passed = getTimePassed();
 				if(time_passed > 5000) // an error case preventing just for the first frame
@@ -189,7 +188,6 @@ public class Game
 				// go to next frame
 				if(time_passed >= 1000)
 				{
-
 					intro[intro_frame].deactivate(); // deactivate previous frame
 					intro_frame++;					 // increment frame index
 					dt = 0;							 // reset dt (time passed)
@@ -201,13 +199,34 @@ public class Game
 						{
 							intro[intro_frame].render(350, 50); // render( x, y )
 						}
+						else{
+							startBoost(playerCar);
+							if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+							startBoost(playerCar2);
+							}
+
+						}
 
 					}
 					catch(Exception ignored){}
 
 				}
+
 			}
 
+
+			private void startBoost(PlayerCar player){
+				System.out.println(player.getForwardSpeed());
+				if(player.getForwardSpeed() < 2.6 && player.getForwardSpeed() > 2.3){
+					System.out.println("BOOST");
+					player.setForceSpeed(player.getForceSpeed()*0.6);
+				}
+				else{
+					System.out.println("NO BOOST");
+					player.setForceSpeed(0);
+				}
+				raceStart = true;
+			}
 
 			private void carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances) {
 				double forwardVelocity;
@@ -219,13 +238,11 @@ public class Game
 					if (sumBackwards > sumForwards) {
 						if (player.isGoingBackward()) {
 							forwardVelocity = player.getForwardSpeed();
-//							System.out.println("BACKWARDS");
 							coordPos -= forwardVelocity;
 						}
 					} else {
 						if (player.isGoingForward()) {
 							forwardVelocity = player.getForwardSpeed();
-//							System.out.println("FORWARDS");
 							if (forwardVelocity == 0) {
 								player.setSpeed(0.5);
 							}
@@ -243,7 +260,6 @@ public class Game
 					coordPos -= forwardVelocity;
 				} else {
 					forwardVelocity = player.getForwardSpeed();
-//					System.out.println(forwardVelocity);
 					coordPos -= forwardVelocity;
 				}
 
@@ -263,7 +279,13 @@ public class Game
 					coordRot = -2.3;
 				}
 
-				if (!gameManager.finishedLaps()) {
+
+
+				if(!raceStart){
+
+				}
+
+				if (!gameManager.finishedLaps() && raceStart) {
 					//moves around screen
 					player.moveCarBy(coordPos);
 					//rotates the car image
@@ -364,12 +386,10 @@ public class Game
 				double[] gateDistances = raycaster.castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
 				gameManager.setGateDistances(gateDistances);
 				gameManager.hitGate();
-				//System.out.println(gameManager.lapCounter);
 				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 					double[] gateDistances2 = r2.castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[g2.getNextGate()])), false);
 					g2.setGateDistances(gateDistances2);
 					g2.hitGate();
-					//System.out.println(g2.lapCounter);
 				}
 			}
 
