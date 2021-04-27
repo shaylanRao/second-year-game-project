@@ -187,15 +187,21 @@ public class Game
 					coordRot += turningSpeed;
 				}
 
-				player.moveCarBy(coordPos);
+
 				if (coordRot > 2.3) {
 					coordRot = 2.3;
 				} else if (coordRot < -2.3) {
 					coordRot = -2.3;
 				}
-				gameManager.updateBar(95, 80);
 
-				player.turn(coordRot);
+				if (!gameManager.finishedLaps()) {
+					//moves around screen
+					player.moveCarBy(coordPos);
+					//rotates the car image
+					player.turn(coordRot);
+				}
+
+				gameManager.updateBar(95, 80);
 				if (player == playerCar2) {
 					g2.updateBar(1745, 80);
 				}

@@ -204,4 +204,9 @@ public class GameManager{
 
     }
 
+    public boolean finishedLaps(){
+        return lapCounter == maxLaps;
+    }
+
+
 }
