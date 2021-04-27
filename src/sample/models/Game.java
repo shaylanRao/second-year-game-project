@@ -257,13 +257,13 @@ public class Game
 							if (pwr instanceof OilSpillPowerup)
 							{
 								pwr.deactivate();
-								player.activatePowerup("carSlide");
+								player.movementPowerup("carSlide");
 							}
 							else if (pwr instanceof BananaDischargePowerup)
 							{
 								pwr.deactivate();
 								SoundManager.play("bananaFall");
-								player.activatePowerup("carSpin");
+								player.movementPowerup("carSpin");
 							}
 							powerupsOnMap.remove(pwr);
 						}

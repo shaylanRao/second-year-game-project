@@ -93,7 +93,7 @@ public class Car extends Sprite {
 			setPickedUpPwrtime(System.currentTimeMillis());
 			return drop;
 		} else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
-			activatePowerup("speedBoost");
+			movementPowerup("speedBoost");
 			powerups.pop();
 			powerUpBar.removeFirstPowerup(playerNumber);
 			setPickedUpPwrtime(System.currentTimeMillis());
@@ -339,7 +339,7 @@ public class Car extends Sprite {
      * If function is activated, it will change the value of speedBoostOn to true
      * for a specified time period (1 second)
      */
-    public void activatePowerup(String powerUp){
+    public void movementPowerup(String powerUp){
         switch(powerUp){
             case "carSpin":
                 carSpinOn = true;
