@@ -34,7 +34,7 @@
     <node x="3672.1327657807306" y="3682.0">sample.utilities.Mapper</node>
     <node x="1965.952083333334" y="5341.0">sample.models.SceneManager</node>
     <node x="0.0" y="1433.0">sample.models.Settings.PlayMode</node>
-    <node x="4007.297348484849" y="7886.0">sample.controllers.game.RandomTrackScreen</node>
+    <node x="4007.297348484849" y="7886.0">sample.controllers.game.GameController</node>
     <node x="5164.089015151516" y="6724.5">sample.models.SpeedboosterPowerup</node>
     <node x="343.3333333333335" y="3373.0">sample.models.Settings</node>
     <node x="3993.130681818182" y="5385.0">sample.models.Raycast</node>
@@ -154,7 +154,7 @@
       <point x="5027.867614265579" y="7435.0" />
       <point x="74.0" y="38.5" />
     </edge>
-    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.controllers.game.AbstractGameController">
+    <edge source="sample.controllers.game.GameController" target="sample.controllers.game.AbstractGameController">
       <point x="95.20000000000005" y="-38.5" />
       <point x="4221.497348484849" y="7866.0" />
       <point x="5102.439015151516" y="7866.0" />
@@ -244,7 +244,7 @@
       <point x="5201.089015151516" y="7435.0" />
       <point x="-74.0" y="38.5" />
     </edge>
-    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.models.Raycaster">
+    <edge source="sample.controllers.game.GameController" target="sample.models.Raycaster">
       <point x="-47.59999999999991" y="-38.5" />
       <point x="4078.697348484849" y="7866.0" />
       <point x="4105.214015151516" y="7866.0" />
@@ -386,7 +386,7 @@
       <point x="5224.150033474276" y="6051.0" />
       <point x="91.46428571428578" y="72.0" />
     </edge>
-    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.models.Game">
+    <edge source="sample.controllers.game.GameController" target="sample.models.Game">
       <point x="59.5" y="38.5" />
       <point x="4185.797348484849" y="8063.0" />
       <point x="4996.039015151516" y="8063.0" />
@@ -460,7 +460,7 @@
       <point x="2037.8836644266573" y="2177.0" />
       <point x="-11.291666666666515" y="522.5" />
     </edge>
-    <edge source="sample.controllers.game.RandomTrackScreen" target="sample.Main">
+    <edge source="sample.controllers.game.GameController" target="sample.Main">
       <point x="-95.19999999999982" y="-38.5" />
       <point x="4031.097348484849" y="7866.0" />
       <point x="2284.427083333334" y="7866.0" />
@@ -514,7 +514,7 @@
       <point x="2081.1556824473973" y="5643.0" />
       <point x="93.15000000000009" y="-115.5" />
     </edge>
-    <edge source="sample.models.Game" target="sample.controllers.game.RandomTrackScreen">
+    <edge source="sample.models.Game" target="sample.controllers.game.GameController">
       <point x="-74.19999999999982" y="-126.5" />
       <point x="4985.439015151516" y="8073.0" />
       <point x="4066.797348484849" y="8073.0" />

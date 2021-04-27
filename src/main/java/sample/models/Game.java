@@ -4,7 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
-import sample.controllers.game.RandomTrackScreen;
+import sample.controllers.game.GameController;
 
 import java.util.*;
 
@@ -306,18 +306,18 @@ public class Game {
 			private void makeRandomTrack(){
 				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
 					//set raycaster position and rotation = the car's position and rotation
-					RandomTrackScreen.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
+					GameController.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
 							Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
 
-					RandomTrackScreen.raycaster.setRot(playerCar.getImageView().getRotate());
+					GameController.raycaster.setRot(playerCar.getImageView().getRotate());
 
 					//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-					distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
+					distances = GameController.raycaster.castRays(Main.track.getTrackLines(), false);
 				}
 			}
 
 			private void lapSystem(){
-				double gateDistances[] = RandomTrackScreen.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), true);
+				double gateDistances[] = GameController.raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), true);
 //					System.out.println(Arrays.toString(gateDistances));
 				gameManager.setGateDistances(gateDistances);
 				//System.out.println(Arrays.toString(distances));

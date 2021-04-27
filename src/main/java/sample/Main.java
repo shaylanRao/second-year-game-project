@@ -78,7 +78,8 @@ public class Main extends Application {
     @Override
     public void stop() {
         SoundManager.stopAll();
-        //System.exit(0);
+        //TODO this is not good - there is an error that is causing the game to carry on running even after closing it, this just shuts it up but does not fix it
+        System.exit(0);
     }
 
 }
