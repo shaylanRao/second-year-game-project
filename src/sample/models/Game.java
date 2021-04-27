@@ -230,7 +230,6 @@ public class Game
 
 			private void carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances) {
 				double forwardVelocity;
-
 				if (player.wallCollision(rcDistances)) {
 					double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
 					double sumForwards = rcDistances[7] + rcDistances[6] + rcDistances[5];

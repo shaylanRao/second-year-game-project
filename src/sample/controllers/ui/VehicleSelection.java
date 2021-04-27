@@ -61,12 +61,8 @@ public class VehicleSelection {
             if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
                 loader = new FXMLLoader(Main.class.getResource("views/multiplayer.fxml"));
             }
-            else if (Main.settings.getTrack()==Settings.Track.TRACK3) {
+            else{
                 loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
-            }
-            else {
-                //TODO remove this and only have random generated track
-                loader = new FXMLLoader(Main.class.getResource("views/gameScreen.fxml"));
             }
             root = loader.load();
             // solves user key click issue
