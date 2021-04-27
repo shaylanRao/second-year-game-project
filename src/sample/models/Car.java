@@ -1,13 +1,11 @@
 package sample.models;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
-import javafx.scene.layout.BorderPane;
+
+import java.util.LinkedList;
 
 public class Car extends Sprite {
 
@@ -17,7 +15,6 @@ public class Car extends Sprite {
     private double speedConverter;
     private double speed, maximumSpeed, minimumSpeed;
     protected boolean powerup;
-    final double SPEEDFACTOR = 6;
     private boolean speedBoostOn = false;
     private boolean carSpinOn = false;
     private boolean carSlideOn = false;
@@ -29,19 +26,12 @@ public class Car extends Sprite {
     public PowerUpBar powerUpBar;
 
     public void addPowerup(Powerup powerup) {
-        if (getPowerups().size() < 3) {
-            this.getPowerups().add(powerup);
-//			this.powerupsDischarge.add(powerup);
-            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
+        if (getPowerups().size() >= 3) {
+            this.powerups.pop();
+            this.powerUpBar.removeFirstPowerup(playerNumber);
         }
-        else {
-//        	this.powerupsDischarge.remove(this.powerups.pop());
-        	this.powerups.pop();
-        	this.powerUpBar.removeFirstPowerup(playerNumber);
-        	this.getPowerups().add(powerup);
-            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
-//			this.powerupsDischarge.add(powerup);
-        }
+        this.getPowerups().add(powerup);
+        this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
     }
 
     public LinkedList<Powerup> getPowerups()
@@ -115,7 +105,7 @@ public class Car extends Sprite {
 
     public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
-        this.setMaximumSpeed(4);
+        this.setMaximumSpeed(3);
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-1.5);
         this.setAccelerationModerator(0.005);
@@ -331,14 +321,11 @@ public class Car extends Sprite {
      */
     private double fRolling(){
         //todo need to change
-        double rollConst = 0.2;
+        double rollConst = 0.8;
         return ((forceSpeed) *rollConst);
     }
 
-    /**
-     * Controls the way the car rolls when not accelerating
-     * decelerates from current speed to 0 when no buttons being pressed
-     */
+
 
     //todo start-off boost
     //
@@ -481,15 +468,14 @@ public class Car extends Sprite {
         }
         else if(carSpinOn){
             this.speed = 0;
-            return(this.speed);
         }
         else if (carSlideOn){
-            this.speed = this.speed;
-            return (speed);
+            return (this.speed);
         }
         else{
             return (this.speedCalculator());
         }
+        return(this.speed);
     }
 
     /**
@@ -508,7 +494,6 @@ public class Car extends Sprite {
 
     /**
      * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter
-     * @param other
      * @return bool
      * */
     public boolean collisionDetection(Sprite other) {
@@ -574,9 +559,6 @@ public class Car extends Sprite {
         return retVal;
     }
 
-    private void crashed(){
-        speed = 0;
-    }
 
     /*
     1. forward acceleration

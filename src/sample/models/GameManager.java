@@ -5,10 +5,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
 
-import java.util.Arrays;
+import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Stack;
 
 public class GameManager{
     final int[] millisecondsPassed = {0};
@@ -21,11 +20,6 @@ public class GameManager{
 
     Pane gameBackground;
 
-
-//    public GameManager() {
-//        gateStack = new Stack<>();
-//        resetGateStack();
-//    }
 
     public GameManager(Pane gameBackground) {
         this.gameBackground = gameBackground;
@@ -43,13 +37,6 @@ public class GameManager{
 
     public int getNextGate() {
         return gateStack.peek();
-    }
-
-
-    public void startingLap(){
-        //logic for beginning of the race passing the finish line to start lap 1
-        //this.lapTimer();
-        //this.speedBoost
     }
 
 
@@ -108,7 +95,7 @@ public class GameManager{
 
     Image image = new Image("file:src/sample/resources/images/LapCounter/lap.png");
 
-    public void wordBar(double x, double y,PlayerCar playerCar) {
+    public void wordBar(double x, double y) {
         LapBar lapBar = new LapBar(gameBackground, new ImageView(image));
         lapBar.render(x, y);
         System.out.println("LAPImage done");
@@ -127,7 +114,7 @@ public class GameManager{
             new Image("file:src/sample/resources/images/LapCounter/10.png")
     };
 
-    public void updateBar(double x, double y, PlayerCar player) {
+    public void updateBar(double x, double y) {
 
         if (lapCounter==0){
             LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[0]));
@@ -180,7 +167,7 @@ public class GameManager{
             new Image("file:src/sample/resources/images/LapCounter/max10.png")
     };
 
-    public void fixBar ( double x, double y, PlayerCar player){
+    public void fixBar(double x, double y){
         if (maxLaps == 1) {
             LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[0]));
             lapBar.render(x, y);

@@ -22,17 +22,13 @@ public class Game
 	private PlayerCar			playerCar;
 	private PlayerCar           playerCar2;
 
-	private ArrayList<Powerup>	powerups;
-	private ArrayList<Powerup>	powerupsDischarge;
-
 	private ArrayList<PlayerCar> players;
 	private ArrayList<Powerup>	powerupsOnMap;
-	private boolean				ok;
 	private boolean speedBoost = false;
 	private GameManager gameManager;
 	private GameManager g2;
-	private double distances[];
-	private double distances2[];
+	private double[] distances;
+	private double[] distances2;
 
 
 	public PlayerCar getPlayerCar()
@@ -55,11 +51,9 @@ public class Game
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
-		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
-		double x = spawnPoint.getXConverted();
-		double y = spawnPoint.getYConverted();
-		x -= 25;
-		y -= 25;
+		Point spawnPoint;
+		double x;
+		double y;
 
 		for (Powerup bananaPowerup : powerupsOnMap)
 		{
@@ -85,16 +79,15 @@ public class Game
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.playerCar2 = new PlayerCar(gameBackground);
 			g2 = new GameManager(gameBackground);
-			g2.wordBar(1650,60,playerCar2);
-			g2.fixBar(1800,80,playerCar2);
+			g2.wordBar(1650,60);
+			g2.fixBar(1800,80);
 			this.playerCar2.playerNumber = 2;
 			this.players.add(playerCar2);
 		}
-		this.powerupsDischarge = new ArrayList<>();
-//		this.playerCar.powerupsDischarge = new ArrayList<>();
+		//		this.playerCar.powerupsDischarge = new ArrayList<>();
 		gameManager = new GameManager(gameBackground);
-		gameManager.wordBar(0,60,playerCar);
-		gameManager.fixBar(150,80,playerCar);
+		gameManager.wordBar(0,60);
+		gameManager.fixBar(150,80);
 
 
 		// generates powerups
@@ -112,14 +105,9 @@ public class Game
 	 * The game loop. This deals with game logic such as handling collisions and moving the car
 	 *
 	 */
-	public synchronized void gameLoop() throws InterruptedException
-	{
+	public synchronized void gameLoop() {
 		this.initialiser();
 		AnimationTimer timer = new AnimationTimer() {
-			private double dy = 0;
-			private double rot = 0;
-			private double dy2 = 0;
-			private double rot2 = 0;
 			int counter;
 			int j = 0;
 
@@ -131,10 +119,14 @@ public class Game
 				}
 				this.makeRandomTrack();
 
-				this.carMovement(playerCar, this.dy, this.rot, distances);
+				double rot = 0;
+				double dy = 0;
+				this.carMovement(playerCar, dy, rot, distances);
 
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-					this.carMovement(playerCar2, this.dy2, this.rot2, distances2);
+					double dy2 = 0;
+					double rot2 = 0;
+					this.carMovement(playerCar2, dy2, rot2, distances2);
 				}
 
 				this.powerupPickup();
@@ -201,14 +193,12 @@ public class Game
 				} else if (coordRot < -2.3) {
 					coordRot = -2.3;
 				}
-				gameManager.updateBar(95, 80, playerCar);
+				gameManager.updateBar(95, 80);
 
 				player.turn(coordRot);
 				if (player == playerCar2) {
-					g2.updateBar(1745, 80, playerCar2);
+					g2.updateBar(1745, 80);
 				}
-				coordPos = 0;
-				coordRot = 0;
 			}
 
 
@@ -294,22 +284,15 @@ public class Game
 
 			private void lapSystem(){
 				//Gets ray cast for next gate
-				double gateDistances[] = raycaster.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[gameManager.getNextGate()])), false);
+				double[] gateDistances = raycaster.castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
 				gameManager.setGateDistances(gateDistances);
 				gameManager.hitGate();
 				//System.out.println(gameManager.lapCounter);
 				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-					double gateDistances2[] = r2.castRays(new ArrayList<>(Arrays.asList(Main.track.getGates()[g2.getNextGate()])), false);
+					double[] gateDistances2 = r2.castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[g2.getNextGate()])), false);
 					g2.setGateDistances(gateDistances2);
 					g2.hitGate();
 					//System.out.println(g2.lapCounter);
-				}
-			}
-
-			private void boundaryCollision(){
-				playerCar.wallCollision(distances);
-				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-					playerCar2.wallCollision(distances2);
 				}
 			}
 

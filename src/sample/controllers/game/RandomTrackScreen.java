@@ -1,19 +1,15 @@
 package sample.controllers.game;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
-import sample.models.*;
+import sample.models.Game;
+import sample.models.Raycaster;
+import sample.models.Settings;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -36,11 +32,6 @@ public class RandomTrackScreen extends AbstractGameController {
         Path outerPath = new Path(outerPathElems);
         Path innerPath = new Path(innerPathElems);
         Line[] gates = Main.track.getGates();
-        /*for (Point point : Main.track.getPowerupSpawns()) {
-            Line line = new Line(point.getXConverted(), point.getYConverted(), point.getXConverted(), point.getYConverted());
-            line.setStrokeWidth(5);
-            pane.getChildren().add(line);
-        }*/
 
         outerPath.setFill(Color.web("#444444"));
         innerPath.setFill(Color.web("#013220"));
@@ -59,7 +50,7 @@ public class RandomTrackScreen extends AbstractGameController {
         }
     }
 
-    public void backClicked(ActionEvent actionEvent) {
+    public void backClicked() {
         SoundManager.play("button");
         SoundManager.stop("playBgm");
         SoundManager.play("bgm");

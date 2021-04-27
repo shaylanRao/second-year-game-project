@@ -30,12 +30,12 @@ public class Raycaster {
     }
 
     private double rot;
-    private Raycast[] rays = new Raycast[8];
-    private Pane pane;
-    private ArrayList<Line> rayLines = new ArrayList<>();
+    private final Raycast[] rays = new Raycast[8];
+    private final Pane pane;
+    private final ArrayList<Line> rayLines = new ArrayList<>();
 
     //this is the list of angles in degrees that the rays should be casted at (from the car)
-    private final double directions[] = {
+    private final double[] directions = {
             0,
             23,
             -23,
@@ -52,7 +52,7 @@ public class Raycaster {
     }
 
     public Line[] show() {
-        Line lines[] = new Line[8];
+        Line[] lines = new Line[8];
         for (int i=0; i<8; i++) {
             lines[i] = rays[i].show();
         }
@@ -71,7 +71,7 @@ public class Raycaster {
             rayLines.clear();
         }
         int counter = 0;
-        double distances[] = new double[8];
+        double[] distances = new double[8];
         for (Raycast ray: rays) {
             Point closest = null;
             double record = Integer.MAX_VALUE;
