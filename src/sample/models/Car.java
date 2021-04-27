@@ -526,25 +526,6 @@ public class Car extends Sprite {
 
     }
 
-    /**
-     * Returns speed after 3 seconds
-     * @return speed
-     */
-    public double getStartSpeed(){
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        System.out.println("Speed after 3 seconds");
-                        System.out.println(getForwardSpeed());
-                    }
-                },
-                3000
-        );
-        return(10.0);
-    }
-
-
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
 

@@ -25,7 +25,7 @@ public class Game
 	private ArrayList<Powerup>	powerupsOnMap;
 	private boolean speedBoost = false;
 	private GameManager gameManager;
-	private IntroCountdown intro[];
+	private IntroCountdown[] intro;
 	private int  intro_frame   = 0;
 	private long dt = 0;
 	private long start_time = 0;
@@ -277,12 +277,6 @@ public class Game
 					coordRot = 2.3;
 				} else if (coordRot < -2.3) {
 					coordRot = -2.3;
-				}
-
-
-
-				if(!raceStart){
-
 				}
 
 				if (!gameManager.finishedLaps() && raceStart) {
