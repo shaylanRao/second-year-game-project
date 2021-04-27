@@ -1,8 +1,5 @@
 package sample.models;
 
-
-import com.sun.javafx.geom.Rectangle;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 

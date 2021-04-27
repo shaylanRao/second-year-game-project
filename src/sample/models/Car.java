@@ -55,17 +55,9 @@ public class Car extends Sprite {
     }
 
     public void handleMapPowerups(Powerup powerup) {
-    	if (powerup.shouldCollide && collisionDetection(powerup))
-		{
-			SoundManager.play("prop");
-			addPowerup(powerup);
-			powerup.deactivate();
-		}
-		else if (!powerup.shouldCollide) {
-			if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
-				powerup.activate();
-			}
-		}
+		SoundManager.play("prop");
+		addPowerup(powerup);
+		powerup.deactivate();
     }
 
     public Powerup usePowerup () {

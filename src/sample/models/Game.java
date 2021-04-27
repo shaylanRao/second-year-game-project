@@ -21,14 +21,31 @@ public class Game
 
 	private PlayerCar			playerCar;
 	private PlayerCar           playerCar2;
-
 	private ArrayList<PlayerCar> players;
 	private ArrayList<Powerup>	powerupsOnMap;
 	private boolean speedBoost = false;
 	private GameManager gameManager;
+	private IntroCountdown intro[];
+	private int  intro_frame   = 0;
+	private long dt = 0;
+	private long start_time = 0;
 	private GameManager g2;
 	private double[] distances;
 	private double[] distances2;
+
+	public void updateTime()
+	{
+		Date date = new Date();
+		long current_time = date.getTime();
+
+		this.dt += (current_time - this.start_time);
+		this.start_time = current_time;
+	}
+	public long getTimePassed()
+	{
+		return this.dt;
+	}
+
 
 
 	public PlayerCar getPlayerCar()
@@ -66,10 +83,19 @@ public class Game
 			y -= 25;
 			bananaPowerup.render(x, y);
 		}
+		intro[intro_frame].render(400,90);
 	}
 
 	public void initialiseGameObjects(Pane gameBackground)
 	{
+
+
+		intro = new IntroCountdown[4];
+		intro[0] = new IntroCountdown(gameBackground, 0) ;
+		intro[1] = new IntroCountdown(gameBackground, 1);
+		intro[2] = new IntroCountdown(gameBackground, 2) ;
+		intro[3] = new IntroCountdown(gameBackground, 3);
+
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.players = new ArrayList<>();
 		this.playerCar = new PlayerCar(gameBackground);
@@ -129,6 +155,8 @@ public class Game
 					this.carMovement(playerCar2, dy2, rot2, distances2);
 				}
 
+				this.renderIntroCountdown();
+
 				this.powerupPickup();
 
 				this.usePowerup();
@@ -137,6 +165,43 @@ public class Game
 
 				this.lapSystem();
 
+			}
+
+			private void renderIntroCountdown()
+			{
+				// case : we have played all the intro countdown, so we just return
+				if(intro_frame > 3)
+					return;
+
+				updateTime();
+				long time_passed = getTimePassed();
+				if(time_passed > 5000) // an error case preventing just for the first frame
+				{
+					time_passed = 0;
+					dt = 0;
+				}
+
+				// if time passed on current frame >= 1000 (1second)
+				// go to next frame
+				if(time_passed >= 1000)
+				{
+
+					intro[intro_frame].deactivate(); // deactivate previous frame
+					intro_frame++;					 // increment frame index
+					dt = 0;							 // reset dt (time passed)
+
+					// render the new frame
+					try
+					{
+						if(intro_frame <= 3 && intro_frame != 0)
+						{
+							intro[intro_frame].render(350, 50); // render( x, y )
+						}
+
+					}
+					catch(Exception e){}
+
+				}
 			}
 
 
@@ -205,12 +270,9 @@ public class Game
 				if (player == playerCar2) {
 					g2.updateBar(1745, 80);
 				}
-			}
 
+		}
 
-			private	void carOnCarColl(){
-
-			}
 
 
 			private void powerupPickup(){
