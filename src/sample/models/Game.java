@@ -33,6 +33,7 @@ public class Game
 	private double[] distances;
 	private double[] distances2;
 
+
 	public void updateTime()
 	{
 		Date date = new Date();
@@ -199,7 +200,7 @@ public class Game
 						}
 
 					}
-					catch(Exception e){}
+					catch(Exception ignored){}
 
 				}
 			}
