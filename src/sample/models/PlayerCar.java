@@ -12,7 +12,7 @@ import java.util.LinkedList;
 public class PlayerCar extends Car {
 
     public PlayerCar(Pane gameBackground) {
-        super(gameBackground, generateCarImageView());
+        super(gameBackground, generateCarImageView(), Main.settings.getVehicleType());
     }
 
     private static ImageView generateCarImageView() {
@@ -35,4 +35,7 @@ public class PlayerCar extends Car {
         }
         return null;
     }
+
+
+
 }

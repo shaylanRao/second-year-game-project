@@ -25,6 +25,7 @@ public class Car extends Sprite {
     //    public ArrayList<Powerup> powerupsDischarge;
     public PowerUpBar powerUpBar;
 
+
     public void addPowerup(Powerup powerup) {
         if (getPowerups().size() >= 3) {
             this.powerups.pop();
@@ -103,16 +104,29 @@ public class Car extends Sprite {
         return powerups.getFirst();
     }
 
-    public Car(Pane gameBackground, ImageView image) {
+    public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
         super(gameBackground, image);
-        this.setMaximumSpeed(3);
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-1.5);
         this.setAccelerationModerator(0.005);
         this.setSpeedConverter(0.09);
         this.powerups = new LinkedList<>();
         this.powerUpBar = new PowerUpBar(gameBackground);
+        this.assignSpeed(vehicleType);
     }
+
+    private void assignSpeed(Settings.VehicleType vehicleType){
+        if (vehicleType == Settings.VehicleType.VEHICLE1){
+            this.setMaximumSpeed(3);
+        }
+        else if (vehicleType == Settings.VehicleType.VEHICLE2){
+            this.setMaximumSpeed(3.5);
+        }
+        else{
+            this.setMaximumSpeed(2.8);
+        }
+    }
+
 
     public void setForceSpeed(double forceSpeed) {
         this.forceSpeed = forceSpeed;
@@ -487,10 +501,11 @@ public class Car extends Sprite {
      */
     public double getTurningSpeed(){
         double turningSpeed;
-        if (this.speed < 0.7){
-            return (0.2*this.speed *this.speed);
+        double currentSpeed = Math.abs(this.speed);
+        if (currentSpeed < 1){
+            return (Math.log10((1.5*currentSpeed)+0.1)+1);
         }
-        turningSpeed = (((Math.log10(this.getForwardSpeed()/2))+0.5)*4);
+        turningSpeed = (((Math.log10(1.5/currentSpeed+0.3))+1)*1.2);
         return (turningSpeed);
     }
 
