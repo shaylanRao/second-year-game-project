@@ -87,13 +87,13 @@ public class Raycaster {
                 }
             }
 
-                if (closest != null) {
-                    if (showLines) {
-                        Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
-                        rayLines.add(line);
-                    }
-                    distances[counter] = Point.distance(pos, closest);
+            if (closest != null) {
+                if (showLines) {
+                    Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
+                    rayLines.add(line);
                 }
+                distances[counter] = Point.distance(pos, closest);
+            }
 
 
 

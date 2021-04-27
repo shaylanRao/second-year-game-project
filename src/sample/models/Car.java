@@ -22,7 +22,7 @@ public class Car extends Sprite {
     public int playerNumber;
 
     private final LinkedList<Powerup> powerups;
-//    public ArrayList<Powerup> powerupsDischarge;
+    //    public ArrayList<Powerup> powerupsDischarge;
     public PowerUpBar powerUpBar;
 
     public void addPowerup(Powerup powerup) {
@@ -35,9 +35,9 @@ public class Car extends Sprite {
     }
 
     public LinkedList<Powerup> getPowerups()
-	{
-		return powerups;
-	}
+    {
+        return powerups;
+    }
     /**
      * Should handle powerup activate here, like changing speed of the car or something
      * */
@@ -55,44 +55,52 @@ public class Car extends Sprite {
     }
 
     public void handleMapPowerups(Powerup powerup) {
-		SoundManager.play("prop");
-		addPowerup(powerup);
-		powerup.deactivate();
+        if (powerup.shouldCollide && collisionDetection(powerup))
+        {
+            SoundManager.play("prop");
+            addPowerup(powerup);
+            powerup.deactivate();
+        }
+        else if (!powerup.shouldCollide) {
+            if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
+                powerup.activate();
+            }
+        }
     }
 
     public Powerup usePowerup () {
-		SoundManager.play("powerUp");
-		double playerCarLayoutX = getImage().getLayoutX();
-		double playerCarLayoutY = getImage().getLayoutY();
-		double powerupWidth = powerups.getFirst().getImage().getBoundsInLocal().getWidth();
-		double powerupHeight = powerups.getFirst().getImage().getBoundsInLocal().getHeight();
+        SoundManager.play("powerUp");
+        double playerCarLayoutX = getImage().getLayoutX();
+        double playerCarLayoutY = getImage().getLayoutY();
+        double powerupWidth = powerups.getFirst().getImage().getBoundsInLocal().getWidth();
+        double powerupHeight = powerups.getFirst().getImage().getBoundsInLocal().getHeight();
 
-		double x = playerCarLayoutX - powerupWidth;
-		double y = playerCarLayoutY - powerupHeight;
+        double x = playerCarLayoutX - powerupWidth;
+        double y = playerCarLayoutY - powerupHeight;
 
-		if (powerups.getFirst() instanceof BananaPowerup) {
-			BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
-			drop.render(x, y);
-			powerups.pop();
-			powerUpBar.removeFirstPowerup(playerNumber);
-			setPickedUpPwrtime(System.currentTimeMillis());
-			return drop;
-		} else if (powerups.getFirst() instanceof OilGhostPowerup) {
-			OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
-			drop.render(x, y);
-			powerups.pop();
-			powerUpBar.removeFirstPowerup(playerNumber);
-			setPickedUpPwrtime(System.currentTimeMillis());
-			return drop;
-		} else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
-			movementPowerup("speedBoost");
-			powerups.pop();
-			powerUpBar.removeFirstPowerup(playerNumber);
-			setPickedUpPwrtime(System.currentTimeMillis());
-			return null;
-		}
-		//had to return something, but it shouldn't get this far
-		return powerups.getFirst();
+        if (powerups.getFirst() instanceof BananaPowerup) {
+            BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
+            drop.render(x, y);
+            powerups.pop();
+            powerUpBar.removeFirstPowerup(playerNumber);
+            setPickedUpPwrtime(System.currentTimeMillis());
+            return drop;
+        } else if (powerups.getFirst() instanceof OilGhostPowerup) {
+            OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
+            drop.render(x, y);
+            powerups.pop();
+            powerUpBar.removeFirstPowerup(playerNumber);
+            setPickedUpPwrtime(System.currentTimeMillis());
+            return drop;
+        } else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
+            movementPowerup("speedBoost");
+            powerups.pop();
+            powerUpBar.removeFirstPowerup(playerNumber);
+            setPickedUpPwrtime(System.currentTimeMillis());
+            return null;
+        }
+        //had to return something, but it shouldn't get this far
+        return powerups.getFirst();
     }
 
     public Car(Pane gameBackground, ImageView image) {
@@ -205,7 +213,7 @@ public class Car extends Sprite {
         if(this.speed < this.getMaxSpeed() && this.speed > this.getMinSpeed()) {
             //if accelerating forwards when rolling backwards, speeds it up
             if(this.isAccelerate() && this.speed <0) {
-                    this.speed += Math.abs(this.speed * 0.15);
+                this.speed += Math.abs(this.speed * 0.15);
             }
             //if acceleration is starting from 0
             if (this.speed == 0){
@@ -538,16 +546,16 @@ public class Car extends Sprite {
         boolean retVal = false;
 
         for (int i = 0; i < gateDistances.length; i++){
-                //if diagonal has crashed or if forward or backwards have crashed
-                if (((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] < 34) || ((i == 0 || i == 7) && (gateDistances[i] < 37))){
-                    retVal = true;
-                    this.speed = 0;
-                    break;
-                }
-                else{
-                    retVal = false;
-                }
+            //if diagonal has crashed or if forward or backwards have crashed
+            if (((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] < 34) || ((i == 0 || i == 7) && (gateDistances[i] < 37))){
+                retVal = true;
+                this.speed = 0;
+                break;
             }
+            else{
+                retVal = false;
+            }
+        }
         return retVal;
     }
 

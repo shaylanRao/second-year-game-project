@@ -144,6 +144,7 @@ public class Game
 					gameManager.lapTimer();
 					j++;
 				}
+
 				this.makeRandomTrack();
 
 				double rot = 0;
@@ -155,6 +156,8 @@ public class Game
 					double rot2 = 0;
 					this.carMovement(playerCar2, dy2, rot2, distances2);
 				}
+
+
 
 				this.renderIntroCountdown();
 
@@ -271,8 +274,13 @@ public class Game
 				if (player == playerCar2) {
 					g2.updateBar(1745, 80);
 				}
+			}
 
-		}
+
+			private	void carOnCarColl(){
+
+			}
+
 
 
 
