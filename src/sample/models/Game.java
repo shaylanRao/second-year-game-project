@@ -3,10 +3,12 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
+import java.awt.*;
 import java.util.*;
 
 import static sample.controllers.game.RandomTrackScreen.r2;
@@ -296,9 +298,21 @@ public class Game
 
 
 			private	void carOnCarColl(){
-				if(playerCar.collisionDetection(playerCar2)){
-					System.out.println(playerCar.getImage().boundsInParentProperty());
-				}
+//				if(playerCar.collisionDetection(playerCar2)){
+//					System.out.println(playerCar.getImage().boundsInParentProperty());
+//				}
+				Rectangle rect1 = raycaster.getRayRect().get(1);
+				Rectangle rect2 = r2.getRayRect().get(1);
+
+//				if(rect1.intersection(rect2)){
+//					System.out.println("CRASH");
+//				}
+
+				Rectangle rect11 = new Rectangle(100, 100, 200, 240);
+				Rectangle rect22 = new Rectangle(120, 80, 80, 120);
+				Rectangle intersection = rect11.intersection(rect22);
+
+
 			}
 
 

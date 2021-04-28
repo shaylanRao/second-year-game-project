@@ -1,7 +1,9 @@
 package sample.models;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,11 @@ public class Raycaster {
     private final Pane pane;
     private final ArrayList<Line> rayLines = new ArrayList<>();
 
-    private final ArrayList<Line> carBound = new ArrayList<>();
+    public ArrayList<Rectangle> getRayRect() {
+        return rayRect;
+    }
+
+    private final ArrayList<Rectangle> rayRect = new ArrayList<>();
 
 
     //this is the list of angles in degrees that the rays should be casted at (from the car)
@@ -29,6 +35,7 @@ public class Raycaster {
             158,
             -158,
             180,
+            23, -23,  158, -158
     };
 
 
@@ -42,8 +49,10 @@ public class Raycaster {
         this.pos = pos;
     }
 
+    private double rectRot;
 
     public void setRot(double rotation) {
+        this.rectRot = rotation;
         this.rot = convertRot(rotation);
     }
 
@@ -67,6 +76,7 @@ public class Raycaster {
         return lines;
     }
 
+
     public double[] castRays(ArrayList<Line> boundaries, boolean showLines) {
         //create 8 rays
         for (int i=0; i<8; i++) {
@@ -78,15 +88,20 @@ public class Raycaster {
 
         if (showLines) {
             pane.getChildren().removeAll(rayLines);
+            pane.getChildren().removeAll(rayRect);
+            rayRect.clear();
             rayLines.clear();
         }
+
+
         int counter = 0;
         double[] distances = new double[8];
-        for (Raycast ray: rays) {
+        //actually makes lines??
+        for  (int i=0; i < 8; i++){
             Point closest = null;
             double record = Integer.MAX_VALUE;
             for (Line boundary : boundaries) {
-                Point point = ray.cast(boundary);
+                Point point = this.rays[i].cast(boundary);
                 if (point != null) {
                     //System.out.println(point.toString());
                     double distance = Point.distance(pos, point);
@@ -112,10 +127,16 @@ public class Raycaster {
             counter++;
         }
 
-        rayLines.add(this.carSquare());
+        for (int i = 8; i < 8; i++){
+            Line line = new Line(pos.getXConverted(), pos.getYConverted(), 100, 100);
+            rayLines.add(line);
+        }
+
+        this.carSquare();
 
         if (showLines) {
             pane.getChildren().addAll(rayLines);
+            pane.getChildren().addAll(rayRect);
         }
 
 
@@ -123,22 +144,63 @@ public class Raycaster {
         return distances;
     }
 
-    private Line carSquare(){
 
-        final Line line = new Line();
-//        line.setStartX(10);
-//        line.setStartY(10);
-//        line.setEndX(100);
-//        line.setEndY(100);
 
-        line.setStartX(this.playercar.getImage().getBoundsInParent().getMinX());
-        line.setStartY(this.playercar.getImage().getBoundsInParent().getMinY());
-        line.setEndX(this.playercar.getImage().getBoundsInParent().getMinX());
-        line.setEndY(this.playercar.getImage().getBoundsInParent().getMaxY());
-        double cos = Math.cos(rot+convertRot(90));
-        double sin = Math.sin(rot+convertRot(90));
 
-        return (line);
+
+
+    private void carSquare(){
+        final Rectangle rect1 = new Rectangle(playercar.getImage().getLayoutX(), playercar.getImage().getLayoutY(), 70, 35);
+        rect1.setRotate(rectRot);
+        rect1.setFill(Color.TRANSPARENT);
+        rect1.setStroke(Color.BLUEVIOLET);
+
+        rayRect.add(rect1);
+
+
+
+
+        final Line line1 = new Line();
+//        final Line line2 = new Line();
+//        final Line line3 = new Line();
+//        final Line line4 = new Line();
+////        line.setStartX(10);
+////        line.setStartY(10);
+////        line.setEndX(100);
+////        line.setEndY(100);
+//
+        line1.setStartX(this.playercar.getImage().getBoundsInParent().getMinX());
+        line1.setStartY(this.playercar.getImage().getBoundsInParent().getMinY());
+        line1.setEndX(this.playercar.getImage().getBoundsInParent().getMinX() + 2);
+        line1.setEndY(this.playercar.getImage().getBoundsInParent().getMinY() + 2);
+//
+//
+//        line2.setStartX(this.playercar.getImage().getBoundsInParent().getMaxX());
+//        line2.setStartY(this.playercar.getImage().getBoundsInParent().getMaxY());
+//        line2.setEndX(this.playercar.getImage().getBoundsInParent().getMaxX() + 2);
+//        line2.setEndY(this.playercar.getImage().getBoundsInParent().getMaxY() + 2);
+//
+//        line3.setStartX(this.playercar.getImage().getBoundsInParent().getMinX());
+//        line3.setStartY(this.playercar.getImage().getBoundsInParent().getMaxY());
+//        line3.setEndX(this.playercar.getImage().getBoundsInParent().getMaxX() + 2);
+//        line3.setEndY(this.playercar.getImage().getBoundsInParent().getMinY() + 2);
+
+        line1.setStroke(Color.RED);
+//        line2.setStroke(Color.YELLOW);
+//        line3.setStroke(Color.BLUEVIOLET);
+//
+//        carBound.add(line1);
+//        carBound.add(line2);
+//
+//
+////        for (Line ray : carBound) {
+////            rayLines.add(ray);
+////        }
+//
+//        rayLines.add(line1);
+//        rayLines.add(line2);
+//        rayLines.add(line3);
+
     }
 
 
