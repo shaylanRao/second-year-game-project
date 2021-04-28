@@ -1,10 +1,7 @@
 package sample.models;
 
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 
@@ -219,26 +216,12 @@ public class Car extends Sprite {
     }
 
     /**
-     * Either runs functions to accelerate/decelerate the car or let it roll
-     * */
-    public double speedCalculator() {
-        this.accelerateForward();
-        return this.speed;
-    }
-
-    /**
      * Keeps the without the speed bounds and calls to recalculate the speed
      */
-    private void accelerateForward(){
-        if(this.speed < this.getMaxSpeed() && this.speed > this.getMinSpeed()) {
-            //if accelerating forwards when rolling backwards, speeds it up
-            if(this.isAccelerate() && this.speed <0) {
-                this.speed += Math.abs(this.speed * 0.15);
-            }
-            //if acceleration is starting from 0
-            if (this.speed == 0){
-                this.speed = 0.003;
-            }
+    private void moveCar(){
+        //if accelerating forwards when rolling backwards, speeds it up
+        if(this.isAccelerate() && this.speed <0) {
+            this.speed += Math.abs(this.speed * 0.2);
         }
         this.speedCalc();
     }
@@ -264,8 +247,8 @@ public class Car extends Sprite {
         }
         //else just get new speed
         else{
-            this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
-            this.speed = this.forceSpeed * this.speedConverter;
+                this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
+                this.speed = this.forceSpeed * this.speedConverter;
         }
     }
 
@@ -277,6 +260,7 @@ public class Car extends Sprite {
      * @return acceleration
      */
     private double accCalc(){
+        //adjusted per vehicle to change acceleration
         double mass = 1;
         return (this.longForce()/mass);
     }
@@ -288,11 +272,20 @@ public class Car extends Sprite {
      */
     private double longForce(){
         //braking if going forward already
-        if (this.isGoingBackward()){
+        if(speed > 0 && this.isGoingBackward()){
             return(-(this.fBraking() + this.fDrag() + this.fRolling()));
         }
+        //reversing
+        else if (this.isGoingBackward()){
+            return(this.fReverse() - ((this.fDrag()+ this.fRolling())));
+        }
+        //going forward
         else{
-            return(this.fTraction() - ((this.fDrag()+ this.fRolling())));
+            if (this.isAccelerate()){
+                return(this.fTraction() + ((this.fDrag()+ this.fRolling())));
+            }
+            //rolling (forwards or backwards)
+            return (-(this.fDrag()+ this.fRolling()));
         }
     }
 
@@ -301,8 +294,14 @@ public class Car extends Sprite {
      * The force that moves the car forwards
      * @return thrust
      */
+    private double fReverse(){
+        //fixed gear speed
+        return(-15);
+    }
+
+
     private double fTraction(){
-        double unitVector = 1;
+        double unitVector = 1;  //used for change in proportion of car size
         double engineForce = 37; // real-life m/s acceleration
         //todo if up arrow, then this, else return 0
         if(this.isAccelerate()){
@@ -319,8 +318,12 @@ public class Car extends Sprite {
      * Constant force being applied
      * @return const
      */
-    private double fBraking(){
-        return (130);
+    private double fBraking() {
+        if (this.speed < 1) {
+            return (130); //fixed bvreak force at low speed
+        } else {
+            return (130 * (1 / this.speed)); //variable force applied at high speed (slowly breaking)
+        }
     }
 
     /**
@@ -329,7 +332,7 @@ public class Car extends Sprite {
      * @return speed^2*dragConst
      */
     private double fDrag(){
-        double dragConst = (0.006666);
+        double dragConst = (0.006666); //real life value
         return (forceSpeed * forceSpeed * dragConst);
     }
 
@@ -342,17 +345,14 @@ public class Car extends Sprite {
     private double fRolling(){
         //todo need to change
         double rollConst = 0.8;
+        //if rolling then stop when rolling slowly
+        if(Math.abs(this.speed) < 0.25 && !(this.isGoingForward() || this.isGoingBackward())){
+            return((forceSpeed)*9);
+        }
         return ((forceSpeed) *rollConst);
     }
 
 
-
-    //todo start-off boost
-    //
-
-
-    //todo momentum
-    //inheritance for other types of vehicles
 
 
     /**
@@ -403,16 +403,10 @@ public class Car extends Sprite {
     {
         this.pickedUpPwrtime = pickedUpPwrtime;
     }
-    //todo start-off boost
-    //
 
 
     //todo momentum
     //inheritance for other types of vehicles
-
-
-    //todo
-
 
 
     /**
@@ -453,7 +447,6 @@ public class Car extends Sprite {
      * Rotates the image of the car
      * */
 
-    //todo fine-tune
     public void turn(double angle) {
         double cAngle = this.getImageView().getRotate();
         if(carSpinOn) {
@@ -493,7 +486,7 @@ public class Car extends Sprite {
             return (this.speed);
         }
         else{
-            return (this.speedCalculator());
+            this.moveCar();
         }
         return(this.speed);
     }
@@ -505,7 +498,10 @@ public class Car extends Sprite {
     public double getTurningSpeed(){
         double turningSpeed;
         double currentSpeed = Math.abs(this.speed);
-        if (currentSpeed < 1){
+        if (currentSpeed < 0.2){
+            return (0);
+        }
+        else if (currentSpeed < 1){
             return (Math.log10((1.5*currentSpeed)+0.1)+1);
         }
         turningSpeed = (((Math.log10(1.5/currentSpeed+0.3))+1)*1.2);
@@ -518,7 +514,6 @@ public class Car extends Sprite {
      * @return bool
      * */
     public boolean collisionDetection(Sprite other) {
-        this.relativeWidth();
         double widthCar = this.getImage().getBoundsInParent().getWidth()/2;
         double heightCar = this.getImage().getBoundsInParent().getHeight()/2;
 
@@ -546,14 +541,6 @@ public class Car extends Sprite {
     }
 
 
-    private double relativeWidth(){
-//        double carWidth = this.getImage().getBoundsInLocal().getWidth()/2;
-//        ReadOnlyObjectProperty<Bounds> rot = this.getImage().boundsInParentProperty();
-////        System.out.println(rot);
-        return (10.0);
-    }
-
-
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
 
@@ -570,12 +557,6 @@ public class Car extends Sprite {
         }
         return retVal;
     }
-
-
-    public boolean carCollision(double gateDistancs){
-        return true;
-    }
-
 
 
 

@@ -225,14 +225,14 @@ public class Game
 
 
 			private void startBoost(PlayerCar player){
-				System.out.println(player.getForwardSpeed());
-				if(player.getForwardSpeed() < 2.6 && player.getForwardSpeed() > 2.3){
+				if(player.getForwardSpeed() < 2.6 && player.getForwardSpeed() > 2.2){
 					System.out.println("BOOST");
 					player.setForceSpeed(player.getForceSpeed()*0.6);
 				}
 				else{
 					System.out.println("NO BOOST");
 					player.setForceSpeed(0);
+					player.setSpeed(0);
 				}
 				raceStart = true;
 			}
