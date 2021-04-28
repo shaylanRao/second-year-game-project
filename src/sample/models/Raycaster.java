@@ -7,11 +7,41 @@ import java.util.ArrayList;
 
 public class Raycaster {
 
+
+    private Point pos;
+    private PlayerCar playercar;
+
+    private double rot;
+    private final Raycast[] rays = new Raycast[8];
+    private final Pane pane;
+    private final ArrayList<Line> rayLines = new ArrayList<>();
+
+    private final ArrayList<Line> carBound = new ArrayList<>();
+
+
+    //this is the list of angles in degrees that the rays should be casted at (from the car)
+    private final double[] directions = {
+            0,
+            23,
+            -23,
+            90,
+            -90,
+            158,
+            -158,
+            180,
+    };
+
+
+    public Raycaster(Pane pane, PlayerCar playerCar) {
+        this.pos = new Point(0, 0);
+        this.pane = pane;
+        this.playercar = playerCar;
+    }
+
     public void setPos(Point pos) {
         this.pos = pos;
     }
 
-    private Point pos;
 
     public void setRot(double rotation) {
         this.rot = convertRot(rotation);
@@ -29,28 +59,6 @@ public class Raycaster {
         return Math.toRadians(rotation);
     }
 
-    private double rot;
-    private final Raycast[] rays = new Raycast[8];
-    private final Pane pane;
-    private final ArrayList<Line> rayLines = new ArrayList<>();
-
-    //this is the list of angles in degrees that the rays should be casted at (from the car)
-    private final double[] directions = {
-            0,
-            23,
-            -23,
-            90,
-            -90,
-            158,
-            -158,
-            180,
-    };
-
-    public Raycaster(Pane pane) {
-        this.pos = new Point(0, 0);
-        this.pane = pane;
-    }
-
     public Line[] show() {
         Line[] lines = new Line[8];
         for (int i=0; i<8; i++) {
@@ -66,6 +74,8 @@ public class Raycaster {
             double sin = Math.sin(rot+convertRot(directions[i]));
             rays[i] = new Raycast(pos, new Point(cos,sin));
         }
+
+
         if (showLines) {
             pane.getChildren().removeAll(rayLines);
             rayLines.clear();
@@ -92,16 +102,44 @@ public class Raycaster {
                     Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
                     rayLines.add(line);
                 }
+//                line.setStartX(playerCar.getImage().getBoundsInParent().getMinX());
+//                line.setStartY(playerCar.getImage().getBoundsInParent().getMinY());
+//                line.setEndX(playerCar.getImage().getBoundsInParent().getMaxX());
+//                line.setEndY(playerCar.getImage().getBoundsInParent().getMaxY());
+
                 distances[counter] = Point.distance(pos, closest);
             }
-
-
-
             counter++;
         }
+
+        rayLines.add(this.carSquare());
+
         if (showLines) {
             pane.getChildren().addAll(rayLines);
         }
+
+
+
         return distances;
     }
+
+    private Line carSquare(){
+
+        final Line line = new Line();
+//        line.setStartX(10);
+//        line.setStartY(10);
+//        line.setEndX(100);
+//        line.setEndY(100);
+
+        line.setStartX(this.playercar.getImage().getBoundsInParent().getMinX());
+        line.setStartY(this.playercar.getImage().getBoundsInParent().getMinY());
+        line.setEndX(this.playercar.getImage().getBoundsInParent().getMinX());
+        line.setEndY(this.playercar.getImage().getBoundsInParent().getMaxY());
+        double cos = Math.cos(rot+convertRot(90));
+        double sin = Math.sin(rot+convertRot(90));
+
+        return (line);
+    }
+
+
 }

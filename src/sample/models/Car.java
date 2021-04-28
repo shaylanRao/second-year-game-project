@@ -1,7 +1,10 @@
 package sample.models;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 
@@ -515,11 +518,12 @@ public class Car extends Sprite {
      * @return bool
      * */
     public boolean collisionDetection(Sprite other) {
-        double widthCar = this.getImage().getBoundsInLocal().getWidth()/2;
-        double heightCar = this.getImage().getBoundsInLocal().getHeight()/2;
+        this.relativeWidth();
+        double widthCar = this.getImage().getBoundsInParent().getWidth()/2;
+        double heightCar = this.getImage().getBoundsInParent().getHeight()/2;
 
-        double widthOther = other.getImage().getBoundsInLocal().getWidth()/2;
-        double heightOther = other.getImage().getBoundsInLocal().getHeight()/2;
+        double widthOther = other.getImage().getBoundsInParent().getWidth()/2;
+        double heightOther = other.getImage().getBoundsInParent().getHeight()/2;
 
         double cxCar = this.getImage().getLayoutX();
         double cyCar = this.getImage().getLayoutY();
@@ -540,6 +544,15 @@ public class Car extends Sprite {
         return false;
 
     }
+
+
+    private double relativeWidth(){
+//        double carWidth = this.getImage().getBoundsInLocal().getWidth()/2;
+//        ReadOnlyObjectProperty<Bounds> rot = this.getImage().boundsInParentProperty();
+////        System.out.println(rot);
+        return (10.0);
+    }
+
 
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;

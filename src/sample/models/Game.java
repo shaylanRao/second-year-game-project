@@ -2,6 +2,7 @@ package sample.models;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
@@ -67,6 +68,7 @@ public class Game
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(1750, 600);
+			playerCar2.getImageView().setRotate(90);
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
@@ -156,6 +158,7 @@ public class Game
 					double dy2 = 0;
 					double rot2 = 0;
 					this.carMovement(playerCar2, dy2, rot2, distances2);
+					this.carOnCarColl();
 				}
 
 				this.renderIntroCountdown();
@@ -293,9 +296,10 @@ public class Game
 
 
 			private	void carOnCarColl(){
-
+				if(playerCar.collisionDetection(playerCar2)){
+					System.out.println(playerCar.getImage().boundsInParentProperty());
+				}
 			}
-
 
 
 
