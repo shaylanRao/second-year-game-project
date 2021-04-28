@@ -76,6 +76,11 @@ public class Raycaster {
         return lines;
     }
 
+//    public double[] carColl(ArrayList<Rectangle> carRect, boolean showLines) {
+//
+//
+//    }
+
 
     public double[] castRays(ArrayList<Line> boundaries, boolean showLines) {
         //create 8 rays

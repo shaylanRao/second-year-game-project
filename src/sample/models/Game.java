@@ -11,6 +11,7 @@ import sample.controllers.game.RandomTrackScreen;
 import java.awt.*;
 import java.util.*;
 
+
 import static sample.controllers.game.RandomTrackScreen.r2;
 import static sample.controllers.game.RandomTrackScreen.raycaster;
 
@@ -35,6 +36,9 @@ public class Game
 	private GameManager g2;
 	private double[] distances;
 	private double[] distances2;
+
+	private double[] distanceToCar;
+
 	private boolean raceStart = false;
 
 
@@ -301,19 +305,21 @@ public class Game
 //				if(playerCar.collisionDetection(playerCar2)){
 //					System.out.println(playerCar.getImage().boundsInParentProperty());
 //				}
-				Rectangle rect1 = raycaster.getRayRect().get(1);
-				Rectangle rect2 = r2.getRayRect().get(1);
+				Rectangle rect1 = raycaster.getRayRect().get(0);
+//				Rectangle rect2 = r2.getRayRect().get(0);
 
-//				if(rect1.intersection(rect2)){
+//				if(rect1.intersects(rect2.getLayoutBounds())){
 //					System.out.println("CRASH");
 //				}
 
 				Rectangle rect11 = new Rectangle(100, 100, 200, 240);
 				Rectangle rect22 = new Rectangle(120, 80, 80, 120);
-				Rectangle intersection = rect11.intersection(rect22);
-
+//				System.out.println((rect1.get));
 
 			}
+
+
+
 
 
 
@@ -375,6 +381,7 @@ public class Game
 				}
 			}
 
+
 			private void makeRandomTrack(){
 				//set raycaster position and rotation = the car's position and rotation
 				raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
@@ -387,6 +394,9 @@ public class Game
 					r2.setRot(playerCar2.getImageView().getRotate());
 					distances2 = r2.castRays(Main.track.getTrackLines(), true);
 				}
+
+//				distanceToCar = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
+
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);

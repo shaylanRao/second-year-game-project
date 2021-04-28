@@ -572,6 +572,11 @@ public class Car extends Sprite {
     }
 
 
+    public boolean carCollision(double gateDistancs){
+        return true;
+    }
+
+
 
 
     /*
