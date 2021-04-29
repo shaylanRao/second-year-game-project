@@ -1,6 +1,7 @@
 package sample.models;
 
 public class Settings {
+
     public enum Difficulty {
         EASY,
         MEDIUM,
@@ -25,8 +26,11 @@ public class Settings {
         VEHICLE3
     }
 
+
     private PlayMode playMode = PlayMode.AI;
     private VehicleType vehicleType = VehicleType.VEHICLE1;
+    private VehicleType vehicle2Type = VehicleType.VEHICLE1;
+
     private Track track = Track.TRACK1;
     private int laps = 1;
     private float masterVol = 100;
@@ -63,8 +67,16 @@ public class Settings {
         return vehicleType;
     }
 
+    public VehicleType getVehicle2Type() {
+        return vehicle2Type;
+    }
+
     public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
+    }
+
+    public void setVehicle2Type(VehicleType vehicleType) {
+        this.vehicle2Type = vehicleType;
     }
 
     public Track getTrack() {

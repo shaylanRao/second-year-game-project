@@ -108,28 +108,38 @@ public class Car extends Sprite {
         return powerups.getFirst();
     }
 
+
     public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
         super(gameBackground, image, 0.8);
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-1.5);
-        this.setAccelerationModerator(0.005);
         this.setSpeedConverter(0.09);
         this.powerups = new LinkedList<>();
         this.powerUpBar = new PowerUpBar(gameBackground);
-        this.assignSpeed(vehicleType);
+        this.assignAttributes(vehicleType);
     }
 
-    private void assignSpeed(Settings.VehicleType vehicleType){
+    private void assignAttributes(Settings.VehicleType vehicleType){
+        //standard car
         if (vehicleType == Settings.VehicleType.VEHICLE1){
             this.setMaximumSpeed(3);
+            this.setAccelerationModerator(0.005);
+            this.setTurningSpeedModerator(1);
         }
+        //sports car
         else if (vehicleType == Settings.VehicleType.VEHICLE2){
             this.setMaximumSpeed(3.5);
+            this.setAccelerationModerator(0.003);
+            this.setTurningSpeedModerator(0.93);
         }
+        //muscle car
         else{
             this.setMaximumSpeed(2.8);
+            this.setAccelerationModerator(0.006);
+            this.setTurningSpeedModerator(1.2);
         }
     }
+
 
 
     public void setForceSpeed(double forceSpeed) {
@@ -495,10 +505,17 @@ public class Car extends Sprite {
         return(this.speed);
     }
 
+    public void setTurningSpeedModerator(double turningSpeedModerator) {
+        this.turningSpeedModerator = turningSpeedModerator;
+    }
+
     /**
      * gets the turning speed of the car
      * @return speed
      */
+
+    private double turningSpeedModerator;
+
     public double getTurningSpeed(){
         double turningSpeed;
         double currentSpeed = Math.abs(this.speed);
@@ -509,7 +526,7 @@ public class Car extends Sprite {
             return (Math.log10((1.5*currentSpeed)+0.1)+1);
         }
         turningSpeed = (((Math.log10(1.5/currentSpeed+0.3))+1)*1.2);
-        return (turningSpeed);
+        return (turningSpeed*turningSpeedModerator);
     }
 
 

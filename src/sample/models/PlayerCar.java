@@ -11,17 +11,17 @@ import java.util.LinkedList;
 
 public class PlayerCar extends Car {
 
-    public PlayerCar(Pane gameBackground) {
-        super(gameBackground, generateCarImageView(), Main.settings.getVehicleType());
+    public PlayerCar(Pane gameBackground, Settings.VehicleType vehicleType) {
+        super(gameBackground, generateCarImageView(vehicleType), vehicleType);
     }
 
-    private static ImageView generateCarImageView() {
+    private static ImageView generateCarImageView(Settings.VehicleType vehicleType) {
         String imageName;
         try {
-            if(Main.settings.getVehicleType().equals(Settings.VehicleType.VEHICLE1)){
+            if(vehicleType.equals(Settings.VehicleType.VEHICLE1)){
                 imageName = "src/sample/resources/images/original_car.png";
             }
-            else if (Main.settings.getVehicleType().equals(Settings.VehicleType.VEHICLE2)){
+            else if (vehicleType.equals(Settings.VehicleType.VEHICLE2)){
                 imageName = "src/sample/resources/images/vehicleTwo.png";
             }
             else{

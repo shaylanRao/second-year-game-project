@@ -138,12 +138,17 @@ public class Game
 
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.players = new ArrayList<>();
-		this.playerCar = new PlayerCar(gameBackground);
+
+		//todo Change vehicle type to player 1 vehicle type
+		this.playerCar = new PlayerCar(gameBackground, Main.settings.getVehicleType());
 		this.playerCar.playerNumber = 1;
 		this.players.add(playerCar);
 
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			this.playerCar2 = new PlayerCar(gameBackground);
+
+			//todo Change vehicle type to player 2 vehicle type
+			System.out.println(Main.settings.getVehicle2Type());
+			this.playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
 			g2 = new GameManager(gameBackground);
 			g2.wordBar(1650,60);
 			g2.fixBar(1800,80);

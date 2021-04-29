@@ -83,10 +83,12 @@ public class MainScreen {
         SoundManager.loop("playBgm");
 
         try {
-//            Main.settings.setPlayMode(Settings.PlayMode.MULTIPLAYER); - multiplayer, just remove if not wanted
+            Main.settings.setPlayMode(Settings.PlayMode.MULTIPLAYER);  /*multiplayer, just remove if not wanted*/
+            Main.settings.setVehicleType(Settings.VehicleType.VEHICLE2);
+            Main.settings.setVehicle2Type(Settings.VehicleType.VEHICLE3);
             Main.settings.setTrack(Settings.Track.TRACK3);
             Main.settings.setLaps(3);
-//          FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml")); - single player, comment out on below
+//          FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml")); - /*single player*/
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/multiplayer.fxml"));
 
             Parent root = loader.load();
