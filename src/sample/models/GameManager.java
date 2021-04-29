@@ -93,10 +93,10 @@ public class GameManager{
         gateStack.push(0);
     }
 
-    Image image = new Image("file:src/sample/resources/images/LapCounter/lap.png");
+    Image lapWord = new Image("file:src/sample/resources/images/LapCounter/lap.png");
 
     public void wordBar(double x, double y) {
-        LapBar lapBar = new LapBar(gameBackground, new ImageView(image));
+        LapBar lapBar = new LapBar(gameBackground, new ImageView(lapWord));
         lapBar.render(x, y);
         System.out.println("LAPImage done");
     }
