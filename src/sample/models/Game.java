@@ -2,6 +2,7 @@ package sample.models;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
