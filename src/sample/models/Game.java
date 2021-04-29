@@ -2,7 +2,6 @@ package sample.models;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
@@ -244,14 +243,14 @@ public class Game
 
 
 			private void startBoost(PlayerCar player){
-				System.out.println(player.getForwardSpeed());
-				if(player.getForwardSpeed() < 2.6 && player.getForwardSpeed() > 2.3){
+				if(player.getForwardSpeed() < 2.6 && player.getForwardSpeed() > 2.2){
 					System.out.println("BOOST");
 					player.setForceSpeed(player.getForceSpeed()*0.6);
 				}
 				else{
 					System.out.println("NO BOOST");
 					player.setForceSpeed(0);
+					player.setSpeed(0);
 				}
 				raceStart = true;
 			}
@@ -324,17 +323,18 @@ public class Game
 //				if(playerCar.collisionDetection(playerCar2)){
 //					System.out.println(playerCar.getImage().boundsInParentProperty());
 //				}
-				Rectangle rect1 = raycaster.getRayRect().get(0);
-//				Rectangle rect2 = r2.getRayRect().get(0);
+				//ProjectionRectangle rect1 = new ProjectionRectangle(raycaster.getRayRect().get(0));
+				//ProjectionRectangle rect2 = new ProjectionRectangle(r2.getRayRect().get(0));
+				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar);
+				ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2);
 
 //				if(rect1.intersects(rect2.getLayoutBounds())){
 //					System.out.println("CRASH");
 //				}
 
-				Rectangle rect11 = new Rectangle(100, 100, 200, 240);
-				Rectangle rect22 = new Rectangle(120, 80, 80, 120);
-//				System.out.println((rect1.get));
-
+				if (playerCar.testCollision(rect1, rect2)) {
+					System.out.println("crash");
+				}
 			}
 
 
