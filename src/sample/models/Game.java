@@ -2,13 +2,11 @@ package sample.models;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
-import java.awt.*;
 import java.util.*;
 
 
@@ -70,10 +68,10 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		playerCar.render(1750, 600);
+		playerCar.render(1400, 600);
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			playerCar2.render(1750, 600);
+			playerCar2.render(1350, 600);
 			playerCar2.getImageView().setRotate(90);
 		}
 		Random random = new Random();
@@ -305,17 +303,18 @@ public class Game
 //				if(playerCar.collisionDetection(playerCar2)){
 //					System.out.println(playerCar.getImage().boundsInParentProperty());
 //				}
-				Rectangle rect1 = raycaster.getRayRect().get(0);
-//				Rectangle rect2 = r2.getRayRect().get(0);
+				//ProjectionRectangle rect1 = new ProjectionRectangle(raycaster.getRayRect().get(0));
+				//ProjectionRectangle rect2 = new ProjectionRectangle(r2.getRayRect().get(0));
+				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar);
+				ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2);
 
 //				if(rect1.intersects(rect2.getLayoutBounds())){
 //					System.out.println("CRASH");
 //				}
 
-				Rectangle rect11 = new Rectangle(100, 100, 200, 240);
-				Rectangle rect22 = new Rectangle(120, 80, 80, 120);
-//				System.out.println((rect1.get));
-
+				if (playerCar.testCollision(rect1, rect2)) {
+					System.out.println("crash");
+				}
 			}
 
 

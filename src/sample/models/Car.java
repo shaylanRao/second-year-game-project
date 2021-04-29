@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 
+import java.lang.reflect.Array;
 import java.util.LinkedList;
 
 public class Car extends Sprite {
@@ -277,7 +278,7 @@ public class Car extends Sprite {
         }
         //reversing
         else if (this.isGoingBackward()){
-            return(this.fReverse() - ((this.fDrag()+ this.fRolling())));
+            return(this.fReverse());
         }
         //going forward
         else{
@@ -540,6 +541,51 @@ public class Car extends Sprite {
 
     }
 
+    public boolean testCollision(ProjectionRectangle A, ProjectionRectangle B){
+        // Test collisions between two Shapes: they can be any child of Shape (Circle or Polygon)
+        CollisionNode[] axes = concatenate(A.getAxes(), B.getAxes()); // Get the array of all the axes to project the shapes along
+
+        for (CollisionNode axis: axes) { // Loop over the axes
+            // project both Shapes onto the axis
+            Projection pA = project(A, axis);
+            Projection pB = project(B, axis);
+            // do the projections overlap?
+            if (!pA.overlap(pB)) {
+                // If they don't, the shapes don't either so return false
+                return false;
+            }
+        }
+
+        // All the projections overlap: the shapes collide -> return True
+        return true;
+    }
+
+    private static Projection project(ProjectionRectangle a, CollisionNode axis) {
+        // Project the shapes along the axis
+        double min = axis.dot(a.getNode(0, axis)); // Get the first min
+        double max = min;
+        for (int i = 1; i < a.getNumOfNodes(); i++) {
+            double p = axis.dot(a.getNode(i, axis)); // Get the dot product between the axis and the node
+            if (p < min) {
+                min = p;
+            } else if (p > max) {
+                max = p;
+            }
+        }
+        return new Projection(min, max);
+    }
+
+    public static CollisionNode[] concatenate (CollisionNode[] a, CollisionNode[] b) {
+        // Concatenate the two arrays of nodes
+        int aLen = a.length;
+        int bLen = b.length;
+
+        CollisionNode[] c = (CollisionNode[]) Array.newInstance(a.getClass().getComponentType(), aLen+bLen);
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+
+        return c;
+    }
 
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
