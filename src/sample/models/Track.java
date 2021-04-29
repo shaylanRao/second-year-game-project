@@ -151,4 +151,8 @@ public class Track {
         outerLines.addAll(innerLines);
         this.trackLines=outerLines;
     }
+
+    public Line getFinishLine(){
+        return (this.gates[0]);
+    }
 }

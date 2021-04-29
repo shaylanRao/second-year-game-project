@@ -8,7 +8,6 @@ import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
-import java.awt.*;
 import java.util.*;
 
 
@@ -70,10 +69,12 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		playerCar.render(1750, 600);
+		double[] startXY = this.getCar1SpawnPoint(Main.track.getFinishLine());
+		playerCar.render(startXY[0], startXY[1]);
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			playerCar2.render(1750, 600);
+			startXY = this.getCar2SpawnPoint(Main.track.getFinishLine());
+			playerCar2.render(startXY[0], startXY[1]);
 			playerCar2.getImageView().setRotate(90);
 		}
 		Random random = new Random();
@@ -95,6 +96,24 @@ public class Game
 		}
 		intro[intro_frame].render(400,90);
 	}
+
+	private double[] getCar1SpawnPoint(Line finishLine){
+		double[] xyValues = new double[2];
+		double distance = (finishLine.getStartX()) - (finishLine.getEndX());
+		xyValues[0] = finishLine.getEndX() + (distance/3) - (playerCar.getImage().getBoundsInParent().getWidth()/2);
+		xyValues[1]= finishLine.getStartY() + (playerCar.getImage().getBoundsInParent().getHeight());
+		System.out.println(playerCar.getImage().getBoundsInParent().getHeight());
+		return xyValues;
+	}
+
+	private double[] getCar2SpawnPoint(Line finishLine){
+		double[] xyValues = new double[2];
+		double distance = (finishLine.getStartX()) - (finishLine.getEndX());
+		xyValues[0] = finishLine.getStartX() - (distance/3) + (playerCar2.getImage().getBoundsInParent().getWidth()/2);
+		xyValues[1]= finishLine.getStartY() + (playerCar2.getImage().getBoundsInParent().getHeight());
+		return xyValues;
+	}
+
 
 	public void initialiseGameObjects(Pane gameBackground)
 	{
