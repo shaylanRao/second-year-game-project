@@ -113,7 +113,6 @@ public class Raycaster {
             for (Line boundary : boundaries) {
                 Point point = this.rays[i].cast(boundary);
                 if (point != null) {
-                    //System.out.println(point.toString());
                     double distance = Point.distance(pos, point);
                     if (distance < record) {
                         record = distance;

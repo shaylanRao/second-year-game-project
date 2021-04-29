@@ -3,6 +3,7 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.stage.Screen;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
@@ -103,7 +104,7 @@ public class Game
 			y -= 25;
 			bananaPowerup.render(x, y);
 		}
-		intro[intro_frame].render(400,90);
+		intro[intro_frame].render((Screen.getPrimary().getBounds().getWidth()/2)-(intro[intro_frame].getImage().getFitWidth()/2), (Screen.getPrimary().getBounds().getHeight()/2)-(intro[intro_frame].getImage().getFitHeight()*0.6));
 	}
 
 	private void setCar1WidthHeight(){
@@ -244,7 +245,9 @@ public class Game
 					{
 						if(intro_frame <= 3 && intro_frame != 0)
 						{
-							intro[intro_frame].render(350, 50); // render( x, y )
+//							intro[intro_frame].render(500, 50);
+//							System.out.println((int)Screen.getPrimary().getBounds().getWidth());
+							intro[intro_frame].render((Screen.getPrimary().getBounds().getWidth()/2)-(intro[intro_frame].getImage().getFitWidth()/2), (Screen.getPrimary().getBounds().getHeight()/2)-(intro[intro_frame].getImage().getFitHeight()*0.6));// render( x, y )
 						}
 						else{
 							startBoost(playerCar);
