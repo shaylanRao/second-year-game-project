@@ -18,7 +18,7 @@ public class LapBar extends Sprite {
     boolean start = true;
 
     public LapBar(Pane gameBackground, ImageView imageView) {
-        super(gameBackground, imageView);
+        super(gameBackground, imageView, 1);
     }
 
     public void addLapCounterInOrder(){

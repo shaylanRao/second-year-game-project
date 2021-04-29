@@ -122,7 +122,6 @@ public class Game
 		double distance = (finishLine.getStartX()) - (finishLine.getEndX());
 		xyValues[0] = finishLine.getEndX() + (distance/3) - (playerCar.getImage().getBoundsInParent().getWidth()/2);
 		xyValues[1]= finishLine.getStartY() + (playerCar.getImage().getBoundsInParent().getHeight());
-		System.out.println(playerCar.getImage().getBoundsInParent().getHeight());
 		return xyValues;
 	}
 
@@ -147,12 +146,12 @@ public class Game
 
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.players = new ArrayList<>();
-		this.playerCar = new PlayerCar(gameBackground, 0.9);
+		this.playerCar = new PlayerCar(gameBackground);
 		this.playerCar.playerNumber = 1;
 		this.players.add(playerCar);
 
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			this.playerCar2 = new PlayerCar(gameBackground, 0.9);
+			this.playerCar2 = new PlayerCar(gameBackground);
 			g2 = new GameManager(gameBackground);
 			g2.wordBar(1650,60);
 			g2.fixBar(1800,80);
@@ -452,7 +451,6 @@ public class Game
 				double[] xyCoord = new double[2];
 				xyCoord[0] = car.getImageView().getLayoutX()+ (car1Width/2);
 				xyCoord[1] = car.getImageView().getLayoutY()+ (car1Height/2);
-				System.out.println(car1Width);
 				return xyCoord;
 			}
 

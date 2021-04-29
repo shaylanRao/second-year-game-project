@@ -9,9 +9,12 @@ public abstract class Sprite {
     private final ImageView image;
     private final Pane gameBackground;
 
-    public Sprite(Pane gameBackground, ImageView imageView) {
+    public Sprite(Pane gameBackground, ImageView imageView, double ratio) {
         this.gameBackground = gameBackground;
         this.image = imageView;
+        this.image.setFitWidth(this.image.getBoundsInParent().getWidth()*ratio);
+        this.image.setFitHeight(this.image.getBoundsInParent().getHeight()*ratio);
+
     }
 
     protected Pane getGameBackground() {

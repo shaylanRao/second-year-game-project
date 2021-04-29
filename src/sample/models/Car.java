@@ -21,6 +21,9 @@ public class Car extends Sprite {
     private boolean carSlideOn = false;
     private long pickedUpPwrtime = -1;
     public int playerNumber;
+    private final double carHeight = getCarHeightWidth()[0];
+    private final double carWidth = getCarHeightWidth()[1];
+
 
     private final LinkedList<Powerup> powerups;
     //    public ArrayList<Powerup> powerupsDischarge;
@@ -106,7 +109,7 @@ public class Car extends Sprite {
     }
 
     public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
-        super(gameBackground, image);
+        super(gameBackground, image, 0.8);
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-1.5);
         this.setAccelerationModerator(0.005);
@@ -589,10 +592,11 @@ public class Car extends Sprite {
 
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
+        double diagLen = (Math.sqrt((Math.pow(this.carHeight, 2) + Math.pow(this.carWidth, 2))/4));
 
         for (int i = 0; i < gateDistances.length; i++){
             //if diagonal has crashed or if forward or backwards have crashed
-            if (((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] < 34) || ((i == 0 || i == 7) && (gateDistances[i] < 37))){
+            if (((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] < diagLen) || ((i == 0 || i == 7) && (gateDistances[i] < carHeight/2))){
                 retVal = true;
                 this.speed = 0;
                 break;

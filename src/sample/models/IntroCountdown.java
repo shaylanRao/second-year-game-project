@@ -10,7 +10,7 @@ public class IntroCountdown extends Sprite{
 
 
     public IntroCountdown(Pane gameBackground, int frame) {
-        super(gameBackground, generateImage(frame));
+        super(gameBackground, generateImage(frame), 1);
     }
 
     public void activate() {

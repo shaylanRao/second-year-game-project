@@ -11,10 +11,8 @@ import java.util.LinkedList;
 
 public class PlayerCar extends Car {
 
-    public PlayerCar(Pane gameBackground, double ratio) {
+    public PlayerCar(Pane gameBackground) {
         super(gameBackground, generateCarImageView(), Main.settings.getVehicleType());
-        this.getImageView().setFitWidth(this.getImageView().getBoundsInParent().getWidth()*ratio);
-        this.getImageView().setFitHeight(this.getImageView().getBoundsInParent().getHeight()*ratio);
     }
 
     private static ImageView generateCarImageView() {
