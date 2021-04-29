@@ -24,6 +24,8 @@ public class Raycaster {
 
     private final ArrayList<Rectangle> rayRect = new ArrayList<>();
 
+    public double carHeight;
+    public double carWidth;
 
     //this is the list of angles in degrees that the rays should be casted at (from the car)
     private final double[] directions = {
@@ -43,6 +45,9 @@ public class Raycaster {
         this.pos = new Point(0, 0);
         this.pane = pane;
         this.playercar = playerCar;
+        this.carHeight = playercar.getCarHeightWidth()[0];
+        this.carWidth = playercar.getCarHeightWidth()[1];
+
     }
 
     public void setPos(Point pos) {
@@ -155,7 +160,7 @@ public class Raycaster {
 
 
     private void carSquare(){
-        final Rectangle rect1 = new Rectangle(playercar.getImage().getLayoutX(), playercar.getImage().getLayoutY(), 70, 35);
+        final Rectangle rect1 = new Rectangle(playercar.getImage().getLayoutX(), playercar.getImage().getLayoutY(), carHeight, carWidth);
         rect1.setRotate(rectRot);
         rect1.setFill(Color.TRANSPARENT);
         rect1.setStroke(Color.BLUEVIOLET);

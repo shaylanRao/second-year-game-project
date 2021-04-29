@@ -3,7 +3,6 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
@@ -54,7 +53,11 @@ public class Game
 		return this.dt;
 	}
 
+	private double car1Height;
+	private double car1Width;
 
+	private double car2Height;
+	private double car2Width;
 
 	public PlayerCar getPlayerCar()
 	{
@@ -70,10 +73,16 @@ public class Game
 	private void initialiser()
 	{
 		double[] startXY = this.getCar1SpawnPoint(Main.track.getFinishLine());
+		car1Height= playerCar.getCarHeightWidth()[0];
+		car1Width = playerCar.getCarHeightWidth()[1];
+
+
 		playerCar.render(startXY[0], startXY[1]);
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			startXY = this.getCar2SpawnPoint(Main.track.getFinishLine());
+			car2Height= playerCar.getCarHeightWidth()[0];
+			car2Width = playerCar.getCarHeightWidth()[1];
 			playerCar2.render(startXY[0], startXY[1]);
 			playerCar2.getImageView().setRotate(90);
 		}
@@ -96,6 +105,17 @@ public class Game
 		}
 		intro[intro_frame].render(400,90);
 	}
+
+	private void setCar1WidthHeight(){
+		this.car1Height = (playerCar.getImageView().getBoundsInParent().getHeight());
+		this.car1Width = (playerCar.getImageView().getBoundsInParent().getWidth());
+	}
+
+	private void setCar2WidthHeight(){
+		this.car2Height = (playerCar2.getImageView().getBoundsInParent().getHeight());
+		this.car2Width = (playerCar2.getImageView().getBoundsInParent().getWidth());
+	}
+
 
 	private double[] getCar1SpawnPoint(Line finishLine){
 		double[] xyValues = new double[2];
@@ -127,12 +147,12 @@ public class Game
 
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
 		this.players = new ArrayList<>();
-		this.playerCar = new PlayerCar(gameBackground);
+		this.playerCar = new PlayerCar(gameBackground, 0.9);
 		this.playerCar.playerNumber = 1;
 		this.players.add(playerCar);
 
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			this.playerCar2 = new PlayerCar(gameBackground);
+			this.playerCar2 = new PlayerCar(gameBackground, 0.9);
 			g2 = new GameManager(gameBackground);
 			g2.wordBar(1650,60);
 			g2.fixBar(1800,80);
@@ -403,14 +423,18 @@ public class Game
 
 
 			private void makeRandomTrack(){
+				double[] xyCoord = this.getCarCoord(playerCar);
+
 				//set raycaster position and rotation = the car's position and rotation
-				raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),
-						Point.unconvertY(playerCar.getImageView().getLayoutY()+18)));
+				raycaster.setPos(new Point(Point.unconvertX(xyCoord[0]),
+						Point.unconvertY(xyCoord[1])));
 				raycaster.setRot(playerCar.getImageView().getRotate());
 
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-					r2.setPos(new Point(Point.unconvertX(playerCar2.getImageView().getLayoutX()+35),
-							Point.unconvertY(playerCar2.getImageView().getLayoutY()+18)));
+					xyCoord = this.getCarCoord(playerCar2);
+
+					r2.setPos(new Point(Point.unconvertX(xyCoord[0]),
+							Point.unconvertY(xyCoord[1])));
 					r2.setRot(playerCar2.getImageView().getRotate());
 					distances2 = r2.castRays(Main.track.getTrackLines(), true);
 				}
@@ -420,6 +444,16 @@ public class Game
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
+			}
+
+
+
+			public double[] getCarCoord(PlayerCar car){
+				double[] xyCoord = new double[2];
+				xyCoord[0] = car.getImageView().getLayoutX()+ (car1Width/2);
+				xyCoord[1] = car.getImageView().getLayoutY()+ (car1Height/2);
+				System.out.println(car1Width);
+				return xyCoord;
 			}
 
 			private void lapSystem(){

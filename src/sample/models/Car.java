@@ -605,6 +605,13 @@ public class Car extends Sprite {
     }
 
 
+    public double[] getCarHeightWidth(){
+        double[] heightWidth = new double[2];
+        heightWidth[0] = (this.getImageView().getBoundsInParent().getHeight());
+        heightWidth[1] = (this.getImageView().getBoundsInParent().getWidth());
+        return heightWidth;
+    }
+
 
     /*
     1. forward acceleration
