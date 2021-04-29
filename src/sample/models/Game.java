@@ -109,7 +109,7 @@ public class Game
 	private double[] getCar2SpawnPoint(Line finishLine){
 		double[] xyValues = new double[2];
 		double distance = (finishLine.getStartX()) - (finishLine.getEndX());
-		xyValues[0] = finishLine.getStartX() - (distance/3) + (playerCar2.getImage().getBoundsInParent().getWidth()/2);
+		xyValues[0] = finishLine.getStartX() - (distance/3) - (playerCar2.getImage().getBoundsInParent().getWidth()/2);
 		xyValues[1]= finishLine.getStartY() + (playerCar2.getImage().getBoundsInParent().getHeight());
 		return xyValues;
 	}
