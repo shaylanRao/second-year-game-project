@@ -436,7 +436,7 @@ public class Game
 
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
+				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
 			}
 
 
