@@ -11,16 +11,12 @@ public class Raycaster {
 
 
     private Point pos;
-    private PlayerCar playercar;
+    private final PlayerCar playercar;
 
     private double rot;
     private final Raycast[] rays = new Raycast[8];
     private final Pane pane;
     private final ArrayList<Line> rayLines = new ArrayList<>();
-
-    public ArrayList<Rectangle> getRayRect() {
-        return rayRect;
-    }
 
     private final ArrayList<Rectangle> rayRect = new ArrayList<>();
 
@@ -73,15 +69,7 @@ public class Raycaster {
         return Math.toRadians(rotation);
     }
 
-    public Line[] show() {
-        Line[] lines = new Line[8];
-        for (int i=0; i<8; i++) {
-            lines[i] = rays[i].show();
-        }
-        return lines;
-    }
-
-//    public double[] carColl(ArrayList<Rectangle> carRect, boolean showLines) {
+    //    public double[] carColl(ArrayList<Rectangle> carRect, boolean showLines) {
 //
 //
 //    }

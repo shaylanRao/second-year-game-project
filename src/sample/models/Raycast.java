@@ -1,11 +1,10 @@
 package sample.models;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class Raycast {
-    private Point pos;
-    private Point dir;
+    private final Point pos;
+    private final Point dir;
 
     public Raycast(Point pos, Point dir) {
         this.pos = pos;
@@ -13,8 +12,7 @@ public class Raycast {
     }
 
     public Line show() {
-        Line line = new Line(pos.getXConverted(), pos.getYConverted(), pos.getXConverted()+dir.getX()*100, pos.getYConverted()+dir.getY()*100);
-        return line;
+        return new Line(pos.getXConverted(), pos.getYConverted(), pos.getXConverted()+dir.getX()*100, pos.getYConverted()+dir.getY()*100);
     }
 
     public Point cast(Line boundary) {
@@ -38,8 +36,7 @@ public class Raycast {
         final double u = -((x1-x2) * (y1-y3) - (y1-y2) * (x1-x3)) / denominator;
         if (t>0 && t<1 && u>0) {
             //System.out.println("ray intersects");
-            Point point = new Point(x1+t*(x2-x1), y1+t*(y2-y1));
-            return point;
+            return new Point(x1+t*(x2-x1), y1+t*(y2-y1));
         }
         return null;
     }

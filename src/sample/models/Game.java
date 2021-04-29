@@ -107,15 +107,6 @@ public class Game
 		intro[intro_frame].render((Screen.getPrimary().getBounds().getWidth()/2)-(intro[intro_frame].getImage().getFitWidth()/2), (Screen.getPrimary().getBounds().getHeight()/2)-(intro[intro_frame].getImage().getFitHeight()*0.6));
 	}
 
-	private void setCar1WidthHeight(){
-		this.car1Height = (playerCar.getImageView().getBoundsInParent().getHeight());
-		this.car1Width = (playerCar.getImageView().getBoundsInParent().getWidth());
-	}
-
-	private void setCar2WidthHeight(){
-		this.car2Height = (playerCar2.getImageView().getBoundsInParent().getHeight());
-		this.car2Width = (playerCar2.getImageView().getBoundsInParent().getWidth());
-	}
 
 
 	private double[] getCar1SpawnPoint(Line finishLine){

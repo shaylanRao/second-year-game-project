@@ -1,7 +1,6 @@
 package sample.models;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public abstract class Sprite {

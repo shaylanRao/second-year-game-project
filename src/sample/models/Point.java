@@ -4,13 +4,12 @@ import sample.Main;
 
 public class Point {
 
-    private double x, y;
+    private final double x;
+    private double y;
 
     public double getX() {
         return x;
     }
-
-    public void setX(double x) { this.x = x; }
 
     public double getY() {
         return y;

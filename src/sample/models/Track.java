@@ -5,7 +5,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
-import sample.Main;
 import sample.utilities.FastNoise;
 import sample.utilities.Mapper;
 
@@ -19,8 +18,8 @@ public class Track {
      */
     private static final int spawnFactor = 5;
     private ArrayList<Point> powerupSpawns;
-    private ArrayList<Point> outerPoints;
-    private ArrayList<Point> innerPoints;
+    private final ArrayList<Point> outerPoints;
+    private final ArrayList<Point> innerPoints;
     private ArrayList<Line> trackLines;
 
 
@@ -28,7 +27,7 @@ public class Track {
         return gates;
     }
 
-    private Line[] gates;
+    private final Line[] gates;
 
     /**
      * @return the list of the PathElement's making up the outer track. This gets used to create a Path object in RandomTrackScreen.java
