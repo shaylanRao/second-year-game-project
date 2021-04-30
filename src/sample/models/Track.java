@@ -106,36 +106,7 @@ public class Track {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
                 gate.setStroke(Color.TRANSPARENT);
                 gates[0] = gate;
-
-                finWhite[0] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
-                finWhite[0].setStroke(Color.WHITE);
-                finWhite[0].setStrokeWidth(5);
-
-                finWhite[1] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
-                finWhite[1].setStroke(Color.BLACK);
-                finWhite[1].getStrokeDashArray().addAll(5.0, 15.0);
-                finWhite[1].setStrokeWidth(5);
-
-
-                finWhite[2] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-5, innerPoint.getXConverted(), innerPoint.getYConverted()-5);
-                finWhite[2].setStroke(Color.WHITE);
-                finWhite[2].setStrokeWidth(5);
-
-                finWhite[3] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-5, innerPoint.getXConverted(), innerPoint.getYConverted()-5);
-                finWhite[3].setStroke(Color.BLACK);
-                finWhite[3].getStrokeDashArray().addAll(5.0, 15.0);
-                finWhite[3].setStrokeDashOffset(10);
-                finWhite[3].setStrokeWidth(5);
-
-                finWhite[4] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-10, innerPoint.getXConverted(), innerPoint.getYConverted()-10);
-                finWhite[4].setStroke(Color.WHITE);
-                finWhite[4].setStrokeWidth(5);
-
-                finWhite[5] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-10, innerPoint.getXConverted(), innerPoint.getYConverted()-10);
-                finWhite[5].setStroke(Color.BLACK);
-                finWhite[5].getStrokeDashArray().addAll(5.0, 15.0);
-                finWhite[5].setStrokeWidth(5);
-
+                this.setFinLine(outerPoint, innerPoint);
             }
             if (a==1.570796326794896) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
@@ -186,6 +157,37 @@ public class Track {
         }
         outerLines.addAll(innerLines);
         this.trackLines=outerLines;
+    }
+
+    private void setFinLine(Point outerPoint, Point innerPoint) {
+        finWhite[0] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+        finWhite[0].setStroke(Color.WHITE);
+        finWhite[0].setStrokeWidth(5);
+
+        finWhite[1] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+        finWhite[1].setStroke(Color.BLACK);
+        finWhite[1].getStrokeDashArray().addAll(5.0, 15.0);
+        finWhite[1].setStrokeWidth(5);
+
+
+        finWhite[2] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-5, innerPoint.getXConverted(), innerPoint.getYConverted()-5);
+        finWhite[2].setStroke(Color.WHITE);
+        finWhite[2].setStrokeWidth(5);
+
+        finWhite[3] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-5, innerPoint.getXConverted(), innerPoint.getYConverted()-5);
+        finWhite[3].setStroke(Color.BLACK);
+        finWhite[3].getStrokeDashArray().addAll(5.0, 15.0);
+        finWhite[3].setStrokeDashOffset(10);
+        finWhite[3].setStrokeWidth(5);
+
+        finWhite[4] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-10, innerPoint.getXConverted(), innerPoint.getYConverted()-10);
+        finWhite[4].setStroke(Color.WHITE);
+        finWhite[4].setStrokeWidth(5);
+
+        finWhite[5] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-10, innerPoint.getXConverted(), innerPoint.getYConverted()-10);
+        finWhite[5].setStroke(Color.BLACK);
+        finWhite[5].getStrokeDashArray().addAll(5.0, 15.0);
+        finWhite[5].setStrokeWidth(5);
     }
 
     public Line getFinishLine(){
