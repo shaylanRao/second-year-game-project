@@ -339,24 +339,15 @@ public class Game
 
 
 			private	void carOnCarColl(){
-//				if(playerCar.collisionDetection(playerCar2)){
-//					System.out.println(playerCar.getImage().boundsInParentProperty());
-//				}
-				//ProjectionRectangle rect1 = new ProjectionRectangle(raycaster.getRayRect().get(0));
-				//ProjectionRectangle rect2 = new ProjectionRectangle(r2.getRayRect().get(0));
-				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar);
-				ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2);
-
-//				if(rect1.intersects(rect2.getLayoutBounds())){
-//					System.out.println("CRASH");
-//				}
+				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, raycaster.getRayRect().get(0));
+				ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, r2.getRayRect().get(0));
 
 				if (playerCar.testCollision(rect1, rect2)) {
-					System.out.println("crash");
+					System.out.println(playerCar.getForwardSpeed());
+					//playerCar.setSpeed(-playerCar.getForwardSpeed());
+					playerCar.setForceSpeed(0);
 				}
 			}
-
-
 
 
 
@@ -441,7 +432,7 @@ public class Game
 
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), false);
+				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
 			}
 
 

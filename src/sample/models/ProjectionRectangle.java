@@ -4,15 +4,26 @@ import javafx.scene.shape.Rectangle;
 
 public class ProjectionRectangle {
     private CollisionNode[] nodes;
+    double centrex;
+    double centrey;
+    double[] topleft;
+    double[] topright;
+    double[] bottomleft;
+    double[] bottomright;
+    double[] tleft;
+    double[] tright;
+    double[] bleft;
+    double[] bright;
+    double width;
+    double height;
 
     public ProjectionRectangle(double[] x, double[] y) {
         nodes = new CollisionNode[x.length];
-        //System.out.println("New Shape");
         for(int i=0; i<x.length; i++) {
             nodes[i] = new CollisionNode(x[i], y[i]);
-            System.out.println("Point: "+nodes[i].x+", "+nodes[i].y);
+            //System.out.println("Point: "+nodes[i].x+", "+nodes[i].y);
         }
-        System.out.println(nodes.length);
+        //System.out.println(nodes.length);
     }
 
     public ProjectionRectangle(Rectangle rect) {
@@ -25,29 +36,28 @@ public class ProjectionRectangle {
         nodes = new CollisionNode[4];
         for(int i=0; i<4; i++) {
             nodes[i] = new CollisionNode(xs[i], ys[i]);
-            //System.out.println("Point: "+nodes[i].x+", "+nodes[i].y);
         }
-        //System.out.println(nodes.length);
     }
 
-    public ProjectionRectangle(PlayerCar rect) {
-        double tleftx = rect.getImage().getLayoutX();
-        //System.out.println(tleftx);
-        double tlefty = rect.getImage().getLayoutY();
-        //System.out.println(tlefty);
-        double width = rect.getImage().getBoundsInLocal().getWidth();
-        //System.out.println(width);
-        double height = rect.getImage().getBoundsInLocal().getHeight();
-        //System.out.println(height);
-        double f = rect.getImage().getRotate() % 45;
-        double d = rect.getImage().localToScreen(rect.getImage().getBoundsInLocal()).getMaxX();
-        //System.out.println(d);
-        double tlx = tleftx - width;
-        double tly = tlefty + height;
-        double[] xs = new double[]{tlx ,tlx,tleftx, tleftx};
-        double[] ys = new double[]{tly, tlefty, tly,tlefty};
-        //double[] xs = GetPointRotated();
-        //double[] ys = GetPointRotated();
+    public ProjectionRectangle(PlayerCar rect, Rectangle re) {
+
+        this.centrex = re.getX() - rect.getImage().getBoundsInLocal().getWidth()/2;
+        this.width = rect.getImage().getBoundsInLocal().getWidth();
+        this.height = rect.getImage().getBoundsInLocal().getHeight();
+        this.centrey = re.getY() + rect.getImage().getBoundsInLocal().getHeight()/2;
+
+        this.bottomright = new double[]{centrex + width / 2, centrey + height / 2};
+        this.bottomleft = new double[]{centrex - width / 2, centrey + height / 2};
+        this.topright = new double[]{centrex + width / 2, centrey - height / 2};
+        this.topleft = new double[]{centrex - width / 2, centrey - height / 2};
+
+
+        this.bright = GetPointRotated(bottomright[0],bottomright[1] , centrex, centrey, rect.getImage().getRotate());
+        this.bleft = GetPointRotated(bottomleft[0], bottomleft[1], centrex, centrey, rect.getImage().getRotate());
+        this.tright = GetPointRotated(topright[0], topright[1], centrex, centrey, rect.getImage().getRotate());
+        this.tleft = GetPointRotated(topleft[0], topleft[1], centrex, centrey, rect.getImage().getRotate());
+        double[] xs = new double[]{bright[0] ,bleft[0],tleft[0], tright[0]};
+        double[] ys = new double[]{bright[1], bleft[1], tleft[1],tright[1]};
         nodes = new CollisionNode[4];
         for(int i=0; i<4; i++) {
             nodes[i] = new CollisionNode(xs[i], ys[i]);
@@ -57,12 +67,8 @@ public class ProjectionRectangle {
     }
 
     private double[] GetPointRotated(double X, double Y,double Xos,double Yos, double rot){
-// Xos, Yos // the coordinates of your center point of rect
-// R      // the angle you wish to rotate
-
-//The rotated position of this corner in world coordinates
-        double rotatedX = X + (Xos  * Math.cos(Math.toRadians(rot))) - (Yos * Math.sin(Math.toRadians(rot)));
-        double rotatedY = Y + (Xos  * Math.sin(Math.toRadians(rot))) + (Yos * Math.cos(Math.toRadians(rot)));
+        double rotatedX = Xos + ((X - Xos)  * Math.cos(Math.toRadians(rot))) - ((Y - Yos) * Math.sin(Math.toRadians(rot)));
+        double rotatedY = Yos + ((X - Xos)  * Math.sin(Math.toRadians(rot))) + ((Y - Yos) * Math.cos(Math.toRadians(rot)));
         double[] p = new double[]{rotatedX, rotatedY};
         return p;
     }
