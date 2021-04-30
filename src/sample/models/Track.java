@@ -91,7 +91,7 @@ public class Track {
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 300);
             float theNoise = noise.GetNoise(xoff, yoff);
-            float r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.45), (int)(Screen.getPrimary().getBounds().getHeight()*0.55));
+            float r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.40), (int)(Screen.getPrimary().getBounds().getHeight()*0.45));
             x1 = r * Math.cos(a)*2;
             y1 = r * Math.sin(a);
             Point outerPoint = new Point(x1, y1);
