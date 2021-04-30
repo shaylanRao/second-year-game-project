@@ -346,18 +346,18 @@ public class Game
 			private void initialColl(PlayerCar player, double[] rcDistances){
 					if (player.wallCollision(rcDistances)){
 						if(player == playerCar){
-							startXY[0] += 15;
+							startXY[0] += player.getCarHeightWidth()[1]/2;
 							player.getImage().relocate(startXY[0], startXY[1]);
 						}
 						else{
-							start2XY[0] -= 15;
+							start2XY[0] -= player.getCarHeightWidth()[1]/2;
 							player.getImage().relocate(start2XY[0], start2XY[1]);
 						}
 					}
 
 					if(this.carOnCarColl()){
-						startXY[0] -= 10;
-						start2XY[0] += 10;
+						startXY[0] -= player.getCarHeightWidth()[1]/3;
+						start2XY[0] += player.getCarHeightWidth()[1]/3;
 						playerCar.getImage().relocate(startXY[0], startXY[1]);
 						playerCar2.getImage().relocate(start2XY[0], start2XY[1]);
 					}
