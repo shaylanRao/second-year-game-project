@@ -5,6 +5,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
+import javafx.stage.Screen;
 import sample.utilities.FastNoise;
 import sample.utilities.Mapper;
 
@@ -88,9 +89,9 @@ public class Track {
         for (double a = 0; a < 2*Math.PI; a += Math.toRadians(5)) {
             counter ++;
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
-            float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 200);
+            float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 300);
             float theNoise = noise.GetNoise(xoff, yoff);
-            float r = Mapper.map(theNoise, 0, 1, 300, 400);
+            float r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.45), (int)(Screen.getPrimary().getBounds().getHeight()*0.55));
             x1 = r * Math.cos(a)*2;
             y1 = r * Math.sin(a);
             Point outerPoint = new Point(x1, y1);
