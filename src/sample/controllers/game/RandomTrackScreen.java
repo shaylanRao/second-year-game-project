@@ -16,7 +16,6 @@ import java.util.ResourceBundle;
 
 public class RandomTrackScreen extends AbstractGameController {
     public static Raycaster raycaster;
-    public static Raycaster carBound;
     public static Raycaster r2;
 
     @Override
@@ -35,6 +34,7 @@ public class RandomTrackScreen extends AbstractGameController {
         innerPath.setFill(Color.web("#013220"));
         pane.getChildren().add(outerPath);
         pane.getChildren().add(innerPath);
+        pane.getChildren().addAll(Main.track.getFinWhite());
         pane.getChildren().addAll(gates);
         try {
             game = new Game();

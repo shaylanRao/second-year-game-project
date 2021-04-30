@@ -28,6 +28,7 @@ public class Track {
     }
 
     private final Line[] gates;
+    private final Line[] finWhite;
 
     /**
      * @return the list of the PathElement's making up the outer track. This gets used to create a Path object in RandomTrackScreen.java
@@ -69,12 +70,14 @@ public class Track {
 
     public Track() {
         gates = new Line[4];
+        finWhite = new Line[6];
         outerPoints = new ArrayList<>();
         innerPoints = new ArrayList<>();
         BuildTrack();
     }
 
-    private void BuildTrack() {
+
+        private void BuildTrack() {
         //setup perlin noise generator
         FastNoise noise = new FastNoise();
         noise.SetNoiseType(FastNoise.NoiseType.Perlin);
@@ -98,24 +101,58 @@ public class Track {
             Point innerPoint = new Point(x2, y2);
             innerPoints.add(innerPoint);
 
+
             if (a==0) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
-                gate.setStroke(Color.RED);
+                gate.setStroke(Color.TRANSPARENT);
                 gates[0] = gate;
+
+                finWhite[0] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+                finWhite[0].setStroke(Color.WHITE);
+                finWhite[0].setStrokeWidth(5);
+
+                finWhite[1] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
+                finWhite[1].setStroke(Color.BLACK);
+                finWhite[1].getStrokeDashArray().addAll(5.0, 15.0);
+                finWhite[1].setStrokeWidth(5);
+
+
+                finWhite[2] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-5, innerPoint.getXConverted(), innerPoint.getYConverted()-5);
+                finWhite[2].setStroke(Color.WHITE);
+                finWhite[2].setStrokeWidth(5);
+
+                finWhite[3] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-5, innerPoint.getXConverted(), innerPoint.getYConverted()-5);
+                finWhite[3].setStroke(Color.BLACK);
+                finWhite[3].getStrokeDashArray().addAll(5.0, 15.0);
+                finWhite[3].setStrokeDashOffset(10);
+                finWhite[3].setStrokeWidth(5);
+
+                finWhite[4] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-10, innerPoint.getXConverted(), innerPoint.getYConverted()-10);
+                finWhite[4].setStroke(Color.WHITE);
+                finWhite[4].setStrokeWidth(5);
+
+                finWhite[5] = new Line(outerPoint.getXConverted()+5, outerPoint.getYConverted()-10, innerPoint.getXConverted(), innerPoint.getYConverted()-10);
+                finWhite[5].setStroke(Color.BLACK);
+                finWhite[5].getStrokeDashArray().addAll(5.0, 15.0);
+                finWhite[5].setStrokeWidth(5);
+
             }
             if (a==1.570796326794896) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
-                gate.setStroke(Color.BLUE);
+//                gate.setStroke(Color.BLUE);
+                gate.setStroke(Color.TRANSPARENT);
                 gates[1] = gate;
             }
             if (a==3.141592653589791) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
-                gate.setStroke(Color.GREEN);
+//                gate.setStroke(Color.GREEN);
+                gate.setStroke(Color.TRANSPARENT);
                 gates[2] = gate;
             }
             if (a==4.712388980384686) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
-                gate.setStroke(Color.YELLOW);
+//                gate.setStroke(Color.YELLOW);
+                gate.setStroke(Color.TRANSPARENT);
                 gates[3] = gate;
             }
 
@@ -154,4 +191,9 @@ public class Track {
     public Line getFinishLine(){
         return (this.gates[0]);
     }
+
+    public Line[] getFinWhite(){
+        return (finWhite);
+    }
+
 }
