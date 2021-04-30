@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 import sample.models.*;
 
 import java.net.URL;

@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 import sample.controllers.ui.MainScreen;
 import sample.models.SceneManager;
 import sample.models.Settings;

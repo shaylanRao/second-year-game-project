@@ -15,7 +15,7 @@ public class PlayerCar extends Car {
     public PowerUpBar powerUpBar;
 
     public PlayerCar(Pane gameBackground) {
-        super(gameBackground, generateCarImageView());
+        super(gameBackground);
         this.powerups = new LinkedList<>();
         this.powerUpBar = new PowerUpBar(gameBackground);
         this.powerupsDischarge = new ArrayList<>();
@@ -54,16 +54,6 @@ public class PlayerCar extends Car {
         return false;
     }
 
-    private static ImageView generateCarImageView() {
-        try {
-            FileInputStream carImageFile = new FileInputStream("target/classes/images/original_car.png");
-            Image carImage = new Image(carImageFile);
-            return new ImageView(carImage);
-        } catch (Exception ex) {
-            System.out.println("Error when loading car image");
-        }
-        return null;
-    }
 
 	public LinkedList<Powerup> getPowerups()
 	{

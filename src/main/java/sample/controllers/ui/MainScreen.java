@@ -3,12 +3,12 @@ package sample.controllers.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.models.Settings;
+import sample.models.audio.SoundManager;
 import sample.utilities.AlertBox;
-import sample.controllers.audio.*;
+import sample.models.audio.*;
 
 public class MainScreen {
 
@@ -86,7 +86,8 @@ public class MainScreen {
         try {
             Main.settings.setTrack(Settings.Track.TRACK3);
             Main.settings.setLaps(3);
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/randomTrackScreen.fxml"));
+            Main.settings.setPlayMode(Settings.PlayMode.AI);
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/GameScreen.fxml"));
             Parent root = loader.load();
             root.requestFocus();
             Main.sceneManager.setCurrentRoot(root);

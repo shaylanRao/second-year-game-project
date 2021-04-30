@@ -88,8 +88,8 @@ public class Track {
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 200);
             float theNoise = noise.GetNoise(xoff, yoff);
             float r = Mapper.map(theNoise, 0, 1, 300, 400);
-            x1 = r * Math.cos(a)*2;
-            y1 = r * Math.sin(a);
+            x1 = (r+100) * Math.cos(a)*2;
+            y1 = (r+100) * Math.sin(a);
             Point outerPoint = new Point(x1, y1);
             outerPoints.add(outerPoint);
 

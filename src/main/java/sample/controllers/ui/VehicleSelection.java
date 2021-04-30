@@ -4,10 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 import sample.models.Settings;
 
 
@@ -57,7 +56,7 @@ public class VehicleSelection {
         try {
             Parent root;
             FXMLLoader loader;
-            loader = new FXMLLoader(Main.class.getResource("/views/randomTrackScreen.fxml"));
+            loader = new FXMLLoader(Main.class.getResource("/views/GameScreen.fxml"));
             root = loader.load();
             // solves user key click issue
             root.requestFocus();

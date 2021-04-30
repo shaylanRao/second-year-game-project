@@ -3,7 +3,8 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.ai.TrainCar;
+import sample.models.audio.SoundManager;
 import sample.controllers.game.GameController;
 
 import java.util.*;
@@ -16,11 +17,17 @@ public class Game {
 
 	private PlayerCar			playerCar;
 	private PlayerCar           playerCar2;
+	private Car aiCar;
 	private ArrayList<Powerup>	powerups;
 	private ArrayList<Powerup>	powerupsDischarge;
 	private boolean				ok;
 	private boolean speedb = false;
 	private GameManager gameManager;
+
+	public double[] getDistances() {
+		return distances;
+	}
+
 	private double[] distances;
 
 	public PlayerCar getPlayerCar()
@@ -31,6 +38,7 @@ public class Game {
 	{
 		return playerCar2;
 	}
+	public Car getAiCar() { return aiCar; }
 	/**
 	 * Sets initial game state
 	 */
@@ -40,6 +48,11 @@ public class Game {
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			playerCar2.render(350, 500);
+		} else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
+			distances = new double[8];
+			aiCar.render(350, 500);
+			TrainCar.setGame(this);
+			TrainCar.train(500);
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
@@ -69,6 +82,8 @@ public class Game {
 		this.playerCar = new PlayerCar(gameBackground);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.playerCar2 = new PlayerCar(gameBackground);
+		} else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
+			aiCar = new Car(gameBackground);
 		}
 		this.powerupsDischarge = new ArrayList<>();
 		this.playerCar.powerupsDischarge = new ArrayList<>();

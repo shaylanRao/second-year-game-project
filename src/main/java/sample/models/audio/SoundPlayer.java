@@ -1,4 +1,4 @@
-package sample.controllers.audio;
+package sample.models.audio;
 
 import javax.sound.sampled.*;
 

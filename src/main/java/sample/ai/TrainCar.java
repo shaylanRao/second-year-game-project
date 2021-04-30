@@ -1,9 +1,11 @@
 package sample.ai;
 
 import ai.djl.Model;
-import ai.djl.modality.rl.agent.EpsilonGreedy;
-import ai.djl.modality.rl.agent.QAgent;
-import ai.djl.modality.rl.agent.RlAgent;
+import ai.djl.nn.Block;
+import sample.ai.imported.agent.EpsilonGreedy;
+import sample.ai.imported.agent.QAgent;
+import sample.ai.imported.agent.RlAgent;
+import ai.djl.ndarray.NDManager;
 import ai.djl.ndarray.types.Shape;
 import ai.djl.nn.Activation;
 import ai.djl.nn.Blocks;
@@ -20,11 +22,13 @@ import ai.djl.training.optimizer.Adam;
 import ai.djl.training.tracker.LinearTracker;
 import ai.djl.training.tracker.Tracker;
 import sample.ai.imported.RlEnv;
+import sample.models.Game;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+import ai.djl.basicmodelzoo.basic.Mlp;
 
 public class TrainCar {
     public static final int OBSERVE = 1000;
@@ -33,17 +37,20 @@ public class TrainCar {
     public static final float FINAL_EPSILON = 0.0001f;
     public static final int EXPLORE = 3000000;
     public static final int SAVE_EVERY_STEPS = 100000;
-    private static final long INPUT_SIZE = 32;
+    private static final long INPUT_SIZE = 8;
     private static final long OUTPUT_SIZE = 5;
+    private static final int REPLAY_BUFFER_SIZE = 50000;
     private static GameEnv gameEnv;
+
+    public static void setGame(Game game) {
+        TrainCar.game = game;
+    }
+
+    private static Game game;
     //TODO this might have to be changed to target/main/resources/model
     private static final String MODEL_PATH = "src/main/resources/model";
 
     static RlEnv.Step[] batchSteps;
-
-    public void setGameEnv(GameEnv gameEnv) {
-        this.gameEnv = gameEnv;
-    }
 
     private static Model createOrLoadModel() {
         Model model = Model.newInstance("QNetwork");
@@ -54,11 +61,7 @@ public class TrainCar {
     private static SequentialBlock getBlock() {
         //for now, using this architecture under the assumption that the input is 8x4 - the last 4 frames
         //it may be the case that we change the input size to be 8 in the future
-        return new SequentialBlock()
-                .add(Blocks.batchFlattenBlock(INPUT_SIZE))
-                .add(Linear.builder().setUnits(24).build())
-                        .add(Activation::relu)
-                .add(Linear.builder().setUnits(OUTPUT_SIZE).build());
+        return new Mlp((int) INPUT_SIZE, (int) OUTPUT_SIZE, new int[]{7});
         /*
         this creates a network with the following structure:
             input layer: 8*4 = 32 neurons
@@ -67,7 +70,13 @@ public class TrainCar {
         */
     }
 
+    public static void main (String[] args) {
+        //TODO find right batch size
+        train(500);
+    }
+
     public static void train(int batchSize) {
+        GameEnv gameEnv = new GameEnv(NDManager.newBaseManager(), batchSize, REPLAY_BUFFER_SIZE, game);
         Model model = createOrLoadModel();
         boolean training = true;
         //TODO create and instance of the game here??
@@ -75,7 +84,7 @@ public class TrainCar {
         DefaultTrainingConfig config = setupTrainingConfig();
 
         try (Trainer trainer = model.newTrainer(config)) {
-            trainer.initialize(new Shape(batchSize, 4, 80, 80));
+            trainer.initialize(new Shape(batchSize, 8));
             trainer.notifyListeners(listener -> listener.onTrainingBegin(trainer));
 
             RlAgent agent = new QAgent(trainer, REWARD_DISCOUNT);
@@ -155,7 +164,7 @@ public class TrainCar {
                 Thread.sleep(0);
                 if (gameEnv.gameStep > OBSERVE) {
                     //TODO check this, may well be wrong
-                    this.agent.trainBatch((ai.djl.modality.rl.env.RlEnv.Step[]) batchSteps);
+                    this.agent.trainBatch(batchSteps);
                     //TODO maybe change trainStep to static
                     gameEnv.trainStep++;
                     if (gameEnv.trainStep > 0 && gameEnv.trainStep % SAVE_EVERY_STEPS == 0) {

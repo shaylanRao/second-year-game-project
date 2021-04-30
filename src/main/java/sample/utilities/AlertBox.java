@@ -7,8 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 
 public class AlertBox {
 
@@ -51,7 +50,7 @@ public class AlertBox {
 
         Scene scene = new Scene(layout, alertBoxMaxWidth, alertBoxMaxHeight);
 
-        scene.getStylesheets().add("sample/utilities/stylesheet.css");
+        scene.getStylesheets().add("stylesheets/alertBox.css");
 
         declineButton.setOnMouseClicked(e ->
                 alertWindow.close()

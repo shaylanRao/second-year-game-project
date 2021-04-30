@@ -1,9 +1,12 @@
 package sample.models;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import javafx.scene.layout.BorderPane;
+
+import java.io.FileInputStream;
 
 public class Car extends Sprite {
 
@@ -17,12 +20,27 @@ public class Car extends Sprite {
     private boolean carSlideOn = false;
     private long pickedUpPwrtime = -1;
 
+    public Car(Pane gameBackground) {
+        this(gameBackground, generateCarImageView());
+    }
+
     public Car(Pane gameBackground, ImageView image) {
         super(gameBackground, image);
         this.setMaximumSpeed(SPEEDFACTOR *0.7);
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-2.5);
         this.setAccelerationModerator(SPEEDFACTOR /20000);
+    }
+
+    private static ImageView generateCarImageView() {
+        try {
+            FileInputStream carImageFile = new FileInputStream("target/classes/images/original_car.png");
+            Image carImage = new Image(carImageFile);
+            return new ImageView(carImage);
+        } catch (Exception ex) {
+            System.out.println("Error when loading car image");
+        }
+        return null;
     }
 
     public ImageView getImageView() {

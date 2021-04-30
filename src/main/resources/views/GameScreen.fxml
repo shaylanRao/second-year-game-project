@@ -7,7 +7,7 @@
 <Pane fx:controller="sample.controllers.game.GameController"
       xmlns:fx="http://javafx.com/fxml" fx:id="pane" onKeyPressed="#keyClicked" onKeyReleased="#keyReleased" prefHeight="720.0" prefWidth="1280.0">
     <stylesheets>
-        <URL value="@../stylesheets/randomTrackScreen.css"/>
+        <URL value="@../stylesheets/GameScreen.css"/>
     </stylesheets>
     <children>
         <HBox>

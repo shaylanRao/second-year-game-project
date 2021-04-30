@@ -6,8 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
-import sample.controllers.audio.SoundObject;
+import sample.models.audio.SoundManager;
+import sample.models.audio.SoundObject;
 
 public class SoundScreen {
 

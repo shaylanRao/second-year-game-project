@@ -1,8 +1,8 @@
 package sample.ai.imported;
 
-import ai.djl.modality.rl.ActionSpace;
-import ai.djl.modality.rl.agent.RlAgent;
 import ai.djl.ndarray.NDManager;
+import sample.ai.imported.ActionSpace;
+import sample.ai.imported.agent.RlAgent;
 import ai.djl.ndarray.NDArray;
 import ai.djl.ndarray.NDList;
 

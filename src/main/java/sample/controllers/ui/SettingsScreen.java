@@ -3,10 +3,8 @@ package sample.controllers.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 
 public class SettingsScreen {
 

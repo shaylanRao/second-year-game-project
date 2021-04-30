@@ -2,7 +2,7 @@ package sample.controllers.ui;
 
 import javafx.event.ActionEvent;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 import sample.models.Settings;
 
 public class GameSettingsScreen {
