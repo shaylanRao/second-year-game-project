@@ -60,6 +60,10 @@ public class Game
 	private double car2Height;
 	private double car2Width;
 
+	private double[] startXY;
+	private double[] start2XY;
+
+
 	public PlayerCar getPlayerCar()
 	{
 		return playerCar;
@@ -73,18 +77,16 @@ public class Game
 	 */
 	private void initialiser()
 	{
-		double[] startXY = this.getCar1SpawnPoint(Main.track.getFinishLine());
+		this.startXY = this.getCar1SpawnPoint(Main.track.getFinishLine());
 		car1Height= playerCar.getCarHeightWidth()[0];
 		car1Width = playerCar.getCarHeightWidth()[1];
-
-
 		playerCar.render(startXY[0], startXY[1]);
 		playerCar.getImageView().setRotate(90);
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			startXY = this.getCar2SpawnPoint(Main.track.getFinishLine());
+			this.start2XY = this.getCar2SpawnPoint(Main.track.getFinishLine());
 			car2Height= playerCar.getCarHeightWidth()[0];
 			car2Width = playerCar.getCarHeightWidth()[1];
-			playerCar2.render(startXY[0], startXY[1]);
+			playerCar2.render(start2XY[0], start2XY[1]);
 			playerCar2.getImageView().setRotate(90);
 		}
 		Random random = new Random();
@@ -324,6 +326,10 @@ public class Game
 					coordRot = -2.3;
 				}
 
+				if(!raceStart) {
+					this.initialColl(player, rcDistances);
+				}
+
 				if (!gameManager.finishedLaps() && raceStart) {
 					//moves around screen
 					player.moveCarBy(coordPos);
@@ -337,16 +343,38 @@ public class Game
 				}
 			}
 
+			private void initialColl(PlayerCar player, double[] rcDistances){
+					if (player.wallCollision(rcDistances)){
+						if(player == playerCar){
+							startXY[0] += 15;
+							player.getImage().relocate(startXY[0], startXY[1]);
+						}
+						else{
+							start2XY[0] -= 15;
+							player.getImage().relocate(start2XY[0], start2XY[1]);
+						}
+					}
 
-			private	void carOnCarColl(){
+					if(this.carOnCarColl()){
+						startXY[0] -= 10;
+						start2XY[0] += 10;
+						playerCar.getImage().relocate(startXY[0], startXY[1]);
+						playerCar2.getImage().relocate(start2XY[0], start2XY[1]);
+					}
+			}
+
+
+			private	boolean carOnCarColl(){
 				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, raycaster.getRayRect().get(0));
 				ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, r2.getRayRect().get(0));
 
 				if (playerCar.testCollision(rect1, rect2)) {
-					System.out.println(playerCar.getForwardSpeed());
+//					System.out.println(playerCar.getForwardSpeed());
 					//playerCar.setSpeed(-playerCar.getForwardSpeed());
 					playerCar.setForceSpeed(0);
+					return true;
 				}
+				return false;
 			}
 
 

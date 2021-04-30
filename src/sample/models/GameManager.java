@@ -98,7 +98,6 @@ public class GameManager{
     public void wordBar(double x, double y) {
         LapBar lapBar = new LapBar(gameBackground, new ImageView(lapWord));
         lapBar.render(x, y);
-        System.out.println("LAPImage done");
     }
 
     Image[] updateNumbers = new Image[]{
@@ -199,7 +198,6 @@ public class GameManager{
             LapBar lapBar = new LapBar(gameBackground, new ImageView(fixNumbers[9]));
             lapBar.render(x, y);
         }
-        System.out.println("FixNumberImage done");
 
 
     }
