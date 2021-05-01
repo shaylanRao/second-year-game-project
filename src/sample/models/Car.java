@@ -694,6 +694,7 @@ public class Car extends Sprite {
                 System.out.println("CAR 1 MAG: " + this.postMag[0]);
                 return(car1Angle);
             }
+            //todo Below comment is probs wrong (only works for 135 degree ish angle)
             //need to +90 as 0 is taken from west but angles calculated from north
             return angleCorrection(Math.toDegrees(Math.atan(this.postVel[0]/this.postVel[0] ))+90); // Car 1 net angle
         }
