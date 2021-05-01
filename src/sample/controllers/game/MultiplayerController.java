@@ -1,9 +1,13 @@
 package sample.controllers.game;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import sample.Main;
 
 public class MultiplayerController extends RandomTrackScreen {
+
     @Override
     public void keyClicked(KeyEvent event) {
         KeyCode code = event.getCode();
@@ -41,6 +45,13 @@ public class MultiplayerController extends RandomTrackScreen {
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(true);
                 this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+            case P:
+                if (!Main.sceneManager.isPaused()) {
+                    Main.sceneManager.setPaused(true);
+                    Main.sceneManager.pause();
+                    this.game.getTimer().stop();
+                }
+
                 try {
                     this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 }
@@ -87,6 +98,10 @@ public class MultiplayerController extends RandomTrackScreen {
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(false);
                 this.getGame().getPlayerCar2().setPickedUpPwrtime(System.currentTimeMillis());
+            case P:
+                if (!Main.sceneManager.isPaused()) {
+                    this.game.getTimer().start();
+                }
 //                try {
 //                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 //                }

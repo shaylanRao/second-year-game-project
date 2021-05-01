@@ -1,0 +1,14 @@
+
+<?import javafx.scene.layout.Pane?>
+
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+ <?import javafx.geometry.Insets?>
+<Pane fx:controller="sample.controllers.ui.PauseScreen"
+      xmlns:fx="http://javafx.com/fxml" onKeyPressed="#keyClicked" prefHeight="720.0" prefWidth="1280.0">
+
+<stylesheets>
+    <URL value="@../resources/stylesheets/stylesheet.css"/>
+</stylesheets>
+</Pane>

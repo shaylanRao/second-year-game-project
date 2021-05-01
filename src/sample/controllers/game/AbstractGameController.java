@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import sample.Main;
 import sample.models.Game;
 import sample.models.PlayerCar;
 
@@ -19,6 +20,7 @@ public abstract class AbstractGameController implements Initializable {
     }
 
     public void setGame(Game game) {
+        Main.sceneManager.setGame(game);
         this.game = game;
     }
 
@@ -41,6 +43,12 @@ public abstract class AbstractGameController implements Initializable {
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
                 this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+            case P:
+                if (!Main.sceneManager.isPaused()) {
+                    Main.sceneManager.setPaused(true);
+                    Main.sceneManager.pause();
+                    this.game.getTimer().stop();
+                }
 //                try {
 //                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 //                }
@@ -73,6 +81,10 @@ public abstract class AbstractGameController implements Initializable {
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(false);
                 this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+            case P:
+                if (!Main.sceneManager.isPaused()) {
+                    this.game.getTimer().start();
+                }
 //                try {
 //                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 //                }

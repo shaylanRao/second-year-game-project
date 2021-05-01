@@ -40,6 +40,10 @@ public class Game
 
 	private boolean raceStart = false;
 
+	private AnimationTimer timer;
+	public AnimationTimer getTimer() {
+		return timer;
+	}
 
 	public void updateTime()
 	{
@@ -179,7 +183,7 @@ public class Game
 	 */
 	public synchronized void gameLoop() {
 		this.initialiser();
-		AnimationTimer timer = new AnimationTimer() {
+		timer = new AnimationTimer() {
 			int counter;
 			int j = 0;
 
@@ -352,12 +356,13 @@ public class Game
 							player.getImage().relocate(start2XY[0], start2XY[1]);
 						}
 					}
-
-					if(this.carOnCarColl()){
-						startXY[0] -= player.getCarHeightWidth()[1]/3;
-						start2XY[0] += player.getCarHeightWidth()[1]/3;
-						playerCar.getImage().relocate(startXY[0], startXY[1]);
-						playerCar2.getImage().relocate(start2XY[0], start2XY[1]);
+					if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+						if(this.carOnCarColl()){
+							startXY[0] -= player.getCarHeightWidth()[1]/3;
+							start2XY[0] += player.getCarHeightWidth()[1]/3;
+							playerCar.getImage().relocate(startXY[0], startXY[1]);
+							playerCar2.getImage().relocate(start2XY[0], start2XY[1]);
+						}
 					}
 			}
 

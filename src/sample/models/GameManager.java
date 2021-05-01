@@ -20,7 +20,6 @@ public class GameManager{
 
     Pane gameBackground;
 
-
     public GameManager(Pane gameBackground) {
         this.gameBackground = gameBackground;
         gateStack = new Stack<>();
@@ -70,7 +69,11 @@ public class GameManager{
                     System.out.println(lapCounter);
                     lap[0] = lapCounter;
                 }
-                millisecondsPassed[0]++;
+                //this is to pause timer when game is paused
+                if (!Main.sceneManager.isPaused()) {
+                    millisecondsPassed[0]++;
+                }
+                //millisecondsPassed[0]++;
             }
         };
         myTimer.scheduleAtFixedRate(task,1000,1);
