@@ -11,9 +11,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
+import sample.models.Settings;
+
+import java.io.IOException;
 
 public class LapsSelection {
-
     @FXML
     private Slider lapsSlider;
 
@@ -48,17 +50,35 @@ public class LapsSelection {
         Main.sceneManager.setPrevScene();
     }
 
-    public void nextButtonClicked(ActionEvent actionEvent) {
+    public void nextButtonClicked(ActionEvent actionEvent) throws IOException {
         SoundManager.play("button");
 
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicleSelection.fxml"));
-            Parent root = loader.load();
+            Parent root;
+            if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AiModeCarSelection.fxml"));
+                root = loader.load();
+                root.requestFocus();
+            }else if (Main.settings.getPlayMode().equals(Settings.PlayMode.TIMETRIAL)){
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AiModeCarSelection.fxml"));
+                root = loader.load();
+                root.requestFocus();
+            }
+            else{
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/vehicleSelection.fxml"));
+                root = loader.load();
+                root.requestFocus();
+            }
+
+            System.out.println(Main.settings.toString());
             Main.sceneManager.setCurrentRoot(root);
-        }catch (Exception ex ) {
-            System.out.println("error in LapsSelection.java -> next button");
+        } catch (Exception ex) {
+            System.out.println("error inside VehicleSelection.java - next button clicked");
+            ex.printStackTrace();
         }
+
     }
+
 
 
 }

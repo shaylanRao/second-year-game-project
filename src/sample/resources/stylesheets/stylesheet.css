@@ -71,3 +71,48 @@
     -fx-background-size: 1280, 720;
     -fx-background-repeat: no-repeat;
 }
+
+.car1{
+    -fx-graphic:url("../images/original_car.png");
+    -fx-spacing:100;
+    -fx-background-radius:0px;
+    -fx-margin-left:20;
+    -fx-pref-width:400;
+    -fx-pref-height:400;
+    -fx-font-size:50px;
+    -fx-margin:20;
+    -fx-border-width:10;
+    -fx-padding:5 10 5 10;
+    -fx-background-color:#FFFA00;
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
+}
+
+.car2{
+    -fx-graphic:url("../images/vehicleTwo.png");
+    -fx-spacing:100;
+    -fx-background-radius:0px;
+    -fx-margin-left:20;
+    -fx-pref-width:400;
+    -fx-pref-height:400;
+    -fx-font-size:50px;
+    -fx-margin:20;
+    -fx-border-width:10;
+    -fx-padding:5 10 5 10;
+    -fx-background-color:#FFFA00;
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
+}
+
+.car3{
+    -fx-graphic:url("../images/vehicleThree.png");
+    -fx-spacing:100;
+    -fx-background-radius:0px;
+    -fx-margin-left:20;
+    -fx-pref-width:400;
+    -fx-pref-height:400;
+    -fx-font-size:50px;
+    -fx-margin:20;
+    -fx-border-width:10;
+    -fx-padding:5 10 5 10;
+    -fx-background-color:#FFFA00;
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
+}

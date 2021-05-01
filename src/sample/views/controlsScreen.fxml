@@ -52,7 +52,7 @@
             <Label styleClass="label-4" text="Left" />
             <Label styleClass="label-4" text="Right" />
             <Label styleClass="label-4" text="Down" />
-            <Label styleClass="label-4" text="RCtrl" />
+            <Label styleClass="label-4" text="L" />
          <BorderPane.margin>
             <Insets right="150.0" />
          </BorderPane.margin>
