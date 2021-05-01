@@ -11,7 +11,7 @@ import sample.controllers.audio.SoundManager;
 import sample.models.Settings;
 
 
-public class VehicleSelection {
+public class Vehicle2Selection {
     @FXML
     private Button playButton;
 
@@ -51,12 +51,31 @@ public class VehicleSelection {
     public void nextButtonClicked(ActionEvent actionEvent) {
         SoundManager.play("button");
 
+        SoundManager.stop("bgm");
+
+        SoundManager.loop("playBgm");
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicle2Selection.fxml"));
-            Parent root = loader.load();
+            Parent root;
+            FXMLLoader loader;
+            //if track 3 was selected then run the raycasting demo, else run the standard game
+            if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+                loader = new FXMLLoader(Main.class.getResource("views/multiplayer.fxml"));
+            }
+            else{
+                loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
+            }
+            root = loader.load();
+            // solves user key click issue
+            root.requestFocus();
+
+            // to see all the selected options - settings
+            // for debugging
+            System.out.println(Main.settings.toString());
+
             Main.sceneManager.setCurrentRoot(root);
-        }catch (Exception ex ) {
-            System.out.println("error in VehicleSelection.java -> Vehicle2Selection.java");
+        } catch (Exception ex) {
+            System.out.println("error inside VehicleSelection.java - next button clicked");
+            ex.printStackTrace();
         }
     }
 

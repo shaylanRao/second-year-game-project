@@ -29,7 +29,7 @@ public class Settings {
 
     private PlayMode playMode = PlayMode.AI;
     private VehicleType vehicleType = VehicleType.VEHICLE1;
-    private VehicleType vehicle2Type = VehicleType.VEHICLE1;
+    private VehicleType vehicle2Type = VehicleType.VEHICLE2;
 
     private Track track = Track.TRACK1;
     private int laps = 1;
@@ -125,7 +125,8 @@ public class Settings {
     public String toString() {
         return "Settings{" +
                 "playMode=" + playMode +
-                ", vehicleType=" + vehicleType +
+                ", vehicle1Type=" + vehicleType +
+                ", vehicle2Type=" + vehicleType +
                 ", track=" + track +
                 ", laps=" + laps +
                 ", masterVol=" + masterVol +

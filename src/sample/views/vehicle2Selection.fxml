@@ -5,15 +5,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ui.VehicleSelection">
+<BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ui.Vehicle2Selection">
     <stylesheets>
         <URL value="@../resources/stylesheets/stylesheet.css" />
     </stylesheets>
     <top>
-        <Label styleClass="label" text="Choose a vehicle for Player1">
-         <BorderPane.margin>
-            <Insets left="650.0" top="60" />
-         </BorderPane.margin></Label>
+        <Label styleClass="label" text="Choose a vehicle for Player2">
+            <BorderPane.margin>
+                <Insets left="650.0" top="60" />
+            </BorderPane.margin></Label>
     </top>
 
 
