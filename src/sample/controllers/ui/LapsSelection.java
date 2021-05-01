@@ -16,7 +16,6 @@ import sample.models.Settings;
 import java.io.IOException;
 
 public class LapsSelection {
-
     @FXML
     private Slider lapsSlider;
 
@@ -60,6 +59,10 @@ public class LapsSelection {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AiModeCarSelection.fxml"));
                 root = loader.load();
                 root.requestFocus();
+            }else if (Main.settings.getPlayMode().equals(Settings.PlayMode.TIMETRIAL)){
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AiModeCarSelection.fxml"));
+                root = loader.load();
+                root.requestFocus();
             }
             else{
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/vehicleSelection.fxml"));
@@ -75,6 +78,7 @@ public class LapsSelection {
         }
 
     }
+
 
 
 }
