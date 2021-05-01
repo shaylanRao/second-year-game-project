@@ -75,8 +75,8 @@ public class Settings {
         this.vehicleType = vehicleType;
     }
 
-    public void setVehicle2Type(VehicleType vehicleType) {
-        this.vehicle2Type = vehicleType;
+    public void setVehicle2Type(VehicleType vehicle2Type) {
+        this.vehicle2Type = vehicle2Type;
     }
 
     public Track getTrack() {
