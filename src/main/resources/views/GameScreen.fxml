@@ -18,6 +18,13 @@
                     </HBox.margin>
                 </Button>
             </children>
+            <children>
+                <Button fx:id="trainButton" onAction="#trainClicked" styleClass="button" text="TRAIN">
+                    <HBox.margin>
+                        <Insets bottom="100.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
         </HBox>
     </children>
 </Pane>

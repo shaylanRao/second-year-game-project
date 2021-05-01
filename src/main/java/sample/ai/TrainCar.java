@@ -79,8 +79,6 @@ public class TrainCar {
         GameEnv gameEnv = new GameEnv(NDManager.newBaseManager(), batchSize, REPLAY_BUFFER_SIZE, game);
         Model model = createOrLoadModel();
         boolean training = true;
-        //TODO create and instance of the game here??
-
         DefaultTrainingConfig config = setupTrainingConfig();
 
         try (Trainer trainer = model.newTrainer(config)) {
@@ -141,7 +139,7 @@ public class TrainCar {
 
         @Override
         public Object call() {
-            while (gameEnv.trainStep < EXPLORE) {
+            while (GameEnv.trainStep < EXPLORE) {
                 batchSteps = gameEnv.runEnvironment(agent, training);
             }
             return null;
@@ -159,16 +157,15 @@ public class TrainCar {
 
         @Override
         public Object call() throws Exception {
-            while (gameEnv.trainStep < EXPLORE) {
+            while (GameEnv.trainStep < EXPLORE) {
                 //do nothing if below exploration threshold i.e., just observe
                 Thread.sleep(0);
-                if (gameEnv.gameStep > OBSERVE) {
+                if (GameEnv.gameStep > OBSERVE) {
                     //TODO check this, may well be wrong
                     this.agent.trainBatch(batchSteps);
-                    //TODO maybe change trainStep to static
-                    gameEnv.trainStep++;
-                    if (gameEnv.trainStep > 0 && gameEnv.trainStep % SAVE_EVERY_STEPS == 0) {
-                        model.save(Paths.get(MODEL_PATH), "dqn-" + gameEnv.trainStep);
+                    GameEnv.trainStep++;
+                    if (GameEnv.trainStep > 0 && GameEnv.trainStep % SAVE_EVERY_STEPS == 0) {
+                        model.save(Paths.get(MODEL_PATH), "dqn-" + GameEnv.trainStep);
                     }
                 }
             }

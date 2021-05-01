@@ -33,6 +33,8 @@ public abstract class AbstractGameController implements Initializable {
             } else {
                 p1KeyClicked(code);
             }
+        } else {
+            System.out.println("currently in train mode");
         }
     }
 

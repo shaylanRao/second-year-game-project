@@ -1,5 +1,6 @@
 package sample.models;
 
+import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
@@ -100,7 +101,12 @@ public class Raycaster {
             counter++;
         }
         if (showLines) {
-            pane.getChildren().addAll(rayLines);
+            //TODO -- not sure why this fixes the error but it does :)
+            //the error is to do with it running on the wrong thread
+            //it should run on the Java FX Application thread
+            Platform.runLater(() -> {
+                pane.getChildren().addAll(rayLines);
+            });
         }
         return distances;
     }

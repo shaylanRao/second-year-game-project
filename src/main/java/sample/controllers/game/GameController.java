@@ -1,9 +1,12 @@
 package sample.controllers.game;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import sample.Main;
+import sample.ai.TrainCar;
 import sample.models.audio.SoundManager;
 import sample.models.*;
 
@@ -13,6 +16,10 @@ import java.util.ResourceBundle;
 
 public class GameController extends AbstractGameController {
     public static Raycaster raycaster;
+
+    @FXML
+    private Button trainButton;
+
     //TODO maybe merge AbstractGameController and GameController into one file
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,12 +46,16 @@ public class GameController extends AbstractGameController {
         try {
             game = new Game(pane);
             // starts the game
-            game.gameLoop();
+            if (!Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+                game.gameLoop();
+                trainButton.setVisible(false);
+            }
 
         } catch (Exception ex) {
             System.out.println("Error when initializing ");
             ex.printStackTrace();
         }
+
     }
 
     public void backClicked(ActionEvent actionEvent) {
@@ -53,5 +64,10 @@ public class GameController extends AbstractGameController {
         SoundManager.play("bgm");
         System.out.println("back button pressed");
         Main.sceneManager.setPrevScene();
+    }
+
+    public void trainClicked(ActionEvent actionEvent) {
+        TrainCar.setGame(game);
+        TrainCar.train(500);
     }
 }

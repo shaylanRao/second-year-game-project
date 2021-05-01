@@ -27,10 +27,13 @@ public class GameEnv implements RlEnv {
     private final NDManager manager;
     private final ActionSpace actionSpace;
     //TODO should these be kept public?
-    public int trainStep = 0;
-    public int gameStep = 0;
+    public static int trainStep = 0;
+    public static int gameStep = 0;
     private String trainState = "observe";
     private NDList currentObservation;
+    private static int gameState;
+    private static final int GAME_START = 1;
+    private static final int GAME_OVER = 2;
 
     public void setGame(Game game) {
         this.game = game;
@@ -59,9 +62,6 @@ public class GameEnv implements RlEnv {
         actionSpace.add(new NDList(manager.create(MOVE_LEFT)));
         actionSpace.add(new NDList(manager.create(MOVE_RIGHT)));
 
-        //aiCar
-
-        //TODO add code here to intitial observation and to start the game??
         currentObservation = createObservation();
     }
 
@@ -119,22 +119,44 @@ public class GameEnv implements RlEnv {
         }
         if (Arrays.equals(actionArr, DO_NOTHING)) {
             //do nothing
+            //System.out.println("do nothing");
         } else if (Arrays.equals(actionArr, MOVE_UP)) {
             //move up
+            //System.out.println("move up");
         } else if (Arrays.equals(actionArr, MOVE_DOWN)) {
             //move down
+            //System.out.println("move down");
         } else if (Arrays.equals(actionArr, MOVE_LEFT)) {
             //move left
+            //System.out.println("do left");
         } else if (Arrays.equals(actionArr, MOVE_RIGHT)) {
             //move right
+            //System.out.println("move right");
         }
-        stepFrame();
+        //run main game loop once
+        game.gameLoopAI();
+
         NDList preObservation = currentObservation;
         currentObservation = createObservation();
-        GameStep gameStep = new GameStep(manager.newSubManager(), preObservation, currentObservation, action, currentReward, currentTerminal);
+        GameStep step = new GameStep(manager.newSubManager(), preObservation, currentObservation, action, currentReward, currentTerminal);
         if (training) {
-            replayBuffer.addStep(gameStep);
+            replayBuffer.addStep(step);
         }
+        System.out.println("GAME_STEP " + gameStep +
+                " / " + "TRAIN_STEP " + trainStep +
+                " / " + getTrainState() +
+                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
+                " / " + "REWARD " + step.getReward().getFloat());
+
+        //TODO, set this in game when car crashes
+        if (gameState == GAME_OVER) {
+            restartGame();
+        }
+    }
+
+    private void restartGame() {
+        //TODO add code to start game
+        gameState = GAME_START;
     }
 
     @Override
@@ -147,20 +169,15 @@ public class GameEnv implements RlEnv {
             batchSteps = this.getBatch();
         }
         if (gameStep % 5000 == 0) {
-
-        }        if (gameStep <= OBSERVE) {
+            this.closeStep();
+        }
+        if (gameStep <= OBSERVE) {
             trainState = "observe";
         } else {
             trainState = "explore";
         }
         gameStep++;
         return batchSteps;
-    }
-
-    private void stepFrame() {
-        //TODO this function should progress the game to the next frame
-        //maybe we can do something like call 1 iteration of the game loop??
-
     }
 
     @Override
@@ -177,6 +194,15 @@ public class GameEnv implements RlEnv {
         replayBuffer.closeStep();
     }
 
+    public String getTrainState() {
+        return this.trainState;
+    }
+
+    //TODO set the reward based off of the lap time
+    public void setCurrentReward(float currentReward) {
+        this.currentReward = currentReward;
+    }
+
     static final class GameStep implements RlEnv.Step {
         private final NDManager manager;
         private final NDList preObservation;
@@ -184,6 +210,7 @@ public class GameEnv implements RlEnv {
         private final NDList action;
         private final float reward;
         private final boolean terminal;
+        private String trainState;
 
         private GameStep(NDManager manager, NDList preObservation, NDList postObservation, NDList action, float reward, boolean terminal) {
             this.manager = manager;
@@ -240,4 +267,6 @@ public class GameEnv implements RlEnv {
         public void close() {
             this.manager.close();
         }
+
+
     }}
