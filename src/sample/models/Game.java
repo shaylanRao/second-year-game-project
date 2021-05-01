@@ -149,7 +149,6 @@ public class Game
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 
 			//todo Change vehicle type to player 2 vehicle type
-			System.out.println(Main.settings.getVehicle2Type());
 			this.playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
 			g2 = new GameManager(gameBackground);
 			g2.wordBar(1650,60);
@@ -214,6 +213,7 @@ public class Game
 
 				this.lapSystem();
 
+
 			}
 
 
@@ -265,11 +265,9 @@ public class Game
 
 			private void startBoost(PlayerCar player){
 				if(player.getForwardSpeed() < 2.6 && player.getForwardSpeed() > 2.2){
-					System.out.println("BOOST");
 					player.setForceSpeed(player.getForceSpeed()*0.6);
 				}
 				else{
-					System.out.println("NO BOOST");
 					player.setForceSpeed(0);
 					player.setSpeed(0);
 				}
@@ -363,6 +361,7 @@ public class Game
 					}
 			}
 
+			private boolean testBool = true;
 
 			private	boolean carOnCarColl(){
 				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, raycaster.getRayRect().get(0));
@@ -371,7 +370,20 @@ public class Game
 				if (playerCar.testCollision(rect1, rect2)) {
 //					System.out.println(playerCar.getForwardSpeed());
 					//playerCar.setSpeed(-playerCar.getForwardSpeed());
-					playerCar.setForceSpeed(0);
+
+					//todo add physics
+					System.out.println("CRASH");
+					double[][]values = playerCar.momCollCalc(playerCar, playerCar2);
+//					playerCar.setForceSpeed(22);
+
+					playerCar.setForceSpeed(values[0][0]);
+					playerCar.getImageView().setRotate(values[0][1]);
+					playerCar2.setForceSpeed(values[1][0]);
+					playerCar2.getImageView().setRotate(values[1][1]);
+//					playerCar.setSpeed(2);
+//					playerCar2.setForceSpeed(1);
+
+
 					return true;
 				}
 				return false;

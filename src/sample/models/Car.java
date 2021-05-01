@@ -57,6 +57,7 @@ public class Car extends Sprite {
                 System.out.println("detected oil ghost powerup");
             }
         }
+
     }
 
     public void handleMapPowerups(Powerup powerup) {
@@ -140,7 +141,11 @@ public class Car extends Sprite {
         }
     }
 
+    public double getMass() {
+        return mass;
+    }
 
+    private double mass;
 
     public void setForceSpeed(double forceSpeed) {
         this.forceSpeed = forceSpeed;
@@ -275,7 +280,7 @@ public class Car extends Sprite {
      */
     private double accCalc(){
         //adjusted per vehicle to change acceleration
-        double mass = 1;
+        this.mass = 1;
         return (this.longForce()/mass);
     }
 
@@ -478,7 +483,9 @@ public class Car extends Sprite {
             } else if (cAngle < -360) {
                 cAngle = cAngle + 360;
             }
-            angle += cAngle;
+
+                angle += cAngle;
+
             this.getImageView().setRotate(angle);
         }
     }
@@ -607,6 +614,7 @@ public class Car extends Sprite {
         return c;
     }
 
+
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
         double diagLen = (Math.sqrt((Math.pow(this.carHeight, 2) + Math.pow(this.carWidth, 2))/4));
@@ -633,6 +641,135 @@ public class Car extends Sprite {
         return heightWidth;
     }
 
+
+    private double car2Mass;
+    private double car2Force;
+    private double car2Angle;
+
+    private double car1Mass;
+    private double car1Force;
+    private double car1Angle;
+
+    public double[][] momCollCalc(PlayerCar car1, PlayerCar car2){
+        double[][] carsMomentum = new double[2][2];
+        this.car2Mass = car2.getMass();
+        this.car2Force = car2.getForceSpeed();
+        this.car2Angle = car2.getImageView().getRotate();
+
+        this.car1Mass = car1.getMass();
+        this.car1Force = car1.getForceSpeed();
+        this.car1Angle = car1.getImageView().getRotate();
+
+
+        if(car2Angle < 0){
+            car2Angle += 360;
+        }
+        if(car1Angle < 0){
+            car1Angle += 360;
+        }
+
+        this.setPostVels();
+
+        this.postVel[0] = this.carsPostVels[0];
+        this.postVel[1] = this.carsPostVels[1];
+        this.postVel[2] = this.carsPostVels[2];
+        this.postVel[3] = this.carsPostVels[3];
+
+        this.setPostMag();
+
+        carsMomentum[0][0] = this.postMag[0];  //Car 1 Post Force
+        carsMomentum[0][1] = getPostAngle(1);  //Car 1 Post Angle
+        carsMomentum[1][0] = this.postMag[1];  //Car 2 Post Force
+        carsMomentum[1][1] = getPostAngle(2);  //Car 2 Post Angle
+
+
+        return carsMomentum;
+    }
+
+
+    private double getPostAngle(int carNum){
+        if (carNum == 1){
+            if (this.carsPostVels[1] == 0){
+                System.out.println("CAR 1 ZERO");
+                System.out.println("CAR 1 MAG: " + this.postMag[0]);
+                return(car1Angle);
+            }
+            //need to +90 as 0 is taken from west but angles calculated from north
+            return angleCorrection(Math.toDegrees(Math.atan(this.postVel[0]/this.postVel[0] ))+90); // Car 1 net angle
+        }
+        else{
+            if (this.carsPostVels[3] == 0){
+                System.out.println("CAR 2 ZERO");
+                return(car2Angle);
+            }
+//            System.out.println("Car2 b4: " + car2Force);
+//            System.out.println("VERT: " + this.postVel[2]);
+//            System.out.println("HORIZ: " + this.postVel[3]);
+             return angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3]))+90); // Car 2 net angle
+
+        }
+    }
+
+    private double angleCorrection(double angle){
+        double angleCorrected = angle;
+        if(angle < 0){
+            angleCorrected += 360;
+        }
+        return angleCorrected;
+    }
+
+    private double[] postMag = new double[2];
+    private double[] postVel = new double[4];
+
+    //returns magnitude of force after collision, enter 1 or 2 as parameter to get car 1 or 2 respectively
+    private void setPostMag(){
+///        Car 1 force magnitude
+        this.postMag[0] = Math.sqrt(Math.pow(this.carsPostVels[0], 2) + Math.pow(this.carsPostVels[1], 2));
+        this.postMag[1] =  Math.sqrt(Math.pow(this.carsPostVels[2], 2) + Math.pow(this.carsPostVels[3], 2));
+
+    }
+
+    private final double[] carsPostVels = new double[4];
+
+
+    private void setPostVels(){
+        //vertical first
+
+        double car1Vel = this.getVertVel(car1Force, car1Angle);
+        double car2Vel = this.getVertVel(car2Force, car2Angle);
+        //                  ( (m1       -   m2)     /  (m1          +   m2) )   *  u1     + ( (2*   m2)   /   (m1          +  m2 )     ) * u2
+        carsPostVels[0] = ((((car1Mass - car2Mass)/(car1Mass + car2Mass))*car1Vel) + (((2*car2Mass)/(car1Mass + car2Mass))*car2Vel)); //Car 1 vert
+
+        //            ( (2*  m1)          /  (m1           +   m2)   ) * u1     + ((  m2      -  m1)          /  m1           +    m2   ) * u2
+        carsPostVels[2] = ((((2*car1Mass)/(car1Mass + car2Mass))*car1Vel)+(((car2Mass - car1Mass)/car1Mass + car2Mass)*car2Vel)); // Car 2 Vert
+
+        car1Vel = this.getHorizVel(car1Force, car1Angle);
+        car2Vel = this.getHorizVel(car2Force, car2Angle);
+//        System.out.println("CAR 1 FORCE: " + car1Force);
+//        System.out.println("CAR 1 ANGLE: " + car1Angle);
+//        System.out.println("CAR 1 H VEL: " + car1Vel);
+
+        carsPostVels[1] = ((((car1Mass - car2Mass)/(car1Mass + car2Mass))*car1Vel) + (((2*car2Mass)/(car1Mass + car2Mass))*car2Vel)); //Car 1 Horiz
+        carsPostVels[3] = ((((2*car1Mass)/(car1Mass + car2Mass))*car1Vel)+(((car2Mass - car1Mass)/(car1Mass + car2Mass))*car2Vel)); // Car 2 Horiz
+
+//        System.out.println("CAR 1 Vert Force: " + this.carsPostVels[0]);
+//        System.out.println("CAR 1 Horiz Force: " + this.carsPostVels[1]);
+//        System.out.println("CAR 2 Vert Force: " + this.carsPostVels[2]);
+//        System.out.println("CAR 2 Horiz Force: " + this.carsPostVels[3]);
+
+    }
+
+
+    private double getVertVel(double speed, double angle){
+        double angleCorrected = angleCorrection(angle);
+        return(Math.sin( Math.toRadians( angleCorrected ) )*speed);
+    }
+
+    private double getHorizVel(double speed, double angle){
+        double angleCorrected = angleCorrection(angle);
+        //to make positive to the right and negative to the left
+        return(Math.cos( Math.toRadians( angleCorrected +180 ) )*speed);
+    }
 
     /*
     1. forward acceleration
