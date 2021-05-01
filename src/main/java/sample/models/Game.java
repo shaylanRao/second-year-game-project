@@ -42,49 +42,53 @@ public class Game {
 	/**
 	 * Sets initial game state
 	 */
-	private void initialiser()
-	{
-		playerCar.render(1400, 700);
-		playerCar.getImageView().setRotate(90);
-		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			playerCar2.render(350, 500);
-		} else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
-			distances = new double[8];
-			aiCar.render(350, 500);
-			TrainCar.setGame(this);
-			TrainCar.train(500);
-		}
-		Random random = new Random();
-		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
-		Point spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
-		double x = spawnPoint.getXConverted();
-		double y = spawnPoint.getYConverted();
-		x -= 25;
-		y -= 25;
 
-		for (Powerup bananaPowerup : powerups)
-		{
-			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
-			spawnPoints.remove(spawnPoint);
-			x = spawnPoint.getXConverted();
-			y = spawnPoint.getYConverted();
-			//TODO find a way to get image dimensions programmatically
-			x -= 25;
-			y -= 25;
-			bananaPowerup.render(x, y);
-		}
+	public Game(Pane pane) {
+		System.out.println("game constructor called");
+		System.out.println("play mode: " + Main.settings.getPlayMode().toString());
 		gameManager = new GameManager();
+		switch (Main.settings.getPlayMode()) {
+			case AI_TRAIN:
+				System.out.println("ai train mode");
+				aiCar = new Car(pane);
+				aiCar.render(1400,700);
+				aiCar.getImageView().setRotate(90);
+				distances = new double[8];
+				TrainCar.setGame(this);
+				TrainCar.train(500);
+				break;
+			case MULTIPLAYER:
+				System.out.println("multiplayer mode");
+				this.playerCar = new PlayerCar(pane);
+				playerCar.render(1400, 700);
+				playerCar.getImageView().setRotate(90);
+				this.playerCar2 = new PlayerCar(pane);
+				playerCar2.render(350, 500);
+				initialisePowerups(pane);
+				break;
+			case TIMETRIAL:
+				System.out.println("time trial mode");
+				this.playerCar = new PlayerCar(pane);
+				playerCar.render(1400, 700);
+				playerCar.getImageView().setRotate(90);
+				initialisePowerups(pane);
+				break;
+			case AI:
+				System.out.println("ai mode");
+				this.playerCar = new PlayerCar(pane);
+				playerCar.render(1400, 700);
+				playerCar.getImageView().setRotate(90);
+
+				aiCar = new Car(pane);
+				aiCar.render(350,500);
+				distances = new double[8];
+				//TrainCar.test();
+				break;
+		}
+
 	}
 
-	public void initialiseGameObjects(Pane gameBackground)
-	{
-		// this method should take in all the necessary info from the GameController and initialise the playerCars
-		this.playerCar = new PlayerCar(gameBackground);
-		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-			this.playerCar2 = new PlayerCar(gameBackground);
-		} else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
-			aiCar = new Car(gameBackground);
-		}
+	private void initialisePowerups(Pane pane) {
 		this.powerupsDischarge = new ArrayList<>();
 		this.playerCar.powerupsDischarge = new ArrayList<>();
 
@@ -93,11 +97,29 @@ public class Game {
 		this.powerups = new ArrayList<>();
 		for (int i = 0; i < maxPowerups; i++)
 		{
-			this.powerups.add(new BananaPowerup(gameBackground));
-			this.powerups.add(new SpeedboosterPowerup(gameBackground));
-			this.powerups.add(new OilGhostPowerup(gameBackground));
+			this.powerups.add(new BananaPowerup(pane));
+			this.powerups.add(new SpeedboosterPowerup(pane));
+			this.powerups.add(new OilGhostPowerup(pane));
+		}
+
+		Random random = new Random();
+		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
+		Point spawnPoint;
+		double x, y;
+
+		for (Powerup powerup : powerups)
+		{
+			spawnPoint = spawnPoints.get(random.nextInt(spawnPoints.size()));
+			spawnPoints.remove(spawnPoint);
+			x = spawnPoint.getXConverted();
+			y = spawnPoint.getYConverted();
+			//TODO find a way to get image dimensions programmatically
+			x -= 25;
+			y -= 25;
+			powerup.render(x, y);
 		}
 	}
+
 
 	/**
 	 * The game loop. This deals with game logic such as handling collisions and moving the car
@@ -105,7 +127,7 @@ public class Game {
 	 */
 	public synchronized void gameLoop() throws InterruptedException
 	{
-		this.initialiser();
+		//this.initialiser();
 		AnimationTimer timer = new AnimationTimer()
 		{
 			private double dy;
@@ -129,7 +151,7 @@ public class Game {
 
 				this.powerupDrop();
 
-				this.makeRandomTrack();
+				this.makeTrack();
 
 				this.lapSystem();
 			}
@@ -318,7 +340,7 @@ public class Game {
 				}
 			}
 
-			private void makeRandomTrack(){
+			private void makeTrack(){
 				if (Main.settings.getTrack().equals(Settings.Track.TRACK3)) {
 					//set raycaster position and rotation = the car's position and rotation
 					GameController.raycaster.setPos(new Point(Point.unconvertX(playerCar.getImageView().getLayoutX()+35),

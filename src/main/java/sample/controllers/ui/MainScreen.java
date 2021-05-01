@@ -86,7 +86,7 @@ public class MainScreen {
         try {
             Main.settings.setTrack(Settings.Track.TRACK3);
             Main.settings.setLaps(3);
-            Main.settings.setPlayMode(Settings.PlayMode.AI);
+            Main.settings.setPlayMode(Settings.PlayMode.AI_TRAIN);
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/GameScreen.fxml"));
             Parent root = loader.load();
             root.requestFocus();

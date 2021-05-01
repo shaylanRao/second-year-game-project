@@ -25,12 +25,14 @@ public abstract class AbstractGameController implements Initializable {
     }
 
     public void keyClicked(KeyEvent event) {
-        KeyCode code = event.getCode();
-        if (Main.settings.getPlayMode() == Settings.PlayMode.MULTIPLAYER) {
-            p1KeyClicked(code);
-            p2KeyClicked(code);
-        } else {
-            p1KeyClicked(code);
+        if (!Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+            KeyCode code = event.getCode();
+            if (Main.settings.getPlayMode() == Settings.PlayMode.MULTIPLAYER) {
+                p1KeyClicked(code);
+                p2KeyClicked(code);
+            } else {
+                p1KeyClicked(code);
+            }
         }
     }
 

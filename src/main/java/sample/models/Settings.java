@@ -16,6 +16,7 @@ public class Settings {
     public enum PlayMode {
         MULTIPLAYER,
         AI,
+        AI_TRAIN,
         TIMETRIAL
     }
 

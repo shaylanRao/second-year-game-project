@@ -37,8 +37,7 @@ public class GameController extends AbstractGameController {
         pane.getChildren().add(innerPath);
         pane.getChildren().addAll(gates);
         try {
-            game = new Game();
-            game.initialiseGameObjects(pane);
+            game = new Game(pane);
             // starts the game
             game.gameLoop();
 
