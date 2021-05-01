@@ -200,6 +200,7 @@ public class Game
 					double dy2 = 0;
 					double rot2 = 0;
 					this.carMovement(playerCar2, dy2, rot2, distances2);
+					System.out.println("RUNS");
 					this.carOnCarColl();
 				}
 
@@ -324,7 +325,7 @@ public class Game
 					coordRot = -2.3;
 				}
 
-				if(!raceStart) {
+				if(!raceStart && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 					this.initialColl(player, rcDistances);
 				}
 
