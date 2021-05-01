@@ -21,7 +21,7 @@ public class Vehicle2Selection {
         System.out.println("Car one selected");
         Main.sceneManager.activateNextButton(playButton);
 
-        Main.settings.setVehicleType(Settings.VehicleType.VEHICLE1);
+        Main.settings.setVehicle2Type(Settings.VehicleType.VEHICLE1);
     }
 
     public void carTwoSelected(ActionEvent actionEvent) {
@@ -30,7 +30,7 @@ public class Vehicle2Selection {
         System.out.println("Car two selected");
         Main.sceneManager.activateNextButton(playButton);
 
-        Main.settings.setVehicleType(Settings.VehicleType.VEHICLE2);
+        Main.settings.setVehicle2Type(Settings.VehicleType.VEHICLE2);
     }
 
     public void carThreeSelected(ActionEvent actionEvent) {
@@ -39,7 +39,7 @@ public class Vehicle2Selection {
         System.out.println("Car three selected");
         Main.sceneManager.activateNextButton(playButton);
 
-        Main.settings.setVehicleType(Settings.VehicleType.VEHICLE3);
+        Main.settings.setVehicle2Type(Settings.VehicleType.VEHICLE3);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
