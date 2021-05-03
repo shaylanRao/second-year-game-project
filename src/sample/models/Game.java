@@ -187,6 +187,7 @@ public class Game
 			public void handle(long now) {
 				if (j == 0) {
 					gameManager.lapTimer();
+					g2.lapTimer();
 					j++;
 				}
 
@@ -275,7 +276,7 @@ public class Game
 				raceStart = true;
 			}
 
-			private void carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances) {
+			private int carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances) {
 				double forwardVelocity;
 				if (player.wallCollision(rcDistances)) {
 					double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
@@ -334,12 +335,20 @@ public class Game
 					player.moveCarBy(coordPos);
 					//rotates the car image
 					player.turn(coordRot);
+
 				}
 
 				gameManager.updateBar(95, 80);
+				gameManager.timerRender(10,180,playerCar);
+				gameManager.totalTimerRender(10,900,playerCar);
+
 				if (player == playerCar2) {
+//					System.out.println("time of player2 "+ g2.getResult1());
 					g2.updateBar(1745, 80);
+					g2.timerRender(1645,180,playerCar2);
+					g2.totalTimerRender(1645,900,playerCar2);
 				}
+				return 0;
 			}
 
 			private void initialColl(PlayerCar player, double[] rcDistances){

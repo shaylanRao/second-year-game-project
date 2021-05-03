@@ -8,8 +8,13 @@ import sample.Main;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PlayerCar extends Car {
+
+    public int getCarNumber(){
+        return this.playerNumber;
+    }
 
     public PlayerCar(Pane gameBackground, Settings.VehicleType vehicleType) {
         super(gameBackground, generateCarImageView(vehicleType), vehicleType);

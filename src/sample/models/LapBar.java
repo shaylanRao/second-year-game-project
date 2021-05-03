@@ -9,11 +9,6 @@ import java.util.LinkedList;
 
 public class LapBar extends Sprite {
 
-    double currentlap;
-    double maxlap;
-    double x1 = 30;
-    double x2 = 80;
-    double y = 60;
     ImageView imageView;
     boolean start = true;
 
