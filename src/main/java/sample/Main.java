@@ -33,10 +33,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load font here instead of CSS to avoid weird path errors
-        Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
+        Font.loadFont(getClass().getResourceAsStream("/VT323/VT323-Regular.ttf"), 16);
 
 
-        loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));
+        loader = new FXMLLoader(getClass().getResource("../../resources/views/mainScreen.fxml"));
         Parent root = loader.load();
         MainScreen mainScreen = loader.getController();
         maxWidth = (int) Screen.getPrimary().getBounds().getWidth();
