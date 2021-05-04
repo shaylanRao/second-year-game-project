@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import sample.Main;
 import sample.controllers.audio.*;
+import sample.models.audio.SoundManager;
 
 public class ControlsScreen {
 

@@ -3,10 +3,10 @@ package sample.controllers.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.models.Settings;
+import sample.models.audio.SoundManager;
 import sample.utilities.AlertBox;
 import sample.controllers.audio.*;
 

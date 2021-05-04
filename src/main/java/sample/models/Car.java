@@ -3,7 +3,7 @@ package sample.models;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 
 import java.lang.reflect.Array;
 import java.util.LinkedList;

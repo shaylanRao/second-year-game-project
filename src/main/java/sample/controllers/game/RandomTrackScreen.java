@@ -5,7 +5,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 import sample.models.Game;
 import sample.models.Raycaster;
 import sample.models.Settings;

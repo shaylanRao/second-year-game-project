@@ -3,9 +3,7 @@
 package sample.controllers.game;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import sample.controllers.audio.SoundManager;
 import sample.models.Game;
 
 import java.net.URL;

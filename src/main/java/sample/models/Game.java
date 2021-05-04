@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Screen;
 import sample.Main;
-import sample.controllers.audio.SoundManager;
+import sample.models.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
 
 import java.util.*;
