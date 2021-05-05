@@ -3,19 +3,13 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import sample.Main;
-import sample.ai.TrainCar;
 import sample.models.audio.SoundManager;
-import sample.controllers.game.GameController;
 
 import java.util.*;
 
 import javafx.scene.shape.Line;
 import javafx.stage.Screen;
-import sample.Main;
-import sample.models.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
-
-import java.util.*;
 
 
 import static sample.controllers.game.RandomTrackScreen.r2;
@@ -100,42 +94,29 @@ public class Game {
      */
 
     public Game(Pane pane) {
-        gameManager = new GameManager();
+        gameManager = new GameManager(pane);
         switch (Main.settings.getPlayMode()) {
             case AI_TRAIN:
                 System.out.println("ai train mode");
-                aiCar = new Car(pane);
+                //using VEHICLE1 for aiCar for now
+                aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
                 aiCar.render(1400, 700);
                 aiCar.getImageView().setRotate(90);
                 distances = new double[8];
                 break;
-            case MULTIPLAYER:
-                System.out.println("multiplayer mode");
-                this.playerCar = new PlayerCar(pane);
-                playerCar.render(1400, 700);
-                playerCar.getImageView().setRotate(90);
-                this.playerCar2 = new PlayerCar(pane);
-                playerCar2.render(350, 500);
-                initialisePowerups(pane);
-                break;
-            case TIMETRIAL:
-                System.out.println("time trial mode");
-                this.playerCar = new PlayerCar(pane);
-                playerCar.render(1400, 700);
-                playerCar.getImageView().setRotate(90);
-                initialisePowerups(pane);
-                break;
             case AI:
                 System.out.println("ai mode");
-                this.playerCar = new PlayerCar(pane);
+                this.playerCar = new PlayerCar(pane, Main.settings.getVehicleType());
                 playerCar.render(1400, 700);
                 playerCar.getImageView().setRotate(90);
 
-                aiCar = new Car(pane);
+                aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
                 aiCar.render(350, 500);
                 distances = new double[8];
                 //TrainCar.test();
                 break;
+			default:
+				initialiser();
         }
 
     }
@@ -275,7 +256,7 @@ public class Game {
 					j++;
 				}
 
-				makeRandomTrack();
+				makeTrack();
 
 				double rot = 0;
 				double dy = 0;
@@ -305,6 +286,33 @@ public class Game {
 
         timer.start();
     }
+
+	private	boolean carOnCarColl(){
+		ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, raycaster.getRayRect().get(0));
+		ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, r2.getRayRect().get(0));
+
+		if (playerCar.testCollision(rect1, rect2)) {
+//					System.out.println(playerCar.getForwardSpeed());
+			//playerCar.setSpeed(-playerCar.getForwardSpeed());
+
+			//todo add physics
+			System.out.println("CRASH");
+			double[][]values = playerCar.momCollCalc(playerCar, playerCar2);
+//					playerCar.setForceSpeed(22);
+
+			playerCar.setForceSpeed(values[0][0]);
+			playerCar.getImageView().setRotate(values[0][1]);
+			playerCar2.setForceSpeed(values[1][0]);
+			playerCar2.getImageView().setRotate(values[1][1]);
+//					playerCar.setSpeed(2);
+//					playerCar2.setForceSpeed(1);
+
+
+			return true;
+		}
+		return false;
+	}
+
 
 	private void renderIntroCountdown() {
 		// case : we have played all the intro countdown, so we just return
@@ -491,7 +499,7 @@ public class Game {
 			}
 
 
-			private void makeRandomTrack(){
+			private void makeTrack(){
 				double[] xyCoord = this.getCarCoord(playerCar);
 
 				//set raycaster position and rotation = the car's position and rotation
@@ -540,6 +548,27 @@ public class Game {
 		if (powerup != null) {
 			powerupsOnMap.add(powerup);
 		}
+	}
+
+	private void initialColl(PlayerCar player, double[] rcDistances){
+		if (player.wallCollision(rcDistances)){
+			if(player == playerCar){
+				startXY[0] += player.getCarHeightWidth()[1]/2;
+				player.getImage().relocate(startXY[0], startXY[1]);
+			}
+			else{
+				start2XY[0] -= player.getCarHeightWidth()[1]/2;
+				player.getImage().relocate(start2XY[0], start2XY[1]);
+			}
+		}
+
+		if(this.carOnCarColl()){
+			startXY[0] -= player.getCarHeightWidth()[1]/3;
+			start2XY[0] += player.getCarHeightWidth()[1]/3;
+			playerCar.getImage().relocate(startXY[0], startXY[1]);
+			playerCar2.getImage().relocate(start2XY[0], start2XY[1]);
+		}
+
 	}
 
 

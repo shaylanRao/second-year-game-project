@@ -24,7 +24,7 @@ public class GameController extends AbstractGameController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //generate track lines
-        raycaster = new Raycaster(pane);
+        raycaster = new Raycaster(pane, playerCar);
         //display track on screen
         ArrayList<PathElement> outerPathElems = Main.track.getOuterPathElems();
         ArrayList<PathElement> innerPathElems = Main.track.getInnerPathElems();

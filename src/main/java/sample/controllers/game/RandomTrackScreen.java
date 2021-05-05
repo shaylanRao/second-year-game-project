@@ -37,7 +37,7 @@ public class RandomTrackScreen extends AbstractGameController {
         pane.getChildren().addAll(Main.track.getFinWhite());
         pane.getChildren().addAll(gates);
         try {
-            game = new Game();
+            game = new Game(pane);
             game.initialiseGameObjects(pane);
             // starts the game
             game.gameLoop();

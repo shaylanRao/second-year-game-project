@@ -99,7 +99,7 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(true);
-                this.playerCar2.setPickedUpPwrtime(System.currentTimeMillis());
+                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 break;
         }
     }
@@ -152,7 +152,7 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(false);
-                this.playerCar2.setPickedUpPwrtime(System.currentTimeMillis());
+                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 break;
         }
     }
