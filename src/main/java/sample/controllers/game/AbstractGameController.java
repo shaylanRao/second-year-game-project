@@ -21,6 +21,7 @@ public abstract class AbstractGameController implements Initializable {
     }
 
     public void setGame(Game game) {
+        Main.sceneManager.setGame(game);
         this.game = game;
     }
 
@@ -55,11 +56,28 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
+                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 try {
                     this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
                 } catch (Exception e) {
                     System.out.println("Controller ERROR");
                 }
+                break;
+            case P:
+                if (!Main.sceneManager.isPaused()) {
+                    Main.sceneManager.setPaused(true);
+                    Main.sceneManager.pause();
+                    this.game.getTimer().stop();
+                }
+//                try {
+//                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+//                }
+//                catch(NullPointerException e) {
+//                    System.out.println("KEY PRESSED ERROR");
+//                    e.getCause();
+//                    e.getLocalizedMessage();
+//                    e.printStackTrace();
+//                }
                 break;
         }
     }
@@ -81,7 +99,7 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(true);
-                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                this.playerCar2.setPickedUpPwrtime(System.currentTimeMillis());
                 break;
         }
     }
@@ -102,6 +120,18 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(false);
+                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                break;
+            case P:
+                if (!Main.sceneManager.isPaused()) {
+                    this.game.getTimer().start();
+                }
+//                try {
+//                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+//                }
+//                catch(Exception e) {
+//                	System.out.println("KEY RELEASED ERROR");
+//                }
                 break;
         }
     }
@@ -122,6 +152,7 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(false);
+                this.playerCar2.setPickedUpPwrtime(System.currentTimeMillis());
                 break;
         }
     }

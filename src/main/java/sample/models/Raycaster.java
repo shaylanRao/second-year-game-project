@@ -1,20 +1,63 @@
 package sample.models;
 
-import javafx.application.Platform;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
 public class Raycaster {
 
+
+    public Point pos;
+    private final PlayerCar playercar;
+
+    private double rot;
+    private final Raycast[] rays = new Raycast[8];
+    private final Pane pane;
+    private final ArrayList<Line> rayLines = new ArrayList<>();
+
+    private final ArrayList<Rectangle> rayRect = new ArrayList<>();
+
+    public double carHeight;
+    public double carWidth;
+
+    //this is the list of angles in degrees that the rays should be casted at (from the car)
+    private final double[] directions = {
+            0,
+            23,
+            -23,
+            90,
+            -90,
+            158,
+            -158,
+            180,
+            23, -23,  158, -158
+    };
+
+
+    public Raycaster(Pane pane, PlayerCar playerCar) {
+        this.pos = new Point(0, 0);
+        this.pane = pane;
+        this.playercar = playerCar;
+        this.carHeight = playercar.getCarHeightWidth()[0];
+        this.carWidth = playercar.getCarHeightWidth()[1];
+
+    }
+
     public void setPos(Point pos) {
         this.pos = pos;
     }
 
-    private Point pos;
+    public ArrayList<Rectangle> getRayRect() {
+        return rayRect;
+    }
+
+    private double rectRot;
 
     public void setRot(double rotation) {
+        this.rectRot = rotation;
         this.rot = convertRot(rotation);
     }
 
@@ -30,35 +73,11 @@ public class Raycaster {
         return Math.toRadians(rotation);
     }
 
-    private double rot;
-    private Raycast[] rays = new Raycast[8];
-    private Pane pane;
-    private ArrayList<Line> rayLines = new ArrayList<>();
+    //    public double[] carColl(ArrayList<Rectangle> carRect, boolean showLines) {
+//
+//
+//    }
 
-    //this is the list of angles in degrees that the rays should be casted at (from the car)
-    private final double directions[] = {
-            0,
-            45,
-            -45,
-            90,
-            -90,
-            135,
-            -135,
-            180,
-    };
-
-    public Raycaster(Pane pane) {
-        this.pos = new Point(0, 0);
-        this.pane = pane;
-    }
-
-    public Line[] show() {
-        Line lines[] = new Line[8];
-        for (int i=0; i<8; i++) {
-            lines[i] = rays[i].show();
-        }
-        return lines;
-    }
 
     public double[] castRays(ArrayList<Line> boundaries, boolean showLines) {
         //create 8 rays
@@ -67,19 +86,25 @@ public class Raycaster {
             double sin = Math.sin(rot+convertRot(directions[i]));
             rays[i] = new Raycast(pos, new Point(cos,sin));
         }
+
+
         if (showLines) {
             pane.getChildren().removeAll(rayLines);
+            pane.getChildren().removeAll(rayRect);
+            rayRect.clear();
             rayLines.clear();
         }
+
+
         int counter = 0;
-        double distances[] = new double[8];
-        for (Raycast ray: rays) {
+        double[] distances = new double[8];
+        //actually makes lines??
+        for  (int i=0; i < 8; i++){
             Point closest = null;
             double record = Integer.MAX_VALUE;
             for (Line boundary : boundaries) {
-                Point point = ray.cast(boundary);
+                Point point = this.rays[i].cast(boundary);
                 if (point != null) {
-                    //System.out.println(point.toString());
                     double distance = Point.distance(pos, point);
                     if (distance < record) {
                         record = distance;
@@ -88,26 +113,48 @@ public class Raycaster {
                 }
             }
 
-                if (closest != null) {
-                    if (showLines) {
-                        Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
-                        rayLines.add(line);
-                    }
-                    distances[counter] = Point.distance(pos, closest);
+            if (closest != null) {
+                if (showLines) {
+                    Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
+                    rayLines.add(line);
                 }
 
-
-
+                distances[counter] = Point.distance(pos, closest);
+            }
             counter++;
         }
-        if (showLines) {
-            //TODO -- not sure why this fixes the error but it does :)
-            //the error is to do with it running on the wrong thread
-            //it should run on the Java FX Application thread
-            Platform.runLater(() -> {
-                pane.getChildren().addAll(rayLines);
-            });
+
+        for (int i = 8; i < 8; i++){
+            Line line = new Line(pos.getXConverted(), pos.getYConverted(), 100, 100);
+            rayLines.add(line);
         }
+
+        this.carSquare();
+
+        if (showLines) {
+            pane.getChildren().addAll(rayLines);
+            pane.getChildren().addAll(rayRect);
+        }
+
+
+
         return distances;
     }
+
+
+
+
+
+
+    private void carSquare(){
+        final Rectangle rect1 = new Rectangle(playercar.getImage().getLayoutX(), playercar.getImage().getLayoutY(), carHeight, carWidth);
+        rect1.setRotate(rectRot);
+        rect1.setFill(Color.TRANSPARENT);
+        rect1.setStroke(Color.BLUEVIOLET);
+
+        rayRect.add(rect1);
+
+    }
+
+
 }

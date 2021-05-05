@@ -1,8 +1,5 @@
 package sample.models;
 
-
-import com.sun.javafx.geom.Rectangle;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -12,7 +9,7 @@ public class Powerup extends Sprite {
 	protected long pickUptime = -1;
 
     public Powerup(Pane gameBackground, ImageView imageView) {
-        super(gameBackground, imageView);
+        super(gameBackground, imageView, 0.6);
     }
 
     public void deactivate() {

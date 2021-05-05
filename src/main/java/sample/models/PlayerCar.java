@@ -3,6 +3,7 @@ package sample.models;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import sample.Main;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -10,53 +11,31 @@ import java.util.LinkedList;
 
 public class PlayerCar extends Car {
 
-    private final LinkedList<Powerup> powerups;
-    public ArrayList<Powerup> powerupsDischarge;
-    public PowerUpBar powerUpBar;
-
-    public PlayerCar(Pane gameBackground) {
-        super(gameBackground);
-        this.powerups = new LinkedList<>();
-        this.powerUpBar = new PowerUpBar(gameBackground);
-        this.powerupsDischarge = new ArrayList<>();
+    public PlayerCar(Pane gameBackground, Settings.VehicleType vehicleType) {
+        super(gameBackground, generateCarImageView(vehicleType), vehicleType);
     }
 
-    public void addPowerup(Powerup powerup) {
-        if (getPowerups().size() < 3) {
-            this.getPowerups().add(powerup);
-			this.powerupsDischarge.add(powerup);
-            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup);
-        }
-        else {
-        	this.powerupsDischarge.remove(this.powerups.pop());
-            this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup);
-        	this.powerUpBar.removeFirstPowerup();
-            
-            this.getPowerups().add(powerup);
-			this.powerupsDischarge.add(powerup);
-        }
-    }
-    /**
-     * Should handle powerup activate here, like changing speed of the car or something
-     * */
-    public boolean activatePowerup() {
-        if (!(this.getPowerups().isEmpty())) {
-            Powerup powerup = getPowerups().pop();
-            if (powerup instanceof BananaPowerup) {
-                System.out.println("detected banana powerup");
-            } else if (powerup instanceof SpeedboosterPowerup) {
-                System.out.println("detected speed boosted powerup");
-            } else if (powerup instanceof OilGhostPowerup) {
-                System.out.println("detected oil ghost powerup");
+    private static ImageView generateCarImageView(Settings.VehicleType vehicleType) {
+        String imageName;
+        try {
+            if(vehicleType.equals(Settings.VehicleType.VEHICLE1)){
+                imageName = "src/sample/resources/images/original_car.png";
             }
-            return true;
+            else if (vehicleType.equals(Settings.VehicleType.VEHICLE2)){
+                imageName = "src/sample/resources/images/vehicleTwo.png";
+            }
+            else{
+                imageName = "src/sample/resources/images/vehicleThree.png";
+            }
+            FileInputStream carImageFile = new FileInputStream(imageName);
+            Image carImage = new Image(carImageFile);
+            return new ImageView(carImage);
+        } catch (Exception ex) {
+            System.out.println("Error when loading car image");
         }
-        return false;
+        return null;
     }
 
 
-	public LinkedList<Powerup> getPowerups()
-	{
-		return powerups;
-	}
+
 }
