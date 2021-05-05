@@ -8,6 +8,7 @@ import sample.Main;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class GameManager{
     final int[] millisecondsPassed = {0};
@@ -18,13 +19,12 @@ public class GameManager{
     private final Stack<Integer> gateStack;
     private final int[] eachLap = new int[maxLaps];
     private double result=0;
+    private PlayerCar player;
 
     private TimerBar timerbar;
     private TimerBar timerbar1;
     private TimerBar timerbar2;
-    private TimerBar ttimerbar;
-    private TimerBar ttimerbar1;
-    private TimerBar ttimerbar2;
+
 
     public double getResult1() {
         return result1;
@@ -40,10 +40,13 @@ public class GameManager{
     Pane gameBackground;
 
 
-    public GameManager(Pane gameBackground) {
+    public GameManager(Pane gameBackground, PlayerCar playercar) {
         this.gameBackground = gameBackground;
+        player = playercar;
         gateStack = new Stack<>();
         resetGateStack();
+        updateBar(95, 80);
+        timerRender();
     }
 
 
@@ -62,6 +65,7 @@ public class GameManager{
     public void hitGate(){
         //Collision detection for each gate (track gates order, do logic (should be in order 1, 2, 3, 4, 1))
         //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
+        timerRender();
         if (0 < gateDistances[7] && gateDistances[7] < 10) {
             gateStack.pop();
         }
@@ -74,7 +78,9 @@ public class GameManager{
 
     public void lapCounterIncrement(){
         lapCounter++;
+        this.updateBar(getLoc()[0], getLoc()[1]);
     }
+
 
 
     public void lapTimer(){
@@ -85,28 +91,19 @@ public class GameManager{
                 //millisecondsPassed[0]++;
                 if (lap[0] != lapCounter && lapCounter < maxLaps + 1) {
                     eachLap[lapCounter - 1] = millisecondsPassed[0];
-                    eachLap[lapCounter - 1] = millisecondsPassedP2[0];
-                    millisecondsPassed[0] = (lapCounter==maxLaps)?millisecondsPassed[0]:(0);
-                    millisecondsPassedP2[0]=0;
+                    millisecondsPassed[0] = 0;
                     lap[0] = lapCounter;
                 }
-                millisecondsPassed[0] = (lapCounter==maxLaps)?millisecondsPassed[0]:(millisecondsPassed[0]+1);
-                tt++;
-                tt1 = tt/1000;
-                millisecondsPassedP2[0]=(lapCounter==maxLaps)?millisecondsPassedP2[0]:(millisecondsPassedP2[0]+1);
-                ttp2++;
-                ttp21=ttp2/1000;
-//                System.out.println("total millisecond is:"+tt);
-//                System.out.println("total time is:"+tt1);
-                double k = Math.round(millisecondsPassed[0]*1.00/1000);
-                double k1 = Math.round(millisecondsPassedP2[0]*1.00/1000);
-                result = (int)Math.rint(k);
-                result1 = (int)Math.rint(k1);
-//                System.out.println(result);
+                millisecondsPassed[0]++;
+
+                result = TimeUnit.MILLISECONDS.toSeconds(millisecondsPassed[0]);
             }
+
         };
-        myTimer.scheduleAtFixedRate(task,1000,1);
+        //initial delay
+        myTimer.scheduleAtFixedRate(task,4300,1);
     }
+
 
     //for Timer
     Image timer[] = new Image[]{
@@ -122,39 +119,59 @@ public class GameManager{
             new Image("file:src/sample/resources/images/numbers/9.png"),
     };
 
-    public void timerRender(double x,double y,PlayerCar playerCar){
-        int player=playerCar.getCarNumber();
-        int index= (int) ((player==1)?result:result1);
-
-        int second1=0;//0XX
-        int second2=0;//X0X
-        int second3=0; //XX0
-
-        if (index < 10) {
-            second1 = 0;
-            second3 = index;
-            second2 = 0;
-        } else if (index < 100) {
-            second1 = 0;
-            second3 = index % 10;
-            second2 = index / 10;
-        } else if (index < 1000) {
-            second1 = index / 100;
-            second2 = (index % 100) / 10;
-            second3 = (index % 100) % 10;
+    private int[] getLoc(){
+        int[] location = new int[2];
+        if(player.getCarNumber() == 1){
+            location[0] = 95;
         }
-        if (timerbar!=null) timerbar.deactivate();
-        if (timerbar1!=null) timerbar1.deactivate();
-        if (timerbar2!=null) timerbar2.deactivate();
-        timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-        timerbar1 = new TimerBar(gameBackground, new ImageView(timer[second2]));
-        timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));
-        timerbar.render(x, y);
-        timerbar1.render(x + 80, y);
-        timerbar2.render(x + 160, y);
-//        System.out.println("player1  "+result);
-//        System.out.println("player2  "+result1);
+        else{
+            location[0] = 700;
+        }
+        location[1] = 80;
+        return(location);
+    }
 
+
+private int index = (int)result;
+
+    public void timerRender(){
+        if (!(index >= result)) {
+            int second1 = 0;//0XX
+            int second2 = 0;//X0X
+            int second3 = 0; //XX0
+
+            if (index < 10) {
+                second1 = 0;
+                second3 = index;
+                second2 = 0;
+            } else if (index < 100) {
+                second1 = 0;
+                second3 = index % 10;
+                second2 = index / 10;
+            } else if (index < 1000) {
+                second1 = index / 100;
+                second2 = (index % 100) / 10;
+                second3 = (index % 100) % 10;
+            }
+            if (timerbar != null) timerbar.deactivate();
+            if (timerbar1 != null) timerbar1.deactivate();
+            if (timerbar2 != null) timerbar2.deactivate();
+            timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
+            timerbar1 = new TimerBar(gameBackground, new ImageView(timer[second2]));
+            timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));
+
+            if (player.getCarNumber() ==1 ){
+                timerbar.render(95, 80);
+                timerbar1.render(95 + 80, 80);
+                timerbar2.render(95 + 160, 80);
+            }
+            else {
+                timerbar.render(1500, 80);
+                timerbar1.render(1500 + 80, 80);
+                timerbar2.render(1500 + 160, 80);
+            }
+        }
+        index = (int) result;
     }
 
 
@@ -163,41 +180,8 @@ public class GameManager{
         int totalTimeElapsed = 0;
         for (int i = 0; i < maxLaps; i++) {
             totalTimeElapsed += eachLap[i];
- //           System.out.println("the total time is:" + (totalTimeElapsed/1000));
         }
         return totalTimeElapsed;
-    }
-
-    public void totalTimerRender(double x,double y,PlayerCar playerCar){
-        int player=playerCar.getCarNumber();
-        int index= (int) ((player==1)?tt1:ttp21);
-
-        int second1=0;//0XX
-        int second2=0;//X0X
-        int second3=0; //XX0
-        if(index<10){
-            second1=0;
-            second3=index;
-            second2=0;
-        }else if(index<100){
-            second1=0;
-            second3=index%10;
-            second2=index/10;
-        }else if(index<1000){
-            second1=index/100;
-            second2=(index%100)/10;
-            second3=(index%100)%10;
-        }
-
-        if (ttimerbar!=null) ttimerbar.deactivate();
-        if (ttimerbar1!=null) ttimerbar1.deactivate();
-        if (ttimerbar2!=null) ttimerbar2.deactivate();
-        ttimerbar = new TimerBar(gameBackground,new ImageView(timer[second1]));
-        ttimerbar1 = new TimerBar(gameBackground,new ImageView(timer[second2]));
-        ttimerbar2 = new TimerBar(gameBackground,new ImageView(timer[second3]));
-        ttimerbar.render(x,y);
-        ttimerbar1.render(x+80,y);
-        ttimerbar2.render(x+160,y);
     }
 
 
@@ -230,7 +214,6 @@ public class GameManager{
     };
 
     public void updateBar(double x, double y) {
-
         if (lapCounter==0){
             LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[0]));
             lapBar.render(x, y);
@@ -265,7 +248,6 @@ public class GameManager{
             LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[10]));
             lapBar.render(x, y);
         }
-//        System.out.println("updateImageDone");
 
     }
 
@@ -324,3 +306,4 @@ public class GameManager{
 
 
 }
+

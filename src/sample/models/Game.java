@@ -150,14 +150,14 @@ public class Game
 
 			//todo Change vehicle type to player 2 vehicle type
 			this.playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
-			g2 = new GameManager(gameBackground);
+			g2 = new GameManager(gameBackground, playerCar2);
 			g2.wordBar(1650,60);
 			g2.fixBar(1800,80);
 			this.playerCar2.playerNumber = 2;
 			this.players.add(playerCar2);
 		}
 		//		this.playerCar.powerupsDischarge = new ArrayList<>();
-		gameManager = new GameManager(gameBackground);
+		gameManager = new GameManager(gameBackground, playerCar);
 		gameManager.wordBar(0,60);
 		gameManager.fixBar(150,80);
 
@@ -187,7 +187,9 @@ public class Game
 			public void handle(long now) {
 				if (j == 0) {
 					gameManager.lapTimer();
-					g2.lapTimer();
+					if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+						g2.lapTimer();
+					}
 					j++;
 				}
 
@@ -198,10 +200,10 @@ public class Game
 				this.carMovement(playerCar, dy, rot, distances);
 
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+
 					double dy2 = 0;
 					double rot2 = 0;
 					this.carMovement(playerCar2, dy2, rot2, distances2);
-					System.out.println("RUNS");
 					this.carOnCarColl();
 				}
 
@@ -338,15 +340,15 @@ public class Game
 
 				}
 
-				gameManager.updateBar(95, 80);
-				gameManager.timerRender(10,180,playerCar);
-				gameManager.totalTimerRender(10,900,playerCar);
+//				gameManager.updateBar(95, 80);
+//				gameManager.timerRender();
+				//gameManager.totalTimerRender(10,900,playerCar);
 
 				if (player == playerCar2) {
 //					System.out.println("time of player2 "+ g2.getResult1());
-					g2.updateBar(1745, 80);
-					g2.timerRender(1645,180,playerCar2);
-					g2.totalTimerRender(1645,900,playerCar2);
+//					g2.updateBar(1745, 80);
+//					g2.timerRender();
+					//g2.totalTimerRender(1645,900,playerCar2);
 				}
 				return 0;
 			}
