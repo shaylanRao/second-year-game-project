@@ -3,8 +3,10 @@ package sample.models;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import sample.Main;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class IntroCountdown extends Sprite{
 
@@ -26,19 +28,20 @@ public class IntroCountdown extends Sprite{
 
             String filePath = "";
             if(frame == 0)
-                filePath = "src/sample/resources/images/Picture3.png";
+                filePath = "/images/Picture3.png";
             else if(frame == 1)
-                filePath = "src/sample/resources/images/Picture2.png";
+                filePath = "/images/Picture2.png";
             else if(frame == 2)
-                filePath = "src/sample/resources/images/Picture1.png";
+                filePath = "/images/Picture1.png";
             else if(frame == 3)
-                filePath = "src/sample/resources/images/Picture4.png";
+                filePath = "/images/Picture4.png";
 
-            FileInputStream file = new FileInputStream(filePath);
+            InputStream file = Main.class.getResourceAsStream(filePath);
             Image img = new Image(file);
             return new ImageView(img);
         } catch (Exception ex) {
             System.out.println("Error when loading intro image : "+ frame);
+            ex.printStackTrace();
         }
         return null;
     }

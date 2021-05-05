@@ -57,12 +57,7 @@ public class Vehicle2Selection {
             Parent root;
             FXMLLoader loader;
             //if track 3 was selected then run the raycasting demo, else run the standard game
-            if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-                loader = new FXMLLoader(Main.class.getResource("views/multiplayer.fxml"));
-            }
-            else{
-                loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
-            }
+            loader = new FXMLLoader(Main.class.getResource("/views/GameScreen.fxml"));
             root = loader.load();
             // solves user key click issue
             root.requestFocus();

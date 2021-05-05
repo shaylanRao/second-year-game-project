@@ -10,9 +10,8 @@ import java.util.ArrayList;
 public class Raycaster {
 
 
+    private final Car car;
     public Point pos;
-    private final PlayerCar playercar;
-
     private double rot;
     private final Raycast[] rays = new Raycast[8];
     private final Pane pane;
@@ -37,13 +36,12 @@ public class Raycaster {
     };
 
 
-    public Raycaster(Pane pane, PlayerCar playerCar) {
+    public Raycaster(Pane pane, Car car) {
         this.pos = new Point(0, 0);
         this.pane = pane;
-        this.playercar = playerCar;
-        this.carHeight = playercar.getCarHeightWidth()[0];
-        this.carWidth = playercar.getCarHeightWidth()[1];
-
+        this.car = car;
+        this.carHeight = car.getCarHeightWidth()[0];
+        this.carWidth = car.getCarHeightWidth()[1];
     }
 
     public void setPos(Point pos) {
@@ -141,13 +139,8 @@ public class Raycaster {
         return distances;
     }
 
-
-
-
-
-
     private void carSquare(){
-        final Rectangle rect1 = new Rectangle(playercar.getImage().getLayoutX(), playercar.getImage().getLayoutY(), carHeight, carWidth);
+        final Rectangle rect1 = new Rectangle(car.getImage().getLayoutX(), car.getImage().getLayoutY(), carHeight, carWidth);
         rect1.setRotate(rectRot);
         rect1.setFill(Color.TRANSPARENT);
         rect1.setStroke(Color.BLUEVIOLET);

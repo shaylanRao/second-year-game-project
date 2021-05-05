@@ -9,6 +9,9 @@ public abstract class Sprite {
     private final Pane gameBackground;
 
     public Sprite(Pane gameBackground, ImageView imageView, double ratio) {
+        if (imageView==null) {
+            System.out.println("image view was null");
+        }
         this.gameBackground = gameBackground;
         this.image = imageView;
         this.image.setFitWidth(this.image.getBoundsInParent().getWidth()*ratio);

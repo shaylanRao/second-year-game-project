@@ -7,6 +7,7 @@ import sample.Main;
 import sample.models.audio.SoundManager;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.LinkedList;
 
@@ -24,6 +25,11 @@ public class Car extends Sprite {
     private final double carHeight = getCarHeightWidth()[0];
     private final double carWidth = getCarHeightWidth()[1];
 
+    public Raycaster getRaycaster() {
+        return raycaster;
+    }
+
+    private Raycaster raycaster;
 
 
 
@@ -33,6 +39,7 @@ public class Car extends Sprite {
         this.setMinimumSpeed(-1.5);
         this.setSpeedConverter(0.09);
         this.assignAttributes(vehicleType);
+        this.raycaster = new Raycaster(gameBackground, this);
     }
 
     public Car(Pane gameBackground, Settings.VehicleType vehicleType) {
@@ -43,19 +50,21 @@ public class Car extends Sprite {
         String imageName;
         try {
             if(vehicleType.equals(Settings.VehicleType.VEHICLE1)){
-                imageName = "src/sample/resources/images/original_car.png";
+                imageName = "/images/original_car.png";
             }
             else if (vehicleType.equals(Settings.VehicleType.VEHICLE2)){
-                imageName = "src/sample/resources/images/vehicleTwo.png";
+                imageName = "/images/vehicleTwo.png";
             }
             else{
-                imageName = "src/sample/resources/images/vehicleThree.png";
+                imageName = "/images/vehicleThree.png";
             }
-            FileInputStream carImageFile = new FileInputStream(imageName);
+            //FileInputStream carImageFile = new FileInputStream(imageName);
+            InputStream carImageFile = Car.class.getResourceAsStream(imageName);
             Image carImage = new Image(carImageFile);
             return new ImageView(carImage);
         } catch (Exception ex) {
             System.out.println("Error when loading car image");
+            ex.printStackTrace();
         }
         return null;
     }
@@ -347,6 +356,10 @@ public class Car extends Sprite {
 
         if (x - cx >= 0 && x + cx <= Main.maxWidth && y - cy >= 0 && y + cy <= Main.maxHeight) {
             this.getImageView().relocate(x - cx, y - cy);
+
+            //set raycaster position and rotation = the car's position and rotation
+            raycaster.setPos(new Point(Point.unconvertX(this.getImageView().getLayoutX() + (carWidth/2)), Point.unconvertY(this.getImageView().getLayoutY() + (carHeight/2))));
+            raycaster.setRot(this.getImageView().getRotate());
         }
     }
 

@@ -55,16 +55,16 @@ public class LapsSelection {
         try {
             Parent root;
             if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AiModeCarSelection.fxml"));
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/aiModeCarSelection.fxml"));
                 root = loader.load();
                 root.requestFocus();
             }else if (Main.settings.getPlayMode().equals(Settings.PlayMode.TIMETRIAL)){
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AiModeCarSelection.fxml"));
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/aiModeCarSelection.fxml"));
                 root = loader.load();
                 root.requestFocus();
             }
             else{
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/vehicleSelection.fxml"));
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/vehicleSelection.fxml"));
                 root = loader.load();
                 root.requestFocus();
             }

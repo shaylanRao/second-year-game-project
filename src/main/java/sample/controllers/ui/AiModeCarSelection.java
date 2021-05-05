@@ -56,7 +56,7 @@ public class AiModeCarSelection {
             Parent root;
             FXMLLoader loader;
             //if track 3 was selected then run the raycasting demo, else run the standard game
-            loader = new FXMLLoader(Main.class.getResource("views/randomTrackScreen.fxml"));
+            loader = new FXMLLoader(Main.class.getResource("/views/GameScreen.fxml"));
             root = loader.load();
             // solves user key click issue
             root.requestFocus();

@@ -51,11 +51,12 @@ public class VehicleSelection {
         SoundManager.play("button");
 
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/vehicle2Selection.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/vehicle2Selection.fxml"));
             Parent root = loader.load();
             Main.sceneManager.setCurrentRoot(root);
         }catch (Exception ex ) {
             System.out.println("error in VehicleSelection.java -> Vehicle2Selection.java");
+            ex.printStackTrace();
         }
     }
 

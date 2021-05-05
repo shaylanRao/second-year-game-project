@@ -24,7 +24,6 @@ public class GameController extends AbstractGameController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //generate track lines
-        raycaster = new Raycaster(pane, playerCar);
         //display track on screen
         ArrayList<PathElement> outerPathElems = Main.track.getOuterPathElems();
         ArrayList<PathElement> innerPathElems = Main.track.getInnerPathElems();
@@ -45,6 +44,7 @@ public class GameController extends AbstractGameController {
         pane.getChildren().addAll(gates);
         try {
             game = new Game(pane);
+            //game.initialiseGameObjects(pane);
             // starts the game
             if (!Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
                 game.gameLoop();
