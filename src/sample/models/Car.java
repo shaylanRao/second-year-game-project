@@ -680,7 +680,13 @@ public class Car extends Sprite {
         carsMomentum[0][0] = this.postMag[0];  //Car 1 Post Force
         carsMomentum[0][1] = getPostAngle(1);  //Car 1 Post Angle
         carsMomentum[1][0] = this.postMag[1];  //Car 2 Post Force
-        carsMomentum[1][1] = getPostAngle(2);  //Car 2 Post Angle
+        carsMomentum[1][1] = getPostAngle(2) - car2Angle;  //Car 2 Post Angle
+//        System.out.println("________________");
+//        System.out.println("CAR 1 ANGLE " + carsMomentum[0][1]);
+//        System.out.println("CAR 2 ANGLE " + carsMomentum[1][1]);
+//        System.out.println("CAR 1 MAG " + carsMomentum[0][0]);
+//        System.out.println("CAR 2 MAG " + carsMomentum[1][0]);
+//        System.out.println("________________");
 
 
         return carsMomentum;
@@ -689,6 +695,7 @@ public class Car extends Sprite {
 
     private double getPostAngle(int carNum){
         if (carNum == 1){
+            //car 1 angle
             if (this.carsPostVels[1] == 0){
                 System.out.println("CAR 1 ZERO");
                 System.out.println("CAR 1 MAG: " + this.postMag[0]);
@@ -696,7 +703,9 @@ public class Car extends Sprite {
             }
             //todo Below comment is probs wrong (only works for 135 degree ish angle)
             //need to +90 as 0 is taken from west but angles calculated from north
-            return angleCorrection(Math.toDegrees(Math.atan(this.postVel[0]/this.postVel[0] ))+90); // Car 1 net angle
+//            System.out.println("Corrected angle P1:" +angleCorrection(Math.toDegrees(Math.atan(this.postVel[0]/this.postVel[1] ))));
+//            System.out.println("angle P1:" + (Math.toDegrees(Math.atan(this.postVel[0]/this.postVel[1] ))));
+            return angleCorrection(Math.toDegrees(Math.atan(this.postVel[0]/this.postVel[1] ))); // Car 1 net angle
         }
         else{
             if (this.carsPostVels[3] == 0){
@@ -706,6 +715,8 @@ public class Car extends Sprite {
 //            System.out.println("Car2 b4: " + car2Force);
 //            System.out.println("VERT: " + this.postVel[2]);
 //            System.out.println("HORIZ: " + this.postVel[3]);
+//            System.out.println("Corrected angle P2:" +angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3] ))));
+//            System.out.println("angle P2:" + (Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3] ))));
              return angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3]))+90); // Car 2 net angle
 
         }
