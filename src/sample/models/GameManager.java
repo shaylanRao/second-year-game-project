@@ -19,6 +19,13 @@ public class GameManager{
     private final int[] eachLap = new int[maxLaps];
     private double result=0;
 
+    private TimerBar timerbar;
+    private TimerBar timerbar1;
+    private TimerBar timerbar2;
+    private TimerBar ttimerbar;
+    private TimerBar ttimerbar1;
+    private TimerBar ttimerbar2;
+
     public double getResult1() {
         return result1;
     }
@@ -136,12 +143,14 @@ public class GameManager{
             second2 = (index % 100) / 10;
             second3 = (index % 100) % 10;
         }
-
-        TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
+        if (timerbar!=null) timerbar.deactivate();
+        if (timerbar1!=null) timerbar1.deactivate();
+        if (timerbar2!=null) timerbar2.deactivate();
+        timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
+        timerbar1 = new TimerBar(gameBackground, new ImageView(timer[second2]));
+        timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));
         timerbar.render(x, y);
-        TimerBar timerbar1 = new TimerBar(gameBackground, new ImageView(timer[second2]));
         timerbar1.render(x + 80, y);
-        TimerBar timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));
         timerbar2.render(x + 160, y);
 //        System.out.println("player1  "+result);
 //        System.out.println("player2  "+result1);
@@ -180,108 +189,15 @@ public class GameManager{
             second3=(index%100)%10;
         }
 
-        if(second1==0){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-
-        }else if(second1==1){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==2){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==3){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==4){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==5){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==6){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==7){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==8){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }else if(second1==9){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar.render(x, y);
-        }
-
-        if(second2==0){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==1){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==2){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==3){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==4){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==5){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==6){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==7){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==8){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }else if(second2==9){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar.render(x+80, y);
-        }
-
-        if(second3==0){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==1){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==2){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==3){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==4){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==5){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==6){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==7){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==8){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }else if(second3==9){
-            TimerBar timerbar = new TimerBar(gameBackground, new ImageView(timer[second3]));
-            timerbar.render(x+160, y);
-        }
-//        TimerBar timerbar = new TimerBar(gameBackground,new ImageView(timer[second1]));
-//        TimerBar timerbar1 = new TimerBar(gameBackground,new ImageView(timer[second2]));
-//        TimerBar timerbar2 = new TimerBar(gameBackground,new ImageView(timer[second3]));
-//        timerbar.render(x,y);
-//        timerbar1.render(x+80,y);
-//        timerbar2.render(x+160,y);
+        if (ttimerbar!=null) ttimerbar.deactivate();
+        if (ttimerbar1!=null) ttimerbar1.deactivate();
+        if (ttimerbar2!=null) ttimerbar2.deactivate();
+        ttimerbar = new TimerBar(gameBackground,new ImageView(timer[second1]));
+        ttimerbar1 = new TimerBar(gameBackground,new ImageView(timer[second2]));
+        ttimerbar2 = new TimerBar(gameBackground,new ImageView(timer[second3]));
+        ttimerbar.render(x,y);
+        ttimerbar1.render(x+80,y);
+        ttimerbar2.render(x+160,y);
     }
 
 
