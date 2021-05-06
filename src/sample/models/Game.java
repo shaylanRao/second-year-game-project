@@ -442,7 +442,9 @@ public class Game
 							playerCar.handleMapPowerups(powerup);
 						}
 						else {
-							playerCar2.handleMapPowerups(powerup);
+							if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+								playerCar2.handleMapPowerups(powerup);
+							}
 						}
 					}
 				}
