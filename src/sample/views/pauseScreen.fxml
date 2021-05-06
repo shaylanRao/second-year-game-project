@@ -5,10 +5,158 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
  <?import javafx.geometry.Insets?>
-<Pane fx:controller="sample.controllers.ui.PauseScreen"
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane fx:controller="sample.controllers.ui.PauseScreen"
       xmlns:fx="http://javafx.com/fxml" onKeyPressed="#keyClicked" prefHeight="720.0" prefWidth="1280.0">
 
-<stylesheets>
-    <URL value="@../resources/stylesheets/stylesheet.css"/>
-</stylesheets>
-</Pane>
+    <stylesheets>
+        <URL value="@../resources/stylesheets/stylesheet.css"/>
+    </stylesheets>
+    <center>
+        <!-- *** NEW - CHANGED *** -->
+        <VBox alignment="CENTER" spacing="10">
+            <Label styleClass="label" text="Settings" />
+            <Label styleClass="label-2" text="master volume" fx:id="masterLabel"/>
+            <StackPane>
+                <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="850.0" top="15.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="masterSlider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#masterSelected" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="20.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="15.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+            <Label styleClass="label-2" text="game-sfx volume" fx:id="game_sfxLabel"/>
+            <StackPane>
+                <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="850.0" top="15.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="game_sfxSlider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#game_sfxSelected" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="20.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="15.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+            <Label styleClass="label-2" text="ui-sfx volume" fx:id="sfxLabel"/>
+            <StackPane>
+                <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="850.0" top="15.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="sfxSlider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#sfxSelected" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="20.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="15.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+            <Label styleClass="label-2" text="Background volume" fx:id="bgm_Label"/>
+            <StackPane>
+                <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="850.0" top="15.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="bgm_Slider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#bgm_Selected" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="20.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="15.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+            <Label styleClass="label-2" text="Music volume" fx:id="music_Label"/>
+            <StackPane>
+                <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="850.0" top="15.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="music_Slider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#music_Selected" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="20.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="15.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>
