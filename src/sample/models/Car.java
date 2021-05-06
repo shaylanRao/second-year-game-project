@@ -43,22 +43,6 @@ public class Car extends Sprite {
     {
         return powerups;
     }
-    /**
-     * Should handle powerup activate here, like changing speed of the car or something
-     * */
-    public void activatePowerup() {
-        if (!(this.getPowerups().isEmpty())) {
-            Powerup powerup = getPowerups().pop();
-            if (powerup instanceof BananaPowerup) {
-                System.out.println("detected banana powerup");
-            } else if (powerup instanceof SpeedboosterPowerup) {
-                System.out.println("detected speed boosted powerup");
-            } else if (powerup instanceof OilGhostPowerup) {
-                System.out.println("detected oil ghost powerup");
-            }
-        }
-
-    }
 
     public void handleMapPowerups(Powerup powerup) {
         if (powerup.shouldCollide && collisionDetection(powerup))
@@ -69,7 +53,9 @@ public class Car extends Sprite {
         }
         else if (!powerup.shouldCollide) {
             if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
-                powerup.activate();
+                if(!collisionDetection(powerup)) {
+                    powerup.activate();
+                }
             }
         }
     }

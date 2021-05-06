@@ -27,7 +27,13 @@ public class MultiplayerController extends RandomTrackScreen {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(true);
-                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                //this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+	            try {
+	            this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+	            }
+	            catch(NullPointerException e) {
+	              System.out.println("POWER-UP BUTTON PRESSED");
+	          }
                 break;
             case W:
                 this.getGame().getPlayerCar2().setGoingForward(true);
@@ -44,20 +50,19 @@ public class MultiplayerController extends RandomTrackScreen {
                 break;
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(true);
-                this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                //this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+	            try {
+	            this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+	            }
+	            catch(NullPointerException e) {
+	              System.out.println("POWER-UP BUTTON PRESSED");
+	          }
+                break;
             case P:
                 if (!Main.sceneManager.isPaused()) {
                     Main.sceneManager.setPaused(true);
                     Main.sceneManager.pause();
                     this.game.getTimer().stop();
-                }
-
-                try {
-                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
-                }
-                catch(Exception e) {
-                    System.out.println("KEY PRESSED ERROR");
-//                    e.notify();
                 }
                 break;
         }
@@ -82,6 +87,12 @@ public class MultiplayerController extends RandomTrackScreen {
                 break;
             case L:
                 this.getGame().getPlayerCar().setActivatePowerup(false);
+	            try {
+	            this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+	            }
+	            catch(NullPointerException e) {
+	              System.out.println("POWER-UP BUTTON RELEASED");
+	          }
                 break;
             case W:
                 this.getGame().getPlayerCar2().setAccelerate(false);
@@ -97,7 +108,14 @@ public class MultiplayerController extends RandomTrackScreen {
                 break;
             case F:
                 this.getGame().getPlayerCar2().setActivatePowerup(false);
-                this.getGame().getPlayerCar2().setPickedUpPwrtime(System.currentTimeMillis());
+                //this.getGame().getPlayerCar2().setPickedUpPwrtime(System.currentTimeMillis());
+	            try {
+	            this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+	            }
+	            catch(NullPointerException e) {
+	              System.out.println("POWER-UP BUTTON RELEASED");
+	          }
+                break;
             case P:
                 if (!Main.sceneManager.isPaused()) {
                     this.game.getTimer().start();
