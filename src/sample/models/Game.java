@@ -391,9 +391,10 @@ public class Game
 						double[][] values = playerCar.momCollCalc(playerCar, playerCar2);
 //             playerCar.setForceSpeed(22);
 						playerCar.setForceSpeed(values[0][0]);
-						playerCar.getImageView().setRotate(values[0][1]);
+						//playerCar.getImageView().setRotate(values[0][1]);
 						playerCar2.setForceSpeed(values[1][0]);
-						playerCar2.getImageView().setRotate(values[1][1]);
+						//playerCar2.getImageView().setRotate(values[1][1]);
+
 						System.out.println("Player car 1: " + playerCar.getForceSpeed());
 						System.out.println("Player car 1: " + values[0][1]);
 						System.out.println("Player car 2: " + playerCar2.getForceSpeed());
