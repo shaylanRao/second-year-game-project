@@ -369,28 +369,42 @@ public class Game
 
 			private boolean testBool = true;
 
-			private	boolean carOnCarColl(){
+
+			private int  collCounter = 0;
+			private boolean carOnCarColl(){
 				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, raycaster.getRayRect().get(0));
 				ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, r2.getRayRect().get(0));
+				collCounter += 1;
+				if(collCounter % 20 == 0) {
+					collCounter = 0;
+					if (playerCar.testCollision(rect1, rect2)) {
+//             System.out.println(playerCar.getForwardSpeed());
+						//playerCar.setSpeed(-playerCar.getForwardSpeed());
+						//todo add physics
+						double[][] values = playerCar.momCollCalc(playerCar, playerCar2);
+//             playerCar.setForceSpeed(22);
+						playerCar.setForceSpeed(values[0][0]);
+						playerCar.getImageView().setRotate(values[0][1]);
+						playerCar2.setForceSpeed(values[1][0]);
+						playerCar2.getImageView().setRotate(values[1][1]);
+						System.out.println("Player car 1: " + playerCar.getForceSpeed());
+						System.out.println("Player car 1: " + values[0][1]);
+						System.out.println("Player car 2: " + playerCar2.getForceSpeed());
+						System.out.println("Player car 2: " + values[1][1]);
 
-				if (playerCar.testCollision(rect1, rect2)) {
-//					System.out.println(playerCar.getForwardSpeed());
-					//playerCar.setSpeed(-playerCar.getForwardSpeed());
+//             if ((playerCar.getMass() * playerCar.getForwardSpeed()) > (playerCar2.getMass() * playerCar2.getForwardSpeed())) {
+//                playerCar.setSpeed(playerCar.getForwardSpeed() * -0.6);
+//                playerCar.setForceSpeed(playerCar.getForceSpeed() * -0.6);
+//             } else {
+//                playerCar2.setSpeed(playerCar2.getForwardSpeed() * -0.6);
+//                playerCar2.setForceSpeed(playerCar2.getForceSpeed() * -0.6);
+//             }
 
-					//todo add physics
-					System.out.println("CRASH");
-					double[][]values = playerCar.momCollCalc(playerCar, playerCar2);
-//					playerCar.setForceSpeed(22);
+//             playerCar.setSpeed(2);
+//             playerCar2.setForceSpeed(1);
 
-					playerCar.setForceSpeed(values[0][0]);
-					playerCar.getImageView().setRotate(values[0][1]);
-					playerCar2.setForceSpeed(values[1][0]);
-					playerCar2.getImageView().setRotate(values[1][1]);
-//					playerCar.setSpeed(2);
-//					playerCar2.setForceSpeed(1);
-
-
-					return true;
+						return true;
+					}
 				}
 				return false;
 			}
