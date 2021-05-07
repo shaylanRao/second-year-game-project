@@ -2,12 +2,18 @@ package sample.models;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import sample.Main;
 
 public abstract class Sprite {
 
     private final ImageView image;
     private final Pane gameBackground;
 
+    public Point getPos() {
+        return pos;
+    }
+
+    protected Point pos;
     public Sprite(Pane gameBackground, ImageView imageView, double ratio) {
         if (imageView==null) {
             System.out.println("image view was null");
@@ -33,8 +39,14 @@ public abstract class Sprite {
      */
     public void render(double d, double e) {
         // this method will place an item on the screen at an specified coordinate
-        this.gameBackground.getChildren().add(getImage());
+        if (image==null) {
+            System.out.println("image was null");
+        } if(!Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+            this.gameBackground.getChildren().add(image);
+        }
+
         getImage().relocate(d, e);
+        this.pos = new Point(d, e);
     }
 
 }

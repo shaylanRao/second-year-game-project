@@ -94,15 +94,19 @@ public class Game {
                 System.out.println("ai train mode");
                 //using VEHICLE1 for aiCar for now
                 aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
-                aiCar.render(1400, 700);
-                aiCar.getImageView().setRotate(90);
+                startXY = getCar1SpawnPoint(Main.track.getFinishLine());
+                aiCar.render(startXY[0], startXY[1]);
+                Line line = new Line(startXY[0], startXY[1], startXY[0], startXY[1]+30);
+                pane.getChildren().add(line);
+                //aiCar.getImageView().setRotate(90);
                 distances = new double[8];
+                raceStart = true;
                 break;
             case AI:
                 System.out.println("ai mode");
                 this.playerCar = new PlayerCar(pane, Main.settings.getVehicleType());
                 playerCar.render(1400, 700);
-                playerCar.getImageView().setRotate(90);
+                //playerCar.getImageView().setRotate(90);
 
                 aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
                 aiCar.render(350, 500);
@@ -111,7 +115,7 @@ public class Game {
                 break;
 			default:
 				initialiseGameObjects(pane);
-				initialiser();
+				//initialiser();
         }
 
     }
@@ -121,14 +125,21 @@ public class Game {
 		this.startXY = this.getCar1SpawnPoint(Main.track.getFinishLine());
 		car1Height= playerCar.getCarHeightWidth()[0];
 		car1Width = playerCar.getCarHeightWidth()[1];
+		//playerCar.render(startXY[0], startXY[1]);
 		playerCar.render(startXY[0], startXY[1]);
-		playerCar.getImageView().setRotate(90);
+		System.out.println(String.format("x: %f, y: %f", startXY[0], startXY[1]));
+		//playerCar.getImageView().setRotate(90);
+		//todo consider converting these to use rot and pos
+		playerCar.getRaycaster().setPos(new Point(Point.unconvertX(playerCar.getPos().getX() + (car1Height/2)), Point.unconvertY(playerCar.getPos().getY() + (car1Width/2))));
+		playerCar.getRaycaster().setRot(playerCar.getRot());
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.start2XY = this.getCar2SpawnPoint(Main.track.getFinishLine());
-			car2Height= playerCar.getCarHeightWidth()[0];
-			car2Width = playerCar.getCarHeightWidth()[1];
+			car2Height= playerCar2.getCarHeightWidth()[0];
+			car2Width = playerCar2.getCarHeightWidth()[1];
 			playerCar2.render(start2XY[0], start2XY[1]);
-			playerCar2.getImageView().setRotate(90);
+			//playerCar2.getImageView().setRotate(90);
+			playerCar2.getRaycaster().setPos(new Point(Point.unconvertX(playerCar2.getPos().getX() + (car2Height/2)), Point.unconvertY(playerCar2.getPos().getY() + (car2Width/2))));
+			playerCar2.getRaycaster().setRot(playerCar2.getRot());
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
@@ -158,8 +169,8 @@ public class Game {
 		}
 		double[] xyValues = new double[2];
 		double distance = (finishLine.getStartX()) - (finishLine.getEndX());
-		xyValues[0] = finishLine.getEndX() + (distance/3) - (playerCar.getImage().getBoundsInParent().getWidth()/2);
-		xyValues[1]= finishLine.getStartY() + (playerCar.getImage().getBoundsInParent().getHeight());
+		xyValues[0] = finishLine.getEndX() + (distance/3) - (car1Width/2);
+		xyValues[1]= finishLine.getStartY() + (car1Height);
 		return xyValues;
 	}
 
@@ -174,12 +185,10 @@ public class Game {
 
 	public void initialiseGameObjects(Pane gameBackground)
 	{
-
-
 		intro = new IntroCountdown[4];
-		intro[0] = new IntroCountdown(gameBackground, 0) ;
+		intro[0] = new IntroCountdown(gameBackground, 0);
 		intro[1] = new IntroCountdown(gameBackground, 1);
-		intro[2] = new IntroCountdown(gameBackground, 2) ;
+		intro[2] = new IntroCountdown(gameBackground, 2);
 		intro[3] = new IntroCountdown(gameBackground, 3);
 
 		// this method should take in all the necessary info from the GameController and initialise the playerCars
@@ -233,7 +242,7 @@ public class Game {
             gameManager.lapTimer();
             j++;
         }
-        //carMovement();
+        carMovement(aiCar, 0, 0, distances);
 
         //powerupPickup();
 
@@ -247,7 +256,7 @@ public class Game {
     }
 
     public synchronized void gameLoop() throws InterruptedException {
-        //this.initialiser();
+        this.initialiser();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -266,7 +275,7 @@ public class Game {
 					double dy2 = 0;
 					double rot2 = 0;
 					carMovement(playerCar2, dy2, rot2, distances2);
-					System.out.println("RUNS");
+					//System.out.println("RUNS");
 					carOnCarColl();
 				}
 
@@ -287,28 +296,42 @@ public class Game {
         timer.start();
     }
 
-	private	boolean carOnCarColl(){
+	private int  collCounter = 0;
+
+	private boolean carOnCarColl(){
 		ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, playerCar.getRaycaster().getRayRect().get(0));
-		ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, playerCar.getRaycaster().getRayRect().get(0));
+		ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, playerCar2.getRaycaster().getRayRect().get(0));
+		collCounter += 1;
+		if(collCounter % 20 == 0) {
+			collCounter = 0;
+			if (playerCar.testCollision(rect1, rect2)) {
+//             System.out.println(playerCar.getForwardSpeed());
+				//playerCar.setSpeed(-playerCar.getForwardSpeed());
+				//todo add physics
+				double[][] values = playerCar.momCollCalc(playerCar, playerCar2);
+//             playerCar.setForceSpeed(22);
+				playerCar.setForceSpeed(values[0][0]);
+				playerCar.getImageView().setRotate(values[0][1]);
+				playerCar2.setForceSpeed(values[1][0]);
+				playerCar2.getImageView().setRotate(values[1][1]);
+				System.out.println("Player car 1: " + playerCar.getForceSpeed());
+				System.out.println("Player car 1: " + values[0][1]);
+				System.out.println("Player car 2: " + playerCar2.getForceSpeed());
+				System.out.println("Player car 2: " + values[1][1]);
 
-		if (playerCar.testCollision(rect1, rect2)) {
-//					System.out.println(playerCar.getForwardSpeed());
-			//playerCar.setSpeed(-playerCar.getForwardSpeed());
+//             if ((playerCar.getMass() * playerCar.getForwardSpeed()) > (playerCar2.getMass() * playerCar2.getForwardSpeed())) {
+//                playerCar.setSpeed(playerCar.getForwardSpeed() * -0.6);
+//                playerCar.setForceSpeed(playerCar.getForceSpeed() * -0.6);
+//             } else {
+//                playerCar2.setSpeed(playerCar2.getForwardSpeed() * -0.6);
+//                playerCar2.setForceSpeed(playerCar2.getForceSpeed() * -0.6);
+//             }
 
-			//todo add physics
-			System.out.println("CRASH");
-			double[][]values = playerCar.momCollCalc(playerCar, playerCar2);
-//					playerCar.setForceSpeed(22);
+//             playerCar.setSpeed(2);
+//             playerCar2.setForceSpeed(1);
 
-			playerCar.setForceSpeed(values[0][0]);
-			playerCar.getImageView().setRotate(values[0][1]);
-			playerCar2.setForceSpeed(values[1][0]);
-			playerCar2.getImageView().setRotate(values[1][1]);
-//					playerCar.setSpeed(2);
-//					playerCar2.setForceSpeed(1);
-
-
-			return true;
+				return true;
+			}
 		}
 		return false;
 	}
@@ -372,7 +395,7 @@ public class Game {
 	}
 
 
-	private void carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances) {
+	private void carMovement(Car player, double coordPos, double coordRot, double[] rcDistances) {
 		double forwardVelocity;
 		if (player.wallCollision(rcDistances)) {
 			double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
@@ -386,9 +409,6 @@ public class Game {
 			} else {
 				if (player.isGoingForward()) {
 					forwardVelocity = player.getForwardSpeed();
-					if (forwardVelocity == 0) {
-						player.setSpeed(0.5);
-					}
 					coordPos -= forwardVelocity;
 				}
 			}
@@ -425,7 +445,6 @@ public class Game {
 		if(!raceStart && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.initialColl(player, rcDistances);
 		}
-
 		if (!gameManager.finishedLaps() && raceStart) {
 			//moves around screen
 			player.moveCarBy(coordPos);
@@ -507,13 +526,26 @@ public class Game {
 
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-				distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
-				distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), true);
+				if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+					distances = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
+
+				} else {
+					distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
+					if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+						distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), true);
+					}
+				}
 			}
 
 			private void lapSystem(){
 				//Gets ray cast for next gate
-				double[] gateDistances = playerCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
+				double[] gateDistances;
+				if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+					gateDistances = aiCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
+				} else {
+					gateDistances = playerCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
+				}
+
 				gameManager.setGateDistances(gateDistances);
 				gameManager.hitGate();
 				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
@@ -529,7 +561,7 @@ public class Game {
 		}
 	}
 
-	private void initialColl(PlayerCar player, double[] rcDistances){
+	private void initialColl(Car player, double[] rcDistances){
 		if (player.wallCollision(rcDistances)){
 			if(player == playerCar){
 				startXY[0] += player.getCarHeightWidth()[1]/2;

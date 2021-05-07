@@ -4,7 +4,7 @@ import sample.Main;
 
 public class Point {
 
-    private final double x;
+    private double x;
     private double y;
 
     public double getX() {
@@ -18,6 +18,8 @@ public class Point {
     public void setY(double y) {
         this.y = y;
     }
+
+    public void setX(double x) {this.x = x;}
 
     public double getXConverted() {
         return (Main.maxWidth/2 + x);

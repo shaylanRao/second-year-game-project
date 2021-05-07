@@ -96,4 +96,24 @@ public class MainScreen {
             e.printStackTrace();
         }
     }
+
+//    public void startGame(ActionEvent actionEvent) {
+//        SoundManager.stop("bgm");
+//        SoundManager.loop("playBgm");
+//        try {
+//            Main.settings.setPlayMode(Settings.PlayMode.MULTIPLAYER);  /*multiplayer, just remove if not wanted*/
+//            Main.settings.setVehicleType(Settings.VehicleType.VEHICLE2);
+//            Main.settings.setVehicle2Type(Settings.VehicleType.VEHICLE3);
+//            Main.settings.setTrack(Settings.Track.TRACK3);
+//            Main.settings.setLaps(3);
+////          FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml")); - /*single player*/
+//            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/GameScreen.fxml"));
+//            Parent root = loader.load();
+//            root.requestFocus();
+//            Main.sceneManager.setCurrentRoot(root);
+//        } catch (Exception e) {
+//            System.out.println("Error in startGame clicked - MainScreen.java");
+//            e.printStackTrace();
+//        }
+//    }
 }

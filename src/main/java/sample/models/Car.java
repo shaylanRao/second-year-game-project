@@ -25,6 +25,12 @@ public class Car extends Sprite {
     private final double carHeight = getCarHeightWidth()[0];
     private final double carWidth = getCarHeightWidth()[1];
 
+    public double getRot() {
+        return rot;
+    }
+
+    private double rot;
+
     public Raycaster getRaycaster() {
         return raycaster;
     }
@@ -40,6 +46,8 @@ public class Car extends Sprite {
         this.setSpeedConverter(0.09);
         this.assignAttributes(vehicleType);
         this.raycaster = new Raycaster(gameBackground, this);
+        this.rot = 90;
+        this.getImageView().setRotate(this.rot);
     }
 
     public Car(Pane gameBackground, Settings.VehicleType vehicleType) {
@@ -60,6 +68,9 @@ public class Car extends Sprite {
             }
             //FileInputStream carImageFile = new FileInputStream(imageName);
             InputStream carImageFile = Car.class.getResourceAsStream(imageName);
+            if (carImageFile==null) {
+                System.out.println("car image file was null");
+            }
             Image carImage = new Image(carImageFile);
             return new ImageView(carImage);
         } catch (Exception ex) {
@@ -170,13 +181,13 @@ public class Car extends Sprite {
         this.turnLeft = turnLeft;
     }
 
-    private double getCX() {
-        return this.getImageView().getBoundsInLocal().getWidth() / 2;
-    }
-
-    private double getCY() {
-        return this.getImageView().getBoundsInLocal().getHeight() / 2;
-    }
+//    private double getCX() {
+//        return this.getImageView().getBoundsInLocal().getWidth() / 2;
+//    }
+//
+//    private double getCY() {
+//        return this.getImageView().getBoundsInLocal().getHeight() / 2;
+//    }
 
 
     public void setSpeed(double newSpeed){
@@ -330,19 +341,19 @@ public class Car extends Sprite {
      * Calculates the change in coordinates of where the car moves and the angle of rotation
      */
     public void moveCarBy(double dy) {
+        //System.out.println("inside moveCarBy");
         if (dy == 0) {
             return;
         }
 
-        final double cx = this.getCX();
-        final double cy = this.getCY();
-        final double angle = this.getImageView().getRotate();
+        final double cx = getCarHeightWidth()[1];
+        final double cy = getCarHeightWidth()[0];
 
-        double angleMoveX = Math.cos(Math.toRadians(angle));
-        double angleMoveY = Math.sin(Math.toRadians(angle));
+        double angleMoveX = Math.cos(Math.toRadians(rot));
+        double angleMoveY = Math.sin(Math.toRadians(rot));
 
-        double x = (cx + this.getImageView().getLayoutX() + (dy * angleMoveX));
-        double y = (cy + this.getImageView().getLayoutY() + (dy * angleMoveY));
+        double x = (cx + pos.getX() + (dy * angleMoveX));
+        double y = (cy + pos.getY() + (dy * angleMoveY));
 
         this.move(x, y);
     }
@@ -351,15 +362,18 @@ public class Car extends Sprite {
      * Moves the car by calculates amount from 'moveCarBy'
      * */
     private void move(double x, double y) {
-        final double cx = this.getCX();
-        final double cy = this.getCY();
-
+        final double cx = getCarHeightWidth()[1];
+        final double cy = getCarHeightWidth()[0];
+        //System.out.println("inside move()");
         if (x - cx >= 0 && x + cx <= Main.maxWidth && y - cy >= 0 && y + cy <= Main.maxHeight) {
-            this.getImageView().relocate(x - cx, y - cy);
 
+            this.getImageView().relocate(x - cx, y - cy);
+            pos.setX(x - cx);
+            pos.setY(y - cy);
+            System.out.println(pos.toString());
             //set raycaster position and rotation = the car's position and rotation
-            raycaster.setPos(new Point(Point.unconvertX(this.getImageView().getLayoutX() + (carWidth/2)), Point.unconvertY(this.getImageView().getLayoutY() + (carHeight/2))));
-            raycaster.setRot(this.getImageView().getRotate());
+            raycaster.setPos(new Point(Point.unconvertX(pos.getX() + (carWidth/2)), Point.unconvertY(pos.getY() + (carHeight/2))));
+            raycaster.setRot(rot);
         }
     }
 
@@ -368,15 +382,18 @@ public class Car extends Sprite {
      * */
 
     public void turn(double angle) {
-        double cAngle = this.getImageView().getRotate();
+        //double cAngle = this.getImageView().getRotate();
+        double cAngle = rot;
         if(carSpinOn) {
             //System.out.println("CARSPIN");
             this.speed = 0;
             cAngle +=11.8;
             this.getImageView().setRotate(cAngle);
+            rot = cAngle;
         }
         else if(carSlideOn){
             this.getImageView().setRotate(cAngle);
+            rot = cAngle;
         }
         else {
             if (cAngle > 360) {
@@ -388,6 +405,7 @@ public class Car extends Sprite {
             angle += cAngle;
 
             this.getImageView().setRotate(angle);
+            rot = angle;
         }
     }
 
@@ -410,6 +428,7 @@ public class Car extends Sprite {
         else{
             this.moveCar();
         }
+        //System.out.println(speed);
         return(this.speed);
     }
 
@@ -681,5 +700,11 @@ public class Car extends Sprite {
     4. change the center of the car png
      */
 
-
+    public void clearMovement() {
+        this.setGoingBackward(false);
+        //this.setAccelerate(false);
+        this.setTurnLeft(false);
+        this.setTurnRight(false);
+        this.setGoingBackward(false);
+    }
 }

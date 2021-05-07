@@ -3,6 +3,7 @@ package sample.ai;
 import ai.djl.ndarray.NDArrays;
 import ai.djl.ndarray.types.DataType;
 import ai.djl.ndarray.types.Shape;
+import javafx.application.Platform;
 import sample.Main;
 import sample.ai.imported.ActionSpace;
 import sample.ai.imported.LruReplayBuffer;
@@ -107,7 +108,6 @@ public class GameEnv implements RlEnv {
         return actionSpace;
     }
 
-
     @Override
     public void step(NDList action, boolean training) {
         //TODO logic here to control the car based on the action (chosen by the agent)
@@ -119,22 +119,33 @@ public class GameEnv implements RlEnv {
         }
         if (Arrays.equals(actionArr, DO_NOTHING)) {
             //do nothing
-            //System.out.println("do nothing");
+            game.getAiCar().clearMovement();
+            System.out.println("do nothing");
         } else if (Arrays.equals(actionArr, MOVE_UP)) {
             //move up
-            //System.out.println("move up");
+            game.getAiCar().clearMovement();
+            game.getAiCar().setGoingForward(true);
+            game.getAiCar().setAccelerate(true);
+            System.out.println("move up");
         } else if (Arrays.equals(actionArr, MOVE_DOWN)) {
             //move down
-            //System.out.println("move down");
+            game.getAiCar().clearMovement();
+            game.getAiCar().setGoingBackward(true);
+            System.out.println("move down");
         } else if (Arrays.equals(actionArr, MOVE_LEFT)) {
             //move left
-            //System.out.println("do left");
+            game.getAiCar().clearMovement();
+            game.getAiCar().setTurnLeft(true);
+            System.out.println("move left");
         } else if (Arrays.equals(actionArr, MOVE_RIGHT)) {
             //move right
-            //System.out.println("move right");
+            game.getAiCar().clearMovement();
+            game.getAiCar().setTurnRight(true);
+            System.out.println("move right");
         }
         //run main game loop once
-        game.gameLoopAI();
+            game.gameLoopAI();
+
 
         NDList preObservation = currentObservation;
         currentObservation = createObservation();
@@ -142,16 +153,17 @@ public class GameEnv implements RlEnv {
         if (training) {
             replayBuffer.addStep(step);
         }
-        System.out.println("GAME_STEP " + gameStep +
+        /*System.out.println("GAME_STEP " + gameStep +
                 " / " + "TRAIN_STEP " + trainStep +
                 " / " + getTrainState() +
                 " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
                 " / " + "REWARD " + step.getReward().getFloat());
-
-        //TODO, set this in game when car crashes
+*/
+        //TODO, set this in game when car crashesd
         if (gameState == GAME_OVER) {
             restartGame();
         }
+        //System.out.println(game.getAiCar().getPos().toString());;
     }
 
     private void restartGame() {
@@ -163,7 +175,8 @@ public class GameEnv implements RlEnv {
     public Step[] runEnvironment(RlAgent agent, boolean training) {
         Step[] batchSteps = new Step[0];
         reset();
-        NDList action = agent.chooseAction(this, training);
+        //NDList action = agent.chooseAction(this, training);
+       NDList action = this.actionSpace.get(1);
         step(action, training);
         if (training) {
             batchSteps = this.getBatch();
@@ -198,7 +211,7 @@ public class GameEnv implements RlEnv {
         return this.trainState;
     }
 
-    //TODO set the reward based off of the lap time
+    //TODO set the reward based off of the lap time & distance
     public void setCurrentReward(float currentReward) {
         this.currentReward = currentReward;
     }

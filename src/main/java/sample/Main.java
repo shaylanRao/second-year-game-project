@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -64,6 +65,7 @@ public class Main extends Application {
             sceneManager.setCurrentRoot(root);
             //TODO is this the best place to do this?
             track = new Track();
+            Platform.setImplicitExit(false);
         } catch (Exception e) {
             System.out.println("error in main.java");
             e.printStackTrace();

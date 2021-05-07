@@ -2,6 +2,7 @@ package sample.ai;
 
 import ai.djl.Model;
 import ai.djl.nn.Block;
+import javafx.concurrent.Task;
 import sample.ai.imported.agent.EpsilonGreedy;
 import sample.ai.imported.agent.QAgent;
 import sample.ai.imported.agent.RlAgent;
@@ -31,11 +32,19 @@ import java.util.concurrent.*;
 import ai.djl.basicmodelzoo.basic.Mlp;
 
 public class TrainCar {
+
+    // not going to render while training
+        //replace image coords with a double or something
+    //reward function
+        //inverse of distance to next gate minus time taken (along those lines)
+
+
+
     public static final int OBSERVE = 1000;
     private static final float REWARD_DISCOUNT = 0.9f;
     public static final float INITIAL_EPSILON = 0.01f;
     public static final float FINAL_EPSILON = 0.0001f;
-    public static final int EXPLORE = 3000000;
+    public static final int EXPLORE = 300000;
     public static final int SAVE_EVERY_STEPS = 100000;
     private static final long INPUT_SIZE = 8;
     private static final long OUTPUT_SIZE = 5;
@@ -107,6 +116,7 @@ public class TrainCar {
                         futures.add(executorService.submit(callable));
                     }
                     for (Future<Object> future : futures) {
+                        //this is the bit that's fucked
                         future.get();
                     }
                 } catch (InterruptedException | ExecutionException e) {

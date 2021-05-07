@@ -1,9 +1,11 @@
 package sample.models;
 
+import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import sample.Main;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class Raycaster {
     public double carHeight;
     public double carWidth;
 
+
     //this is the list of angles in degrees that the rays should be casted at (from the car)
     private final double[] directions = {
             0,
@@ -31,8 +34,8 @@ public class Raycaster {
             -90,
             158,
             -158,
-            180,
-            23, -23,  158, -158
+            //todo maybe fix this shit
+            179.999999999,
     };
 
 
@@ -42,6 +45,7 @@ public class Raycaster {
         this.car = car;
         this.carHeight = car.getCarHeightWidth()[0];
         this.carWidth = car.getCarHeightWidth()[1];
+        //this.rectRot = 0;
     }
 
     public void setPos(Point pos) {
@@ -63,10 +67,10 @@ public class Raycaster {
     private double convertRot(double rotation) {
         rotation = 180 - rotation;
         while (rotation > 180) {
-            rotation-=360;
+            rotation -= 360;
         }
         while (rotation < -180) {
-            rotation +=360;
+            rotation += 360;
         }
         return Math.toRadians(rotation);
     }
@@ -79,10 +83,10 @@ public class Raycaster {
 
     public double[] castRays(ArrayList<Line> boundaries, boolean showLines) {
         //create 8 rays
-        for (int i=0; i<8; i++) {
-            double cos = Math.cos(rot+convertRot(directions[i]));
-            double sin = Math.sin(rot+convertRot(directions[i]));
-            rays[i] = new Raycast(pos, new Point(cos,sin));
+        for (int i = 0; i < 8; i++) {
+            double cos = Math.cos(rot + convertRot(directions[i]));
+            double sin = Math.sin(rot + convertRot(directions[i]));
+            rays[i] = new Raycast(pos, new Point(cos, sin));
         }
 
 
@@ -97,7 +101,7 @@ public class Raycaster {
         int counter = 0;
         double[] distances = new double[8];
         //actually makes lines??
-        for  (int i=0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
             Point closest = null;
             double record = Integer.MAX_VALUE;
             for (Line boundary : boundaries) {
@@ -122,25 +126,25 @@ public class Raycaster {
             counter++;
         }
 
-        for (int i = 8; i < 8; i++){
+        for (int i = 8; i < 8; i++) {
             Line line = new Line(pos.getXConverted(), pos.getYConverted(), 100, 100);
             rayLines.add(line);
         }
 
         this.carSquare();
 
-        if (showLines) {
+        if (showLines && !Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
             pane.getChildren().addAll(rayLines);
             pane.getChildren().addAll(rayRect);
-        }
 
+        }
 
 
         return distances;
     }
 
-    private void carSquare(){
-        final Rectangle rect1 = new Rectangle(car.getImage().getLayoutX(), car.getImage().getLayoutY(), carHeight, carWidth);
+    private void carSquare() {
+        final Rectangle rect1 = new Rectangle(car.getImage().getLayoutX(), car.getImage().getLayoutY(), carWidth, carHeight);
         rect1.setRotate(rectRot);
         rect1.setFill(Color.TRANSPARENT);
         rect1.setStroke(Color.BLUEVIOLET);
