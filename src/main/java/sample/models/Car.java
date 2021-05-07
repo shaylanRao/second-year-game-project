@@ -25,12 +25,6 @@ public class Car extends Sprite {
     private final double carHeight = getCarHeightWidth()[0];
     private final double carWidth = getCarHeightWidth()[1];
 
-    public double getRot() {
-        return rot;
-    }
-
-    private double rot;
-
     public Raycaster getRaycaster() {
         return raycaster;
     }
@@ -46,8 +40,7 @@ public class Car extends Sprite {
         this.setSpeedConverter(0.09);
         this.assignAttributes(vehicleType);
         this.raycaster = new Raycaster(gameBackground, this);
-        this.rot = 90;
-        this.getImageView().setRotate(this.rot);
+        this.getImageView().setRotate(90);
     }
 
     public Car(Pane gameBackground, Settings.VehicleType vehicleType) {
@@ -349,11 +342,11 @@ public class Car extends Sprite {
         final double cx = getCarHeightWidth()[1];
         final double cy = getCarHeightWidth()[0];
 
-        double angleMoveX = Math.cos(Math.toRadians(rot));
-        double angleMoveY = Math.sin(Math.toRadians(rot));
+        double angleMoveX = Math.cos(Math.toRadians(this.getImageView().getRotate()));
+        double angleMoveY = Math.sin(Math.toRadians(this.getImageView().getRotate()));
 
-        double x = (cx + pos.getX() + (dy * angleMoveX));
-        double y = (cy + pos.getY() + (dy * angleMoveY));
+        double x = (cx + this.getImageView().getLayoutX() + (dy * angleMoveX));
+        double y = (cy + this.getImageView().getLayoutY() + (dy * angleMoveY));
 
         this.move(x, y);
     }
@@ -368,12 +361,10 @@ public class Car extends Sprite {
         if (x - cx >= 0 && x + cx <= Main.maxWidth && y - cy >= 0 && y + cy <= Main.maxHeight) {
 
             this.getImageView().relocate(x - cx, y - cy);
-            pos.setX(x - cx);
-            pos.setY(y - cy);
-            System.out.println(pos.toString());
+            System.out.println("x: " + this.getImageView().getLayoutX() + ", y: " + this.getImageView().getLayoutY());
             //set raycaster position and rotation = the car's position and rotation
-            raycaster.setPos(new Point(Point.unconvertX(pos.getX() + (carWidth/2)), Point.unconvertY(pos.getY() + (carHeight/2))));
-            raycaster.setRot(rot);
+            raycaster.setPos(new Point(Point.unconvertX(this.getImageView().getLayoutX() + (carWidth/2)), Point.unconvertY(this.getImageView().getLayoutY() + (carHeight/2))));
+            raycaster.setRot(this.getImageView().getRotate());
         }
     }
 
@@ -383,17 +374,15 @@ public class Car extends Sprite {
 
     public void turn(double angle) {
         //double cAngle = this.getImageView().getRotate();
-        double cAngle = rot;
+        double cAngle = this.getImageView().getRotate();
         if(carSpinOn) {
             //System.out.println("CARSPIN");
             this.speed = 0;
             cAngle +=11.8;
             this.getImageView().setRotate(cAngle);
-            rot = cAngle;
         }
         else if(carSlideOn){
             this.getImageView().setRotate(cAngle);
-            rot = cAngle;
         }
         else {
             if (cAngle > 360) {
@@ -405,7 +394,6 @@ public class Car extends Sprite {
             angle += cAngle;
 
             this.getImageView().setRotate(angle);
-            rot = angle;
         }
     }
 

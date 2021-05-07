@@ -130,16 +130,16 @@ public class Game {
 		System.out.println(String.format("x: %f, y: %f", startXY[0], startXY[1]));
 		//playerCar.getImageView().setRotate(90);
 		//todo consider converting these to use rot and pos
-		playerCar.getRaycaster().setPos(new Point(Point.unconvertX(playerCar.getPos().getX() + (car1Height/2)), Point.unconvertY(playerCar.getPos().getY() + (car1Width/2))));
-		playerCar.getRaycaster().setRot(playerCar.getRot());
+		playerCar.getRaycaster().setPos(new Point(Point.unconvertX(playerCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(playerCar.getImage().getLayoutY() + (car1Width/2))));
+		playerCar.getRaycaster().setRot(playerCar.getImageView().getRotate());
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.start2XY = this.getCar2SpawnPoint(Main.track.getFinishLine());
 			car2Height= playerCar2.getCarHeightWidth()[0];
 			car2Width = playerCar2.getCarHeightWidth()[1];
 			playerCar2.render(start2XY[0], start2XY[1]);
 			//playerCar2.getImageView().setRotate(90);
-			playerCar2.getRaycaster().setPos(new Point(Point.unconvertX(playerCar2.getPos().getX() + (car2Height/2)), Point.unconvertY(playerCar2.getPos().getY() + (car2Width/2))));
-			playerCar2.getRaycaster().setRot(playerCar2.getRot());
+			playerCar2.getRaycaster().setPos(new Point(Point.unconvertX(playerCar2.getImageView().getLayoutX() + (car2Height/2)), Point.unconvertY(playerCar2.getImageView().getLayoutY() + (car2Width/2))));
+			playerCar2.getRaycaster().setRot(playerCar2.getImageView().getRotate());
 		}
 		Random random = new Random();
 		ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();

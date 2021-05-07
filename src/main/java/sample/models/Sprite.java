@@ -9,11 +9,6 @@ public abstract class Sprite {
     private final ImageView image;
     private final Pane gameBackground;
 
-    public Point getPos() {
-        return pos;
-    }
-
-    protected Point pos;
     public Sprite(Pane gameBackground, ImageView imageView, double ratio) {
         if (imageView==null) {
             System.out.println("image view was null");
@@ -46,7 +41,6 @@ public abstract class Sprite {
         }
 
         getImage().relocate(d, e);
-        this.pos = new Point(d, e);
     }
 
 }
