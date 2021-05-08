@@ -292,9 +292,6 @@ public class Game
 					} else {
 						if (player.isGoingForward()) {
 							forwardVelocity = player.getForwardSpeed();
-							if (forwardVelocity == 0) {
-								player.setSpeed(0.5);
-							}
 							coordPos -= forwardVelocity;
 						}
 					}
@@ -321,32 +318,35 @@ public class Game
 					coordRot += turningSpeed;
 				}
 
-
 				if (coordRot > 2.3) {
 					coordRot = 2.3;
 				} else if (coordRot < -2.3) {
 					coordRot = -2.3;
 				}
 
+
+
+
 				if(!raceStart && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 					this.initialColl(player, rcDistances);
 				}
 
-				if (player == playerCar) {
-					if (!gameManager.finishedLaps() && raceStart) {
-						//moves around screen
-						player.moveCarBy(coordPos);
-						//rotates the car image
-						player.turn(coordRot);
+
+					if (player == playerCar) {
+						if (!gameManager.finishedLaps() && raceStart) {
+							//moves around screen
+							player.moveCarBy(coordPos);
+							//rotates the car image
+							player.turn(coordRot);
+						}
+					} else if (player == playerCar2) {
+						if (!g2.finishedLaps() && raceStart) {
+							//moves around screen
+							player.moveCarBy(coordPos);
+							//rotates the car image
+							player.turn(coordRot);
+						}
 					}
-				} else if (player == playerCar2) {
-					if (!g2.finishedLaps() && raceStart) {
-						//moves around screen
-						player.moveCarBy(coordPos);
-						//rotates the car image
-						player.turn(coordRot);
-					}
-				}
 
 				gameManager.updateBar(95, 80);
 				if (player == playerCar2) {
@@ -381,39 +381,29 @@ public class Game
 			private	boolean carOnCarColl(){
 				ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, raycaster.getRayRect().get(0));
 				ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, r2.getRayRect().get(0));
-				collCounter += 1;
-				if(collCounter % 20 == 0) {
-					collCounter = 0;
-					if (playerCar.testCollision(rect1, rect2)) {
-//             System.out.println(playerCar.getForwardSpeed());
-						//playerCar.setSpeed(-playerCar.getForwardSpeed());
-						//todo add physics
+				if (playerCar.testCollision(rect1, rect2)) {
+					collCounter += 1;
+
+					if(collCounter % 15 == 0) {
+						collCounter = 0;
 						double[][] values = playerCar.momCollCalc(playerCar, playerCar2);
-//             playerCar.setForceSpeed(22);
-						playerCar.setForceSpeed(values[0][0]);
-						//playerCar.getImageView().setRotate(values[0][1]);
-						playerCar2.setForceSpeed(values[1][0]);
-						//playerCar2.getImageView().setRotate(values[1][1]);
-
-						System.out.println("Player car 1: " + playerCar.getForceSpeed());
-						System.out.println("Player car 1: " + values[0][1]);
-						System.out.println("Player car 2: " + playerCar2.getForceSpeed());
-						System.out.println("Player car 2: " + values[1][1]);
-
-//             if ((playerCar.getMass() * playerCar.getForwardSpeed()) > (playerCar2.getMass() * playerCar2.getForwardSpeed())) {
-//                playerCar.setSpeed(playerCar.getForwardSpeed() * -0.6);
-//                playerCar.setForceSpeed(playerCar.getForceSpeed() * -0.6);
-//             } else {
-//                playerCar2.setSpeed(playerCar2.getForwardSpeed() * -0.6);
-//                playerCar2.setForceSpeed(playerCar2.getForceSpeed() * -0.6);
-//             }
-
-//             playerCar.setSpeed(2);
-//             playerCar2.setForceSpeed(1);
-
+						if(Math.abs(values[0][0]) < 1){
+							playerCar.setForceSpeed(0);
+						}
+						else{
+							playerCar.setForceSpeed(values[0][0]);
+						}
+						if(Math.abs(values[1][0]) < 1){
+							playerCar2.setForceSpeed(0);
+						}
+						else{
+							playerCar2.setForceSpeed(values[1][0]);
+						}
 						return true;
 					}
 				}
+
+
 				return false;
 			}
 
