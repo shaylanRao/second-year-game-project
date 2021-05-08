@@ -16,14 +16,15 @@ public class GameManager{
     private final int maxLaps = Main.settings.getLaps();
     private final Stack<Integer> gateStack;
     private final int[] eachLap = new int[maxLaps];
-
+    private PlayerCar player;
 
     Pane gameBackground;
 
-    public GameManager(Pane gameBackground) {
+    public GameManager(Pane gameBackground, PlayerCar car) {
         this.gameBackground = gameBackground;
         gateStack = new Stack<>();
         resetGateStack();
+        player = car;
     }
 
 
@@ -52,8 +53,15 @@ public class GameManager{
     }
 
 
-    public void lapCounterIncrement(){
+    public void lapCounterIncrement() {
         lapCounter++;
+        if (lapCounter < maxLaps) {
+            if (player.playerNumber == 1) {
+                updateBar(95, 80);
+            } else {
+                updateBar(1745, 80);
+            }
+        }
     }
 
 
@@ -117,7 +125,6 @@ public class GameManager{
     };
 
     public void updateBar(double x, double y) {
-
         if (lapCounter==0){
             LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[0]));
             lapBar.render(x, y);

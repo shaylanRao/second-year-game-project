@@ -154,17 +154,20 @@ public class Game
 
 			//todo Change vehicle type to player 2 vehicle type
 			this.playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
-			g2 = new GameManager(gameBackground);
+			g2 = new GameManager(gameBackground, playerCar2);
 			g2.wordBar(1650,60);
 			g2.fixBar(1800,80);
 			this.playerCar2.playerNumber = 2;
 			this.players.add(playerCar2);
+			g2.lapTimer();
+			g2.updateBar(1745, 80);
 		}
 		//		this.playerCar.powerupsDischarge = new ArrayList<>();
-		gameManager = new GameManager(gameBackground);
+		gameManager = new GameManager(gameBackground, playerCar);
 		gameManager.wordBar(0,60);
 		gameManager.fixBar(150,80);
-
+		gameManager.updateBar(95, 80);
+		gameManager.lapTimer();
 
 		// generates powerups
 		int maxPowerups = 2;
@@ -176,8 +179,6 @@ public class Game
 			this.powerupsOnMap.add(new OilGhostPowerup(gameBackground));
 		}
 
-		gameManager.lapTimer();
-		g2.lapTimer();
 	}
 
 	/**
@@ -345,11 +346,6 @@ public class Game
 							player.turn(coordRot);
 						}
 					}
-
-				gameManager.updateBar(95, 80);
-				if (player == playerCar2) {
-					g2.updateBar(1745, 80);
-				}
 			}
 
 			private void checkLapsOver(PlayerCar player) {
