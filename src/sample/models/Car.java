@@ -6,6 +6,7 @@ import sample.Main;
 import sample.controllers.audio.SoundManager;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Car extends Sprite {
@@ -72,14 +73,14 @@ public class Car extends Sprite {
 
         if (powerups.getFirst() instanceof BananaPowerup) {
             BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
-            drop.render(x, y);
+            drop.render(getPowerupLoc()[0], getPowerupLoc()[1]);
             powerups.pop();
             powerUpBar.removeFirstPowerup(playerNumber);
             setPickedUpPwrtime(System.currentTimeMillis());
             return drop;
         } else if (powerups.getFirst() instanceof OilGhostPowerup) {
             OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
-            drop.render(x, y);
+            drop.render(getPowerupLoc()[0], getPowerupLoc()[1]);
             powerups.pop();
             powerUpBar.removeFirstPowerup(playerNumber);
             setPickedUpPwrtime(System.currentTimeMillis());
@@ -93,6 +94,19 @@ public class Car extends Sprite {
         }
         //had to return something, but it shouldn't get this far
         return powerups.getFirst();
+    }
+
+
+    private double[] getPowerupLoc(){
+        double[] location = new double[2];
+        double hyp = carHeight*2;
+        car1Angle = this.getImageView().getRotate();
+        location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
+        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
+        System.out.println(Arrays.toString(location));
+        System.out.println("CX " + this.getImage().getLayoutX());
+        System.out.println("CY " + this.getImage().getLayoutY());
+        return location;
     }
 
 
