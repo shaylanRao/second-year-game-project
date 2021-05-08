@@ -69,7 +69,9 @@ public class Car extends Sprite {
         }
         else if (!powerup.shouldCollide) {
             if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
-                powerup.activate();
+                if(!collisionDetection(powerup)) {
+                    powerup.activate();
+                }
             }
         }
     }

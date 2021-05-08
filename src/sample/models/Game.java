@@ -332,13 +332,23 @@ public class Game
 					this.initialColl(player, rcDistances);
 				}
 
-				if (!gameManager.finishedLaps() && raceStart) {
-					//moves around screen
-					player.moveCarBy(coordPos);
-					//rotates the car image
-					player.turn(coordRot);
 
-				}
+					if (player == playerCar) {
+						if (!gameManager.finishedLaps() && raceStart) {
+							//moves around screen
+							player.moveCarBy(coordPos);
+							//rotates the car image
+							player.turn(coordRot);
+						}
+					} else if (player == playerCar2) {
+						if (!g2.finishedLaps() && raceStart) {
+							//moves around screen
+							player.moveCarBy(coordPos);
+							//rotates the car image
+							player.turn(coordRot);
+						}
+					}
+
 
 //				gameManager.updateBar(95, 80);
 //				gameManager.timerRender();
@@ -413,7 +423,14 @@ public class Game
 				for (Powerup powerup : powerupsOnMap)
 				{
 					if (powerup instanceof BananaPowerup || powerup instanceof OilGhostPowerup || powerup instanceof SpeedboosterPowerup) {
-						playerCar.handleMapPowerups(powerup);
+						if(playerCar.collisionDetection(powerup)) {
+							playerCar.handleMapPowerups(powerup);
+						}
+						else {
+							if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+								playerCar2.handleMapPowerups(powerup);
+							}
+						}
 					}
 				}
 			}
@@ -440,28 +457,32 @@ public class Game
 
 
 			private void powerupDrop(){
-				for (Powerup pwr : powerupsOnMap)
-				{
-					for (PlayerCar player : players) {
-						if (player.collisionDetection(pwr) && pwr.shouldCollide)
-						{
-							if (pwr instanceof OilSpillPowerup)
+				try {
+					for (Powerup pwr : powerupsOnMap)
+					{
+						for (PlayerCar player : players) {
+							if (player.collisionDetection(pwr) && pwr.shouldCollide)
 							{
-								pwr.deactivate();
-								player.movementPowerup("carSlide");
+								if (pwr instanceof OilSpillPowerup)
+								{
+									pwr.deactivate();
+									player.movementPowerup("carSlide");
+								}
+								else if (pwr instanceof BananaDischargePowerup)
+								{
+									pwr.deactivate();
+									SoundManager.play("bananaFall");
+									player.movementPowerup("carSpin");
+								}
+								powerupsOnMap.remove(pwr);
 							}
-							else if (pwr instanceof BananaDischargePowerup)
-							{
-								pwr.deactivate();
-								SoundManager.play("bananaFall");
-								player.movementPowerup("carSpin");
-							}
-							powerupsOnMap.remove(pwr);
 						}
 					}
 				}
+				catch (ConcurrentModificationException e) {
+					System.out.print(" ");
+				}
 			}
-
 
 			private void makeRandomTrack(){
 				double[] xyCoord = this.getCarCoord(playerCar);
