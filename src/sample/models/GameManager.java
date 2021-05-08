@@ -66,7 +66,6 @@ public class GameManager{
                 if (lap[0] != lapCounter && lapCounter < maxLaps + 1) {
                     eachLap[lapCounter - 1] = millisecondsPassed[0];
                     millisecondsPassed[0] = 0;
-                    System.out.println(lapCounter);
                     lap[0] = lapCounter;
                 }
                 //this is to pause timer when game is paused
@@ -84,6 +83,7 @@ public class GameManager{
         for (int i = 0; i < maxLaps; i++) {
             totalTimeElapsed += eachLap[i];
         }
+
         return totalTimeElapsed;
     }
 

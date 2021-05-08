@@ -182,6 +182,10 @@ public class Game
 			this.powerupsOnMap.add(new SpeedboosterPowerup(gameBackground));
 			this.powerupsOnMap.add(new OilGhostPowerup(gameBackground));
 		}
+			if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+				g2.lapTimer();
+			}
+			gameManager.lapTimer();
 	}
 
 	/**
@@ -192,14 +196,9 @@ public class Game
 		this.initialiser();
 		timer = new AnimationTimer() {
 			int counter;
-			int j = 0;
-
 			@Override
 			public void handle(long now) {
-				if (j == 0) {
-					gameManager.lapTimer();
-					j++;
-				}
+
 
 				this.makeRandomTrack();
 
@@ -213,6 +212,8 @@ public class Game
 					this.carMovement(playerCar2, dy2, rot2, distances2);
 					this.carOnCarColl();
 				}
+
+				this.leaderboard();
 
 				this.renderIntroCountdown();
 
@@ -340,6 +341,8 @@ public class Game
 				}
 
 
+//				System.out.println(g2.totalTime());
+
 				/* Leaderboard */
 				/*
 				   1. leaderboardScreen.java
@@ -358,12 +361,47 @@ public class Game
 
 				// check if player1 or player2 has finished the race
 				// check if whole race has completed
+
+				//
+
+
+				if (player == playerCar) {
+					if (raceStart) {
+						//moves around screen
+						player.moveCarBy(coordPos);
+						//rotates the car image
+						player.turn(coordRot);
+//                   playerCar.setAccelerate(false);
+					}
+				} else if (player == playerCar2) {
+					if (raceStart) {
+						//moves around screen
+						player.moveCarBy(coordPos);
+						//rotates the car image
+						player.turn(coordRot);
+					}
+				}
+
+
+
+				gameManager.updateBar(95, 80);
+				if (player == playerCar2) {
+					g2.updateBar(1745, 80);
+				}
+			}
+
+
+			private void leaderboard(){
+				boolean has_player2_finished = true;
+				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					has_player2_finished = g2.finishedLaps() && raceStart;
+				}
+
 				boolean has_player1_finished = gameManager.finishedLaps() && raceStart;
-				boolean has_player2_finished = g2.finishedLaps() && raceStart;
-				is_race_completed = has_player1_finished || has_player2_finished;
+				is_race_completed = has_player1_finished && has_player2_finished;
 
 				// if race is completed => show leaderboard Screen
-				if(is_race_completed && !is_showing_leaderboard)
+				if(is_race_completed && !is_showing_leaderboard && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER))
 				{
 					try {
 
@@ -375,6 +413,8 @@ public class Game
 						leaderboard_controller.setUp(gameManager.lapCounter, gameManager.totalTime(),
 								g2.lapCounter, g2.totalTime());
 
+
+						System.out.println();
 						is_showing_leaderboard = true;
 
 					} catch (Exception ex) {
@@ -382,29 +422,8 @@ public class Game
 						ex.printStackTrace();
 					}
 				}
-				//
-
-
-				if (player == playerCar) {
-					if (!has_player1_finished) {
-						//moves around screen
-						player.moveCarBy(coordPos);
-						//rotates the car image
-						player.turn(coordRot);
-					}
-				} else if (player == playerCar2) {
-					if (!has_player2_finished) {
-						//moves around screen
-						player.moveCarBy(coordPos);
-						//rotates the car image
-						player.turn(coordRot);
-					}
-				}
-
-
-				gameManager.updateBar(95, 80);
-				if (player == playerCar2) {
-					g2.updateBar(1745, 80);
+				else if (is_race_completed && !is_showing_leaderboard){
+					//single player leaderboard
 				}
 			}
 
