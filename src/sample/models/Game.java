@@ -175,6 +175,9 @@ public class Game
 			this.powerupsOnMap.add(new SpeedboosterPowerup(gameBackground));
 			this.powerupsOnMap.add(new OilGhostPowerup(gameBackground));
 		}
+
+		gameManager.lapTimer();
+		g2.lapTimer();
 	}
 
 	/**
@@ -185,15 +188,9 @@ public class Game
 		this.initialiser();
 		timer = new AnimationTimer() {
 			int counter;
-			int j = 0;
 
 			@Override
 			public void handle(long now) {
-				if (j == 0) {
-					gameManager.lapTimer();
-					j++;
-				}
-
 				this.makeRandomTrack();
 
 				double rot = 0;
