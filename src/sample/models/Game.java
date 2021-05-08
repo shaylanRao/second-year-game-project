@@ -305,6 +305,7 @@ public class Game
 					}
 					coordPos -= forwardVelocity;
 				} else {
+					checkLapsOver(player);
 					forwardVelocity = player.getForwardSpeed();
 					coordPos -= forwardVelocity;
 				}
@@ -331,16 +332,16 @@ public class Game
 					this.initialColl(player, rcDistances);
 				}
 
-
 					if (player == playerCar) {
-						if (!gameManager.finishedLaps() && raceStart) {
+						if (raceStart) {
 							//moves around screen
 							player.moveCarBy(coordPos);
 							//rotates the car image
 							player.turn(coordRot);
+//							playerCar.setAccelerate(false);
 						}
 					} else if (player == playerCar2) {
-						if (!g2.finishedLaps() && raceStart) {
+						if (raceStart) {
 							//moves around screen
 							player.moveCarBy(coordPos);
 							//rotates the car image
@@ -352,6 +353,22 @@ public class Game
 				if (player == playerCar2) {
 					g2.updateBar(1745, 80);
 				}
+			}
+
+			private void checkLapsOver(PlayerCar player) {
+				if (player == playerCar){
+					if (gameManager.finishedLaps()){
+						playerCar.setAccelerate(false);
+						playerCar.setGoingBackward(false);
+					}
+				}
+				else{
+					if (g2.finishedLaps()){
+						playerCar2.setAccelerate(false);
+						playerCar2.setGoingBackward(false);
+					}
+				}
+
 			}
 
 			private void initialColl(PlayerCar player, double[] rcDistances){
