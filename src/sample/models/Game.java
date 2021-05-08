@@ -283,15 +283,17 @@ public class Game
 				if (player.wallCollision(rcDistances)) {
 					double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
 					double sumForwards = rcDistances[7] + rcDistances[6] + rcDistances[5];
-					player.setForceSpeed(0);
+					double oldspeed = player.getForceSpeed()/4;
 					if (sumBackwards > sumForwards) {
 						if (player.isGoingBackward()) {
-							forwardVelocity = player.getForwardSpeed();
-							coordPos -= forwardVelocity;
+							player.setForceSpeed(-oldspeed);
+							forwardVelocity = -oldspeed; //player.getForwardSpeed();
+							coordPos -= 1/forwardVelocity;
 						}
 					} else {
 						if (player.isGoingForward()) {
-							forwardVelocity = player.getForwardSpeed();
+							player.setForceSpeed(-oldspeed);
+							forwardVelocity = -oldspeed; //player.getForwardSpeed();
 							coordPos -= forwardVelocity;
 						}
 					}
