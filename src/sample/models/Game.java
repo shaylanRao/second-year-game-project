@@ -155,12 +155,15 @@ public class Game
 			g2.fixBar(1800,80);
 			this.playerCar2.playerNumber = 2;
 			this.players.add(playerCar2);
+			g2.lapTimer();
+			g2.updateBar(1745, 80);
 		}
 		//		this.playerCar.powerupsDischarge = new ArrayList<>();
 		gameManager = new GameManager(gameBackground, playerCar);
 		gameManager.wordBar(0,60);
 		gameManager.fixBar(150,80);
-
+		gameManager.updateBar(95, 80);
+		gameManager.lapTimer();
 
 		// generates powerups
 		int maxPowerups = 2;
@@ -178,20 +181,14 @@ public class Game
 	 *
 	 */
 	public synchronized void gameLoop() {
+		gameManager.lapTimer();
+		g2.lapTimer();
 		this.initialiser();
 		AnimationTimer timer = new AnimationTimer() {
 			int counter;
-			int j = 0;
 
 			@Override
 			public void handle(long now) {
-				if (j == 0) {
-					gameManager.lapTimer();
-					if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-						g2.lapTimer();
-					}
-					j++;
-				}
 
 				this.makeRandomTrack();
 
@@ -256,14 +253,10 @@ public class Game
 							if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 							startBoost(playerCar2);
 							}
-
 						}
-
 					}
 					catch(Exception ignored){}
-
 				}
-
 			}
 
 
@@ -280,6 +273,7 @@ public class Game
 
 			private int carMovement(PlayerCar player, double coordPos, double coordRot, double[] rcDistances) {
 				double forwardVelocity;
+				System.out.println(player.getImage().getRotate());
 				if (player.wallCollision(rcDistances)) {
 					double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
 					double sumForwards = rcDistances[7] + rcDistances[6] + rcDistances[5];
@@ -348,18 +342,6 @@ public class Game
 							player.turn(coordRot);
 						}
 					}
-
-
-//				gameManager.updateBar(95, 80);
-//				gameManager.timerRender();
-				//gameManager.totalTimerRender(10,900,playerCar);
-
-				if (player == playerCar2) {
-//					System.out.println("time of player2 "+ g2.getResult1());
-//					g2.updateBar(1745, 80);
-//					g2.timerRender();
-					//g2.totalTimerRender(1645,900,playerCar2);
-				}
 				return 0;
 			}
 
@@ -412,8 +394,10 @@ public class Game
 			}
 
 
-
-
+			/**
+		     * Checks if one of the players has picked up a powerup and sends it to Car.handleMapPowerups()
+		     * @return void
+		     */
 			private void powerupPickup(){
 				/*
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
@@ -434,7 +418,11 @@ public class Game
 					}
 				}
 			}
-
+			
+			/**
+		     * When one of the players presses the power-up activation button, the button can't be used for 2 seconds.
+		     * @return void
+		     */
 			private void usePowerup(){
 				for (PlayerCar player : players) {
 					if (player.isActivatedPowerup()) {
@@ -455,7 +443,11 @@ public class Game
 				}
 			}
 
-
+			/**
+		     * Controls the movement of the car when the car bumps into one of the defensive power-ups on the track, such as banana peel
+		     * or oil spill.
+		     * @return void
+		     */
 			private void powerupDrop(){
 				try {
 					for (Powerup pwr : powerupsOnMap)
@@ -508,8 +500,6 @@ public class Game
 				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
 			}
 
-
-
 			public double[] getCarCoord(PlayerCar car){
 				double[] xyCoord = new double[2];
 				xyCoord[0] = car.getImageView().getLayoutX()+ (car1Width/2);
@@ -534,6 +524,10 @@ public class Game
 		timer.start();
 	}
 
+	/**
+     * Method used to prevent a NullPointerException.
+     * @return void
+     */
 	public void checkPowerupNotNull (Powerup powerup) {
 		if (powerup != null) {
 			powerupsOnMap.add(powerup);

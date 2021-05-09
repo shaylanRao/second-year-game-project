@@ -20,6 +20,7 @@ public class GameManager{
     private final int[] eachLap = new int[maxLaps];
     private double result=0;
     private PlayerCar player;
+    private PlayerCar player2;
 
     private TimerBar timerbar;
     private TimerBar timerbar1;
@@ -40,12 +41,12 @@ public class GameManager{
     Pane gameBackground;
 
 
-    public GameManager(Pane gameBackground, PlayerCar playercar) {
+    public GameManager(Pane gameBackground, PlayerCar car) {
         this.gameBackground = gameBackground;
-        player = playercar;
+        player = car;
         gateStack = new Stack<>();
         resetGateStack();
-        updateBar(95, 80);
+        updateBar(getLoc()[0], 80);
         timerRender();
     }
 
@@ -125,7 +126,7 @@ public class GameManager{
             location[0] = 95;
         }
         else{
-            location[0] = 700;
+        	location[0] = 1750;
         }
         location[1] = 80;
         return(location);
@@ -161,14 +162,14 @@ private int index = (int)result;
             timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));
 
             if (player.getCarNumber() ==1 ){
-                timerbar.render(95, 80);
-                timerbar1.render(95 + 80, 80);
-                timerbar2.render(95 + 160, 80);
+            	timerbar.render(245, 80);
+                timerbar1.render(245 + 80, 80);
+                timerbar2.render(245 + 160, 80);
             }
             else {
-                timerbar.render(1500, 80);
-                timerbar1.render(1500 + 80, 80);
-                timerbar2.render(1500 + 160, 80);
+            	timerbar.render(1400, 80);
+                timerbar1.render(1400 + 80, 80);
+                timerbar2.render(1400 + 160, 80);
             }
         }
         index = (int) result;

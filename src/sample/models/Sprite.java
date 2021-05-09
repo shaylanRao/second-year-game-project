@@ -25,8 +25,9 @@ public abstract class Sprite {
     }
 
     /**
-     * @param d
-     * @param e
+     * Renders the sprite's image on the screen.
+     * @param d - x coordinate
+     * @param e - y coordinate
      */
     public void render(double d, double e) {
         // this method will place an item on the screen at an specified coordinate

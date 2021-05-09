@@ -19,7 +19,7 @@ public class BananaBar extends Powerup {
             Image bananaImage = new Image(bananaImageFile);
             return new ImageView(bananaImage);
         } catch (Exception ex) {
-            System.out.println("Error when loading car image");
+            System.out.println("Error when loading banana image");
         }
         return null;
     }
