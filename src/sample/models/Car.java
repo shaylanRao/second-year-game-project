@@ -43,7 +43,7 @@ public class Car extends Sprite {
         this.getPowerups().add(powerup);
         this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
     }
-    
+
     /**
      * Getter method for the power-ups stored in each player's list.
      * @return LinkedList<Powerup>
@@ -106,7 +106,7 @@ public class Car extends Sprite {
         //had to return something, but it shouldn't get this far
         return powerups.getFirst();
     }
-    
+
     /**
      * Renders the activated power-ups behind the car.
      * @return double[]
@@ -116,15 +116,16 @@ public class Car extends Sprite {
         double hyp = carHeight*2;
         car1Angle = this.getImageView().getRotate();
         if ((car1Angle > -90 && car1Angle < 90) || car1Angle < -270 || car1Angle > 270) {
-	        location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX() + carWidth;
-	        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
+            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX() + carWidth;
+            location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
         } else {
-        	location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
-	        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
+            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
+            location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
         }
 
         return location;
     }
+
 
     public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
         super(gameBackground, image, 0.8);
@@ -282,8 +283,8 @@ public class Car extends Sprite {
         }
         //else just get new speed
         else{
-                this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
-                this.speed = this.forceSpeed * this.speedConverter;
+            this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
+            this.speed = this.forceSpeed * this.speedConverter;
         }
     }
 
@@ -420,7 +421,7 @@ public class Car extends Sprite {
                 1000
         );
     }
-    
+
     /**
      * Method that states whether a power-up had been activated by pressing the power-up button or not.
      * @return boolean - true or false
@@ -428,7 +429,7 @@ public class Car extends Sprite {
     public boolean isActivatedPowerup() {
         return powerup;
     }
-    
+
     /**
      * Sets the state of the power-up to true or false.
      * @param powerup - boolean
@@ -437,7 +438,7 @@ public class Car extends Sprite {
     public void setActivatePowerup(boolean powerup) {
         this.powerup = powerup;
     }
-    
+
     /**
      * Returns the time a power-up has been activated.
      * @return long
@@ -516,7 +517,7 @@ public class Car extends Sprite {
                 cAngle = cAngle + 360;
             }
 
-                angle += cAngle;
+            angle += cAngle;
 
             this.getImageView().setRotate(angle);
         }
@@ -757,7 +758,7 @@ public class Car extends Sprite {
 //            System.out.println("HORIZ: " + this.postVel[3]);
 //            System.out.println("Corrected angle P2:" +angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3] ))));
 //            System.out.println("angle P2:" + (Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3] ))));
-             return angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3]))+90); // Car 2 net angle
+            return angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3]))+90); // Car 2 net angle
 
         }
     }
