@@ -69,6 +69,7 @@ public class Game
 
 	private double car2Height;
 	private double car2Width;
+	private double diagLen = 0;
 
 	private double[] startXY;
 	private double[] start2XY;
@@ -90,8 +91,10 @@ public class Game
 		this.startXY = this.getCar1SpawnPoint(Main.track.getFinishLine());
 		car1Height= playerCar.getCarHeightWidth()[0];
 		car1Width = playerCar.getCarHeightWidth()[1];
+		diagLen = (Math.sqrt((Math.pow(car1Height, 2) + Math.pow(car1Width, 2))/4));
 		playerCar.render(startXY[0], startXY[1]);
 		playerCar.getImageView().setRotate(90);
+
 		if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 			this.start2XY = this.getCar2SpawnPoint(Main.track.getFinishLine());
 			car2Height= playerCar.getCarHeightWidth()[0];
@@ -284,10 +287,21 @@ public class Game
 					double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
 					double sumForwards = rcDistances[7] + rcDistances[6] + rcDistances[5];
 					double oldSpeed = player.getForceSpeed()/6;
-					if (sumBackwards > sumForwards) {
+
+					if (rcDistances[1] <= diagLen || rcDistances[2] <= diagLen) {
+						if (player.isGoingForward()) {
+							player.setForceSpeed(-oldSpeed);
+							coordPos -= 2;
+						}
+					}else if (rcDistances[5] <= diagLen || rcDistances[6] <= diagLen) {
 						if (player.isGoingBackward()) {
-								player.setForceSpeed(-oldSpeed);
-								coordPos += 0.1;
+							player.setForceSpeed(-oldSpeed);
+							coordPos += 2;
+						}
+					} else if (sumBackwards > sumForwards) {
+						 if (player.isGoingBackward()) {
+						 	player.setForceSpeed(-oldSpeed);
+						 	coordPos += oldSpeed;
 						}
 					} else {
 						if (player.isGoingForward()) {
