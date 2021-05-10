@@ -1,10 +1,7 @@
 package sample.ai;
 
-import ai.djl.ndarray.NDArrays;
 import ai.djl.ndarray.types.DataType;
 import ai.djl.ndarray.types.Shape;
-import javafx.application.Platform;
-import sample.Main;
 import sample.ai.imported.ActionSpace;
 import sample.ai.imported.LruReplayBuffer;
 import sample.ai.imported.agent.RlAgent;
@@ -12,13 +9,11 @@ import ai.djl.ndarray.NDArray;
 import ai.djl.ndarray.NDList;
 import ai.djl.ndarray.NDManager;
 import sample.ai.imported.RlEnv;
-import sample.models.Car;
 import sample.models.Game;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Queue;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static sample.ai.TrainCar.OBSERVE;
 
@@ -77,6 +72,12 @@ public class GameEnv implements RlEnv {
     
     private NDList createObservation() {
         NDArray observation = manager.create(new Shape(8), DataType.FLOAT32);
+        float[] floatDistances = new float[8];
+        for (int i=0; i<floatDistances.length; i++) {
+            floatDistances[i] = (float) game.getDistances()[i];
+        }
+        System.out.println(Arrays.toString(floatDistances));
+        observation.set(floatDistances);
         return new NDList(observation);
         /*
         float[] floatDistances = new float[8];
@@ -163,11 +164,11 @@ public class GameEnv implements RlEnv {
         if (training) {
             replayBuffer.addStep(step);
         }
-        System.out.println("GAME_STEP " + gameStep +
-                " / " + "TRAIN_STEP " + trainStep +
-                " / " + getTrainState() +
-                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
-                " / " + "REWARD " + step.getReward().getFloat());
+//        System.out.println("GAME_STEP " + gameStep +
+//                " / " + "TRAIN_STEP " + trainStep +
+//                " / " + getTrainState() +
+//                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
+//                " / " + "REWARD " + step.getReward().getFloat());
         //TODO, set this in game when car crashesd
         if (gameState == GAME_OVER) {
             restartGame();
@@ -177,7 +178,7 @@ public class GameEnv implements RlEnv {
 
     private void restartGame() {
         //TODO add code to start game
-        game.initialiseAICar();
+        game.resetAICar();
         gameState = GAME_START;
     }
 

@@ -94,7 +94,9 @@ public class Game {
         switch (Main.settings.getPlayMode()) {
             case AI_TRAIN:
                 System.out.println("ai train mode");
-                initialiseAICar();
+				aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
+				startXY = getCar1SpawnPoint(Main.track.getFinishLine());
+				aiCar.render(startXY[0], startXY[1]);
                 distances = new double[8];
                 raceStart = true;
                 break;
@@ -116,8 +118,10 @@ public class Game {
 
     }
 
-    public void initialiseAICar() {
-		aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
+    public void resetAICar() {
+		System.out.println("car was reset");
+    	Raycaster prevRaycaster = aiCar.getRaycaster();
+		aiCar = new Car(pane, Settings.VehicleType.VEHICLE1, prevRaycaster);
 		startXY = getCar1SpawnPoint(Main.track.getFinishLine());
 		aiCar.render(startXY[0], startXY[1]);
 	}

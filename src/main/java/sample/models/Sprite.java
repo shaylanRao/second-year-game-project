@@ -10,13 +10,13 @@ public abstract class Sprite {
     private final Pane gameBackground;
 
     public Sprite(Pane gameBackground, ImageView imageView, double ratio) {
-        if (imageView==null) {
+        if (imageView == null) {
             System.out.println("image view was null");
         }
         this.gameBackground = gameBackground;
         this.image = imageView;
-        this.image.setFitWidth(this.image.getBoundsInParent().getWidth()*ratio);
-        this.image.setFitHeight(this.image.getBoundsInParent().getHeight()*ratio);
+        this.image.setFitWidth(this.image.getBoundsInParent().getWidth() * ratio);
+        this.image.setFitHeight(this.image.getBoundsInParent().getHeight() * ratio);
 
     }
 
@@ -34,11 +34,11 @@ public abstract class Sprite {
      */
     public void render(double d, double e) {
         // this method will place an item on the screen at an specified coordinate
-        if (image==null) {
+        if (image == null) {
             System.out.println("image was null");
-        } if(!Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
-            this.gameBackground.getChildren().add(image);
         }
+        this.gameBackground.getChildren().add(image);
+
 
         getImage().relocate(d, e);
     }

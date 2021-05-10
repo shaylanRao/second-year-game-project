@@ -30,6 +30,12 @@ public class Car extends Sprite {
         return raycaster;
     }
 
+    public void setRaycaster(Raycaster raycaster) {
+        this.raycaster = raycaster;
+        this.raycaster.setPos(new Point(this.getImageView().getLayoutX(), this.getImageView().getLayoutY()));
+        this.raycaster.setRot(this.getImageView().getRotate());
+    }
+
     private Raycaster raycaster;
 
 
@@ -41,12 +47,24 @@ public class Car extends Sprite {
         this.setSpeedConverter(0.09);
         this.assignAttributes(vehicleType);
         this.raycaster = new Raycaster(gameBackground, this);
+        System.out.println("made a new raycaster");
         this.getImageView().setRotate(90);
     }
 
     public Car(Pane gameBackground, Settings.VehicleType vehicleType) {
         this(gameBackground, generateCarImageView(vehicleType), vehicleType);
     }
+
+    public Car(Pane gameBackground, Settings.VehicleType vehicleType, Raycaster raycaster) {
+        super(gameBackground, generateCarImageView(vehicleType), 0.8);
+        //reverse speed (HARD-CODED)
+        this.setMinimumSpeed(-1.5);
+        this.setSpeedConverter(0.09);
+        this.assignAttributes(vehicleType);
+        this.getImageView().setRotate(90);
+        setRaycaster(raycaster);
+    }
+
 
     protected static ImageView generateCarImageView(Settings.VehicleType vehicleType) {
         String imageName;

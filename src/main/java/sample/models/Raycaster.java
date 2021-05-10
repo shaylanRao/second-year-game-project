@@ -166,7 +166,7 @@ public class Raycaster {
 
         this.carSquare();
 
-        if (showLines && !Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+        if (showLines) {
             pane.getChildren().addAll(rayLines);
             pane.getChildren().addAll(rayRect);
 
