@@ -7,10 +7,12 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
 import sample.utilities.imported.FastNoise;
 import javafx.stage.Screen;
-import sample.utilities.Mapper;
 
 import java.util.ArrayList;
 
+/**
+ * Represents that track that the cars drive on
+ */
 public class Track {
 
     private static final int trackWidth = 220;
@@ -77,6 +79,9 @@ public class Track {
         BuildTrack();
     }
 
+    /**
+     * Generates the track.
+     */
     private void BuildTrack() {
         //setup perlin noise generator
         FastNoise noise = new FastNoise();
@@ -87,10 +92,10 @@ public class Track {
         int counter = 0;
         for (double a = 0; a < 2*Math.PI; a += Math.toRadians(5)) {
             counter ++;
-            float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
-            float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 300);
+            float xoff = map((float) Math.cos(a), -1, 1, 0, 200);
+            float yoff = map((float) Math.sin(a), -1, 1, 0, 300);
             float theNoise = noise.GetNoise(xoff, yoff);
-            float r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.40), (int)(Screen.getPrimary().getBounds().getHeight()*0.45));
+            float r = map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.40), (int)(Screen.getPrimary().getBounds().getHeight()*0.45));
             x1 = r * Math.cos(a)*2;
             y1 = r * Math.sin(a);
             Point outerPoint = new Point(x1, y1);
@@ -192,6 +197,19 @@ public class Track {
 
     public Line[] getFinWhite(){
         return (finWhite);
+    }
+
+    /**
+     * Converts a value in a given range to a value in a new range.
+     * @param value the original value
+     * @param istart the lower bound of the input range
+     * @param istop the upper bound of the input range
+     * @param ostart the lower bound of the output range
+     * @param ostop the upper bound of the output range
+     * @return the value in the new range
+     */
+    private float map(float value, float istart, float istop, float ostart, float ostop) {
+        return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
     }
 
 }

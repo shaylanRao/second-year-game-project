@@ -10,6 +10,9 @@ import sample.models.Game;
 import sample.models.PlayerCar;
 import sample.models.Settings;
 
+/**
+ * Abstract class containing key input handling logic
+ */
 public abstract class AbstractGameController implements Initializable {
     @FXML
     protected Pane pane;
@@ -25,6 +28,9 @@ public abstract class AbstractGameController implements Initializable {
         this.game = game;
     }
 
+    /** Handles game key click.
+     * @param event The key event
+     */
     public void keyClicked(KeyEvent event) {
         if (!Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
             KeyCode code = event.getCode();
@@ -39,6 +45,9 @@ public abstract class AbstractGameController implements Initializable {
         }
     }
 
+    /** Handles player one key click.
+     * @param code The key code
+     */
     private void p1KeyClicked(KeyCode code) {
         switch (code) {
             case UP:
@@ -82,6 +91,9 @@ public abstract class AbstractGameController implements Initializable {
         }
     }
 
+    /** Handles player two key click.
+     * @param code The key code
+     */
     private void p2KeyClicked(KeyCode code) {
         switch (code) {
             case W:
@@ -104,6 +116,9 @@ public abstract class AbstractGameController implements Initializable {
         }
     }
 
+    /** Handles player one key release.
+     * @param code The key code
+     */
     private void p1KeyReleased(KeyCode code) {
         switch (code) {
             case UP:
@@ -136,6 +151,9 @@ public abstract class AbstractGameController implements Initializable {
         }
     }
 
+    /** Handles player two key click.
+     * @param code The key code
+     */
     private void p2KeyReleased(KeyCode code) {
         switch (code) {
             case W:
@@ -157,7 +175,9 @@ public abstract class AbstractGameController implements Initializable {
         }
     }
 
-
+    /** Handles game key release.
+     * @param event The key event
+     */
     public void keyReleased(KeyEvent event) {
         // need to add 2nd player listeners
         KeyCode code = event.getCode();

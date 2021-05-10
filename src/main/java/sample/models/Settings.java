@@ -1,5 +1,8 @@
 package sample.models;
 
+/**
+ * Represents the user configurable settings.
+ */
 public class Settings {
 
     public enum Difficulty {

@@ -2,8 +2,20 @@ package sample.models;
 
 import javafx.scene.shape.Line;
 
+/**
+ * Represents a single raycast. Used to measure distance from the car to a given object in a given direction.
+ * @see Raycaster
+ */
 public class Raycast {
+    /**
+     * The origin of the raycast
+     * */
     private final Point pos;
+
+
+    /**
+     * The direction of the raycast (2D vector representation)
+     */
     private final Point dir;
 
     public Raycast(Point pos, Point dir) {
@@ -11,10 +23,17 @@ public class Raycast {
         this.dir = dir;
     }
 
+    /** Produces a line segment representation of the raycast vector.
+     * @return A line segment representation of the raycast vector
+     */
     public Line show() {
         return new Line(pos.getXConverted(), pos.getYConverted(), pos.getXConverted()+dir.getX()*100, pos.getYConverted()+dir.getY()*100);
     }
 
+    /** Calculates the point of intersection between the raycast and the boundary.
+     * @param boundary the boundary to test intersection with the raycast
+     * @return The point of intersection between the raycast and the boundary or null if there is no intersection
+     */
     public Point cast(Line boundary) {
         //these constants are just to make the equation clearer
         final double x1 = Point.unconvertX(boundary.getStartX());

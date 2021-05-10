@@ -8,6 +8,9 @@ import sample.Main;
 
 import java.util.Stack;
 
+/**
+ * Aids in controlling navigation through UI screens by keeping track of the order that they were visited.
+ */
 public class SceneManager {
     public boolean isPaused() {
         return paused;
@@ -29,8 +32,11 @@ public class SceneManager {
 
     private Game game;
 
+    /**
+     * This stack keeps track of the visited UI views to allow navigation back and forth through screens.
+     */
     private final Stack<Parent> rootStack;
-    //TODO change currentStage to currentScene as we are only ever using stage to access the scene
+
     private final Scene currentScene;
 
     public SceneManager(Scene currentScene) {
@@ -38,6 +44,7 @@ public class SceneManager {
         this.currentScene = currentScene;
     }
 
+    //TODO do these need javadocs?
     public void setPrevScene() {
         // check for stack underflow
         if (!(this.rootStack.isEmpty())) {

@@ -9,6 +9,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.models.audio.SoundManager;
 
+/**
+ * This class represents a general UI alert box. E.g., a 'quit game' prompt.
+ */
 public class AlertBox {
 
     Label alertBoxDescription;
@@ -32,6 +35,11 @@ public class AlertBox {
         this.alertBoxTitle = alertBoxTitle;
     }
 
+    /**
+     * Displays the prompt.
+     *
+     *
+     */
     public void displayPrompt(){
 
         alertWindow = new Stage();

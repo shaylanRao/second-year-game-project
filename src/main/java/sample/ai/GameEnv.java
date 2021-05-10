@@ -12,11 +12,13 @@ import ai.djl.ndarray.NDArray;
 import ai.djl.ndarray.NDList;
 import ai.djl.ndarray.NDManager;
 import sample.ai.imported.RlEnv;
+import sample.models.Car;
 import sample.models.Game;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static sample.ai.TrainCar.OBSERVE;
 
@@ -32,9 +34,9 @@ public class GameEnv implements RlEnv {
     public static int gameStep = 0;
     private String trainState = "observe";
     private NDList currentObservation;
-    private static int gameState;
-    private static final int GAME_START = 1;
-    private static final int GAME_OVER = 2;
+    public static int gameState;
+    public static final int GAME_START = 1;
+    public static final int GAME_OVER = 2;
 
     public void setGame(Game game) {
         this.game = game;
@@ -43,6 +45,11 @@ public class GameEnv implements RlEnv {
     private Game game;
 
     private static boolean currentTerminal = false;
+
+    public static void setCurrentTerminal(boolean currentTerminal) {
+        GameEnv.currentTerminal = currentTerminal;
+    }
+
     private static float currentReward = 0.2f;
     
     private static final int[] DO_NOTHING = {1, 0, 0, 0, 0};
@@ -120,28 +127,28 @@ public class GameEnv implements RlEnv {
         if (Arrays.equals(actionArr, DO_NOTHING)) {
             //do nothing
             game.getAiCar().clearMovement();
-            System.out.println("do nothing");
+            //System.out.println("do nothing");
         } else if (Arrays.equals(actionArr, MOVE_UP)) {
             //move up
             game.getAiCar().clearMovement();
             game.getAiCar().setGoingForward(true);
             game.getAiCar().setAccelerate(true);
-            System.out.println("move up");
+           // System.out.println("move up");
         } else if (Arrays.equals(actionArr, MOVE_DOWN)) {
             //move down
             game.getAiCar().clearMovement();
             game.getAiCar().setGoingBackward(true);
-            System.out.println("move down");
+            //System.out.println("move down");
         } else if (Arrays.equals(actionArr, MOVE_LEFT)) {
             //move left
             game.getAiCar().clearMovement();
             game.getAiCar().setTurnLeft(true);
-            System.out.println("move left");
+            //System.out.println("move left");
         } else if (Arrays.equals(actionArr, MOVE_RIGHT)) {
             //move right
             game.getAiCar().clearMovement();
             game.getAiCar().setTurnRight(true);
-            System.out.println("move right");
+            //System.out.println("move right");
         }
         //run main game loop once
             game.gameLoopAI();
@@ -153,12 +160,11 @@ public class GameEnv implements RlEnv {
         if (training) {
             replayBuffer.addStep(step);
         }
-        /*System.out.println("GAME_STEP " + gameStep +
-                " / " + "TRAIN_STEP " + trainStep +
-                " / " + getTrainState() +
-                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
-                " / " + "REWARD " + step.getReward().getFloat());
-*/
+//        System.out.println("GAME_STEP " + gameStep +
+//                " / " + "TRAIN_STEP " + trainStep +
+//                " / " + getTrainState() +
+//                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
+//                " / " + "REWARD " + step.getReward().getFloat());
         //TODO, set this in game when car crashesd
         if (gameState == GAME_OVER) {
             restartGame();
@@ -168,6 +174,7 @@ public class GameEnv implements RlEnv {
 
     private void restartGame() {
         //TODO add code to start game
+        game.initialiseAICar();
         gameState = GAME_START;
     }
 
@@ -212,8 +219,8 @@ public class GameEnv implements RlEnv {
     }
 
     //TODO set the reward based off of the lap time & distance
-    public void setCurrentReward(float currentReward) {
-        this.currentReward = currentReward;
+    public static void setCurrentReward(float currentReward) {
+        GameEnv.currentReward = currentReward;
     }
 
     static final class GameStep implements RlEnv.Step {
@@ -275,6 +282,7 @@ public class GameEnv implements RlEnv {
         public boolean isTerminal() {
             return terminal;
         }
+
 
         @Override
         public void close() {

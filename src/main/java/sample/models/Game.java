@@ -16,7 +16,8 @@ import javafx.stage.Screen;
 
 public class Game {
 
-    private PlayerCar playerCar;
+	private final Pane pane;
+	private PlayerCar playerCar;
     private PlayerCar playerCar2;
     private Car aiCar;
 
@@ -88,17 +89,12 @@ public class Game {
      */
 
     public Game(Pane pane) {
+    	this.pane = pane;
         gameManager = new GameManager(pane);
         switch (Main.settings.getPlayMode()) {
             case AI_TRAIN:
                 System.out.println("ai train mode");
-                //using VEHICLE1 for aiCar for now
-                aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
-                startXY = getCar1SpawnPoint(Main.track.getFinishLine());
-                aiCar.render(startXY[0], startXY[1]);
-                Line line = new Line(startXY[0], startXY[1], startXY[0], startXY[1]+30);
-                pane.getChildren().add(line);
-                //aiCar.getImageView().setRotate(90);
+                initialiseAICar();
                 distances = new double[8];
                 raceStart = true;
                 break;
@@ -119,6 +115,12 @@ public class Game {
         }
 
     }
+
+    public void initialiseAICar() {
+		aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
+		startXY = getCar1SpawnPoint(Main.track.getFinishLine());
+		aiCar.render(startXY[0], startXY[1]);
+	}
 
 	private void initialiser()
 	{
@@ -165,7 +167,7 @@ public class Game {
     	if (finishLine==null) {
 			System.out.println("finish line was null");
 		} else if(playerCar==null) {
-			System.out.println("player car null");
+			//System.out.println("player car null");
 		}
 		double[] xyValues = new double[2];
 		double distance = (finishLine.getStartX()) - (finishLine.getEndX());
@@ -398,6 +400,9 @@ public class Game {
 	private void carMovement(Car player, double coordPos, double coordRot, double[] rcDistances) {
 		double forwardVelocity;
 		if (player.wallCollision(rcDistances)) {
+			if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+				player.die();
+			}
 			double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
 			double sumForwards = rcDistances[7] + rcDistances[6] + rcDistances[5];
 			player.setForceSpeed(0);

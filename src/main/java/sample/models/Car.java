@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
+import sample.ai.GameEnv;
 import sample.models.audio.SoundManager;
 
 import java.io.FileInputStream;
@@ -361,7 +362,7 @@ public class Car extends Sprite {
         if (x - cx >= 0 && x + cx <= Main.maxWidth && y - cy >= 0 && y + cy <= Main.maxHeight) {
 
             this.getImageView().relocate(x - cx, y - cy);
-            System.out.println("x: " + this.getImageView().getLayoutX() + ", y: " + this.getImageView().getLayoutY());
+            //System.out.println("x: " + this.getImageView().getLayoutX() + ", y: " + this.getImageView().getLayoutY());
             //set raycaster position and rotation = the car's position and rotation
             raycaster.setPos(new Point(Point.unconvertX(this.getImageView().getLayoutX() + (carWidth/2)), Point.unconvertY(this.getImageView().getLayoutY() + (carHeight/2))));
             raycaster.setRot(this.getImageView().getRotate());
@@ -694,5 +695,12 @@ public class Car extends Sprite {
         this.setTurnLeft(false);
         this.setTurnRight(false);
         this.setGoingBackward(false);
+    }
+
+    public void die() {
+        //System.out.println("car died");
+        GameEnv.setCurrentReward(-100f);
+        GameEnv.setCurrentTerminal(true);
+        GameEnv.gameState = GameEnv.GAME_OVER;
     }
 }

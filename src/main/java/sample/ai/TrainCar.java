@@ -44,7 +44,7 @@ public class TrainCar {
     private static final float REWARD_DISCOUNT = 0.9f;
     public static final float INITIAL_EPSILON = 0.01f;
     public static final float FINAL_EPSILON = 0.0001f;
-    public static final int EXPLORE = 300000;
+    public static final int EXPLORE = 3000000;
     public static final int SAVE_EVERY_STEPS = 100000;
     private static final long INPUT_SIZE = 8;
     private static final long OUTPUT_SIZE = 5;
@@ -149,6 +149,8 @@ public class TrainCar {
 
         @Override
         public Object call() {
+            Thread current = Thread.currentThread();
+            System.out.println("GeneratorCallable on thread: " + current);
             while (GameEnv.trainStep < EXPLORE) {
                 batchSteps = gameEnv.runEnvironment(agent, training);
             }
@@ -167,11 +169,13 @@ public class TrainCar {
 
         @Override
         public Object call() throws Exception {
+            Thread current = Thread.currentThread();
+            System.out.println("Trainer callable on thread: " + current);
             while (GameEnv.trainStep < EXPLORE) {
                 //do nothing if below exploration threshold i.e., just observe
                 Thread.sleep(0);
                 if (GameEnv.gameStep > OBSERVE) {
-                    //TODO check this, may well be wrong
+                    System.out.println("in training loop");
                     this.agent.trainBatch(batchSteps);
                     GameEnv.trainStep++;
                     if (GameEnv.trainStep > 0 && GameEnv.trainStep % SAVE_EVERY_STEPS == 0) {

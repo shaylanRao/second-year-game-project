@@ -14,13 +14,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller for the GameScreen.fxml view (i,e., the main game screen). Builds upon AbstractGameController to include logic to display the track.
+ */
 public class GameController extends AbstractGameController {
     public static Raycaster raycaster;
 
     @FXML
     private Button trainButton;
 
-    //TODO maybe merge AbstractGameController and GameController into one file
+
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //generate track lines
