@@ -388,7 +388,8 @@ public class Game
 			}
 
 			private void checkLapsOver(PlayerCar player) {
-				if (player == playerCar){
+				if (player.playerNumber == 1){
+					System.out.println(gameManager.finishedLaps());
 					if (gameManager.finishedLaps()){
 						playerCar.setAccelerate(false);
 						playerCar.setGoingBackward(false);
@@ -396,6 +397,7 @@ public class Game
 				}
 				else{
 					if (g2.finishedLaps()){
+						System.out.println("Player 1 finished");
 						playerCar2.setAccelerate(false);
 						playerCar2.setGoingBackward(false);
 					}
