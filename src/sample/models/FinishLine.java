@@ -15,10 +15,10 @@ public class FinishLine extends Powerup {
 
     private static ImageView generateFinishImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/finishLine.png");
+            FileInputStream finishLineImageFile = new FileInputStream("src/sample/resources/images/finishLine.png");
 
-            Image carImage = new Image(carImageFile);
-            return new ImageView(carImage);
+            Image finishLineImage = new Image(finishLineImageFile);
+            return new ImageView(finishLineImage);
         } catch (Exception ex) {
             System.out.println("Error when loading finish line");
         }

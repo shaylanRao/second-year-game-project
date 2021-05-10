@@ -27,10 +27,14 @@ public class Car extends Sprite {
 
 
     private final LinkedList<Powerup> powerups;
-    //    public ArrayList<Powerup> powerupsDischarge;
     public PowerUpBar powerUpBar;
 
-
+    /**
+     * Checks if a player has less than 3 power-ups. If there are less than 3, then the new power-up is added to the linked list and 
+     * the power-up bar. Otherwise, it removes the least recent power-up and adds it at the end.
+     * @param Powerup
+     * @return void
+     */
     public void addPowerup(Powerup powerup) {
         if (getPowerups().size() >= 3) {
             this.powerups.pop();
@@ -39,12 +43,22 @@ public class Car extends Sprite {
         this.getPowerups().add(powerup);
         this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
     }
-
+    
+    /**
+     * Getter method for the power-ups stored in each player's list.
+     * @return LinkedList<Powerup>
+     */
     public LinkedList<Powerup> getPowerups()
     {
         return powerups;
     }
 
+    /**
+     * Checks if a player has passed through a power-up on the track, passes the power-up to addPowerup(), and deactivates the power-up.
+     * After 7 seconds, the power-up is set to re-spawn on the screen as long as there is no player in the same spot.
+     * @param Powerup
+     * @return void
+     */
     public void handleMapPowerups(Powerup powerup) {
         if (powerup.shouldCollide && collisionDetection(powerup))
         {
@@ -61,16 +75,13 @@ public class Car extends Sprite {
         }
     }
 
+    /**
+     * This method handles power-ups when a player chooses to use them. Thus, it checks the power-up that it is being used and renders 
+     * the new object if it is the case. (banana peel when using a banana, etc)
+     * @return Powerup
+     */
     public Powerup usePowerup () {
         SoundManager.play("powerUp");
-        double playerCarLayoutX = getImage().getLayoutX();
-        double playerCarLayoutY = getImage().getLayoutY();
-        double powerupWidth = powerups.getFirst().getImage().getBoundsInLocal().getWidth();
-        double powerupHeight = powerups.getFirst().getImage().getBoundsInLocal().getHeight();
-
-        double x = playerCarLayoutX - powerupWidth;
-        double y = playerCarLayoutY - powerupHeight;
-
         if (powerups.getFirst() instanceof BananaPowerup) {
             BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
             drop.render(getPowerupLoc()[0], getPowerupLoc()[1]);
@@ -95,7 +106,27 @@ public class Car extends Sprite {
         //had to return something, but it shouldn't get this far
         return powerups.getFirst();
     }
-
+    
+    /**
+     * Renders the activated power-ups behind the car.
+     * @return double[]
+     */
+    private double[] getPowerupLoc(){
+        double[] location = new double[2];
+        double hyp = carHeight*2;
+        car1Angle = this.getImageView().getRotate();
+        if ((car1Angle > -90 && car1Angle < 90) || car1Angle < -270 || car1Angle > 270) {
+	        location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX() + carWidth;
+	        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
+        } else {
+        	location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
+	        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
+        }
+//        System.out.println(Arrays.toString(location));
+//        System.out.println("CX " + this.getImage().getLayoutX());
+//        System.out.println("CY " + this.getImage().getLayoutY());
+        return location;
+    }
 
     private double[] getPowerupLoc(){
         double[] location = new double[2];
@@ -404,20 +435,37 @@ public class Car extends Sprite {
                 1000
         );
     }
-
+    
+    /**
+     * Method that states whether a power-up had been activated by pressing the power-up button or not.
+     * @return boolean - true or false
+     */
     public boolean isActivatedPowerup() {
         return powerup;
     }
-
+    
+    /**
+     * Sets the state of the power-up to true or false.
+     * @param powerup - boolean
+     * @return void
+     */
     public void setActivatePowerup(boolean powerup) {
         this.powerup = powerup;
     }
-
+    
+    /**
+     * Returns the time a power-up has been activated.
+     * @return long
+     */
     public long getPickedUpPwrtime()
     {
         return pickedUpPwrtime;
     }
 
+    /**
+     * Sets the time a power-up has been activated.
+     * @return void
+     */
     public void setPickedUpPwrtime(long pickedUpPwrtime)
     {
         this.pickedUpPwrtime = pickedUpPwrtime;
@@ -469,7 +517,6 @@ public class Car extends Sprite {
     public void turn(double angle) {
         double cAngle = this.getImageView().getRotate();
         if(carSpinOn) {
-            //System.out.println("CARSPIN");
             this.speed = 0;
             cAngle +=11.8;
             this.getImageView().setRotate(cAngle);

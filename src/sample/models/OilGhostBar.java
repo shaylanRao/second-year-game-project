@@ -19,7 +19,7 @@ public class OilGhostBar extends Powerup {
             Image oilImage = new Image(oilImageFile);
             return new ImageView(oilImage);
         } catch (Exception ex) {
-            System.out.println("Error when loading car image");
+            System.out.println("Error when loading oil ghost image");
         }
         return null;
     }

@@ -199,6 +199,7 @@ public class Game
 				this.carMovement(playerCar, dy, rot, distances);
 
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+
 					double dy2 = 0;
 					double rot2 = 0;
 					this.carMovement(playerCar2, dy2, rot2, distances2);
@@ -254,14 +255,10 @@ public class Game
 							if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 								startBoost(playerCar2);
 							}
-
 						}
-
 					}
 					catch(Exception ignored){}
-
 				}
-
 			}
 
 
@@ -385,7 +382,7 @@ public class Game
 
 			}
 
-			
+
 			private int  collCounter = 0;
 
 			private	boolean carOnCarColl(){
@@ -418,8 +415,10 @@ public class Game
 			}
 
 
-
-
+			/**
+		     * Checks if one of the players has picked up a powerup and sends it to Car.handleMapPowerups()
+		     * @return void
+		     */
 			private void powerupPickup(){
 				/*
 				 ShouldCollide is a boolean that helps solve a bug (when a car collides with a powerup and the discharge powerup is created,
@@ -441,6 +440,10 @@ public class Game
 				}
 			}
 
+			/**
+		     * When one of the players presses the power-up activation button, the button can't be used for 2 seconds.
+		     * @return void
+		     */
 			private void usePowerup(){
 				for (PlayerCar player : players) {
 					if (player.isActivatedPowerup()) {
@@ -461,7 +464,11 @@ public class Game
 				}
 			}
 
-
+			/**
+		     * Controls the movement of the car when the car bumps into one of the defensive power-ups on the track, such as banana peel
+		     * or oil spill.
+		     * @return void
+		     */
 			private void powerupDrop(){
 				try {
 					for (Powerup pwr : powerupsOnMap)
@@ -490,7 +497,6 @@ public class Game
 				}
 			}
 
-
 			private void makeRandomTrack(){
 				double[] xyCoord = this.getCarCoord(playerCar);
 
@@ -514,8 +520,6 @@ public class Game
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 				distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
 			}
-
-
 
 			public double[] getCarCoord(PlayerCar car){
 				double[] xyCoord = new double[2];
@@ -541,6 +545,10 @@ public class Game
 		timer.start();
 	}
 
+	/**
+     * Method used to prevent a NullPointerException.
+     * @return void
+     */
 	public void checkPowerupNotNull (Powerup powerup) {
 		if (powerup != null) {
 			powerupsOnMap.add(powerup);

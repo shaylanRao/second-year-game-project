@@ -15,11 +15,11 @@ public class OilSpillPowerup extends Powerup {
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/oilspill.png");
-            Image carImage = new Image(carImageFile);
-            return new ImageView(carImage);
+            FileInputStream oilspillImageFile = new FileInputStream("src/sample/resources/images/oilspill.png");
+            Image oilspillImage = new Image(oilspillImageFile);
+            return new ImageView(oilspillImage);
         } catch (Exception ex) {
-            System.out.println("Error when loading car image");
+            System.out.println("Error when loading oil spill image");
         }
         return null;
     }

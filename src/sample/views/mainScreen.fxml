@@ -1,23 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
-<BorderPane fx:controller="sample.controllers.ui.MainScreen" xmlns:fx="http://javafx.com/fxml">
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ui.MainScreen">
     <stylesheets>
-        <URL value="@../resources/stylesheets/stylesheet.css"/>
+        <URL value="@../resources/stylesheets/stylesheet.css" />
     </stylesheets>
 <padding>
-    <Insets left="50"/>
+    <Insets left="50" />
 </padding>
 
     <left>
         <VBox alignment="CENTER" spacing="25">
-            <Button text="Play" onAction="#playClicked" styleClass="button"/>
-            <Button text="Settings" onAction="#settingsClicked" styleClass="button"/>
-            <Button text="Controls" onAction="#controlsClicked" styleClass="button"/>
-            <Button text="Quit" onAction="#quitClicked" id="quitButton" styleClass="button"/>
-            <Button text="startGame" onAction="#startGame" id="startGame" styleClass="button"/>
+           <children>
+               <Button onAction="#playClicked" styleClass="button" text="Play" />
+               <Button onAction="#settingsClicked" styleClass="button" text="Settings" />
+               <Button onAction="#controlsClicked" styleClass="button" text="Controls" />
+               <Button id="quitButton" onAction="#quitClicked" styleClass="button" text="Quit" />
+               <Button id="startGame" onAction="#startGame" styleClass="button" text="startGame" />
+           </children>
         </VBox>
     </left>
 </BorderPane>

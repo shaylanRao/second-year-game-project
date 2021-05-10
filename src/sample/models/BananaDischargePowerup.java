@@ -15,11 +15,11 @@ public class BananaDischargePowerup extends Powerup {
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream carImageFile = new FileInputStream("src/sample/resources/images/bananapeel.png");
-            Image carImage = new Image(carImageFile);
-            return new ImageView(carImage);
+            FileInputStream bananapeelImageFile = new FileInputStream("src/sample/resources/images/bananapeel.png");
+            Image bananapeelImage = new Image(bananapeelImageFile);
+            return new ImageView(bananapeelImage);
         } catch (Exception ex) {
-            System.out.println("Error when loading car image");
+            System.out.println("Error when loading banana peel image");
         }
         return null;
     }

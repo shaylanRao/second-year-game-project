@@ -19,7 +19,7 @@ public class SpeedboosterBar extends Powerup {
             Image speedImage = new Image(speedImageFile);
             return new ImageView(speedImage);
         } catch (Exception ex) {
-            System.out.println("Error when loading car image");
+            System.out.println("Error when loading speedbooster image");
         }
         return null;
     }

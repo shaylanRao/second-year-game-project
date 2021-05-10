@@ -30,6 +30,12 @@ public class PowerUpBar
         this.powerupsImagesInBar = new LinkedList<>();
 	}
 	
+	/**
+     * Adds a new power-up to a player's power-up bar.
+     * @param locationInBar - checks where to render the new power-up in the power-up bar
+     * @param player - number of player to add the power-up to
+     * @return void
+     */
 	public void addPowerUpToBar(int locationInBar, Powerup powerup, int player) {
 		if (powerup instanceof BananaPowerup)
 		{
@@ -51,6 +57,12 @@ public class PowerUpBar
 		}
     }
 	
+	/**
+     * Calculates the coordinate of the power-up to add to power-up bar.
+     * @param location - the number of the power-up in the bar
+     * @param player - which player's power-up bar to add the new power-up to
+     * @return double - coordinate for the x axis
+     */
 	public double addPowerupsToCord (int location, int player) {
 		if (player == 1) {
 			if (location == 1) {
@@ -79,6 +91,11 @@ public class PowerUpBar
 		return 0;
 	}
 	
+	/**
+     * Removes the first power-up in the power-up bar after it's been used or replaced and renders the remaining power-ups in the right places.
+     * @param player - states which player's power-up bar are the changes made to
+     * @return void
+     */
 	public void removeFirstPowerup(int player) {
 		this.powerupsImagesInBar.getFirst().deactivate();
 		this.powerupsImagesInBar.removeFirst();
