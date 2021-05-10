@@ -1,18 +1,13 @@
 package sample.ai;
 
 import ai.djl.Model;
-import ai.djl.nn.Block;
-import javafx.concurrent.Task;
+import javafx.animation.AnimationTimer;
 import sample.ai.imported.agent.EpsilonGreedy;
 import sample.ai.imported.agent.QAgent;
 import sample.ai.imported.agent.RlAgent;
 import ai.djl.ndarray.NDManager;
 import ai.djl.ndarray.types.Shape;
-import ai.djl.nn.Activation;
-import ai.djl.nn.Blocks;
 import ai.djl.nn.SequentialBlock;
-import ai.djl.nn.convolutional.Conv2d;
-import ai.djl.nn.core.Linear;
 import ai.djl.training.DefaultTrainingConfig;
 import ai.djl.training.Trainer;
 import ai.djl.training.evaluator.Accuracy;
@@ -25,6 +20,7 @@ import ai.djl.training.tracker.Tracker;
 import sample.ai.imported.RlEnv;
 import sample.models.Game;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +36,7 @@ public class TrainCar {
 
 
 
-    public static final int OBSERVE = 1000;
+    public static final int OBSERVE = 100;
     private static final float REWARD_DISCOUNT = 0.9f;
     public static final float INITIAL_EPSILON = 0.01f;
     public static final float FINAL_EPSILON = 0.0001f;
@@ -81,7 +77,7 @@ public class TrainCar {
 
     public static void main (String[] args) {
         //TODO find right batch size
-        train(500);
+        train(100);
     }
 
     public static void train(int batchSize) {
@@ -101,29 +97,19 @@ public class TrainCar {
                     .optMinValue(FINAL_EPSILON)
                     .build();
             agent = new EpsilonGreedy(agent, exploreRate);
-
-            int numOfThreads = 2;
-            List<Callable<Object>> callables = new ArrayList<>(numOfThreads);
-            callables.add(new GeneratorCallable(gameEnv, agent, training));
-            if (training) {
-                callables.add(new TrainerCallable(model, agent));
-            }
-            ExecutorService executorService = Executors.newFixedThreadPool(numOfThreads);
-            try {
-                try {
-                    List<Future<Object>> futures = new ArrayList<>();
-                    for (Callable<Object> callable : callables) {
-                        futures.add(executorService.submit(callable));
+            final RlAgent finalAgent = agent;
+            AnimationTimer animationTimer = new AnimationTimer() {
+                @Override
+                public void handle(long now) {
+                    if (GameEnv.trainStep < EXPLORE) {
+                        batchSteps = gameEnv.runEnvironment(finalAgent, training);
                     }
-                    for (Future<Object> future : futures) {
-                        //this is the bit that's fucked
-                        future.get();
-                    }
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
                 }
-            } finally {
-                executorService.shutdown();
+            };
+            animationTimer.start();
+            if (training) {
+                Thread thread = new Thread(new TrainerRunnable(model, agent));
+                thread.start();
             }
         }
     }
@@ -137,53 +123,32 @@ public class TrainCar {
                 .addTrainingListeners(TrainingListener.Defaults.basic());
     }
 
-    private static class GeneratorCallable implements Callable<Object> {
-        private final GameEnv gameEnv;
-        private final RlAgent agent;
-        private final boolean training;
-        public GeneratorCallable(GameEnv gameEnv, RlAgent agent, boolean training) {
-            this.gameEnv = gameEnv;
-            this.agent = agent;
-            this.training = training;
-        }
-
-        @Override
-        public Object call() {
-            Thread current = Thread.currentThread();
-            System.out.println("GeneratorCallable on thread: " + current);
-            while (GameEnv.trainStep < EXPLORE) {
-                batchSteps = gameEnv.runEnvironment(agent, training);
-            }
-            return null;
-        }
-    }
-
-    private static class TrainerCallable implements Callable<Object> {
+    private static class TrainerRunnable implements Runnable {
         private final Model model;
         private final RlAgent agent;
 
-        public TrainerCallable(Model model, RlAgent agent) {
+        public TrainerRunnable(Model model, RlAgent agent) {
             this.model = model;
             this.agent = agent;
         }
 
         @Override
-        public Object call() throws Exception {
-            Thread current = Thread.currentThread();
-            System.out.println("Trainer callable on thread: " + current);
+        public void run() {
             while (GameEnv.trainStep < EXPLORE) {
                 //do nothing if below exploration threshold i.e., just observe
-                Thread.sleep(0);
+                Thread.yield();
                 if (GameEnv.gameStep > OBSERVE) {
-                    System.out.println("in training loop");
                     this.agent.trainBatch(batchSteps);
                     GameEnv.trainStep++;
                     if (GameEnv.trainStep > 0 && GameEnv.trainStep % SAVE_EVERY_STEPS == 0) {
-                        model.save(Paths.get(MODEL_PATH), "dqn-" + GameEnv.trainStep);
+                        try {
+                            model.save(Paths.get(MODEL_PATH), "dqn-" + GameEnv.trainStep);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
-            return null;
         }
     }
 }

@@ -77,6 +77,8 @@ public class GameEnv implements RlEnv {
     
     private NDList createObservation() {
         NDArray observation = manager.create(new Shape(8), DataType.FLOAT32);
+        return new NDList(observation);
+        /*
         float[] floatDistances = new float[8];
         for (int i=0; i<floatDistances.length; i++) {
             floatDistances[i] = (float) game.getDistances()[i];
@@ -97,6 +99,7 @@ public class GameEnv implements RlEnv {
             }
             return new NDList(NDArrays.stack(new NDList(buf[0], buf[1], buf[2], buf[3]), 1));
         }
+         */
     }
 
     @Override
@@ -160,11 +163,11 @@ public class GameEnv implements RlEnv {
         if (training) {
             replayBuffer.addStep(step);
         }
-//        System.out.println("GAME_STEP " + gameStep +
-//                " / " + "TRAIN_STEP " + trainStep +
-//                " / " + getTrainState() +
-//                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
-//                " / " + "REWARD " + step.getReward().getFloat());
+        System.out.println("GAME_STEP " + gameStep +
+                " / " + "TRAIN_STEP " + trainStep +
+                " / " + getTrainState() +
+                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
+                " / " + "REWARD " + step.getReward().getFloat());
         //TODO, set this in game when car crashesd
         if (gameState == GAME_OVER) {
             restartGame();
@@ -183,7 +186,7 @@ public class GameEnv implements RlEnv {
         Step[] batchSteps = new Step[0];
         reset();
         //NDList action = agent.chooseAction(this, training);
-       NDList action = this.actionSpace.get(1);
+        NDList action = this.actionSpace.get(1);
         step(action, training);
         if (training) {
             batchSteps = this.getBatch();

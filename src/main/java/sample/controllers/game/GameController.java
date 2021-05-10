@@ -75,6 +75,6 @@ public class GameController extends AbstractGameController {
 
     public void trainClicked(ActionEvent actionEvent) {
         TrainCar.setGame(game);
-        TrainCar.train(500);
+        TrainCar.train(100);
     }
 }
