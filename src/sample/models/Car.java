@@ -32,7 +32,7 @@ public class Car extends Sprite {
     /**
      * Checks if a player has less than 3 power-ups. If there are less than 3, then the new power-up is added to the linked list and 
      * the power-up bar. Otherwise, it removes the least recent power-up and adds it at the end.
-     * @param Powerup
+     * @param powerup
      * @return void
      */
     public void addPowerup(Powerup powerup) {
@@ -56,7 +56,7 @@ public class Car extends Sprite {
     /**
      * Checks if a player has passed through a power-up on the track, passes the power-up to addPowerup(), and deactivates the power-up.
      * After 7 seconds, the power-up is set to re-spawn on the screen as long as there is no player in the same spot.
-     * @param Powerup
+     * @param powerup
      * @return void
      */
     public void handleMapPowerups(Powerup powerup) {
@@ -122,24 +122,9 @@ public class Car extends Sprite {
         	location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
 	        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
         }
-//        System.out.println(Arrays.toString(location));
-//        System.out.println("CX " + this.getImage().getLayoutX());
-//        System.out.println("CY " + this.getImage().getLayoutY());
+
         return location;
     }
-
-    private double[] getPowerupLoc(){
-        double[] location = new double[2];
-        double hyp = carHeight*2;
-        car1Angle = this.getImageView().getRotate();
-        location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
-        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
-        System.out.println(Arrays.toString(location));
-        System.out.println("CX " + this.getImage().getLayoutX());
-        System.out.println("CY " + this.getImage().getLayoutY());
-        return location;
-    }
-
 
     public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
         super(gameBackground, image, 0.8);
