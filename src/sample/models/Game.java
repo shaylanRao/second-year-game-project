@@ -1,12 +1,15 @@
 package sample.models;
 
 import javafx.animation.AnimationTimer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Screen;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import sample.controllers.game.RandomTrackScreen;
+import sample.controllers.ui.LeaderboardScreen;
 
 import java.util.*;
 
@@ -21,6 +24,9 @@ import static sample.controllers.game.RandomTrackScreen.raycaster;
 
 public class Game
 {
+
+	private boolean is_showing_leaderboard = false;
+	private boolean is_race_completed = false;
 
 	private PlayerCar			playerCar;
 	private PlayerCar           playerCar2;
@@ -178,7 +184,6 @@ public class Game
 			this.powerupsOnMap.add(new SpeedboosterPowerup(gameBackground));
 			this.powerupsOnMap.add(new OilGhostPowerup(gameBackground));
 		}
-
 	}
 
 	/**
@@ -205,6 +210,8 @@ public class Game
 					this.carMovement(playerCar2, dy2, rot2, distances2);
 					this.carOnCarColl();
 				}
+
+				this.leaderboard();
 
 				this.renderIntroCountdown();
 
@@ -314,14 +321,12 @@ public class Game
 					coordRot += turningSpeed;
 				}
 
+
 				if (coordRot > 2.3) {
 					coordRot = 2.3;
 				} else if (coordRot < -2.3) {
 					coordRot = -2.3;
 				}
-
-
-
 
 				if(!raceStart && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 					this.initialColl(player, rcDistances);
@@ -343,6 +348,43 @@ public class Game
 							player.turn(coordRot);
 						}
 					}
+			}
+
+
+			private void leaderboard(){
+				boolean has_player2_finished = true;
+				if(Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+					has_player2_finished = g2.finishedLaps() && raceStart;
+				}
+
+				boolean has_player1_finished = gameManager.finishedLaps() && raceStart;
+				is_race_completed = has_player1_finished && has_player2_finished;
+
+				// if race is completed => show leaderboard Screen
+				if(is_race_completed && !is_showing_leaderboard && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER))
+				{
+					try {
+
+						FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/LeaderboardScreen.fxml"));
+						Parent root = loader.load();
+						Main.sceneManager.setCurrentRoot(root);
+
+						LeaderboardScreen leaderboard_controller = loader.getController();
+						leaderboard_controller.setUp(gameManager.lapCounter, gameManager.totalTime(),
+								g2.lapCounter, g2.totalTime());
+
+
+						System.out.println();
+						is_showing_leaderboard = true;
+
+					} catch (Exception ex) {
+						System.out.println(" - error showing leaderboard screen...");
+						ex.printStackTrace();
+					}
+				}
+				else if (is_race_completed && !is_showing_leaderboard){
+					//single player leaderboard
+				}
 			}
 
 			private void checkLapsOver(PlayerCar player) {
@@ -382,7 +424,7 @@ public class Game
 
 			}
 
-
+			
 			private int  collCounter = 0;
 
 			private	boolean carOnCarColl(){
@@ -409,8 +451,6 @@ public class Game
 						return true;
 					}
 				}
-
-
 				return false;
 			}
 

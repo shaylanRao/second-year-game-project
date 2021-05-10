@@ -189,6 +189,7 @@ private int index = (int)result;
         for (int i = 0; i < maxLaps; i++) {
             totalTimeElapsed += eachLap[i];
         }
+
         return totalTimeElapsed;
     }
 
