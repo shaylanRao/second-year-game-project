@@ -33,7 +33,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load font here instead of CSS to avoid weird path errors
-        Font.loadFont(getClass().getResourceAsStream("/sample/resources/fonts/VT323/VT323-Regular.ttf"), 16);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/VT323/VT323-Regular.ttf"), 16);
 
 
         loader = new FXMLLoader(getClass().getResource("views/mainScreen.fxml"));

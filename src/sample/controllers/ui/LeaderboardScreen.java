@@ -1,14 +1,12 @@
 package sample.controllers.ui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import sample.Main;
 import sample.controllers.audio.SoundManager;
 import javafx.fxml.FXML;
-
-import java.awt.event.MouseEvent;
 
 public class LeaderboardScreen {
 
@@ -39,7 +37,7 @@ public class LeaderboardScreen {
         time_player2.setText(String.valueOf(total_time2 / (float)1000.0f));
     }
 
-    public void continueClicked(ActionEvent actionEvent) {
+    public void continueClicked(MouseEvent mouseEvent) {
 
         System.out.println("Leaderboard::CONTINUE clicked!");
         SoundManager.play("button");
