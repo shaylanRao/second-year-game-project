@@ -374,11 +374,9 @@ public class Game
 								g2.lapCounter, g2.totalTime());
 
 
-						System.out.println();
 						is_showing_leaderboard = true;
 
 					} catch (Exception ex) {
-						System.out.println(" - error showing leaderboard screen...");
 						ex.printStackTrace();
 					}
 				}
@@ -389,7 +387,6 @@ public class Game
 
 			private void checkLapsOver(PlayerCar player) {
 				if (player == playerCar){
-					System.out.println(gameManager.finishedLaps());
 					if (gameManager.finishedLaps()){
 						playerCar.setAccelerate(false);
 						playerCar.setGoingBackward(false);
@@ -397,7 +394,6 @@ public class Game
 				}
 				else{
 					if (g2.finishedLaps()){
-						System.out.println("Player 1 finished");
 						playerCar2.setAccelerate(false);
 						playerCar2.setGoingBackward(false);
 					}
