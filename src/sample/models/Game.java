@@ -388,7 +388,7 @@ public class Game
 			}
 
 			private void checkLapsOver(PlayerCar player) {
-				if (player.playerNumber == 1){
+				if (player == playerCar){
 					System.out.println(gameManager.finishedLaps());
 					if (gameManager.finishedLaps()){
 						playerCar.setAccelerate(false);
