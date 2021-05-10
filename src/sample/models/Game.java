@@ -253,8 +253,6 @@ public class Game
 					{
 						if(intro_frame <= 3 && intro_frame != 0)
 						{
-//							intro[intro_frame].render(500, 50);
-//							System.out.println((int)Screen.getPrimary().getBounds().getWidth());
 							intro[intro_frame].render((Screen.getPrimary().getBounds().getWidth()/2)-(intro[intro_frame].getImage().getFitWidth()/2), (Screen.getPrimary().getBounds().getHeight()/2)-(intro[intro_frame].getImage().getFitHeight()*0.6));// render( x, y )
 						}
 						else{

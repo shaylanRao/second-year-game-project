@@ -91,20 +91,18 @@ public class GameManager{
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                //millisecondsPassed[0]++;
+
                 if (lap[0] != lapCounter && lapCounter < maxLaps + 1) {
                     eachLap[lapCounter - 1] = millisecondsPassed[0];
                     millisecondsPassed[0] = 0;
                     lap[0] = lapCounter;
                 }
-                millisecondsPassed[0]++;
 
                 result = TimeUnit.MILLISECONDS.toSeconds(millisecondsPassed[0]);
                 //this is to pause timer when game is paused
                 if (!Main.sceneManager.isPaused()) {
                     millisecondsPassed[0]++;
                 }
-                //millisecondsPassed[0]++;
             }
 
         };
