@@ -3,7 +3,7 @@
 }
 
 .root {
-    -fx-background-color:#FF0984;
+    -fx-background-color:#10B0E8;
     -fx-font-family:"VT323";
 }
 
@@ -29,7 +29,7 @@
     -fx-margin:20;
     -fx-border-width:10;
     -fx-padding:5 10 5 10;
-    -fx-background-color:#FFFA00;
+    -fx-background-color:#f5ea4f;
     -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
 }
 
@@ -47,7 +47,7 @@
     -fx-margin:20;
     -fx-border-width:10;
     -fx-padding:5 10 5 10;
-    -fx-background-color:#FFFA00;
+    -fx-background-color:#f5ea4f;
     -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
 }
 
@@ -83,7 +83,7 @@
     -fx-margin:20;
     -fx-border-width:10;
     -fx-padding:5 10 5 10;
-    -fx-background-color:#FFFA00;
+    -fx-background-color:#f5ea4f;
     -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
 }
 
@@ -98,7 +98,7 @@
     -fx-margin:20;
     -fx-border-width:10;
     -fx-padding:5 10 5 10;
-    -fx-background-color:#FFFA00;
+    -fx-background-color:#f5ea4f;
     -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
 }
 
@@ -113,6 +113,6 @@
     -fx-margin:20;
     -fx-border-width:10;
     -fx-padding:5 10 5 10;
-    -fx-background-color:#FFFA00;
+    -fx-background-color:#f5ea4f;
     -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
 }

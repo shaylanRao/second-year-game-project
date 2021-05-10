@@ -17,7 +17,7 @@
                 <Label styleClass="label" text="Sound" />
                 <Label styleClass="label-2" text="master volume" fx:id="masterLabel"/>
                 <StackPane>
-                    <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <Rectangle fill="#f5ea4f" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                         <effect>
                             <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
                         </effect>
@@ -44,7 +44,7 @@
                 </StackPane>
                 <Label styleClass="label-2" text="game-sfx volume" fx:id="game_sfxLabel"/>
                 <StackPane>
-                    <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <Rectangle fill="#f5ea4f" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                         <effect>
                             <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
                         </effect>
@@ -71,7 +71,7 @@
                 </StackPane>
                 <Label styleClass="label-2" text="ui-sfx volume" fx:id="sfxLabel"/>
                 <StackPane>
-                    <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <Rectangle fill="#f5ea4f" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                         <effect>
                             <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
                         </effect>
@@ -98,7 +98,7 @@
                 </StackPane>
                 <Label styleClass="label-2" text="Background volume" fx:id="bgm_Label"/>
                 <StackPane>
-                    <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <Rectangle fill="#f5ea4f" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                         <effect>
                             <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
                         </effect>
@@ -125,7 +125,7 @@
                 </StackPane>
                 <Label styleClass="label-2" text="Music volume" fx:id="music_Label"/>
                 <StackPane>
-                    <Rectangle fill="#fffa00" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <Rectangle fill="#f5ea4f" height="50" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                         <effect>
                             <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
                         </effect>

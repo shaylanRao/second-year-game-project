@@ -22,7 +22,7 @@
             <Label styleClass="label" text="Visual"/>
             <Label styleClass="label-2" text="brightness" fx:id="brightLabel"/>
             <StackPane>
-                <Rectangle fill="#fffa00" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                <Rectangle fill="#f5ea4f" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
                     <effect>
                         <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
                     </effect>

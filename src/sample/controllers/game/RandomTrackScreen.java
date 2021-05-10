@@ -31,7 +31,7 @@ public class RandomTrackScreen extends AbstractGameController {
         Line[] gates = Main.track.getGates();
 
         outerPath.setFill(Color.web("#444444"));
-        innerPath.setFill(Color.web("#013220"));
+        innerPath.setFill(Color.web("#106111"));
         pane.getChildren().add(outerPath);
         pane.getChildren().add(innerPath);
         pane.getChildren().addAll(Main.track.getFinWhite());
