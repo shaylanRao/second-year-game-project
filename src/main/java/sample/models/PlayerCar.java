@@ -16,7 +16,7 @@ public class PlayerCar extends Car {
     private long pickedUpPwrtime = -1;
 
     public PlayerCar(Pane gameBackground, Settings.VehicleType vehicleType) {
-        super(gameBackground, generateCarImageView(vehicleType), vehicleType);
+        super(gameBackground, generateCarImageView(vehicleType), vehicleType, null);
         this.powerups = new LinkedList<>();
         this.powerUpBar = new PowerUpBar(gameBackground);
     }

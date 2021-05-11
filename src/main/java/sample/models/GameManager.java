@@ -4,13 +4,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
+import sample.ai.GameEnv;
 
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GameManager{
+public class GameManager {
     final int[] millisecondsPassed = {0};
+
+    public int getTimeElapsed() {
+        return millisecondsPassed[0] - gateTime;
+    }
+
     public int lapCounter = 0;
     final int[] lap = {lapCounter};
     private final int maxLaps = Main.settings.getLaps();
@@ -19,6 +25,7 @@ public class GameManager{
 
 
     Pane gameBackground;
+    private int gateTime;
 
     public GameManager(Pane gameBackground) {
         this.gameBackground = gameBackground;
@@ -43,7 +50,12 @@ public class GameManager{
         //Collision detection for each gate (track gates order, do logic (should be in order 1, 2, 3, 4, 1))
         //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
         if (0 < gateDistances[7] && gateDistances[7] < 10) {
+            //gate was crossed
+            gateTime = millisecondsPassed[0];
+            //reward for crossing the gate
+            GameEnv.setCurrentReward(50f);
             gateStack.pop();
+
         }
         if (gateStack.isEmpty()) {
             resetGateStack();

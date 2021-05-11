@@ -3,6 +3,7 @@ package sample.models;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import sample.Main;
+import sample.ai.GameEnv;
 import sample.models.audio.SoundManager;
 
 import java.util.*;
@@ -40,6 +41,7 @@ public class Game {
 	private boolean raceStart = false;
 
 	private AnimationTimer timer;
+
 	public AnimationTimer getTimer() {
 		return timer;
 	}
@@ -94,10 +96,11 @@ public class Game {
         switch (Main.settings.getPlayMode()) {
             case AI_TRAIN:
                 System.out.println("ai train mode");
-				aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
 				startXY = getCar1SpawnPoint(Main.track.getFinishLine());
+				aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
 				aiCar.render(startXY[0], startXY[1]);
-                distances = new double[8];
+				aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
+				distances = new double[8];
                 raceStart = true;
                 break;
             case AI:
@@ -108,7 +111,8 @@ public class Game {
 
                 aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
                 aiCar.render(350, 500);
-                distances = new double[8];
+				aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
+				distances = new double[8];
                 //TrainCar.test();
                 break;
 			default:
@@ -119,11 +123,13 @@ public class Game {
     }
 
     public void resetAICar() {
-		System.out.println("car was reset");
-    	Raycaster prevRaycaster = aiCar.getRaycaster();
-		aiCar = new Car(pane, Settings.VehicleType.VEHICLE1, prevRaycaster);
+		//System.out.println("time: " + gameManager.getTimeElapsed());
+		pane.getChildren().remove(aiCar.getImageView());
+		aiCar.getRaycaster().removeLines();
 		startXY = getCar1SpawnPoint(Main.track.getFinishLine());
+		aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
 		aiCar.render(startXY[0], startXY[1]);
+		aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
 	}
 
 	private void initialiser()
@@ -248,7 +254,10 @@ public class Game {
             gameManager.lapTimer();
             j++;
         }
-        carMovement(aiCar, 0, 0, distances);
+
+		castRays();
+
+		carMovement(aiCar, 0, 0, distances);
 
         //powerupPickup();
 
@@ -256,9 +265,10 @@ public class Game {
 
         //powerupDrop();
 
-        makeTrack();
 
         lapSystem();
+
+		GameEnv.setCurrentReward(0.1f*aiCar.getDistanceTravelled() - 0.01f*gameManager.getTimeElapsed());
     }
 
     public synchronized void gameLoop() throws InterruptedException {
@@ -271,7 +281,7 @@ public class Game {
 					j++;
 				}
 
-				makeTrack();
+				castRays();
 
 				double rot = 0;
 				double dy = 0;
@@ -527,7 +537,7 @@ public class Game {
 			}
 
 
-			private void makeTrack(){
+			private void castRays(){
 
 
 

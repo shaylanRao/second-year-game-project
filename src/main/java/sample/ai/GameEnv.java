@@ -76,7 +76,8 @@ public class GameEnv implements RlEnv {
         for (int i=0; i<floatDistances.length; i++) {
             floatDistances[i] = (float) game.getDistances()[i];
         }
-        System.out.println(Arrays.toString(floatDistances));
+        //System.out.println("Raycaster pos: " + game.getAiCar().getRaycaster().pos.getX() + "\t" + game.getAiCar().getRaycaster().pos.getY());
+        //System.out.println(Arrays.toString(floatDistances));
         observation.set(floatDistances);
         return new NDList(observation);
         /*
@@ -155,8 +156,7 @@ public class GameEnv implements RlEnv {
             //System.out.println("move right");
         }
         //run main game loop once
-            game.gameLoopAI();
-
+        game.gameLoopAI();
 
         NDList preObservation = currentObservation;
         currentObservation = createObservation();
@@ -164,11 +164,11 @@ public class GameEnv implements RlEnv {
         if (training) {
             replayBuffer.addStep(step);
         }
-//        System.out.println("GAME_STEP " + gameStep +
-//                " / " + "TRAIN_STEP " + trainStep +
-//                " / " + getTrainState() +
-//                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
-//                " / " + "REWARD " + step.getReward().getFloat());
+        System.out.println("GAME_STEP " + gameStep +
+                " / " + "TRAIN_STEP " + trainStep +
+                " / " + getTrainState() +
+                " / " + "ACTION " + (Arrays.toString(action.singletonOrThrow().toArray())) +
+                " / " + "REWARD " + step.getReward().getFloat());
         //TODO, set this in game when car crashesd
         if (gameState == GAME_OVER) {
             restartGame();
@@ -186,8 +186,8 @@ public class GameEnv implements RlEnv {
     public Step[] runEnvironment(RlAgent agent, boolean training) {
         Step[] batchSteps = new Step[0];
         reset();
-        //NDList action = agent.chooseAction(this, training);
-        NDList action = this.actionSpace.get(1);
+        NDList action = agent.chooseAction(this, training);
+        //NDList action = this.actionSpace.get(1);
         step(action, training);
         if (training) {
             batchSteps = this.getBatch();

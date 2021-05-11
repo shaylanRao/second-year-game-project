@@ -26,6 +26,12 @@ public class Car extends Sprite {
     private final double carHeight = getCarHeightWidth()[0];
     private final double carWidth = getCarHeightWidth()[1];
 
+    public float getDistanceTravelled() {
+        return distanceTravelled;
+    }
+
+    private float distanceTravelled = 0;
+
     public Raycaster getRaycaster() {
         return raycaster;
     }
@@ -40,31 +46,25 @@ public class Car extends Sprite {
 
 
 
-    public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
+    public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType, Point pos) {
         super(gameBackground, image, 0.8);
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-1.5);
         this.setSpeedConverter(0.09);
         this.assignAttributes(vehicleType);
         this.raycaster = new Raycaster(gameBackground, this);
-        System.out.println("made a new raycaster");
+        this.raycaster.setPos(pos);
+        this.raycaster.setRot(90);
         this.getImageView().setRotate(90);
     }
 
     public Car(Pane gameBackground, Settings.VehicleType vehicleType) {
-        this(gameBackground, generateCarImageView(vehicleType), vehicleType);
+        this(gameBackground, generateCarImageView(vehicleType), vehicleType, null);
     }
 
-    public Car(Pane gameBackground, Settings.VehicleType vehicleType, Raycaster raycaster) {
-        super(gameBackground, generateCarImageView(vehicleType), 0.8);
-        //reverse speed (HARD-CODED)
-        this.setMinimumSpeed(-1.5);
-        this.setSpeedConverter(0.09);
-        this.assignAttributes(vehicleType);
-        this.getImageView().setRotate(90);
-        setRaycaster(raycaster);
+    public Car(Pane gameBackground, Settings.VehicleType vehicleType, Point pos) {
+        this(gameBackground, generateCarImageView(vehicleType), vehicleType, pos);
     }
-
 
     protected static ImageView generateCarImageView(Settings.VehicleType vehicleType) {
         String imageName;
@@ -353,6 +353,7 @@ public class Car extends Sprite {
      * Calculates the change in coordinates of where the car moves and the angle of rotation
      */
     public void moveCarBy(double dy) {
+        distanceTravelled += Math.abs(dy);
         //System.out.println("inside moveCarBy");
         if (dy == 0) {
             return;
@@ -544,7 +545,7 @@ public class Car extends Sprite {
 
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
-        double diagLen = (Math.sqrt((Math.pow(this.carHeight, 2) + Math.pow(this.carWidth, 2))/4));
+        double diagLen = Math.sqrt(Math.pow(this.carHeight, 2) + Math.pow(this.carWidth, 2)) / 2;
 
         for (int i = 0; i < gateDistances.length; i++){
             //if diagonal has crashed or if forward or backwards have crashed
@@ -716,7 +717,7 @@ public class Car extends Sprite {
     }
 
     public void die() {
-        //System.out.println("car died");
+        System.out.println("car died");
         GameEnv.setCurrentReward(-100f);
         GameEnv.setCurrentTerminal(true);
         GameEnv.gameState = GameEnv.GAME_OVER;

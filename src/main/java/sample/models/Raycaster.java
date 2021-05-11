@@ -58,11 +58,12 @@ public class Raycaster {
         this.car = car;
         this.carHeight = car.getCarHeightWidth()[0];
         this.carWidth = car.getCarHeightWidth()[1];
-        //this.rectRot = 0;
     }
 
     public void setPos(Point pos) {
-        this.pos = pos;
+        if (pos != null) {
+            this.pos = pos;
+        }
     }
 
     public ArrayList<Rectangle> getRayRect() {
@@ -130,7 +131,6 @@ public class Raycaster {
             rayLines.clear();
         }
 
-
         int counter = 0;
         double[] distances = new double[8];
         //actually makes lines??
@@ -184,6 +184,11 @@ public class Raycaster {
 
         rayRect.add(rect1);
 
+    }
+
+    public void removeLines() {
+        pane.getChildren().removeAll(rayLines);
+        pane.getChildren().removeAll(rayRect);
     }
 
 
