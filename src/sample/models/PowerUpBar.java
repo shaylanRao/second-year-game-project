@@ -16,9 +16,9 @@ public class PowerUpBar
 	final double im1x2 = 80;
 	final double im1x3 = 130;
 	
-	final double im2x1 = 530;
-	final double im2x2 = 580;
-	final double im2x3 = 630;
+	final double im2x1 = 1680;
+	final double im2x2 = 1730;
+	final double im2x3 = 1780;
 	
 	final double y = 30;
 
