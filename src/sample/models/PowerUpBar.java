@@ -40,22 +40,30 @@ public class PowerUpBar
 		if (powerup instanceof BananaPowerup)
 		{
 			BananaBar banana = new BananaBar(gameBackground);
+			resize(banana);
 			banana.render(addPowerupsToCord(locationInBar, player), this.y);
 			this.powerupsImagesInBar.add(banana);
 		}
 		else if (powerup instanceof OilGhostPowerup)
 		{
 			OilGhostBar oil = new OilGhostBar(gameBackground);
+			resize(oil);
 			oil.render(addPowerupsToCord(locationInBar, player), this.y);
 			this.powerupsImagesInBar.add(oil);
 		}
 		else if (powerup instanceof SpeedboosterPowerup)
 		{
 			SpeedboosterBar speed = new SpeedboosterBar(gameBackground);
+			resize(speed);
 			speed.render(addPowerupsToCord(locationInBar, player), this.y);
 			this.powerupsImagesInBar.add(speed);
 		}
     }
+
+    private void resize(Sprite powerup){
+		powerup.getImage().setFitWidth(powerup.getImage().getBoundsInParent().getWidth()/0.6);
+		powerup.getImage().setFitHeight(powerup.getImage().getBoundsInParent().getHeight()/0.6);
+	}
 	
 	/**
      * Calculates the coordinate of the power-up to add to power-up bar.
