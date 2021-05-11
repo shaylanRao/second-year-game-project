@@ -64,6 +64,7 @@ public class GameManager{
         //Collision detection for each gate (track gates order, do logic (should be in order 1, 2, 3, 4, 1))
         //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
         timerRender();
+
         if (0 < gateDistances[7] && gateDistances[7] < 10) {
             gateStack.pop();
         }
@@ -141,7 +142,7 @@ public class GameManager{
 private int index = (int)result;
 
     public void timerRender(){
-        if (!(index >= result)) {
+            if (!(index >= result)) {
             int second1 = 0;//0XX
             int second2 = 0;//X0X
             int second3 = 0; //XX0
@@ -162,19 +163,21 @@ private int index = (int)result;
             if (timerbar != null) timerbar.deactivate();
             if (timerbar1 != null) timerbar1.deactivate();
             if (timerbar2 != null) timerbar2.deactivate();
-            timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
-            timerbar1 = new TimerBar(gameBackground, new ImageView(timer[second2]));
-            timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));
 
-            if (player.getCarNumber() ==1 ){
-            	timerbar.render(245, 80);
-                timerbar1.render(245 + 80, 80);
-                timerbar2.render(245 + 160, 80);
-            }
-            else {
-            	timerbar.render(1400, 80);
-                timerbar1.render(1400 + 80, 80);
-                timerbar2.render(1400 + 160, 80);
+            if(!this.finishedLaps()) {
+                timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
+                timerbar1 = new TimerBar(gameBackground, new ImageView(timer[second2]));
+                timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));
+
+                if (player.getCarNumber() == 1) {
+                    timerbar.render(245, 80);
+                    timerbar1.render(245 + 80, 80);
+                    timerbar2.render(245 + 160, 80);
+                } else {
+                    timerbar.render(1400, 80);
+                    timerbar1.render(1400 + 80, 80);
+                    timerbar2.render(1400 + 160, 80);
+                }
             }
         }
         index = (int) result;

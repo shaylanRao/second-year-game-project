@@ -721,15 +721,67 @@ public class Car extends Sprite {
 //        System.out.println("CAR 2 MAG " + carsMomentum[1][0]);
 //        System.out.println("________________");
 
-        double checkAng = (car1Angle + 90);
 
-        carsMomentum[0][0] =  carsMomentum[0][0] * Math.cos( Math.toRadians(carsMomentum[0][1] - car1Angle) );
-        System.out.println("");
-        System.out.println("CAR 1 ANGLE: " + (carsMomentum[0][1] - car1Angle));
+        double angDif = angleCorrection(carsMomentum[0][1] - car1Angle);
 
-        carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(carsMomentum[1][1] - car2Angle) );
-        System.out.println("CAR 2 ANGLE: " + (carsMomentum[1][1] - car2Angle));
+        if((carsMomentum[0][1] < car1Angle +90) && (carsMomentum[0][1] > car1Angle - 90)){
+            System.out.println("CASE 1");
+            carsMomentum[0][0] =  carsMomentum[0][0] * Math.cos( Math.toRadians(angDif) );
+        }
+        else if((carsMomentum[0][1]+360 < car1Angle +90) && (carsMomentum[0][1]+360 > car1Angle - 90)){
+            System.out.println("CASE 2");
+            carsMomentum[0][0] =  carsMomentum[0][0] * Math.cos( Math.toRadians(angDif) );
+        }
+        else if((carsMomentum[0][1]-360 < car1Angle +90) && (carsMomentum[0][1]-360 > car1Angle - 90)){
+            System.out.println("CASE 3");
+            carsMomentum[0][0] =  carsMomentum[0][0] * Math.cos( Math.toRadians(angDif) );
+        }
+        else{
+            if (car1Angle > 0 && car2Angle < 90){
+                System.out.println("CASE 4 other");
+                carsMomentum[0][0] =  -carsMomentum[0][0] * Math.cos( Math.toRadians(angDif) );
+            }
+            else{
+                carsMomentum[0][0] =  carsMomentum[0][0] * Math.cos( Math.toRadians(angDif) );
+                System.out.println("CASE 4");
+            }
+        }
+
+
+        angDif = angleCorrection(carsMomentum[1][1] - car2Angle);
+
+        if((carsMomentum[1][1] < car2Angle +90) && (carsMomentum[1][1] > car2Angle - 90)){
+            if (car2Angle > 0 && car2Angle < 90){
+                System.out.println("CASE 1 other");
+                carsMomentum[1][0] =  -carsMomentum[1][0] * Math.cos( Math.toRadians(angDif) );
+            }
+            else{
+                carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(angDif) );
+                System.out.println("CASE 1");
+            }
+        }
+        else if((carsMomentum[1][1]+360 < car2Angle +90) && (carsMomentum[1][1]+360 > car2Angle - 90)){
+            System.out.println("CASE 2");
+            carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(angDif) );
+        }
+        else if((carsMomentum[1][1]-360 < car2Angle +90) && (carsMomentum[1][1]-360 > car2Angle - 90)){
+            System.out.println("CASE 3");
+            carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(angDif) );
+        }
+        else{
+            System.out.println("CASE 4");
+            carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(angDif) );
+        }
+
         System.out.println("");
+
+//        carsMomentum[0][0] =  carsMomentum[0][0] * Math.cos( Math.toRadians(carsMomentum[0][1] - car1Angle) );
+//        System.out.println("");
+//        System.out.println("CAR 1 ANGLE: " + (carsMomentum[0][1] - car1Angle));
+//
+//        carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(carsMomentum[1][1] - car2Angle) );
+//        System.out.println("CAR 2 ANGLE: " + (carsMomentum[1][1] - car2Angle));
+//        System.out.println("");
 
 
 
