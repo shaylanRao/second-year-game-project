@@ -115,6 +115,7 @@ public class Raycaster {
             if (closest != null) {
                 if (showLines) {
                     Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
+                    line.setStroke(Color.TRANSPARENT);
                     rayLines.add(line);
                 }
 
@@ -149,7 +150,7 @@ public class Raycaster {
         final Rectangle rect1 = new Rectangle(playercar.getImage().getLayoutX(), playercar.getImage().getLayoutY(), carHeight, carWidth);
         rect1.setRotate(rectRot);
         rect1.setFill(Color.TRANSPARENT);
-        rect1.setStroke(Color.BLUEVIOLET);
+        rect1.setStroke(Color.TRANSPARENT);
 
         rayRect.add(rect1);
 
