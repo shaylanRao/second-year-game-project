@@ -499,15 +499,14 @@ public class Game
 					if (player.isActivatedPowerup()) {
 						if (!player.getPowerups().isEmpty()) {
 							if ((player.getPickedUpPwrtime() + 2000) < System.currentTimeMillis()) {
-								/*if (playerCar.powerups.getFirst() instanceof SpeedboosterPowerup) {
-									speedb = true;
-									playerCar.powerups.pop();
+								if (player.getPowerups().getFirst() instanceof SpeedboosterPowerup) {
+									speedBoost = true;
+									playerCar.getPowerups().pop();
 									playerCar.powerUpBar.removeFirstPowerup(playerCar.playerNumber);
 									playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 								} else {
-								}*/
-								checkPowerupNotNull(player.usePowerup());
-
+									checkPowerupNotNull(player.usePowerup());
+								}
 							}
 						}
 					}

@@ -96,13 +96,13 @@ public class Car extends Sprite {
             powerUpBar.removeFirstPowerup(playerNumber);
             setPickedUpPwrtime(System.currentTimeMillis());
             return drop;
-        } else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
+        } /*else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
             movementPowerup("speedBoost");
             powerups.pop();
             powerUpBar.removeFirstPowerup(playerNumber);
             setPickedUpPwrtime(System.currentTimeMillis());
             return null;
-        }
+        }*/
         //had to return something, but it shouldn't get this far
         return powerups.getFirst();
     }
