@@ -124,6 +124,7 @@ public class Game {
 
     public void resetAICar() {
 		//System.out.println("time: " + gameManager.getTimeElapsed());
+		System.out.println("car reset");
 		pane.getChildren().remove(aiCar.getImageView());
 		aiCar.getRaycaster().removeLines();
 		startXY = getCar1SpawnPoint(Main.track.getFinishLine());
@@ -267,8 +268,12 @@ public class Game {
 
 
         lapSystem();
+		if (!aiCar.isDead()) {
+			GameEnv.setCurrentReward((float) ((80000/gameManager.getDistanceToNextGate(aiCar)) - Math.pow(0.01*gameManager.getTimeElapsed(), 1.01)));
+		}
 
-		GameEnv.setCurrentReward(0.1f*aiCar.getDistanceTravelled() - 0.01f*gameManager.getTimeElapsed());
+		//System.out.println(80000/gameManager.getDistanceToNextGate(aiCar) + " " + Math.pow(0.01*gameManager.getTimeElapsed(), 1.01));
+		//System.out.println(gameManager.getDistanceToNextGate(aiCar));
     }
 
     public synchronized void gameLoop() throws InterruptedException {
@@ -415,6 +420,8 @@ public class Game {
 		double forwardVelocity;
 		if (player.wallCollision(rcDistances)) {
 			if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
+				//reset time because episode is over when car crashes
+				gameManager.resetMillis();
 				player.die();
 			}
 			double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];

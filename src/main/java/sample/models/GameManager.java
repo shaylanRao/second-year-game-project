@@ -3,6 +3,7 @@ package sample.models;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import sample.Main;
 import sample.ai.GameEnv;
 
@@ -11,7 +12,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameManager {
-    final int[] millisecondsPassed = {0};
+    public void resetMillis() {
+        this.millisecondsPassed[0] = 0;
+    }
+
+    private int[] millisecondsPassed = {0};
 
     public int getTimeElapsed() {
         return millisecondsPassed[0] - gateTime;
@@ -43,6 +48,19 @@ public class GameManager {
 
     public int getNextGate() {
         return gateStack.peek();
+    }
+
+    public float getDistanceToNextGate(Car car) {
+        Line nextGate = Main.track.getGates()[getNextGate()];
+        double x1 = nextGate.getStartX();
+        double y1 = nextGate.getStartY();
+        double x2 = nextGate.getEndX();
+        double y2 = nextGate.getEndY();
+
+        Point midpoint = new Point((x1+x2)/2, (y1+y2)/2);
+        Point carPos = new Point(car.getImageView().getLayoutX(), car.getImageView().getLayoutY());
+        double distance = Point.distance(carPos, midpoint);
+        return (float) distance;
     }
 
 

@@ -51,7 +51,8 @@ public class GameEnv implements RlEnv {
     private static final int[] MOVE_LEFT = {0, 1, 0, 0, 0};
     private static final int[] MOVE_RIGHT = {0, 0, 1, 0, 0};
     private static final int[] MOVE_UP = {0, 0, 0, 1, 0};
-    private static final int[] MOVE_DOWN = {0, 0, 0, 0, 1};
+    private static final int[] MOVE_DOWN = {0, 0, 0, 1, 0};
+    //private static final int[] MOVE_DOWN = {0, 0, 0, 0, 1};
     
     public GameEnv(NDManager manager, int batchSize, int replayBufferSize, Game game) {
         this.manager = manager;

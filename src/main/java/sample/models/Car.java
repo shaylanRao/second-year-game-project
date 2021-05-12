@@ -716,9 +716,21 @@ public class Car extends Sprite {
         this.setGoingBackward(false);
     }
 
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
+    private boolean dead = false;
+
+
     public void die() {
-        System.out.println("car died");
-        GameEnv.setCurrentReward(-100f);
+        dead = true;
+        GameEnv.setCurrentReward(-700f);
+        //System.out.println("car died");
         GameEnv.setCurrentTerminal(true);
         GameEnv.gameState = GameEnv.GAME_OVER;
     }
