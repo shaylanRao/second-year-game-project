@@ -38,7 +38,7 @@ public class TrainCar {
 
     public static final int OBSERVE = 1000;
     private static final float REWARD_DISCOUNT = 0.9f;
-    public static final float INITIAL_EPSILON = 0.01f;
+    public static final float INITIAL_EPSILON = 0.05f;
     public static final float FINAL_EPSILON = 0.0001f;
     public static final int EXPLORE = 3000000;
     public static final int SAVE_EVERY_STEPS = 100000;
