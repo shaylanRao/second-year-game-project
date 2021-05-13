@@ -47,11 +47,10 @@ public class GameEnv implements RlEnv {
 
     private static float currentReward = 0.2f;
     
-    private static final int[] DO_NOTHING = {1, 0, 0, 0, 0};
-    private static final int[] MOVE_LEFT = {0, 1, 0, 0, 0};
-    private static final int[] MOVE_RIGHT = {0, 0, 1, 0, 0};
-    private static final int[] MOVE_UP = {0, 0, 0, 1, 0};
-    private static final int[] MOVE_DOWN = {0, 0, 0, 1, 0};
+    private static final int[] DO_NOTHING = {1, 0, 0, 0};
+    private static final int[] MOVE_LEFT = {0, 1, 0, 0};
+    private static final int[] MOVE_RIGHT = {0, 0, 1, 0};
+    private static final int[] MOVE_UP = {0, 0, 0, 1};
     //private static final int[] MOVE_DOWN = {0, 0, 0, 0, 1};
     
     public GameEnv(NDManager manager, int batchSize, int replayBufferSize, Game game) {
@@ -62,15 +61,13 @@ public class GameEnv implements RlEnv {
         actionSpace = new ActionSpace();
         actionSpace.add(new NDList(manager.create(DO_NOTHING)));
         actionSpace.add(new NDList(manager.create(MOVE_UP)));
-        actionSpace.add(new NDList(manager.create(MOVE_DOWN)));
+        //actionSpace.add(new NDList(manager.create(MOVE_DOWN)));
         actionSpace.add(new NDList(manager.create(MOVE_LEFT)));
         actionSpace.add(new NDList(manager.create(MOVE_RIGHT)));
 
         currentObservation = createObservation();
     }
 
-    private final Queue<NDArray> obvQueue = new ArrayDeque<>(4);
-    
     private NDList createObservation() {
         NDArray observation = manager.create(new Shape(8), DataType.FLOAT32);
         float[] floatDistances = new float[8];
@@ -81,28 +78,6 @@ public class GameEnv implements RlEnv {
         //System.out.println(Arrays.toString(floatDistances));
         observation.set(floatDistances);
         return new NDList(observation);
-        /*
-        float[] floatDistances = new float[8];
-        for (int i=0; i<floatDistances.length; i++) {
-            floatDistances[i] = (float) game.getDistances()[i];
-        }
-        observation.set(floatDistances);
-        if (obvQueue.isEmpty()) {
-            for (int i=0; i<4; i++) {
-                obvQueue.offer(observation);
-            }
-            return new NDList(NDArrays.stack(new NDList(observation, observation, observation, observation), 1));
-        } else {
-            obvQueue.remove();
-            obvQueue.offer(observation);
-            NDArray[] buf = new NDArray[4];
-            int i = 0;
-            for (NDArray nd : obvQueue) {
-                buf[i++] = nd;
-            }
-            return new NDList(NDArrays.stack(new NDList(buf[0], buf[1], buf[2], buf[3]), 1));
-        }
-         */
     }
 
     @Override
@@ -140,11 +115,11 @@ public class GameEnv implements RlEnv {
             game.getAiCar().setGoingForward(true);
             game.getAiCar().setAccelerate(true);
            // System.out.println("move up");
-        } else if (Arrays.equals(actionArr, MOVE_DOWN)) {
-            //move down
-            game.getAiCar().clearMovement();
-            game.getAiCar().setGoingBackward(true);
-            //System.out.println("move down");
+//        } else if (Arrays.equals(actionArr, MOVE_DOWN)) {
+//            //move down
+//            game.getAiCar().clearMovement();
+//            game.getAiCar().setGoingBackward(true);
+//            //System.out.println("move down");
         } else if (Arrays.equals(actionArr, MOVE_LEFT)) {
             //move left
             game.getAiCar().clearMovement();

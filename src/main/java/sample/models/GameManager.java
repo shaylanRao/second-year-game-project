@@ -12,6 +12,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameManager {
+    public boolean isGateCrossed() {
+        return gateCrossed;
+    }
+
+    public void setGateCrossed(boolean gateCrossed) {
+        this.gateCrossed = gateCrossed;
+    }
+
+    private boolean gateCrossed;
+
     public void resetMillis() {
         this.millisecondsPassed[0] = 0;
     }
@@ -69,9 +79,11 @@ public class GameManager {
         //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
         if (0 < gateDistances[7] && gateDistances[7] < 10) {
             //gate was crossed
+            gateCrossed = true;
             gateTime = millisecondsPassed[0];
             //reward for crossing the gate
-            GameEnv.setCurrentReward(50f);
+            //todo maybe only do this if in ai mode
+            GameEnv.setCurrentReward(1000f);
             gateStack.pop();
 
         }
@@ -118,12 +130,18 @@ public class GameManager {
     }
 
 
-    private void resetGateStack() {
+    public void resetGateStack() {
+        gateStack.clear();
         gateStack.push(0);
+        gateStack.push(7);
+        gateStack.push(6);
+        gateStack.push(5);
+        gateStack.push(4);
         gateStack.push(3);
         gateStack.push(2);
         gateStack.push(1);
-        gateStack.push(0);
+        //todo do something about this as it will affect the main game
+        //gateStack.push(0);
     }
 
     Image lapWord = new Image("file:src/sample/resources/images/LapCounter/lap.png");

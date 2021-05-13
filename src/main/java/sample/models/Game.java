@@ -41,6 +41,7 @@ public class Game {
 	private boolean raceStart = false;
 
 	private AnimationTimer timer;
+	private float baseReward;
 
 	public AnimationTimer getTimer() {
 		return timer;
@@ -94,10 +95,12 @@ public class Game {
     	this.pane = pane;
         gameManager = new GameManager(pane);
         switch (Main.settings.getPlayMode()) {
-            case AI_TRAIN:
+			case AI_TRAIN:
                 System.out.println("ai train mode");
-				startXY = getCar1SpawnPoint(Main.track.getFinishLine());
 				aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
+				car1Height= aiCar.getCarHeightWidth()[0];
+				car1Width = aiCar.getCarHeightWidth()[1];
+				startXY = getCar1SpawnPoint(Main.track.getFinishLine());
 				aiCar.render(startXY[0], startXY[1]);
 				aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
 				distances = new double[8];
@@ -131,6 +134,8 @@ public class Game {
 		aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
 		aiCar.render(startXY[0], startXY[1]);
 		aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
+		//calculate baseReward at the start
+		baseReward = calculateReward(0);
 	}
 
 	private void initialiser()
@@ -183,7 +188,8 @@ public class Game {
 		double[] xyValues = new double[2];
 		double distance = (finishLine.getStartX()) - (finishLine.getEndX());
 		xyValues[0] = finishLine.getEndX() + (distance/3) - (car1Width/2);
-		xyValues[1]= finishLine.getStartY() + (car1Height);
+		//xyValues[1]= finishLine.getStartY() + (car1Height);
+		xyValues[1]= finishLine.getStartY() - ((car1Height/2)-5);
 		return xyValues;
 	}
 
@@ -268,14 +274,26 @@ public class Game {
 
 
         lapSystem();
-		if (!aiCar.isDead()) {
+        //we don't handle reward for the car dying or crossing the gate here
+
+		if (!aiCar.isDead() || !gameManager.isGateCrossed()) {
 			//GameEnv.setCurrentReward((float) ((80000/gameManager.getDistanceToNextGate(aiCar)) - Math.pow(0.01*gameManager.getTimeElapsed(), 1.01)));
-			GameEnv.setCurrentReward(100000/gameManager.getDistanceToNextGate(aiCar));
+			GameEnv.setCurrentReward(calculateReward(0));
+		} else if (gameManager.isGateCrossed()) {
+			//set baseReward when we cross the gate
+			//this means reward should start from zero after gate and go up as car moves forwards
+//			float tempReward = calculateReward(0);
+//			baseReward = tempReward;
+			gameManager.setGateCrossed(false);
 		}
 
 		//System.out.println(80000/gameManager.getDistanceToNextGate(aiCar) + " " + Math.pow(0.01*gameManager.getTimeElapsed(), 1.01));
 		//System.out.println(gameManager.getDistanceToNextGate(aiCar));
     }
+
+    private float calculateReward(float offset) {
+    	return (float) (80000/gameManager.getDistanceToNextGate(aiCar)) - offset;
+	}
 
     public synchronized void gameLoop() throws InterruptedException {
         this.initialiser();
@@ -423,6 +441,7 @@ public class Game {
 			if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
 				//reset time because episode is over when car crashes
 				gameManager.resetMillis();
+				gameManager.resetGateStack();
 				player.die();
 			}
 			double sumBackwards = rcDistances[0] + rcDistances[1] + rcDistances[2];
@@ -554,12 +573,12 @@ public class Game {
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
-					distances = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
+					distances = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
 
 				} else {
-					distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
+					distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
 					if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-						distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), true);
+						distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), false);
 					}
 				}
 			}
@@ -568,7 +587,7 @@ public class Game {
 				//Gets ray cast for next gate
 				double[] gateDistances;
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
-					gateDistances = aiCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
+					gateDistances = aiCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), true);
 				} else {
 					gateDistances = playerCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
 				}

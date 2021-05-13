@@ -43,7 +43,7 @@ public class TrainCar {
     public static final int EXPLORE = 3000000;
     public static final int SAVE_EVERY_STEPS = 100000;
     private static final long INPUT_SIZE = 8;
-    private static final long OUTPUT_SIZE = 5;
+    private static final long OUTPUT_SIZE = 4;
     private static final int REPLAY_BUFFER_SIZE = 50000;
     private static GameEnv gameEnv;
 
@@ -69,9 +69,9 @@ public class TrainCar {
         return new Mlp((int) INPUT_SIZE, (int) OUTPUT_SIZE, new int[]{7});
         /*
         this creates a network with the following structure:
-            input layer: 8*4 = 32 neurons
-            1 hidden layer of 24 neurons (relu activation function)
-            output layer: 5 neurons
+            input layer: 8 neurons
+            1 hidden layer of 7 neurons (relu activation function)
+            output layer: 4 neurons
         */
     }
 
