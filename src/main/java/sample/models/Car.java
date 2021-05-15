@@ -729,7 +729,7 @@ public class Car extends Sprite {
 
     public void die() {
         dead = true;
-        GameEnv.setCurrentReward(-1000f);
+        GameEnv.setCurrentReward(-1f);
         //System.out.println("car died");
         GameEnv.setCurrentTerminal(true);
         GameEnv.gameState = GameEnv.GAME_OVER;

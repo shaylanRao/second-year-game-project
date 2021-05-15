@@ -10,6 +10,7 @@ import ai.djl.ndarray.NDList;
 import ai.djl.ndarray.NDManager;
 import sample.ai.imported.RlEnv;
 import sample.models.Game;
+import sample.utilities.Mapper;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -45,7 +46,7 @@ public class GameEnv implements RlEnv {
         GameEnv.currentTerminal = currentTerminal;
     }
 
-    private static float currentReward = 0.2f;
+    private static float currentReward = 0f;
     
     private static final int[] DO_NOTHING = {1, 0, 0, 0};
     private static final int[] MOVE_LEFT = {0, 1, 0, 0};
@@ -69,20 +70,32 @@ public class GameEnv implements RlEnv {
     }
 
     private NDList createObservation() {
-        NDArray observation = manager.create(new Shape(8), DataType.FLOAT32);
-        float[] floatDistances = new float[8];
+        NDArray observation = manager.create(new Shape(3), DataType.FLOAT32);
+        float[] floatDistances = new float[3];
+        float max = Float.MIN_VALUE;
+        float min = Float.MAX_VALUE;
         for (int i=0; i<floatDistances.length; i++) {
             floatDistances[i] = (float) game.getDistances()[i];
+            if (game.getDistances()[i] > max) {
+                max = (float) game.getDistances()[i];
+            }
+            if (game.getDistances()[i] < min) {
+                min = (float) game.getDistances()[i];
+            }
         }
-        //System.out.println("Raycaster pos: " + game.getAiCar().getRaycaster().pos.getX() + "\t" + game.getAiCar().getRaycaster().pos.getY());
-        //System.out.println(Arrays.toString(floatDistances));
+
+        for (int i=0; i<floatDistances.length; i++) {
+            floatDistances[i] = Mapper.map(floatDistances[i], min, max, 0, 1);
+        }
+
         observation.set(floatDistances);
+        System.out.println(observation);
         return new NDList(observation);
     }
 
     @Override
     public void reset() {
-        currentReward = 0.2f;
+        //currentReward = 0.2f;
         currentTerminal = false;
     }
 

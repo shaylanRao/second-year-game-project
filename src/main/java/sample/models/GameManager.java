@@ -83,7 +83,7 @@ public class GameManager {
             gateTime = millisecondsPassed[0];
             //reward for crossing the gate
             //todo maybe only do this if in ai mode
-            GameEnv.setCurrentReward(1000f);
+            //GameEnv.setCurrentReward(1000f);
             gateStack.pop();
 
         }

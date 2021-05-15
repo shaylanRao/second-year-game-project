@@ -22,19 +22,13 @@ import sample.models.Game;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
+
 import ai.djl.basicmodelzoo.basic.Mlp;
 
+/**
+ * This class is in charge of training the car
+ */
 public class TrainCar {
-
-    // not going to render while training
-        //replace image coords with a double or something
-    //reward function
-        //inverse of distance to next gate minus time taken (along those lines)
-
-
 
     public static final int OBSERVE = 1000;
     private static final float REWARD_DISCOUNT = 0.9f;
@@ -42,7 +36,7 @@ public class TrainCar {
     public static final float FINAL_EPSILON = 0.0001f;
     public static final int EXPLORE = 3000000;
     public static final int SAVE_EVERY_STEPS = 100000;
-    private static final long INPUT_SIZE = 8;
+    private static final long INPUT_SIZE = 3;
     private static final long OUTPUT_SIZE = 4;
     private static final int REPLAY_BUFFER_SIZE = 50000;
     private static GameEnv gameEnv;
@@ -57,15 +51,21 @@ public class TrainCar {
 
     static RlEnv.Step[] batchSteps;
 
-    private static Model createOrLoadModel() {
+    /**
+     * Initialises the model.
+     * @return the model
+     */
+    private static Model createModel() {
         Model model = Model.newInstance("QNetwork");
         model.setBlock(getBlock());
         return model;
     }
 
+    /**
+     * Defines the network structure.
+     * @return The network structure
+     */
     private static SequentialBlock getBlock() {
-        //for now, using this architecture under the assumption that the input is 8x4 - the last 4 frames
-        //it may be the case that we change the input size to be 8 in the future
         return new Mlp((int) INPUT_SIZE, (int) OUTPUT_SIZE, new int[]{7});
         /*
         this creates a network with the following structure:
@@ -77,17 +77,21 @@ public class TrainCar {
 
     public static void main (String[] args) {
         //TODO find right batch size
-        train(100);
+        //train(10);
     }
 
+    /**
+     * Used to start the training process
+     * @param batchSize the batch size to use when training the model
+     */
     public static void train(int batchSize) {
         GameEnv gameEnv = new GameEnv(NDManager.newBaseManager(), batchSize, REPLAY_BUFFER_SIZE, game);
-        Model model = createOrLoadModel();
+        Model model = createModel();
         boolean training = true;
         DefaultTrainingConfig config = setupTrainingConfig();
 
         try (Trainer trainer = model.newTrainer(config)) {
-            trainer.initialize(new Shape(batchSize, 8));
+            trainer.initialize(new Shape(batchSize, INPUT_SIZE));
             trainer.notifyListeners(listener -> listener.onTrainingBegin(trainer));
 
             RlAgent agent = new QAgent(trainer, REWARD_DISCOUNT);

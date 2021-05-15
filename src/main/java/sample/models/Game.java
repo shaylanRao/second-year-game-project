@@ -134,8 +134,6 @@ public class Game {
 		aiCar = new Car(pane, Settings.VehicleType.VEHICLE1);
 		aiCar.render(startXY[0], startXY[1]);
 		aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
-		//calculate baseReward at the start
-		baseReward = calculateReward(0);
 	}
 
 	private void initialiser()
@@ -276,23 +274,15 @@ public class Game {
         lapSystem();
         //we don't handle reward for the car dying or crossing the gate here
 
-		if (!aiCar.isDead() || !gameManager.isGateCrossed()) {
+		if (!aiCar.isDead()) {
 			//GameEnv.setCurrentReward((float) ((80000/gameManager.getDistanceToNextGate(aiCar)) - Math.pow(0.01*gameManager.getTimeElapsed(), 1.01)));
-			GameEnv.setCurrentReward(calculateReward(0));
-		} else if (gameManager.isGateCrossed()) {
-			//set baseReward when we cross the gate
-			//this means reward should start from zero after gate and go up as car moves forwards
-//			float tempReward = calculateReward(0);
-//			baseReward = tempReward;
-			gameManager.setGateCrossed(false);
+			GameEnv.setCurrentReward(calculateReward());
 		}
-
-		//System.out.println(80000/gameManager.getDistanceToNextGate(aiCar) + " " + Math.pow(0.01*gameManager.getTimeElapsed(), 1.01));
-		//System.out.println(gameManager.getDistanceToNextGate(aiCar));
     }
 
-    private float calculateReward(float offset) {
-    	return (float) (80000/gameManager.getDistanceToNextGate(aiCar)) - offset;
+    private float calculateReward() {
+    	//return inverse of distance to next gate plus 1000 * the last gate so that reward keeps going up as car goes through gates
+    	return (float) (1/gameManager.getDistanceToNextGate(aiCar)) + (gameManager.getNextGate()-1);
 	}
 
     public synchronized void gameLoop() throws InterruptedException {
