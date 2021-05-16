@@ -42,7 +42,9 @@ public class EpsilonGreedy implements RlAgent {
      */
     @Override
     public NDList chooseAction(RlEnv env, boolean training) {
-        if (training && RandomUtils.random() < exploreRate.getNewValue(counter++)) {
+        float epsilon = exploreRate.getNewValue(counter++);
+        if (training && RandomUtils.random() < epsilon) {
+            logger.info("epsilon: " + epsilon);
             logger.info("***********RANDOM ACTION***********");
             return env.getActionSpace().randomAction();
         } else return baseAgent.chooseAction(env, training);

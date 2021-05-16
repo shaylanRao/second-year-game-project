@@ -62,9 +62,11 @@ public class GameEnv implements RlEnv {
         actionSpace = new ActionSpace();
         actionSpace.add(new NDList(manager.create(DO_NOTHING)));
         actionSpace.add(new NDList(manager.create(MOVE_UP)));
-        //actionSpace.add(new NDList(manager.create(MOVE_DOWN)));
         actionSpace.add(new NDList(manager.create(MOVE_LEFT)));
         actionSpace.add(new NDList(manager.create(MOVE_RIGHT)));
+        //actionSpace.add(new NDList(manager.create(MOVE_DOWN)));
+
+
 
         currentObservation = createObservation();
     }

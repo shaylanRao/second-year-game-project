@@ -111,6 +111,7 @@ public class QAgent implements RlAgent {
             NDList targetQ = new NDList(NDArrays.stack(targetQBatch, 0));
 
             NDArray lossValue = trainer.getLoss().evaluate(targetQ, Q);
+            logger.info(lossValue.toString());
             collector.backward(lossValue);
             batchData.getLabels().put(targetQ.singletonOrThrow().getDevice(), targetQ);
             batchData.getPredictions().put(Q.singletonOrThrow().getDevice(), Q);
