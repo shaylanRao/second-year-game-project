@@ -1,0 +1,113 @@
+.label {
+    -fx-font-size:80px;
+}
+
+.label_name{
+    -fx-min-width: 100px;
+    -fx-font-size:40px;
+    -fx-background-color:#aaaaaa;
+    -fx-border-width: 2px;
+    -fx-border-color: #222222;
+}
+.label_laps{
+    -fx-min-width: 100px;
+    -fx-font-size:40px;
+    -fx-background-color:#727272;
+    -fx-border-width: 2px;
+    -fx-border-color: #222222;
+}
+.label_time{
+
+    -fx-min-width: 100px;
+    -fx-font-size:40px;
+    -fx-background-color:#aaaaaa;
+    -fx-border-width: 2px;
+    -fx-border-color: #222222;
+}
+
+.data_name{
+    -fx-min-width: 100px;
+    -fx-font-size:40px;
+    -fx-background-color:#aaaaaa;
+}
+.data_laps{
+    -fx-min-width: 100px;
+    -fx-font-size:40px;
+    -fx-background-color:#aaaaaa;
+}
+.data_time{
+    -fx-min-width: 100px;
+    -fx-font-size:40px;
+    -fx-background-color:#aaaaaa;
+}
+
+
+.root {
+    -fx-background-color:#10B0E8;
+    -fx-font-family:"VT323";
+}
+
+#image {
+    -fx-background-size: 640px 360px;
+}
+
+.label-2{
+    -fx-font-size:30px;
+}
+
+.label-3 {
+    -fx-font-size:20px;
+}
+
+.button {
+    -fx-spacing:100;
+    -fx-background-radius:0px;
+    -fx-margin-left:20;
+    -fx-pref-width:250;
+    -fx-pref-height:70;
+    -fx-font-size:50px;
+    -fx-margin:20;
+    -fx-border-width:10;
+    -fx-padding:5 10 5 10;
+    -fx-background-color:#FFFA00;
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
+}
+
+.button:hover {
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -20, 10);
+}
+
+.card {
+    -fx-spacing:100;
+    -fx-background-radius:0px;
+    -fx-margin-left:20;
+    -fx-pref-width:400;
+    -fx-pref-height:400;
+    -fx-font-size:50px;
+    -fx-margin:20;
+    -fx-border-width:10;
+    -fx-padding:5 10 5 10;
+    -fx-background-color:#FFFA00;
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -10, 10);
+}
+
+.card:hover{
+    -fx-effect: dropshadow(two-pass-box, black, 0, 0, -20, 10);
+}
+
+.slider {
+    -fx-control-inner-background: grey;
+    -fx-background: grey;
+    -fx-background-radius:0px;
+}
+
+.slider .thumb {
+    -fx-background-color: #000000;
+    -fx-background-radius:0px;
+}
+
+.backgroundImage {
+    -fx-background-image: url("../images/racingtrack.png");
+    -fx-background-size: 1280, 720;
+    -fx-background-repeat: no-repeat;
+}

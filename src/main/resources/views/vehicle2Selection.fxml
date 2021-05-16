@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ui.Vehicle2Selection">
+    <stylesheets>
+        <URL value="@../stylesheets/stylesheet.css" />
+    </stylesheets>
+    <top>
+        <Label styleClass="label" text="Choose a vehicle for Player2">
+            <BorderPane.margin>
+                <Insets left="650.0" top="60" />
+            </BorderPane.margin></Label>
+    </top>
+
+
+    <center>
+        <HBox alignment="CENTER">
+            <Button onAction="#carOneSelected" styleClass="car1" text="Car 1">
+                <HBox.margin>
+                    <Insets left="20.0" top="40.0" />
+                </HBox.margin></Button>
+            <Button onAction="#carTwoSelected" styleClass="car2" text="Car 2">
+                <HBox.margin>
+                    <Insets left="20.0" top="40.0" />
+                </HBox.margin></Button>
+            <Button onAction="#carThreeSelected" styleClass="car3" text="Car 3">
+                <HBox.margin>
+                    <Insets left="20.0" top="40.0" />
+                </HBox.margin></Button>
+        </HBox>
+    </center>
+
+
+
+    <bottom>
+        <HBox alignment="CENTER">
+            <Button onAction="#backButtonClicked" styleClass="button" text="BACK">
+                <HBox.margin>
+                    <Insets left="30.0" bottom="100.0" />
+                </HBox.margin></Button>
+            <Button visible="false" fx:id="playButton" onAction="#nextButtonClicked" styleClass="button" text="PLAY">
+                <HBox.margin>
+                    <Insets bottom="100.0" left="720.0" />
+                </HBox.margin></Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>
+
