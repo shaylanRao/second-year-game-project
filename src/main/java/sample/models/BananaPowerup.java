@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import sample.Main;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class BananaPowerup extends Powerup {
 
@@ -15,7 +17,7 @@ public class BananaPowerup extends Powerup {
 
     private static ImageView generateBananaImageView() {
         try {
-            FileInputStream bananaImageFile = new FileInputStream("src/sample/resources/images/banana.png");
+            InputStream bananaImageFile = Main.class.getResourceAsStream("/images/banana.png");
             Image bananaImage = new Image(bananaImageFile);
             return new ImageView(bananaImage);
         } catch (Exception ex) {

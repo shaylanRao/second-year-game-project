@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import sample.Main;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,15 +25,15 @@ public class PlayerCar extends Car {
         String imageName;
         try {
             if(vehicleType.equals(Settings.VehicleType.VEHICLE1)){
-                imageName = "src/sample/resources/images/original_car.png";
+                imageName = "/images/original_car.png";
             }
             else if (vehicleType.equals(Settings.VehicleType.VEHICLE2)){
-                imageName = "src/sample/resources/images/vehicleTwo.png";
+                imageName = "/images/vehicleTwo.png";
             }
             else{
-                imageName = "src/sample/resources/images/vehicleThree.png";
+                imageName = "/images/vehicleThree.png";
             }
-            FileInputStream carImageFile = new FileInputStream(imageName);
+            InputStream carImageFile = Main.class.getResourceAsStream(imageName);
             Image carImage = new Image(carImageFile);
             return new ImageView(carImage);
         } catch (Exception ex) {

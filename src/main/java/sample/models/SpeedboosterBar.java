@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import sample.Main;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class SpeedboosterBar extends Powerup {
 
@@ -15,7 +17,7 @@ public class SpeedboosterBar extends Powerup {
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream speedImageFile = new FileInputStream("src/sample/resources/images/powerupSpeedboosterBar.png");
+            InputStream speedImageFile = Main.class.getResourceAsStream("/images/powerupSpeedboosterBar.png");
             Image speedImage = new Image(speedImageFile);
             return new ImageView(speedImage);
         } catch (Exception ex) {

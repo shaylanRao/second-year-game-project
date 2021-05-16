@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import sample.Main;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class OilGhostPowerup extends Powerup {
 
@@ -15,7 +17,7 @@ public class OilGhostPowerup extends Powerup {
 
     private static ImageView generateImageView() {
         try {
-            FileInputStream oilImageFile = new FileInputStream("src/sample/resources/images/oilghost.png");
+            InputStream oilImageFile = Main.class.getResourceAsStream("/images/oilghost.png");
             Image oilImage = new Image(oilImageFile);
             return new ImageView(oilImage);
         } catch (Exception ex) {
