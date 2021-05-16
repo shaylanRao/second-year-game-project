@@ -276,8 +276,8 @@ public class Game {
 
 		if (!aiCar.isDead()) {
 			//GameEnv.setCurrentReward((float) ((80000/gameManager.getDistanceToNextGate(aiCar)) - Math.pow(0.01*gameManager.getTimeElapsed(), 1.01)));
-			//GameEnv.setCurrentReward(calculateReward());
-			GameEnv.setCurrentReward(1);
+			GameEnv.setCurrentReward(calculateReward());
+			//GameEnv.setCurrentReward(1);
 		}
     }
 

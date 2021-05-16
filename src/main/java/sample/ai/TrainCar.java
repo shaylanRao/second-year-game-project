@@ -34,7 +34,7 @@ public class TrainCar {
     private static final float REWARD_DISCOUNT = 0.9f;
     public static final float INITIAL_EPSILON = 0.5f;
     public static final float FINAL_EPSILON = 0.01f;
-    public static final int EXPLORE = 500000;
+    public static final int EXPLORE = 100000;
     public static final int SAVE_EVERY_STEPS = 100000;
     private static final long INPUT_SIZE = 3;
     private static final long OUTPUT_SIZE = 4;
