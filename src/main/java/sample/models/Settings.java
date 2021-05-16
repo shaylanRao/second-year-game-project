@@ -39,6 +39,37 @@ public class Settings {
     private boolean colorBlind = false;
     private Difficulty difficulty = Difficulty.MEDIUM;
 
+    public int getWiggleFactor() {
+        return wiggleFactor;
+    }
+
+    public void setWiggleFactor(int wiggleFactor) {
+        if (wiggleFactor >= 0 && wiggleFactor <= 100) {
+            this.wiggleFactor = wiggleFactor;
+        } else {
+            System.out.println("Wiggle factor out of range. Must be between 0 and 100.");
+        }
+    }
+
+    //goes from 0 to 100
+    private int wiggleFactor = 10;
+
+    public int getTrackWidth() {
+        return trackWidth;
+    }
+
+    public void setTrackWidth(int trackWidth) {
+        if (trackWidth >= 100 && trackWidth <= 500) {
+            this.trackWidth = trackWidth;
+        } else {
+            System.out.println("Track width out of range. Must be between 100 and 500.");
+        }
+
+    }
+
+    //goes from 100 to 500
+    private int trackWidth = 220;
+
     public void setLaps(int laps) {
         this.laps = laps;
     }

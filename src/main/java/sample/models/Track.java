@@ -6,6 +6,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
 import javafx.stage.Screen;
+import sample.Main;
 import sample.utilities.FastNoise;
 import sample.utilities.Mapper;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class Track {
 
-    private static final int trackWidth = 220;
+    private static int trackWidth;
     /**
      * Determines how many powerups should be spawned. The greater the spawnFactor, the fewer powerups
      */
@@ -70,6 +71,7 @@ public class Track {
     }
 
     public Track() {
+        trackWidth = Main.settings.getTrackWidth();
         gates = new Line[4];
         finWhite = new Line[6];
         outerPoints = new ArrayList<>();
@@ -88,8 +90,8 @@ public class Track {
         int counter = 0;
         for (double a = 0; a < 2*Math.PI; a += Math.toRadians(5)) {
             counter ++;
-            float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, 200);
-            float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, 300);
+            float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, Main.settings.getWiggleFactor()*30);
+            float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, Main.settings.getWiggleFactor()*50);
             float theNoise = noise.GetNoise(xoff, yoff);
             float r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.40), (int)(Screen.getPrimary().getBounds().getHeight()*0.45));
             x1 = r * Math.cos(a)*2;
