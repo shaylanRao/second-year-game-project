@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class Car extends Sprite {
 
-    private boolean goingForward, goingBackward, turnRight, turnLeft, accelerate;
+    private boolean goingForward, goingBackward, turnRight, turnLeft, isAccelerate;
     private double accelerationModerator;
     private double forceSpeed;
     private double speedConverter;
@@ -23,6 +23,8 @@ public class Car extends Sprite {
     public int playerNumber;
     private final double carHeight = getCarHeightWidth()[0];
     private final double carWidth = getCarHeightWidth()[1];
+    private double mass;
+    private double turningSpeedModerator;
 
 
     private final LinkedList<Powerup> powerups;
@@ -31,8 +33,7 @@ public class Car extends Sprite {
     /**
      * Checks if a player has less than 3 power-ups. If there are less than 3, then the new power-up is added to the linked list and 
      * the power-up bar. Otherwise, it removes the least recent power-up and adds it at the end.
-     * @param powerup
-     * @return void
+     * @param powerup the powerup used to add
      */
     public void addPowerup(Powerup powerup) {
         if (getPowerups().size() >= 3) {
@@ -55,8 +56,7 @@ public class Car extends Sprite {
     /**
      * Checks if a player has passed through a power-up on the track, passes the power-up to addPowerup(), and deactivates the power-up.
      * After 7 seconds, the power-up is set to re-spawn on the screen as long as there is no player in the same spot.
-     * @param powerup
-     * @return void
+     * @param powerup the powerup used to be checked
      */
     public void handleMapPowerups(Powerup powerup) {
         if (powerup.shouldCollide && collisionDetection(powerup))
@@ -95,14 +95,7 @@ public class Car extends Sprite {
             powerUpBar.removeFirstPowerup(playerNumber);
             setPickedUpPwrtime(System.currentTimeMillis());
             return drop;
-        } /*else if (powerups.getFirst() instanceof SpeedboosterPowerup) {
-            movementPowerup("speedBoost");
-            powerups.pop();
-            powerUpBar.removeFirstPowerup(playerNumber);
-            setPickedUpPwrtime(System.currentTimeMillis());
-            return null;
-        }*/
-        //had to return something, but it shouldn't get this far
+        }
         return powerups.getFirst();
     }
 
@@ -116,16 +109,22 @@ public class Car extends Sprite {
         car1Angle = this.getImageView().getRotate();
         if ((car1Angle > -90 && car1Angle < 90) || car1Angle < -270 || car1Angle > 270) {
             location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX() + carWidth;
-            location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
         } else {
             location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
-            location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
         }
+        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
 
         return location;
     }
 
 
+    /**
+     * This is the constructor for the car class, it sets the image size of the car, the minimum speeds,
+     * the value needed to convert the speed to a value usable in the game render. It also initialises the powerup features
+     * @param gameBackground the pane of the gameplay screen
+     * @param image the image used so that the car can be rendered, manipulated and features of the image accessed
+     * @param vehicleType this dictates how the attributes of the vehicle differ between each vehicle available
+     */
     public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
         super(gameBackground, image, 0.8);
         //reverse speed (HARD-CODED)
@@ -136,91 +135,157 @@ public class Car extends Sprite {
         this.assignAttributes(vehicleType);
     }
 
+    /**
+     * This is a function that checks which car was selected by the user and adjusts values that change how to car moves,
+     * the maximum speed of each car, the mass and the rate of acceleration
+     * @param vehicleType this is which car was selected by the player
+     */
     private void assignAttributes(Settings.VehicleType vehicleType){
         //standard car
         if (vehicleType == Settings.VehicleType.VEHICLE1){
             this.setMaximumSpeed(3);
-            this.setAccelerationModerator(0.005);
+//            this.setAccelerationModerator(0.005);
+            this.mass = 1;
             this.setTurningSpeedModerator(1);
         }
         //sports car
         else if (vehicleType == Settings.VehicleType.VEHICLE2){
             this.setMaximumSpeed(3.5);
             this.setAccelerationModerator(0.003);
+            this.mass = 0.833;
             this.setTurningSpeedModerator(0.93);
         }
         //muscle car
         else{
             this.setMaximumSpeed(2.8);
             this.setAccelerationModerator(0.006);
+            this.mass = 1.66;
             this.setTurningSpeedModerator(1.2);
         }
     }
 
+    /**
+     * This is used to calculated the momentum of the car
+     * @return mass
+     */
     public double getMass() {
         return mass;
     }
 
-    private double mass;
-
+    /**
+     * This is a setter for the force acting on the car
+     * @param forceSpeed the value of force wanted to be applied on the car
+     */
     public void setForceSpeed(double forceSpeed) {
         this.forceSpeed = forceSpeed;
     }
 
+    /**
+     * This is a getter for the force speed
+     * @return forceSpeed
+     */
     public double getForceSpeed() {
         return forceSpeed;
     }
 
+    /**
+     * This is a getter for the image view of the car, where image attributes can be accessed
+     * @return ImageView
+     */
     public ImageView getImageView() {
         return super.getImage();
     }
 
+    /**
+     * This is a boolean value which states whether the player is accelerating the car
+     * @return accelerate
+     */
     public boolean isAccelerate() {
-        return accelerate;
+        return isAccelerate;
     }
 
+    /**
+     * This is a getter for the maximum speed the car can travel forwards at
+     * @return maximumSpeed
+     */
     public double getMaxSpeed() {
         return maximumSpeed;
     }
 
+    /**
+     * This is a setter used in the constructor to set the maximum speed to car can travel forwards at
+     * @param maximumSpeed the maximum speed the car can move forwards at
+     */
     public void setMaximumSpeed(double maximumSpeed) {
         this.maximumSpeed = maximumSpeed;
     }
 
-    public double getMinSpeed() {
-        return minimumSpeed;
-    }
-
+    /**
+     * This is a setter used in the constructor to set the minimum speed to car can travel forwards at
+     * @param maximumSpeed the minimum speed the car can move forwards at
+     */
     public void setMinimumSpeed(double maximumSpeed) {
         this.minimumSpeed = maximumSpeed;
     }
 
+    /**
+     * This is a setter for the acceleration moderator
+     * @param accelerationModerator a value  used to adjust the calculated physics value to a usable game value
+     */
     public void setAccelerationModerator(double accelerationModerator){ this.accelerationModerator = accelerationModerator; }
 
+    /**
+     * This is a setter for acceleration
+     * @param accelerate the change in velocity (acceleration)
+     */
     public void setAccelerate(boolean accelerate) {
-        this.accelerate = accelerate;
+        this.isAccelerate = accelerate;
     }
 
+    /**
+     * This is a setter for storing whether the car is moving forward or not
+     * @param goingForward a boolean value
+     */
     public void setGoingForward(boolean goingForward) {
         this.goingForward = goingForward;
     }
 
+    /**
+     * This is a setter for the speed converter, used in adjusting the position of the car
+     * @param speedConverter a value  used to adjust the calculated physics value to a usable game value
+     */
     public void setSpeedConverter(double speedConverter) {
         this.speedConverter = speedConverter;
     }
 
+    /**
+     * This is mimics a getter for checking if the car is moving forwards
+     * @return goingForward
+     */
     public boolean isGoingForward() {
         return goingForward;
     }
 
+    /**
+     * This is mimics a getter for checking if the car is moving backwards
+     * @return goingBackward
+     */
     public boolean isGoingBackward() {
         return goingBackward;
     }
 
+    /**
+     * This is a setter for storing is the car is going backwards
+     * @param goingBackward a value used to check the movement of the car
+     */
     public void setGoingBackward(boolean goingBackward) {
         this.goingBackward = goingBackward;
     }
 
+    /**
+     * This is mimics a getter for checking if the car is turning right
+     * @return turnRight
+     */
     public boolean isTurnRight() {
         return turnRight;
     }
@@ -229,6 +294,10 @@ public class Car extends Sprite {
         this.turnRight = turnRight;
     }
 
+    /**
+     * This is mimics a getter for checking if the car is turning left
+     * @return turnLeft
+     */
     public boolean isTurnLeft() {
         return turnLeft;
     }
@@ -295,9 +364,8 @@ public class Car extends Sprite {
      * @return acceleration
      */
     private double accCalc(){
-        //adjusted per vehicle to change acceleration
-        this.mass = 1;
-        return (this.longForce()/mass);
+        //adjusted per vehicle to change acceleration, kept at one for consistency
+        return (this.longForce()/1);
     }
 
 
@@ -325,9 +393,8 @@ public class Car extends Sprite {
     }
 
     /**
-     * Calculates the tractive force generated in the engine and applied to the wheels
-     * The force that moves the car forwards
-     * @return thrust
+     * Returns a constant force for reversing the car
+     * @return const
      */
     private double fReverse(){
         //fixed gear speed
@@ -335,6 +402,11 @@ public class Car extends Sprite {
     }
 
 
+    /**
+     * This is the tractive force delivered from the cars engine and is only activate if the player is accelerating
+     * (foot on the pedal to move forwards)
+     * @return tractiveEngineForce
+     */
     private double fTraction(){
         double unitVector = 1;  //used for change in proportion of car size
         double engineForce = 37; // real-life m/s acceleration
@@ -362,8 +434,8 @@ public class Car extends Sprite {
     }
 
     /**
-     * Air resistance, resistance force
-     * Squared line, starts at 0 and finishes increasingly high
+     * Drag force (air resistance), a resistive force
+     * Follows and exponential line, starting at 0 and finishing increasingly high
      * @return speed^2*dragConst
      */
     private double fDrag(){
@@ -386,8 +458,6 @@ public class Car extends Sprite {
         }
         return ((forceSpeed) *rollConst);
     }
-
-
 
 
     /**
@@ -432,7 +502,6 @@ public class Car extends Sprite {
     /**
      * Sets the state of the power-up to true or false.
      * @param powerup - boolean
-     * @return void
      */
     public void setActivatePowerup(boolean powerup) {
         this.powerup = powerup;
@@ -449,21 +518,16 @@ public class Car extends Sprite {
 
     /**
      * Sets the time a power-up has been activated.
-     * @return void
      */
     public void setPickedUpPwrtime(long pickedUpPwrtime)
     {
         this.pickedUpPwrtime = pickedUpPwrtime;
     }
 
-
-    //todo momentum
-    //inheritance for other types of vehicles
-
-
     /**
      * Gets the coordinates and angle of the car
      * Calculates the change in coordinates of where the car moves and the angle of rotation
+     * @param dy
      */
     public void moveCarBy(double dy) {
         if (dy == 0) {
@@ -485,6 +549,8 @@ public class Car extends Sprite {
 
     /**
      * Moves the car by calculates amount from 'moveCarBy'
+     * @param x the change in the x-axis
+     * @param y the change in the y-axis
      * */
     private void move(double x, double y) {
         final double cx = this.getCX();
@@ -495,10 +561,11 @@ public class Car extends Sprite {
         }
     }
 
-    /**
-     * Rotates the image of the car
-     * */
 
+    /**
+     * Rotates the image of the car, unless a powerup is affecting its turning
+     * @param angle change in angle
+     */
     public void turn(double angle) {
         double cAngle = this.getImageView().getRotate();
         if(carSpinOn) {
@@ -548,13 +615,11 @@ public class Car extends Sprite {
         this.turningSpeedModerator = turningSpeedModerator;
     }
 
+
     /**
      * gets the turning speed of the car
      * @return speed
      */
-
-    private double turningSpeedModerator;
-
     public double getTurningSpeed(){
         double turningSpeed;
         double currentSpeed = Math.abs(this.speed);
@@ -600,6 +665,12 @@ public class Car extends Sprite {
 
     }
 
+    /**
+     * This is used to check whether the two cars have collided
+     * @param A the boundary around one car
+     * @param B the boundary around another car
+     * @return boolean
+     */
     public boolean testCollision(ProjectionRectangle A, ProjectionRectangle B){
         // Test collisions between two Shapes: they can be any child of Shape (Circle or Polygon)
         CollisionNode[] axes = concatenate(A.getAxes(), B.getAxes()); // Get the array of all the axes to project the shapes along
@@ -619,6 +690,13 @@ public class Car extends Sprite {
         return true;
     }
 
+    //todo
+    /**
+     *
+     * @param a
+     * @param axis
+     * @return
+     */
     private static Projection project(ProjectionRectangle a, CollisionNode axis) {
         // Project the shapes along the axis
         double min = axis.dot(a.getNode(0, axis)); // Get the first min
@@ -634,6 +712,13 @@ public class Car extends Sprite {
         return new Projection(min, max);
     }
 
+    //todo
+    /**
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     public static CollisionNode[] concatenate (CollisionNode[] a, CollisionNode[] b) {
         // Concatenate the two arrays of nodes
         int aLen = a.length;
@@ -647,6 +732,12 @@ public class Car extends Sprite {
     }
 
 
+    /**
+     * This is used to check if the car has collided into the wall
+     * The sped of the car is adjusted accordingly
+     * @param gateDistances the distances from the car to the edges of the wall
+     * @return boolean
+     */
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
         double diagLen = (Math.sqrt((Math.pow(this.carHeight, 2) + Math.pow(this.carWidth, 2))/4));
@@ -665,7 +756,10 @@ public class Car extends Sprite {
         return retVal;
     }
 
-
+    /**
+     * This is a getter for the car height and width
+     * @return heightWidth
+     */
     public double[] getCarHeightWidth(){
         double[] heightWidth = new double[2];
         heightWidth[0] = (this.getImageView().getBoundsInParent().getHeight());
@@ -682,6 +776,12 @@ public class Car extends Sprite {
     private double car1Force;
     private double car1Angle;
 
+    /**
+     * This calculates the momentum of a car on car collision
+     * @param car1 one of the cars
+     * @param car2 the other car
+     * @return carsMomentum
+     */
     public double[][] momCollCalc(PlayerCar car1, PlayerCar car2){
         double[][] carsMomentum = new double[2][2];
         this.car2Mass = car2.getMass();
@@ -713,12 +813,6 @@ public class Car extends Sprite {
         carsMomentum[0][1] = getPostAngle(1);  //Car 1 Post Angle
         carsMomentum[1][0] = this.postMag[1];  //Car 2 Post Force
         carsMomentum[1][1] = getPostAngle(2);  //Car 2 Post Angle
-//        System.out.println("________________");
-//        System.out.println("CAR 1 ANGLE " + carsMomentum[0][1]);
-//        System.out.println("CAR 2 ANGLE " + carsMomentum[1][1]);
-//        System.out.println("CAR 1 MAG " + carsMomentum[0][0]);
-//        System.out.println("CAR 2 MAG " + carsMomentum[1][0]);
-//        System.out.println("________________");
 
 
         double angDif = angleCorrection(carsMomentum[0][1] - car1Angle);
@@ -772,26 +866,18 @@ public class Car extends Sprite {
             carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(angDif) );
         }
 
-        System.out.println("");
-
-//        carsMomentum[0][0] =  carsMomentum[0][0] * Math.cos( Math.toRadians(carsMomentum[0][1] - car1Angle) );
-//        System.out.println("");
-//        System.out.println("CAR 1 ANGLE: " + (carsMomentum[0][1] - car1Angle));
-//
-//        carsMomentum[1][0] =  carsMomentum[1][0] * Math.cos( Math.toRadians(carsMomentum[1][1] - car2Angle) );
-//        System.out.println("CAR 2 ANGLE: " + (carsMomentum[1][1] - car2Angle));
-//        System.out.println("");
-
+        System.out.println();
 
 
         return carsMomentum;
     }
 
 
-    private void forceProportion(int player, double angle){
-
-    }
-
+    /**
+     * This gets the angles of both cars after the collision
+     * @param carNum the car playerNumber
+     * @return
+     */
     private double getPostAngle(int carNum){
         if (carNum == 1){
             //car 1 angle
@@ -804,16 +890,16 @@ public class Car extends Sprite {
             if (this.carsPostVels[3] == 0){
                 return(car2Angle);
             }
-//            System.out.println("Car2 b4: " + car2Force);
-//            System.out.println("VERT: " + this.postVel[2]);
-//            System.out.println("HORIZ: " + this.postVel[3]);
-//            System.out.println("Corrected angle P2:" +angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3] ))));
-//            System.out.println("angle P2:" + (Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3] ))));
             return angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3]))+90); // Car 2 net angle
 
         }
     }
 
+    /**
+     * This corrects the angle to be within a constant and limmited range
+     * @param angle the calculated angle
+     * @return angleCorrected
+     */
     private double angleCorrection(double angle){
         double angleCorrected = angle;
         if(angle < 0){
@@ -822,23 +908,27 @@ public class Car extends Sprite {
         return angleCorrected;
     }
 
-    private double[] postMag = new double[2];
-    private double[] postVel = new double[4];
+    private final double[] postMag = new double[2];
+    private final double[] postVel = new double[4];
 
     //returns magnitude of force after collision, enter 1 or 2 as parameter to get car 1 or 2 respectively
+
+    /**
+     * This sets the magnitude of the force on both ater ther collision
+     */
     private void setPostMag(){
-///        Car 1 force magnitude
         this.postMag[0] = Math.sqrt(Math.pow(this.carsPostVels[0], 2) + Math.pow(this.carsPostVels[1], 2));
         this.postMag[1] =  Math.sqrt(Math.pow(this.carsPostVels[2], 2) + Math.pow(this.carsPostVels[3], 2));
-
     }
 
     private final double[] carsPostVels = new double[4];
 
 
+    /**
+     * This sets the velocities in the vertical and horizontal direction for both cars
+     */
     private void setPostVels(){
         //vertical first
-
         double car1Vel = this.getVertVel(car1Force, car1Angle);
         double car2Vel = this.getVertVel(car2Force, car2Angle);
         //                  ( (m1       -   m2)     /  (m1          +   m2) )   *  u1     + ( (2*   m2)   /   (m1          +  m2 )     ) * u2
@@ -849,39 +939,34 @@ public class Car extends Sprite {
 
         car1Vel = this.getHorizVel(car1Force, car1Angle);
         car2Vel = this.getHorizVel(car2Force, car2Angle);
-//        System.out.println("CAR 1 FORCE: " + car1Force);
-//        System.out.println("CAR 1 ANGLE: " + car1Angle);
-//        System.out.println("CAR 1 H VEL: " + car1Vel);
 
         carsPostVels[1] = ((((car1Mass - car2Mass)/(car1Mass + car2Mass))*car1Vel) + (((2*car2Mass)/(car1Mass + car2Mass))*car2Vel)); //Car 1 Horiz
         carsPostVels[3] = ((((2*car1Mass)/(car1Mass + car2Mass))*car1Vel)+(((car2Mass - car1Mass)/(car1Mass + car2Mass))*car2Vel)); // Car 2 Horiz
 
-//        System.out.println("CAR 1 Vert Force: " + this.carsPostVels[0]);
-//        System.out.println("CAR 1 Horiz Force: " + this.carsPostVels[1]);
-//        System.out.println("CAR 2 Vert Force: " + this.carsPostVels[2]);
-//        System.out.println("CAR 2 Horiz Force: " + this.carsPostVels[3]);
-
     }
 
 
+    /**
+     * This is a getter for the vertical velocity of a car
+     * @param speed speed at crash
+     * @param angle angle at crash
+     * @return verticalSpeed
+     */
     private double getVertVel(double speed, double angle){
         double angleCorrected = angleCorrection(angle);
         return(Math.sin( Math.toRadians( angleCorrected ) )*speed);
     }
 
+    /**
+     * This is a getter for the horizontal velocity of a car
+     * @param speed speed at crash
+     * @param angle angle at crash
+     * @return verticalSpeed
+     */
     private double getHorizVel(double speed, double angle){
         double angleCorrected = angleCorrection(angle);
         //to make positive to the right and negative to the left
         return(Math.cos( Math.toRadians( angleCorrected +180 ) )*speed);
     }
-
-    /*
-    1. forward acceleration
-    2. deceleration
-    2.5 backwards
-    3. turning speed
-    4. change the center of the car png
-     */
-
 
 }
