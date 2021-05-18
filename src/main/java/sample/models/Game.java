@@ -533,42 +533,16 @@ public class Game {
     }
 
     private void castRays() {
-        double[] xyCoord = this.getCarCoord(playerCar);
-
-        //set raycaster position and rotation = the car's position and rotation
-        playerCar.getRaycaster().setPos(new Point(Point.unconvertX(xyCoord[0]),
-                Point.unconvertY(xyCoord[1])));
-        playerCar.getRaycaster().setRot(playerCar.getImageView().getRotate());
-
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            xyCoord = this.getCarCoord(playerCar2);
-
-            playerCar2.getRaycaster().setPos(new Point(Point.unconvertX(xyCoord[0]),
-                    Point.unconvertY(xyCoord[1])));
-            playerCar2.getRaycaster().setRot(playerCar2.getImageView().getRotate());
             distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), false);
         } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
-            xyCoord = this.getCarCoord(aiCar);
 
-           // aiCar.getRaycaster().setPos(new Point(Point.unconvertX(xyCoord[0]),
-                    //Point.unconvertY(xyCoord[1])));
-            //aiCar.getRaycaster().setRot(aiCar.getImageView().getRotate());
-            distances2 = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
+            distances2 = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
             aiCar.setDistances(distances2);
         }
 
-//				distanceToCar = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
-
-
         //this is the array of distances measured by the raycaster that we will use to train the RL algorithm
         distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
-    }
-
-    public double[] getCarCoord(Car car) {
-        double[] xyCoord = new double[2];
-        xyCoord[0] = car.getImageView().getLayoutX() + (car1Width / 2);
-        xyCoord[1] = car.getImageView().getLayoutY() + (car1Height / 2);
-        return xyCoord;
     }
 
     private void lapSystem() {

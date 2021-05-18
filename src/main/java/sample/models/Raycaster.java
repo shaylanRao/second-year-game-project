@@ -132,7 +132,7 @@ public class Raycaster {
         this.carSquare();
 
         if (showLines) {
-            pane.getChildren().addAll(rayLines.subList(5, 8));
+            pane.getChildren().addAll(rayLines);
             pane.getChildren().addAll(rayRect);
         }
 

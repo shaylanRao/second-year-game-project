@@ -15,6 +15,7 @@ public class AICar extends Car {
      */
     public AICar(Pane gameBackground, Settings.VehicleType vehicleType) {
         super(gameBackground, generateCarImageView(vehicleType), vehicleType);
+        this.getImageView().setOpacity(0.6);
     }
 
     public void setDistances(double[] distances) {
