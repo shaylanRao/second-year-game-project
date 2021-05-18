@@ -114,16 +114,16 @@ public class GameManager{
 
     //for Timer
     Image timer[] = new Image[]{
-            new Image("file:src/sample/resources/images/numbers/0.png"),
-            new Image("file:src/sample/resources/images/numbers/1.png"),
-            new Image("file:src/sample/resources/images/numbers/2.png"),
-            new Image("file:src/sample/resources/images/numbers/3.png"),
-            new Image("file:src/sample/resources/images/numbers/4.png"),
-            new Image("file:src/sample/resources/images/numbers/5.png"),
-            new Image("file:src/sample/resources/images/numbers/6.png"),
-            new Image("file:src/sample/resources/images/numbers/7.png"),
-            new Image("file:src/sample/resources/images/numbers/8.png"),
-            new Image("file:src/sample/resources/images/numbers/9.png"),
+            new Image(Main.class.getResourceAsStream("/images/numbers/0.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/1.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/2.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/3.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/4.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/5.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/6.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/7.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/8.png")),
+            new Image(Main.class.getResourceAsStream("/images/numbers/9.png")),
     };
 
     private int[] getLoc(){
@@ -211,16 +211,16 @@ private int index = (int)result;
     }
 
     Image[] updateNumbers = new Image[]{
-            new Image("file:src/sample/resources/images/LapCounter/1.png"),
-            new Image("file:src/sample/resources/images/LapCounter/2.png"),
-            new Image("file:src/sample/resources/images/LapCounter/3.png"),
-            new Image("file:src/sample/resources/images/LapCounter/4.png"),
-            new Image("file:src/sample/resources/images/LapCounter/5.png"),
-            new Image("file:src/sample/resources/images/LapCounter/6.png"),
-            new Image("file:src/sample/resources/images/LapCounter/7.png"),
-            new Image("file:src/sample/resources/images/LapCounter/8.png"),
-            new Image("file:src/sample/resources/images/LapCounter/9.png"),
-            new Image("file:src/sample/resources/images/LapCounter/10.png")
+            new Image(Main.class.getResourceAsStream("/images/laps/1.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/2.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/3.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/4.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/5.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/6.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/7.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/8.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/9.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/10.png")),
     };
 
     public void updateBar(double x, double y) {
@@ -264,16 +264,16 @@ private int index = (int)result;
     }
 
     Image[] fixNumbers = new Image[]{
-            new Image("file:src/sample/resources/images/LapCounter/max1.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max2.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max3.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max4.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max5.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max6.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max7.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max8.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max9.png"),
-            new Image("file:src/sample/resources/images/LapCounter/max10.png")
+            new Image(Main.class.getResourceAsStream("/images/laps/max1.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max2.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max3.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max4.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max5.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max6.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max7.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max8.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max9.png")),
+            new Image(Main.class.getResourceAsStream("/images/laps/max10.png")),
     };
 
     public void fixBar(double x, double y){
