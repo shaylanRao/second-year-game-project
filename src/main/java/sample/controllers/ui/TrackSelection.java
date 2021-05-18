@@ -43,11 +43,11 @@ public class TrackSelection {
         SoundManager.play("button");
 
         // getValue returns a float, so converting it to int
-        int wiggleFactor = (int) trackWidthSlider.getValue();
-        String trackWidthLabel = "Wiggle Factor:";
-        wiggleLabel.setText(trackWidthLabel + " " + wiggleFactor);
+        int trackWidthFactor = (int) trackWidthSlider.getValue();
+        String trackWidthTextLabel = "Track Width:";
+        trackWidthLabel.setText(trackWidthTextLabel + " " + trackWidthFactor);
 
-        Main.settings.setWiggleFactor(wiggleFactor);
+        Main.settings.setTrackWidth(trackWidthFactor);
     }
 
 //    public void trackOneSelected(ActionEvent actionEvent) {

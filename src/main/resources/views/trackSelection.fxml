@@ -12,16 +12,16 @@
         <URL value="@../stylesheets/stylesheet.css" />
     </stylesheets>
     <top>
-        <Label styleClass="label" text="Select a Wiggle Factor">
+        <Label styleClass="label" text="Select Track Settings">
             <BorderPane.margin>
-                <Insets left="780.0" top="60.0" />
+                <Insets left="780.0" top="40.0" />
             </BorderPane.margin></Label>
     </top>
     <center>
         <VBox>
-            <Label styleClass="label-2" text="Wiggle Factor: 1" fx:id="wiggleLabel">
+            <Label styleClass="label-2" text="Wiggle Factor: 5" fx:id="wiggleLabel">
                 <VBox.margin>
-                    <Insets bottom="30.0" left="900.0" top="100.0" />
+                    <Insets bottom="30.0" left="900.0" top="80.0" />
                 </VBox.margin></Label>
             <StackPane>
                 <Rectangle fill="#f5ea4f" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
@@ -35,7 +35,7 @@
                         <Insets left="20.0" />
                     </StackPane.margin></Rectangle>
                 <HBox>
-                    <Label styleClass="label-2" text="1">
+                    <Label styleClass="label-2" text="5">
                         <HBox.margin>
                             <Insets left="850.0" top="70.0" />
                         </HBox.margin></Label>
@@ -54,7 +54,7 @@
     <!-- add space here -->
 
 
-            <Label styleClass="label-2" text="Track Width: 1" fx:id="trackWidthLabel">
+            <Label styleClass="label-2" text="Track Width: 100" fx:id="trackWidthLabel">
                 <VBox.margin>
                     <Insets bottom="30.0" left="900.0" top="180.0" />
                 </VBox.margin></Label>
@@ -70,7 +70,7 @@
                         <Insets left="20.0" />
                     </StackPane.margin></Rectangle>
                 <HBox>
-                    <Label styleClass="label-2" text="1">
+                    <Label styleClass="label-2" text="100">
                         <HBox.margin>
                             <Insets left="850.0" top="70.0" />
                         </HBox.margin></Label>
@@ -78,7 +78,7 @@
                         <HBox.margin>
                             <Insets left="20.0" top="70.0" />
                         </HBox.margin></Slider>
-                    <Label styleClass="label-2" text="100">
+                    <Label styleClass="label-2" text="500">
                         <HBox.margin>
                             <Insets left="10.0" top="70.0" />
                         </HBox.margin></Label>
