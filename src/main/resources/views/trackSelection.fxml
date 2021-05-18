@@ -5,31 +5,86 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
 <BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ui.TrackSelection">
     <stylesheets>
         <URL value="@../stylesheets/stylesheet.css" />
     </stylesheets>
     <top>
-        <Label styleClass="label" text="Choose a track">
+        <Label styleClass="label" text="Select Track Settings">
             <BorderPane.margin>
-                <Insets left="780.0" top="60.0" />
+                <Insets left="650.0" top="40.0" />
             </BorderPane.margin></Label>
     </top>
     <center>
-        <HBox alignment="CENTER">
-            <Button onAction="#trackOneSelected" styleClass="card" text="Track Name">
-                <HBox.margin>
-                    <Insets left="20.0" top="40.0" />
-                </HBox.margin></Button>
-            <Button onAction="#trackTwoSelected" styleClass="card" text="Track Name">
-                <HBox.margin>
-                    <Insets left="20.0" top="40.0" />
-                </HBox.margin></Button>
-            <Button onAction="#trackThreeSelected" styleClass="card" text="Generate Random Track">
-                <HBox.margin>
-                    <Insets left="20.0" top="40.0" />
-                </HBox.margin></Button>
-        </HBox>
+        <VBox>
+            <Label styleClass="label-2" text="Wiggle Factor: 0%" fx:id="wiggleLabel">
+                <VBox.margin>
+                    <Insets bottom="30.0" left="900.0" top="80.0" />
+                </VBox.margin></Label>
+            <StackPane>
+                <Rectangle fill="#f5ea4f" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="850.0" top="70.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="wiggleSlider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#wiggleSelect" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="70.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="70.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+
+
+    <!-- add space here -->
+
+
+            <Label styleClass="label-2" text="Track Width: 0%" fx:id="trackWidthLabel">
+                <VBox.margin>
+                    <Insets bottom="30.0" left="900.0" top="120.0" />
+                </VBox.margin></Label>
+            <StackPane>
+                <Rectangle fill="#f5ea4f" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetX="-10.0" offsetY="10.0" radius="0.0" width="0.0" />
+                    </effect>
+                    <HBox.margin>
+                        <Insets left="340.0" />
+                    </HBox.margin>
+                    <StackPane.margin>
+                        <Insets left="20.0" />
+                    </StackPane.margin></Rectangle>
+                <HBox>
+                    <Label styleClass="label-2" text="0">
+                        <HBox.margin>
+                            <Insets left="850.0" top="70.0" />
+                        </HBox.margin></Label>
+                    <Slider fx:id="trackWidthSlider" majorTickUnit="5.0" max="100.0" min="0" minorTickCount="0" onMouseReleased="#trackWidthSelect" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                        <HBox.margin>
+                            <Insets left="20.0" top="70.0" />
+                        </HBox.margin></Slider>
+                    <Label styleClass="label-2" text="100">
+                        <HBox.margin>
+                            <Insets left="10.0" top="70.0" />
+                        </HBox.margin></Label>
+                </HBox>
+            </StackPane>
+        </VBox>
     </center>
     <bottom>
         <HBox alignment="CENTER">
@@ -37,7 +92,7 @@
                 <HBox.margin>
                     <Insets left="30.0" bottom="100" />
                 </HBox.margin></Button>
-            <Button visible="false" fx:id="nextButton" onAction="#nextButtonClicked" styleClass="button" text="NEXT">
+            <Button visible="true" fx:id="nextButton" onAction="#nextButtonClicked" styleClass="button" text="NEXT">
                 <HBox.margin>
                     <Insets bottom="100.0" left="720.0" />
                 </HBox.margin></Button>

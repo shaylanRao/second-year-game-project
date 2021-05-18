@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import sample.Main;
+import sample.models.Track;
 import sample.models.audio.SoundManager;
 import sample.models.Settings;
 
@@ -49,7 +50,6 @@ public class VehicleSelection {
 
     public void nextButtonClicked(ActionEvent actionEvent) {
         SoundManager.play("button");
-
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/vehicle2Selection.fxml"));
             Parent root = loader.load();

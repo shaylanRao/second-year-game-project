@@ -37,7 +37,6 @@ another player or a time trial against themselves.
     7. SoundScreen
     8. TrackSelection
     9. VehicleSelection
-    10. VisualScreen
 4. Views
     1. controlsScreen
     2. gameSettingsScreen
@@ -48,4 +47,3 @@ another player or a time trial against themselves.
     7. soundScreen
     8. trackSelection
     9. vehicleSelection
-    10. visualScreen

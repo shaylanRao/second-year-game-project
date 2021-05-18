@@ -32,18 +32,7 @@ public class SettingsScreen {
         }
     }
 
-    public void visualClicked(ActionEvent actionEvent) {
-        SoundManager.play("button");
 
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/visualScreen.fxml"));
-            Parent root = loader.load();
-            Main.sceneManager.setCurrentRoot(root);
-        } catch (Exception ex) {
-            System.out.println("Error in visual clicked - SettingsScreen.java");
-            ex.printStackTrace();
-        }
-    }
 
     public void gameClicked(ActionEvent actionEvent) {
         SoundManager.play("button");

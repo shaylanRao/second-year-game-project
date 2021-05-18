@@ -21,8 +21,6 @@
     <left>
         <VBox alignment="CENTER" spacing="25">
             <Button text="Sound" onAction="#soundClicked" styleClass="button"/>
-            <Button text="Visual" onAction="#visualClicked" styleClass="button"/>
-            <Button text="Game" onAction="#gameClicked" styleClass="button"/>
         </VBox>
     </left>
     <bottom>
