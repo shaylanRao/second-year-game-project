@@ -11,7 +11,7 @@ public class Raycaster {
 
 
     public Point pos;
-    private final PlayerCar playercar;
+    private final Car car;
 
     private double rot;
     private final Raycast[] rays = new Raycast[8];
@@ -36,12 +36,12 @@ public class Raycaster {
     };
 
 
-    public Raycaster(Pane pane, PlayerCar playerCar) {
+    public Raycaster(Pane pane, Car car) {
         this.pos = new Point(0, 0);
         this.pane = pane;
-        this.playercar = playerCar;
-        this.carHeight = playercar.getCarHeightWidth()[0];
-        this.carWidth = playercar.getCarHeightWidth()[1];
+        this.car = car;
+        this.carHeight = this.car.getCarHeightWidth()[0];
+        this.carWidth = this.car.getCarHeightWidth()[1];
 
     }
 
@@ -147,7 +147,7 @@ public class Raycaster {
 
 
     private void carSquare(){
-        final Rectangle rect1 = new Rectangle(playercar.getImage().getLayoutX(), playercar.getImage().getLayoutY(), carHeight, carWidth);
+        final Rectangle rect1 = new Rectangle(car.getImage().getLayoutX(), car.getImage().getLayoutY(), carHeight, carWidth);
         rect1.setRotate(rectRot);
         rect1.setFill(Color.TRANSPARENT);
         rect1.setStroke(Color.TRANSPARENT);

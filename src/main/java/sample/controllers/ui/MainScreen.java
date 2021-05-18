@@ -82,7 +82,7 @@ public class MainScreen {
         SoundManager.loop("playBgm");
 
         try {
-            Main.settings.setPlayMode(Settings.PlayMode.MULTIPLAYER);  /*multiplayer, just remove if not wanted*/
+            Main.settings.setPlayMode(Settings.PlayMode.AI);  /*multiplayer, just remove if not wanted*/
             Main.settings.setVehicleType(Settings.VehicleType.VEHICLE2);
             Main.settings.setVehicle2Type(Settings.VehicleType.VEHICLE3);
             Main.settings.setTrack(Settings.Track.TRACK3);

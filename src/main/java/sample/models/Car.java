@@ -1,10 +1,12 @@
 package sample.models;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.models.audio.SoundManager;
 
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.LinkedList;
 
@@ -21,101 +23,17 @@ public class Car extends Sprite {
     private boolean carSlideOn = false;
     private long pickedUpPwrtime = -1;
     public int playerNumber;
-    private final double carHeight = getCarHeightWidth()[0];
-    private final double carWidth = getCarHeightWidth()[1];
+    protected final double carHeight = getCarHeightWidth()[0];
+    protected final double carWidth = getCarHeightWidth()[1];
     private double mass;
     private double turningSpeedModerator;
 
-
-    private final LinkedList<Powerup> powerups;
-    public PowerUpBar powerUpBar;
-
-    /**
-     * Checks if a player has less than 3 power-ups. If there are less than 3, then the new power-up is added to the linked list and 
-     * the power-up bar. Otherwise, it removes the least recent power-up and adds it at the end.
-     * @param powerup the powerup used to add
-     */
-    public void addPowerup(Powerup powerup) {
-        if (getPowerups().size() >= 3) {
-            this.powerups.pop();
-            this.powerUpBar.removeFirstPowerup(playerNumber);
-        }
-        this.getPowerups().add(powerup);
-        this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
+    public Raycaster getRaycaster() {
+        return raycaster;
     }
 
-    /**
-     * Getter method for the power-ups stored in each player's list.
-     * @return LinkedList<Powerup>
-     */
-    public LinkedList<Powerup> getPowerups()
-    {
-        return powerups;
-    }
+    protected Raycaster raycaster;
 
-    /**
-     * Checks if a player has passed through a power-up on the track, passes the power-up to addPowerup(), and deactivates the power-up.
-     * After 7 seconds, the power-up is set to re-spawn on the screen as long as there is no player in the same spot.
-     * @param powerup the powerup used to be checked
-     */
-    public void handleMapPowerups(Powerup powerup) {
-        if (powerup.shouldCollide && collisionDetection(powerup))
-        {
-            SoundManager.play("prop");
-            addPowerup(powerup);
-            powerup.deactivate();
-        }
-        else if (!powerup.shouldCollide) {
-            if ((powerup.pickUptime + 7000) < System.currentTimeMillis()) {
-                if(!collisionDetection(powerup)) {
-                    powerup.activate();
-                }
-            }
-        }
-    }
-
-    /**
-     * This method handles power-ups when a player chooses to use them. Thus, it checks the power-up that it is being used and renders 
-     * the new object if it is the case. (banana peel when using a banana, etc)
-     * @return Powerup
-     */
-    public Powerup usePowerup () {
-        SoundManager.play("powerUp");
-        if (powerups.getFirst() instanceof BananaPowerup) {
-            BananaDischargePowerup drop = new BananaDischargePowerup(powerups.getFirst().getGameBackground());
-            drop.render(getPowerupLoc()[0], getPowerupLoc()[1]);
-            powerups.pop();
-            powerUpBar.removeFirstPowerup(playerNumber);
-            setPickedUpPwrtime(System.currentTimeMillis());
-            return drop;
-        } else if (powerups.getFirst() instanceof OilGhostPowerup) {
-            OilSpillPowerup drop = new OilSpillPowerup(powerups.getFirst().getGameBackground());
-            drop.render(getPowerupLoc()[0], getPowerupLoc()[1]);
-            powerups.pop();
-            powerUpBar.removeFirstPowerup(playerNumber);
-            setPickedUpPwrtime(System.currentTimeMillis());
-            return drop;
-        }
-        return powerups.getFirst();
-    }
-
-    /**
-     * Renders the activated power-ups behind the car.
-     * @return double[]
-     */
-    private double[] getPowerupLoc(){
-        double[] location = new double[2];
-        double hyp = carHeight*2;
-        car1Angle = this.getImageView().getRotate();
-        if ((car1Angle > -90 && car1Angle < 90) || car1Angle < -270 || car1Angle > 270) {
-            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX() + carWidth;
-        } else {
-            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
-        }
-        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
-
-        return location;
-    }
 
 
     /**
@@ -130,9 +48,36 @@ public class Car extends Sprite {
         //reverse speed (HARD-CODED)
         this.setMinimumSpeed(-1.5);
         this.setSpeedConverter(0.09);
-        this.powerups = new LinkedList<>();
-        this.powerUpBar = new PowerUpBar(gameBackground);
         this.assignAttributes(vehicleType);
+        this.raycaster = new Raycaster(gameBackground, this);
+        //this.raycaster.setPos(pos);
+        this.raycaster.setRot(90);
+        this.getImageView().setRotate(90);
+    }
+
+    public Car(Pane gameBackground, Settings.VehicleType vehicleType, Point pos) {
+        this(gameBackground, generateCarImageView(vehicleType), vehicleType);
+    }
+
+    protected static ImageView generateCarImageView(Settings.VehicleType vehicleType) {
+        String imageName;
+        try {
+            if(vehicleType.equals(Settings.VehicleType.VEHICLE1)){
+                imageName = "/images/original_car.png";
+            }
+            else if (vehicleType.equals(Settings.VehicleType.VEHICLE2)){
+                imageName = "/images/vehicleTwo.png";
+            }
+            else{
+                imageName = "/images/vehicleThree.png";
+            }
+            InputStream carImageFile = Main.class.getResourceAsStream(imageName);
+            Image carImage = new Image(carImageFile);
+            return new ImageView(carImage);
+        } catch (Exception ex) {
+            System.out.println("Error when loading car image");
+        }
+        return null;
     }
 
     /**
@@ -774,7 +719,7 @@ public class Car extends Sprite {
 
     private double car1Mass;
     private double car1Force;
-    private double car1Angle;
+    protected double car1Angle;
 
     /**
      * This calculates the momentum of a car on car collision
