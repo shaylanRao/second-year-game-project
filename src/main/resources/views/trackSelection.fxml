@@ -56,7 +56,7 @@
 
             <Label styleClass="label-2" text="Track Width: 100" fx:id="trackWidthLabel">
                 <VBox.margin>
-                    <Insets bottom="30.0" left="900.0" top="180.0" />
+                    <Insets bottom="30.0" left="900.0" top="120.0" />
                 </VBox.margin></Label>
             <StackPane>
                 <Rectangle fill="#f5ea4f" height="150" style="-fx-background-color:yellow; -fx-background-radius:0px;" width="400">
