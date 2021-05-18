@@ -546,13 +546,13 @@ public class Car extends Sprite {
         if (speedBoostOn){
             //speed boost 140% max speed for a second
             //todo make current speed + 50%, carry on at the same velocity after
-            return (getMaxSpeed()+(getMaxSpeed()*0.4));
+            return(getMaxSpeed()+(getMaxSpeed()*0.4));
         }
         else if(carSpinOn){
             this.speed = 0;
         }
         else if (carSlideOn){
-            return (this.speed);
+            return(this.speed);
         }
         else{
             this.moveCar();
@@ -566,7 +566,7 @@ public class Car extends Sprite {
 
 
     /**
-     * gets the turning speed of the car
+     * gets the turning speed of the car, this mimics angular momentum
      * @return speed
      */
     public double getTurningSpeed(){

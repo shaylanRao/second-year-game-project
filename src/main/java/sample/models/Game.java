@@ -205,7 +205,6 @@ public class Game {
                 carMovement(playerCar, dy, rot, distances);
 
                 if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-
                     double dy2 = 0;
                     double rot2 = 0;
                     carMovement(playerCar2, dy2, rot2, distances2);
@@ -228,7 +227,6 @@ public class Game {
                 powerupDrop();
 
                 lapSystem();
-
                 //System.out.println("x: " + aiCar.getImageView().getLayoutX() + " y: " + aiCar.getImageView().getLayoutY());
 
             }
@@ -352,8 +350,10 @@ public class Game {
 
         if (raceStart) {
             //todo probably not great beacause it keeps setting them to true. only need to do it once
-            aiCar.setGoingForward(true);
-            aiCar.setAccelerate(true);
+            if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)){
+                aiCar.setGoingForward(true);
+                aiCar.setAccelerate(true);
+            }
             //moves around screen
             player.moveCarBy(coordPos);
             //rotates the car image
@@ -406,7 +406,6 @@ public class Game {
                 playerCar2.setGoingBackward(false);
             }
         }
-
     }
 
     private void initialColl(Car player, double[] rcDistances) {
