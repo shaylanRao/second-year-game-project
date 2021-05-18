@@ -61,7 +61,7 @@ public class PlayMode {
 
         // code to handle next screen
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/totalLapsScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/trackSelection.fxml"));
             Parent root = loader.load();
             Main.sceneManager.setCurrentRoot(root);
         } catch (Exception ex) {
