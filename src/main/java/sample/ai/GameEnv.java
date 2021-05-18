@@ -72,8 +72,8 @@ public class GameEnv implements RlEnv {
     }
 
     private NDList createObservation() {
-        NDArray observation = manager.create(new Shape(3), DataType.FLOAT32);
-        float[] floatDistances = new float[3];
+        NDArray observation = manager.create(new Shape(TrainCar.INPUT_SIZE), DataType.FLOAT32);
+        float[] floatDistances = new float[(int)TrainCar.INPUT_SIZE];
         float max = Float.MIN_VALUE;
         float min = Float.MAX_VALUE;
         for (int i=0; i<floatDistances.length; i++) {
