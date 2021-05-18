@@ -19,7 +19,7 @@
     </top>
     <center>
         <VBox>
-            <Label styleClass="label-2" text="Wiggle Factor: 0" fx:id="wiggleLabel">
+            <Label styleClass="label-2" text="Wiggle Factor: 0%" fx:id="wiggleLabel">
                 <VBox.margin>
                     <Insets bottom="30.0" left="900.0" top="80.0" />
                 </VBox.margin></Label>
@@ -39,11 +39,11 @@
                         <HBox.margin>
                             <Insets left="850.0" top="70.0" />
                         </HBox.margin></Label>
-                    <Slider fx:id="wiggleSlider" majorTickUnit="1.0" max="50.0" min="0.0" minorTickCount="0" onMouseReleased="#wiggleSelect" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                    <Slider fx:id="wiggleSlider" majorTickUnit="1.0" max="100.0" min="0.0" minorTickCount="0" onMouseReleased="#wiggleSelect" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
                         <HBox.margin>
                             <Insets left="20.0" top="70.0" />
                         </HBox.margin></Slider>
-                    <Label styleClass="label-2" text="50">
+                    <Label styleClass="label-2" text="100">
                         <HBox.margin>
                             <Insets left="10.0" top="70.0" />
                         </HBox.margin></Label>
@@ -54,7 +54,7 @@
     <!-- add space here -->
 
 
-            <Label styleClass="label-2" text="Track Width: 70" fx:id="trackWidthLabel">
+            <Label styleClass="label-2" text="Track Width: 0%" fx:id="trackWidthLabel">
                 <VBox.margin>
                     <Insets bottom="30.0" left="900.0" top="120.0" />
                 </VBox.margin></Label>
@@ -70,15 +70,15 @@
                         <Insets left="20.0" />
                     </StackPane.margin></Rectangle>
                 <HBox>
-                    <Label styleClass="label-2" text="70">
+                    <Label styleClass="label-2" text="0">
                         <HBox.margin>
                             <Insets left="850.0" top="70.0" />
                         </HBox.margin></Label>
-                    <Slider fx:id="trackWidthSlider" majorTickUnit="5.0" max="300.0" min="70.0" minorTickCount="0" onMouseReleased="#trackWidthSelect" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
+                    <Slider fx:id="trackWidthSlider" majorTickUnit="5.0" max="100.0" min="0" minorTickCount="0" onMouseReleased="#trackWidthSelect" scaleY="1.2" snapToTicks="true" styleClass="lap" BorderPane.alignment="CENTER">
                         <HBox.margin>
                             <Insets left="20.0" top="70.0" />
                         </HBox.margin></Slider>
-                    <Label styleClass="label-2" text="300">
+                    <Label styleClass="label-2" text="100">
                         <HBox.margin>
                             <Insets left="10.0" top="70.0" />
                         </HBox.margin></Label>

@@ -59,11 +59,11 @@ public class Settings {
     }
 
     public void setTrackWidth(int trackWidth) {
-        if (trackWidth >= 100 && trackWidth <= 500) {
+//        if (trackWidth >= 100 && trackWidth <= 500) {
             this.trackWidth = trackWidth;
-        } else {
-            System.out.println("Track width out of range. Must be between 100 and 500.");
-        }
+//        } else {
+//            System.out.println("Track width out of range. Must be between 100 and 500.");
+//        }
 
     }
 

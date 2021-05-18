@@ -35,9 +35,10 @@ public class TrackSelection {
         // getValue returns a float, so converting it to int
         int wiggleFactor = (int) wiggleSlider.getValue();
         String wiggleTextLabel = "Wiggle Factor:";
-        wiggleLabel.setText(wiggleTextLabel + " " + wiggleFactor);
+        wiggleLabel.setText(wiggleTextLabel + " " + wiggleFactor + "%");
 
-        Main.settings.setWiggleFactor(wiggleFactor);
+
+        Main.settings.setWiggleFactor((int) wiggleFactor/2);
     }
 
     public void trackWidthSelect(MouseEvent mouseEvent) {
@@ -46,32 +47,13 @@ public class TrackSelection {
         // getValue returns a float, so converting it to int
         int trackWidthFactor = (int) trackWidthSlider.getValue();
         String trackWidthTextLabel = "Track Width:";
-        trackWidthLabel.setText(trackWidthTextLabel + " " + trackWidthFactor);
+        trackWidthLabel.setText(trackWidthTextLabel + " " + trackWidthFactor + "%");
 
-        Main.settings.setTrackWidth(trackWidthFactor);
+        int trackValue = (int) ((trackWidthFactor * 2.3) + 70);
+
+        Main.settings.setTrackWidth(trackValue);
     }
 
-//    public void trackOneSelected(ActionEvent actionEvent) {
-//        SoundManager.play("button");
-//
-//        Main.sceneManager.activateNextButton(nextButton);
-//
-//        Main.settings.setTrack(Settings.Track.TRACK1);
-//    }
-
-//    public void trackTwoSelected(ActionEvent actionEvent) {
-//        SoundManager.play("button");
-//
-//        Main.sceneManager.activateNextButton(nextButton);
-//        Main.settings.setTrack(Settings.Track.TRACK2);
-//    }
-//
-//    public void trackThreeSelected(ActionEvent actionEvent) {
-//        SoundManager.play("button");
-//
-//        Main.sceneManager.activateNextButton(nextButton);
-//        Main.settings.setTrack(Settings.Track.TRACK3);
-//    }
 
     public void backButtonClicked(ActionEvent actionEvent) {
         SoundManager.play("button");
