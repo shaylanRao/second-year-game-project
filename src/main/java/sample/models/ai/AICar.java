@@ -17,8 +17,14 @@ public class AICar extends Car {
         super(gameBackground, generateCarImageView(vehicleType), vehicleType);
     }
 
+    public void setDistances(double[] distances) {
+        this.distances = distances;
+    }
+
+    double[] distances;
+
     public void chooseAction() {
-        double[] distances = raycaster.castRays(Main.track.getTrackLines(), true);
+
         System.out.println(Arrays.toString(distances));
         //array of distances of the 3 front-facing rays
         double frontDistances[] = new double[3];

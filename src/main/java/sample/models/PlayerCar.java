@@ -18,6 +18,9 @@ public class PlayerCar extends Car {
         return this.playerNumber;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public PlayerCar(Pane gameBackground, Settings.VehicleType vehicleType) {
         super(gameBackground, generateCarImageView(vehicleType), vehicleType);
         this.powerups = new LinkedList<>();
