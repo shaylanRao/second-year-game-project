@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
+import sample.models.Track;
 import sample.models.audio.SoundManager;
 import sample.models.Settings;
 
@@ -80,7 +81,7 @@ public class TrackSelection {
 
     public void nextButtonClicked(ActionEvent actionEvent) {
         SoundManager.play("button");
-
+        Main.track = new Track();
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/totalLapsScreen.fxml"));
             Parent root = loader.load();
