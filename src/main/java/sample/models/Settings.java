@@ -158,12 +158,11 @@ public class Settings {
                 "playMode=" + playMode +
                 ", vehicle1Type=" + vehicleType +
                 ", vehicle2Type=" + vehicleType +
-                ", track=" + track +
+                ", wiggle=" + wiggleFactor +
+                ", track Width=" + trackWidth +
                 ", laps=" + laps +
                 ", masterVol=" + masterVol +
                 ", sfxVol=" + sfxVol +
-                ", bright=" + bright +
-                ", colorBlind=" + colorBlind +
                 ", difficulty=" + difficulty +
                 '}';
     }

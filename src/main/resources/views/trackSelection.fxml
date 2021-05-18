@@ -14,7 +14,7 @@
     <top>
         <Label styleClass="label" text="Select Track Settings">
             <BorderPane.margin>
-                <Insets left="780.0" top="40.0" />
+                <Insets left="650.0" top="40.0" />
             </BorderPane.margin></Label>
     </top>
     <center>

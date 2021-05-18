@@ -91,6 +91,8 @@ public class Track {
         for (double a = 0; a < 2*Math.PI; a += Math.toRadians(5)) {
             counter ++;
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, Main.settings.getWiggleFactor()*30);
+            System.out.println(Main.settings.getWiggleFactor());
+            System.out.println(Main.settings.getTrackWidth());
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, Main.settings.getWiggleFactor()*50);
             float theNoise = noise.GetNoise(xoff, yoff);
             float r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.40), (int)(Screen.getPrimary().getBounds().getHeight()*0.45));
