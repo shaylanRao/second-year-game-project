@@ -170,8 +170,6 @@ public class Game {
             start2XY = getCar2SpawnPoint(Main.track.getFinishLine());
             aiCar.render(start2XY[0], start2XY[1]);
             aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
-            aiCar.setGoingForward(true);
-            aiCar.setAccelerate(true);
         }
         //		this.playerCar.powerupsDischarge = new ArrayList<>();
         gameManager = new GameManager(gameBackground, playerCar);
@@ -283,6 +281,7 @@ public class Game {
             player.setSpeed(0);
         }
         raceStart = true;
+
     }
 
     int counter = 0;
@@ -352,6 +351,9 @@ public class Game {
         }
 
         if (raceStart) {
+            //todo probably not great beacause it keeps setting them to true. only need to do it once
+            aiCar.setGoingForward(true);
+            aiCar.setAccelerate(true);
             //moves around screen
             player.moveCarBy(coordPos);
             //rotates the car image
