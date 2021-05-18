@@ -49,7 +49,7 @@ public class TrackSelection {
         String trackWidthTextLabel = "Track Width:";
         trackWidthLabel.setText(trackWidthTextLabel + " " + trackWidthFactor + "%");
 
-        int trackValue = (int) ((trackWidthFactor * 2.3) + 70);
+        int trackValue = (int) ((trackWidthFactor * 2) + 100);
 
         Main.settings.setTrackWidth(trackValue);
     }
