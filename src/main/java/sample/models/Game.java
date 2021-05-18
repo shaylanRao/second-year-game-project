@@ -564,7 +564,7 @@ public class Game {
 
 				//this is the array of distances measured by the raycaster that we will use to train the RL algorithm
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
-					distances = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
+					distances = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
 
 				} else {
 					distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
@@ -578,7 +578,7 @@ public class Game {
 				//Gets ray cast for next gate
 				double[] gateDistances;
 				if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI_TRAIN)) {
-					gateDistances = aiCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), true);
+					gateDistances = aiCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
 				} else {
 					gateDistances = playerCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
 				}

@@ -76,8 +76,8 @@ public class GameEnv implements RlEnv {
         float[] floatDistances = new float[(int)TrainCar.INPUT_SIZE];
         float max = Float.MIN_VALUE;
         float min = Float.MAX_VALUE;
-        for (int i=0; i<floatDistances.length; i++) {
-            floatDistances[i] = (float) game.getDistances()[i];
+        for (int i=5; i<8; i++) {
+            floatDistances[i-5] = (float) game.getDistances()[i];
             if (game.getDistances()[i] > max) {
                 max = (float) game.getDistances()[i];
             }
