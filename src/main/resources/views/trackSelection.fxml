@@ -70,7 +70,7 @@
                         <Insets left="20.0" />
                     </StackPane.margin></Rectangle>
                 <HBox>
-                    <Label styleClass="label-2" text="100">
+                    <Label styleClass="label-2" text="70">
                         <HBox.margin>
                             <Insets left="850.0" top="70.0" />
                         </HBox.margin></Label>
@@ -78,7 +78,7 @@
                         <HBox.margin>
                             <Insets left="20.0" top="70.0" />
                         </HBox.margin></Slider>
-                    <Label styleClass="label-2" text="500">
+                    <Label styleClass="label-2" text="300">
                         <HBox.margin>
                             <Insets left="10.0" top="70.0" />
                         </HBox.margin></Label>
