@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.Main;
+import sample.models.ai.AICar;
 import sample.models.audio.SoundManager;
 
 import java.io.InputStream;
@@ -503,6 +504,9 @@ public class Car extends Sprite {
 
         if (x - cx >= 0 && x + cx <= Main.maxWidth && y - cy >= 0 && y + cy <= Main.maxHeight) {
             this.getImageView().relocate(x - cx, y - cy);
+
+            raycaster.setPos(new Point(Point.unconvertX(this.getImageView().getLayoutX() + (carWidth/2)), Point.unconvertY(this.getImageView().getLayoutY() + (carHeight/2))));
+            raycaster.setRot(this.getImageView().getRotate());
         }
     }
 

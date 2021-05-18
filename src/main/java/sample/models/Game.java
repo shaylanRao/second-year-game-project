@@ -13,12 +13,6 @@ import sample.controllers.game.RandomTrackScreen;
 import sample.controllers.ui.LeaderboardScreen;
 
 import java.util.*;
-
-
-import static sample.controllers.game.RandomTrackScreen.r2;
-import static sample.controllers.game.RandomTrackScreen.raycaster;
-
-
 /**
  * The class that contains the main game loop
  */
@@ -236,6 +230,8 @@ public class Game {
 
                 lapSystem();
 
+                //System.out.println("x: " + aiCar.getImageView().getLayoutX() + " y: " + aiCar.getImageView().getLayoutY());
+
             }
         };
         timer.start();
@@ -356,22 +352,10 @@ public class Game {
             this.initialColl(player, rcDistances);
         }
 
-        if (player == playerCar) {
-            if (raceStart) {
-                //moves around screen
-                player.moveCarBy(coordPos);
-                //rotates the car image
-                player.turn(coordRot);
-//							playerCar.setAccelerate(false);
-            }
-        } else if (player == playerCar2) {
-            if (raceStart) {
-                //moves around screen
-                player.moveCarBy(coordPos);
-                //rotates the car image
-                player.turn(coordRot);
-            }
-        }
+        //moves around screen
+        player.moveCarBy(coordPos);
+        //rotates the car image
+        player.turn(coordRot);
     }
 
 
@@ -446,8 +430,8 @@ public class Game {
     private int collCounter = 0;
 
     private boolean carOnCarColl() {
-        ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, raycaster.getRayRect().get(0));
-        ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, r2.getRayRect().get(0));
+        ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, playerCar.getRaycaster().getRayRect().get(0));
+        ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, playerCar2.getRaycaster().getRayRect().get(0));
         if (playerCar.testCollision(rect1, rect2)) {
             collCounter += 1;
 
@@ -551,24 +535,24 @@ public class Game {
         double[] xyCoord = this.getCarCoord(playerCar);
 
         //set raycaster position and rotation = the car's position and rotation
-        raycaster.setPos(new Point(Point.unconvertX(xyCoord[0]),
+        playerCar.getRaycaster().setPos(new Point(Point.unconvertX(xyCoord[0]),
                 Point.unconvertY(xyCoord[1])));
-        raycaster.setRot(playerCar.getImageView().getRotate());
+        playerCar.getRaycaster().setRot(playerCar.getImageView().getRotate());
 
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
             xyCoord = this.getCarCoord(playerCar2);
 
-            r2.setPos(new Point(Point.unconvertX(xyCoord[0]),
+            playerCar2.getRaycaster().setPos(new Point(Point.unconvertX(xyCoord[0]),
                     Point.unconvertY(xyCoord[1])));
-            r2.setRot(playerCar2.getImageView().getRotate());
-            distances2 = r2.castRays(Main.track.getTrackLines(), true);
+            playerCar2.getRaycaster().setRot(playerCar2.getImageView().getRotate());
+            distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), false);
         }
 
 //				distanceToCar = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
 
 
         //this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-        distances = RandomTrackScreen.raycaster.castRays(Main.track.getTrackLines(), true);
+        distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
     }
 
     public double[] getCarCoord(PlayerCar car) {
@@ -580,11 +564,11 @@ public class Game {
 
     private void lapSystem() {
         //Gets ray cast for next gate
-        double[] gateDistances = raycaster.castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
+        double[] gateDistances = playerCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
         gameManager.setGateDistances(gateDistances);
         gameManager.hitGate();
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            double[] gateDistances2 = r2.castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[g2.getNextGate()])), false);
+            double[] gateDistances2 = playerCar2.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[g2.getNextGate()])), false);
             g2.setGateDistances(gateDistances2);
             g2.hitGate();
         }

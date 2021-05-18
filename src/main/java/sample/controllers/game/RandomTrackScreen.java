@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RandomTrackScreen extends AbstractGameController {
-    public static Raycaster raycaster;
-    public static Raycaster r2;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,10 +43,6 @@ public class RandomTrackScreen extends AbstractGameController {
         } catch (Exception ex) {
             System.out.println("Error when initializing ");
             ex.printStackTrace();
-        }
-        raycaster = new Raycaster(pane, game.getPlayerCar());
-        if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            r2 = new Raycaster(pane, game.getPlayerCar2());
         }
     }
 

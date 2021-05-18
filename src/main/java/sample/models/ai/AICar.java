@@ -7,6 +7,8 @@ import sample.models.Car;
 import sample.models.Point;
 import sample.models.Settings;
 
+import java.util.Arrays;
+
 public class AICar extends Car {
     /**
      * {@inheritDoc}
@@ -17,20 +19,19 @@ public class AICar extends Car {
 
     public void chooseAction() {
         double[] distances = raycaster.castRays(Main.track.getTrackLines(), true);
-
+        System.out.println(Arrays.toString(distances));
         //array of distances of the 3 front-facing rays
         double frontDistances[] = new double[3];
-        for (int i=0; i<frontDistances.length; i++) {
-            frontDistances[i] = distances[i];
+        for (int i=5; i<8; i++) {
+            frontDistances[i-5] = distances[i];
         }
         int maxIndex = argmax(frontDistances);
         switch (maxIndex) {
             case 0:
-                //front
-                //do nothing as car is always set to be going forwards
-                System.out.println("do nothing");
+                //left
+                System.out.println("turn left");
                 setTurnRight(false);
-                setTurnLeft(false);
+                setTurnLeft(true);
                 break;
             case 1:
                 //right
@@ -39,10 +40,11 @@ public class AICar extends Car {
                 setTurnRight(true);
                 break;
             case 2:
-                //left
-                System.out.println("turn left");
+                //front
+                //do nothing as car is always set to be going forwards
+                System.out.println("do nothing");
                 setTurnRight(false);
-                setTurnLeft(true);
+                setTurnLeft(false);
                 break;
             default:
                 System.out.println("Error - incorrect index");

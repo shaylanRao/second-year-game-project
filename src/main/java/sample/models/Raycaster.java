@@ -115,7 +115,7 @@ public class Raycaster {
             if (closest != null) {
                 if (showLines) {
                     Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
-                    line.setStroke(Color.TRANSPARENT);
+                    line.setStroke(Color.BLACK);
                     rayLines.add(line);
                 }
 
@@ -132,7 +132,7 @@ public class Raycaster {
         this.carSquare();
 
         if (showLines) {
-            pane.getChildren().addAll(rayLines);
+            pane.getChildren().addAll(rayLines.subList(5, 8));
             pane.getChildren().addAll(rayRect);
         }
 
