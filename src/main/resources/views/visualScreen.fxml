@@ -47,18 +47,6 @@
                         </HBox.margin></Label>
                 </HBox>
             </StackPane>
-            <Label styleClass="label-2" text="color blind mode"/>
-            <!--- TODO add logic for radio buttons -->
-            <RadioButton text="On">
-                <toggleGroup>
-                    <ToggleGroup fx:id="colorBlind"/>
-                </toggleGroup>
-            </RadioButton>
-            <RadioButton text="Off">
-                <toggleGroup>
-                    <fx:reference source="colorBlind"/>
-                </toggleGroup>
-            </RadioButton>
         </VBox>
     </center>
     <bottom>

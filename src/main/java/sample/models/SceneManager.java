@@ -54,7 +54,7 @@ public class SceneManager {
 
     public void pause() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/pauseScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/pauseScreen.fxml"));
             Parent root = loader.load();
             setCurrentRoot(root);
             root.requestFocus();

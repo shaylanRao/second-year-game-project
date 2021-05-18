@@ -43,6 +43,7 @@
             <Button styleClass="button-3" text="Right" />
             <Button styleClass="button-3" text="Reverse" />
             <Button styleClass="button-3" text="Use powerup" />
+            <Button styleClass="button-3" text="Pause" />
         </VBox>
     </left>
 
@@ -53,6 +54,7 @@
             <Label styleClass="label-4" text="Right" />
             <Label styleClass="label-4" text="Down" />
             <Label styleClass="label-4" text="L" />
+            <Label styleClass="label-4" text="P" />
          <BorderPane.margin>
             <Insets right="150.0" />
          </BorderPane.margin>
@@ -66,6 +68,7 @@
             <Label styleClass="label-4" text="D" />
             <Label styleClass="label-4" text="S" />
             <Label styleClass="label-4" text="F" />
+            <Label styleClass="label-4" text="P" />
          <padding>
             <Insets right="250.0" />
          </padding>
