@@ -380,7 +380,7 @@ public class Game {
         if (is_race_completed && !is_showing_leaderboard && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
             try {
 
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/LeaderboardScreen.fxml"));
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/leaderboardScreen.fxml"));
                 Parent root = loader.load();
                 Main.sceneManager.setCurrentRoot(root);
 
