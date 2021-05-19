@@ -86,7 +86,7 @@ public class MainScreen {
             Main.settings.setVehicleType(Settings.VehicleType.VEHICLE2);
             Main.settings.setVehicle2Type(Settings.VehicleType.VEHICLE3);
             Main.settings.setTrack(Settings.Track.TRACK3);
-            Main.settings.setLaps(3);
+            Main.settings.setLaps(1);
 //          FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/randomTrackScreen.fxml")); - /*single player*/
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/multiplayer.fxml"));
 

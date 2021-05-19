@@ -16,15 +16,4 @@
     <stylesheets>
         <URL value="@../stylesheets/randomTrackScreen.css" />
     </stylesheets>
-    <children>
-        <HBox fx:id="hbox" prefHeight="62.0" prefWidth="111.0">
-            <children>
-                <Button onAction="#backClicked" styleClass="button" text="BACK">
-                    <HBox.margin>
-                        <Insets bottom="100.0" />
-                    </HBox.margin>
-                </Button>
-            </children>
-        </HBox>
-    </children>
 </Pane>

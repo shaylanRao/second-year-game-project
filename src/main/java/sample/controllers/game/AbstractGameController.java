@@ -28,6 +28,7 @@ public abstract class AbstractGameController implements Initializable {
         KeyCode code = event.getCode();
         switch (code) {
             case UP:
+                System.out.println("up pressed");
                 this.getGame().getPlayerCar().setGoingForward(true);
                 this.getGame().getPlayerCar().setAccelerate(true);
                 break;

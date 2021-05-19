@@ -35,7 +35,9 @@ public class Car extends Sprite {
 
     protected Raycaster raycaster;
 
-
+    public int getCarNumber(){
+        return this.playerNumber;
+    }
 
     /**
      * This is the constructor for the car class, it sets the image size of the car, the minimum speeds,

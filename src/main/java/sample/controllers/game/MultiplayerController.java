@@ -10,9 +10,11 @@ public class MultiplayerController extends RandomTrackScreen {
 
     @Override
     public void keyClicked(KeyEvent event) {
+        System.out.println("inside key clicked");
         KeyCode code = event.getCode();
         switch (code) {
             case UP:
+                System.out.println("up pressed");
                 this.getGame().getPlayerCar().setGoingForward(true);
                 this.getGame().getPlayerCar().setAccelerate(true);
                 break;
@@ -120,13 +122,6 @@ public class MultiplayerController extends RandomTrackScreen {
                 if (!Main.sceneManager.isPaused()) {
                     this.game.getTimer().start();
                 }
-//                try {
-//                    this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
-//                }
-//                catch(Exception e) {
-//                    System.out.println("KEY RELEASED ERROR");
-//                    e.getCause();
-//                }
                 break;
         }
     }

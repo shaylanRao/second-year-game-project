@@ -18,7 +18,7 @@ public class GameManager{
     private final Stack<Integer> gateStack;
     private final int[] eachLap = new int[maxLaps];
     private double result=0;
-    private PlayerCar player;
+    private Car player;
 
     private TimerBar timerbar;
     private TimerBar timerbar1;
@@ -38,7 +38,7 @@ public class GameManager{
 
     Pane gameBackground;
 
-    public GameManager(Pane gameBackground, PlayerCar car) {
+    public GameManager(Pane gameBackground, Car car) {
         this.gameBackground = gameBackground;
         player = car;
         gateStack = new Stack<>();
@@ -203,7 +203,7 @@ private int index = (int)result;
         gateStack.push(0);
     }
 
-    Image lapWord = new Image("file:src/sample/resources/images/LapCounter/lap.png");
+    Image lapWord = new Image(Main.class.getResourceAsStream("/images/laps/lap.png"));
 
     public void wordBar(double x, double y) {
         LapBar lapBar = new LapBar(gameBackground, new ImageView(lapWord));

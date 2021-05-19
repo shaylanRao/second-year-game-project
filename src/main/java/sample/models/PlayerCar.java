@@ -14,10 +14,6 @@ import java.util.List;
 
 public class PlayerCar extends Car {
 
-    public int getCarNumber(){
-        return this.playerNumber;
-    }
-
     /**
      * {@inheritDoc}
      */

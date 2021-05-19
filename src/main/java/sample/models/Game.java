@@ -9,7 +9,6 @@ import javafx.stage.Screen;
 import sample.Main;
 import sample.models.ai.AICar;
 import sample.models.audio.SoundManager;
-import sample.controllers.game.RandomTrackScreen;
 import sample.controllers.ui.LeaderboardScreen;
 
 import java.util.*;
@@ -32,7 +31,7 @@ public class Game {
     private int intro_frame = 0;
     private long dt = 0;
     private long start_time = 0;
-    private GameManager g2;
+    private GameManager gameManager2;
     private double[] distances;
 
     private double[] distances2;
@@ -157,19 +156,25 @@ public class Game {
 
             //todo Change vehicle type to player 2 vehicle type
             this.playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
-            g2 = new GameManager(gameBackground, playerCar2);
-            g2.wordBar(1650, 60);
-            g2.fixBar(1800, 80);
+            gameManager2 = new GameManager(gameBackground, playerCar2);
+            gameManager2.wordBar(1650, 60);
+            gameManager2.fixBar(1800, 80);
             this.playerCar2.playerNumber = 2;
             this.players.add(playerCar2);
-            g2.lapTimer();
-            g2.updateBar(1745, 80);
+            gameManager2.lapTimer();
+            gameManager2.updateBar(1745, 80);
         } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
             //todo add vehicle selection for AI car
             aiCar = new AICar(gameBackground, Main.settings.getVehicleType());
             start2XY = getCar2SpawnPoint(Main.track.getFinishLine());
             aiCar.render(start2XY[0], start2XY[1]);
             aiCar.getRaycaster().setPos(new Point(Point.unconvertX(aiCar.getImage().getLayoutX() + (car1Height/2)), Point.unconvertY(aiCar.getImage().getLayoutY() + (car1Width/2))));
+            gameManager2 = new GameManager(gameBackground, aiCar);
+            gameManager2.wordBar(1650, 60);
+            gameManager2.fixBar(1800, 80);
+            this.aiCar.playerNumber = 2;
+            gameManager2.lapTimer();
+            gameManager2.updateBar(1745, 80);
         }
         //		this.playerCar.powerupsDischarge = new ArrayList<>();
         gameManager = new GameManager(gameBackground, playerCar);
@@ -365,7 +370,7 @@ public class Game {
     private void leaderboard() {
         boolean has_player2_finished = true;
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            has_player2_finished = g2.finishedLaps() && raceStart;
+            has_player2_finished = gameManager2.finishedLaps() && raceStart;
         }
 
         boolean has_player1_finished = gameManager.finishedLaps() && raceStart;
@@ -375,13 +380,13 @@ public class Game {
         if (is_race_completed && !is_showing_leaderboard && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
             try {
 
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/LeaderboardScreen.fxml"));
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/LeaderboardScreen.fxml"));
                 Parent root = loader.load();
                 Main.sceneManager.setCurrentRoot(root);
 
                 LeaderboardScreen leaderboard_controller = loader.getController();
                 leaderboard_controller.setUp(gameManager.lapCounter, gameManager.totalTime(),
-                        g2.lapCounter, g2.totalTime());
+                        gameManager2.lapCounter, gameManager2.totalTime());
 
 
                 is_showing_leaderboard = true;
@@ -400,8 +405,13 @@ public class Game {
                 playerCar.setAccelerate(false);
                 playerCar.setGoingBackward(false);
             }
-        } else if (!Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
-            if (g2.finishedLaps()) {
+        } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
+            if (gameManager2.finishedLaps()) {
+                aiCar.setAccelerate(false);
+                aiCar.setGoingBackward(false);
+            }
+        } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+            if (gameManager2.finishedLaps()) {
                 playerCar2.setAccelerate(false);
                 playerCar2.setGoingBackward(false);
             }
@@ -552,9 +562,9 @@ public class Game {
         gameManager.setGateDistances(gateDistances);
         gameManager.hitGate();
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            double[] gateDistances2 = playerCar2.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[g2.getNextGate()])), false);
-            g2.setGateDistances(gateDistances2);
-            g2.hitGate();
+            double[] gateDistances2 = playerCar2.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager2.getNextGate()])), false);
+            gameManager2.setGateDistances(gateDistances2);
+            gameManager2.hitGate();
         }
     }
 
