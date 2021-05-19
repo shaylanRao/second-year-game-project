@@ -19,11 +19,11 @@ public class GameController extends AbstractGameController {
 
 
         try {
-            this.setGame(new Game());
-            this.game.initialiseGameObjects(gameBackground);
+            setGame(new Game());
+            game.initialiseGameObjects(gameBackground);
             //this.game.initialisePowerups(gameBackground);
             // starts the game
-            this.getGame().gameLoop();
+            getGame().gameLoop();
 
         } catch (Exception ex) {
             System.out.println("Error when initializing ");

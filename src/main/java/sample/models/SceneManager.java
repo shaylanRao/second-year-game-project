@@ -34,22 +34,22 @@ public class SceneManager {
     private final Scene currentScene;
 
     public SceneManager(Scene currentScene) {
-        this.rootStack = new Stack<>();
+        rootStack = new Stack<>();
         this.currentScene = currentScene;
     }
 
     public void setPrevScene() {
         // check for stack underflow
-        if (!(this.rootStack.isEmpty())) {
-            this.rootStack.pop();
-            Parent root = this.rootStack.peek();
-            this.currentScene.setRoot(root);
+        if (!(rootStack.isEmpty())) {
+            rootStack.pop();
+            Parent root = rootStack.peek();
+            currentScene.setRoot(root);
         }
     }
 
     public void setCurrentRoot(Parent currentRoot) {
-        this.rootStack.push(currentRoot);
-        this.currentScene.setRoot(currentRoot);
+        rootStack.push(currentRoot);
+        currentScene.setRoot(currentRoot);
     }
 
     public void pause() {

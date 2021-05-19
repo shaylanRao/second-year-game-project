@@ -71,7 +71,7 @@ public class SoundManager
 
             }
     */
-    private static Map<String, SoundObject> soundObjects = new HashMap<>();
+    private static final Map<String, SoundObject> soundObjects = new HashMap<>();
     private static boolean IS_INIT = false;
 
     private static final String AUDIO_FILES_PATH = "target/classes/audio/";
@@ -161,7 +161,7 @@ public class SoundManager
             // check if file is type of '.wav'
             if(soundFile.contains("."))
             {
-                String ext = soundFile.substring(soundFile.lastIndexOf(".") + 1, soundFile.length()).toLowerCase();
+                String ext = soundFile.substring(soundFile.lastIndexOf(".") + 1).toLowerCase();
                 if(!ext.equals("wav")) throw new Exception(" -/- Not a '.wav' File!");
             }
             else throw new Exception(" -/- Not a valid File!");

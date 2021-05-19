@@ -16,10 +16,10 @@ public class IntroCountdown extends Sprite{
     }
 
     public void activate() {
-        this.getImage().setVisible(true);
+        getImage().setVisible(true);
     }
     public void deactivate() {
-        this.getImage().setVisible(false);
+        getImage().setVisible(false);
     }
 
 

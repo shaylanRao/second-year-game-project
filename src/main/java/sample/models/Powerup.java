@@ -18,9 +18,9 @@ public class Powerup extends Sprite {
      * @return void
      */
     public void deactivate() {
-        this.getImage().setVisible(false);
-        this.shouldCollide = false;
-        this.pickUptime = System.currentTimeMillis();
+        getImage().setVisible(false);
+        shouldCollide = false;
+        pickUptime = System.currentTimeMillis();
     }
     
     /**
@@ -28,8 +28,8 @@ public class Powerup extends Sprite {
      * @return void
      */
     public void activate() {
-    	this.getImage().setVisible(true);
-    	this.shouldCollide = true;
-        this.pickUptime = -1;
+        getImage().setVisible(true);
+        shouldCollide = true;
+        pickUptime = -1;
     }
 }

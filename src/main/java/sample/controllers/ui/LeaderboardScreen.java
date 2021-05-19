@@ -30,11 +30,11 @@ public class LeaderboardScreen {
         System.out.println(" - setting up leaderboard data... ");
         name_player1.setText("Player1");
         laps_player1.setText(String.valueOf(laps_count));
-        time_player1.setText(String.valueOf(total_time / (float)1000.0f));
+        time_player1.setText(String.valueOf(total_time / 1000.0f));
 
         name_player2.setText("Player2");
         laps_player2.setText(String.valueOf(laps_count2));
-        time_player2.setText(String.valueOf(total_time2 / (float)1000.0f));
+        time_player2.setText(String.valueOf(total_time2 / 1000.0f));
     }
 
     public void continueClicked(MouseEvent mouseEvent) {

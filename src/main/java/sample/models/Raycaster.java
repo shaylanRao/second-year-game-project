@@ -37,11 +37,11 @@ public class Raycaster {
 
 
     public Raycaster(Pane pane, Car car) {
-        this.pos = new Point(0, 0);
+        pos = new Point(0, 0);
         this.pane = pane;
         this.car = car;
-        this.carHeight = this.car.getCarHeightWidth()[0];
-        this.carWidth = this.car.getCarHeightWidth()[1];
+        carHeight = this.car.getCarHeightWidth()[0];
+        carWidth = this.car.getCarHeightWidth()[1];
 
     }
 
@@ -56,8 +56,8 @@ public class Raycaster {
     private double rectRot;
 
     public void setRot(double rotation) {
-        this.rectRot = rotation;
-        this.rot = convertRot(rotation);
+        rectRot = rotation;
+        rot = convertRot(rotation);
     }
 
     //converts from degrees to radians in the range -pi,pi
@@ -102,7 +102,7 @@ public class Raycaster {
             Point closest = null;
             double record = Integer.MAX_VALUE;
             for (Line boundary : boundaries) {
-                Point point = this.rays[i].cast(boundary);
+                Point point = rays[i].cast(boundary);
                 if (point != null) {
                     double distance = Point.distance(pos, point);
                     if (distance < record) {
@@ -129,7 +129,7 @@ public class Raycaster {
             rayLines.add(line);
         }
 
-        this.carSquare();
+        carSquare();
 
         if (showLines) {
             pane.getChildren().addAll(rayLines);

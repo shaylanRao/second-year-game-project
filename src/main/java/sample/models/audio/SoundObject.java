@@ -58,8 +58,8 @@ public class SoundObject
 
 
     private final File soundFile;
-    private List<SoundPlayer> soundPlayers        = new ArrayList<>();
-    private Map<Integer, Long>  suspended_players = new HashMap<>();
+    private final List<SoundPlayer> soundPlayers        = new ArrayList<>();
+    private final Map<Integer, Long>  suspended_players = new HashMap<>();
     private float sound_volume = 1.0f;
     private boolean is_muted = false;
 

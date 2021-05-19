@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class TimerBar extends Sprite {
 
-    private Pane gameBackground;
+    private final Pane gameBackground;
 
     public TimerBar(Pane gameBackground, ImageView imageView) {
         super(gameBackground, imageView, 1);
@@ -14,7 +14,7 @@ public class TimerBar extends Sprite {
     }
 
     public void deactivate() {
-        this.getImage().setVisible(false);
+        getImage().setVisible(false);
         gameBackground.getChildren().remove(this);
     }
 }

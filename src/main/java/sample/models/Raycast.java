@@ -22,10 +22,10 @@ public class Raycast {
         final double x2 = Point.unconvertX(boundary.getEndX());
         final double y2 = Point.unconvertY(boundary.getEndY());
 
-        final double x3 = this.pos.getX();
-        final double y3 = this.pos.getY();
-        final double x4 = this.pos.getX()+this.dir.getX();
-        final double y4 = this.pos.getY()+this.dir.getY();
+        final double x3 = pos.getX();
+        final double y3 = pos.getY();
+        final double x4 = pos.getX()+ dir.getX();
+        final double y4 = pos.getY()+ dir.getY();
 
         final double denominator = (x1-x2) * (y3-y4) - (y1-y2) * (x3-x4);
         //if value of denominator is zero then the ray is parallel to the boundary

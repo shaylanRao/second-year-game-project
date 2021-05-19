@@ -3,7 +3,7 @@ package sample.models;
 import javafx.scene.shape.Rectangle;
 
 public class ProjectionRectangle {
-    private CollisionNode[] nodes;
+    private final CollisionNode[] nodes;
     double centrex;
     double centrey;
     double[] topleft;
@@ -41,21 +41,21 @@ public class ProjectionRectangle {
 
     public ProjectionRectangle(PlayerCar rect, Rectangle re) {
 
-        this.centrex = re.getX() - rect.getImage().getBoundsInLocal().getWidth()/2;
-        this.width = rect.getImage().getBoundsInLocal().getWidth();
-        this.height = rect.getImage().getBoundsInLocal().getHeight();
-        this.centrey = re.getY() + rect.getImage().getBoundsInLocal().getHeight()/2;
+        centrex = re.getX() - rect.getImage().getBoundsInLocal().getWidth()/2;
+        width = rect.getImage().getBoundsInLocal().getWidth();
+        height = rect.getImage().getBoundsInLocal().getHeight();
+        centrey = re.getY() + rect.getImage().getBoundsInLocal().getHeight()/2;
 
-        this.bottomright = new double[]{centrex + width / 2, centrey + height / 2};
-        this.bottomleft = new double[]{centrex - width / 2, centrey + height / 2};
-        this.topright = new double[]{centrex + width / 2, centrey - height / 2};
-        this.topleft = new double[]{centrex - width / 2, centrey - height / 2};
+        bottomright = new double[]{centrex + width / 2, centrey + height / 2};
+        bottomleft = new double[]{centrex - width / 2, centrey + height / 2};
+        topright = new double[]{centrex + width / 2, centrey - height / 2};
+        topleft = new double[]{centrex - width / 2, centrey - height / 2};
 
 
-        this.bright = GetPointRotated(bottomright[0],bottomright[1] , centrex, centrey, rect.getImage().getRotate());
-        this.bleft = GetPointRotated(bottomleft[0], bottomleft[1], centrex, centrey, rect.getImage().getRotate());
-        this.tright = GetPointRotated(topright[0], topright[1], centrex, centrey, rect.getImage().getRotate());
-        this.tleft = GetPointRotated(topleft[0], topleft[1], centrex, centrey, rect.getImage().getRotate());
+        bright = GetPointRotated(bottomright[0],bottomright[1] , centrex, centrey, rect.getImage().getRotate());
+        bleft = GetPointRotated(bottomleft[0], bottomleft[1], centrex, centrey, rect.getImage().getRotate());
+        tright = GetPointRotated(topright[0], topright[1], centrex, centrey, rect.getImage().getRotate());
+        tleft = GetPointRotated(topleft[0], topleft[1], centrex, centrey, rect.getImage().getRotate());
         double[] xs = new double[]{bright[0] ,bleft[0],tleft[0], tright[0]};
         double[] ys = new double[]{bright[1], bleft[1], tleft[1],tright[1]};
         nodes = new CollisionNode[4];

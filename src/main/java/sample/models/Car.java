@@ -36,7 +36,7 @@ public class Car extends Sprite {
     protected Raycaster raycaster;
 
     public int getCarNumber(){
-        return this.playerNumber;
+        return playerNumber;
     }
 
     /**
@@ -49,13 +49,13 @@ public class Car extends Sprite {
     public Car(Pane gameBackground, ImageView image, Settings.VehicleType vehicleType) {
         super(gameBackground, image, 0.8);
         //reverse speed (HARD-CODED)
-        this.setMinimumSpeed(-1.5);
-        this.setSpeedConverter(0.09);
-        this.assignAttributes(vehicleType);
-        this.raycaster = new Raycaster(gameBackground, this);
+        setMinimumSpeed(-1.5);
+        setSpeedConverter(0.09);
+        assignAttributes(vehicleType);
+        raycaster = new Raycaster(gameBackground, this);
         //this.raycaster.setPos(pos);
-        this.raycaster.setRot(90);
-        this.getImageView().setRotate(90);
+        raycaster.setRot(90);
+        getImageView().setRotate(90);
     }
 
     public Car(Pane gameBackground, Settings.VehicleType vehicleType, Point pos) {
@@ -91,24 +91,24 @@ public class Car extends Sprite {
     private void assignAttributes(Settings.VehicleType vehicleType){
         //standard car
         if (vehicleType == Settings.VehicleType.VEHICLE1){
-            this.setMaximumSpeed(3);
+            setMaximumSpeed(3);
 //            this.setAccelerationModerator(0.005);
-            this.mass = 1;
-            this.setTurningSpeedModerator(1);
+            mass = 1;
+            setTurningSpeedModerator(1);
         }
         //sports car
         else if (vehicleType == Settings.VehicleType.VEHICLE2){
-            this.setMaximumSpeed(3.5);
-            this.setAccelerationModerator(0.003);
-            this.mass = 0.833;
-            this.setTurningSpeedModerator(0.93);
+            setMaximumSpeed(3.5);
+            setAccelerationModerator(0.003);
+            mass = 0.833;
+            setTurningSpeedModerator(0.93);
         }
         //muscle car
         else{
-            this.setMaximumSpeed(2.8);
-            this.setAccelerationModerator(0.006);
-            this.mass = 1.66;
-            this.setTurningSpeedModerator(1.2);
+            setMaximumSpeed(2.8);
+            setAccelerationModerator(0.006);
+            mass = 1.66;
+            setTurningSpeedModerator(1.2);
         }
     }
 
@@ -173,7 +173,7 @@ public class Car extends Sprite {
      * @param maximumSpeed the minimum speed the car can move forwards at
      */
     public void setMinimumSpeed(double maximumSpeed) {
-        this.minimumSpeed = maximumSpeed;
+        minimumSpeed = maximumSpeed;
     }
 
     /**
@@ -187,7 +187,7 @@ public class Car extends Sprite {
      * @param accelerate the change in velocity (acceleration)
      */
     public void setAccelerate(boolean accelerate) {
-        this.isAccelerate = accelerate;
+        isAccelerate = accelerate;
     }
 
     /**
@@ -255,16 +255,16 @@ public class Car extends Sprite {
     }
 
     private double getCX() {
-        return this.getImageView().getBoundsInLocal().getWidth() / 2;
+        return getImageView().getBoundsInLocal().getWidth() / 2;
     }
 
     private double getCY() {
-        return this.getImageView().getBoundsInLocal().getHeight() / 2;
+        return getImageView().getBoundsInLocal().getHeight() / 2;
     }
 
 
     public void setSpeed(double newSpeed){
-        this.speed = newSpeed;
+        speed = newSpeed;
     }
 
     /**
@@ -272,10 +272,10 @@ public class Car extends Sprite {
      */
     private void moveCar(){
         //if accelerating forwards when rolling backwards, speeds it up
-        if(this.isAccelerate() && this.speed <0) {
-            this.speed += Math.abs(this.speed * 0.2);
+        if(isAccelerate() && speed <0) {
+            speed += Math.abs(speed * 0.2);
         }
-        this.speedCalc();
+        speedCalc();
     }
 
     /**
@@ -284,23 +284,23 @@ public class Car extends Sprite {
      */
     private void speedCalc(){
         //if max speed reached, only change if slowing down
-        if (this.speed >= this.maximumSpeed){
-            if (this.accCalc() < 0){
-                this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
-                this.speed = this.forceSpeed * this.speedConverter;
+        if (speed >= maximumSpeed){
+            if (accCalc() < 0){
+                forceSpeed = forceSpeed + (accCalc() * accelerationModerator);
+                speed = forceSpeed * speedConverter;
             }
         }
         //if min speed reached, only change if moving forward
-        else if (this.speed <= minimumSpeed){
-            if (this.accCalc() > 0){
-                this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
-                this.speed = this.forceSpeed * this.speedConverter;
+        else if (speed <= minimumSpeed){
+            if (accCalc() > 0){
+                forceSpeed = forceSpeed + (accCalc() * accelerationModerator);
+                speed = forceSpeed * speedConverter;
             }
         }
         //else just get new speed
         else{
-            this.forceSpeed = this.forceSpeed + (this.accCalc() * accelerationModerator);
-            this.speed = this.forceSpeed * this.speedConverter;
+            forceSpeed = forceSpeed + (accCalc() * accelerationModerator);
+            speed = forceSpeed * speedConverter;
         }
     }
 
@@ -313,7 +313,7 @@ public class Car extends Sprite {
      */
     private double accCalc(){
         //adjusted per vehicle to change acceleration, kept at one for consistency
-        return (this.longForce()/1);
+        return (longForce()/1);
     }
 
 
@@ -323,20 +323,20 @@ public class Car extends Sprite {
      */
     private double longForce(){
         //braking if going forward already
-        if(speed > 0 && this.isGoingBackward()){
-            return(-(this.fBraking() + this.fDrag() + this.fRolling()));
+        if(speed > 0 && isGoingBackward()){
+            return(-(fBraking() + fDrag() + fRolling()));
         }
         //reversing
-        else if (this.isGoingBackward()){
-            return(this.fReverse());
+        else if (isGoingBackward()){
+            return(fReverse());
         }
         //going forward
         else{
-            if (this.isAccelerate()){
-                return(this.fTraction() + ((this.fDrag()+ this.fRolling())));
+            if (isAccelerate()){
+                return(fTraction() + ((fDrag()+ fRolling())));
             }
             //rolling (forwards or backwards)
-            return (-(this.fDrag()+ this.fRolling()));
+            return (-(fDrag()+ fRolling()));
         }
     }
 
@@ -359,7 +359,7 @@ public class Car extends Sprite {
         double unitVector = 1;  //used for change in proportion of car size
         double engineForce = 37; // real-life m/s acceleration
         //todo if up arrow, then this, else return 0
-        if(this.isAccelerate()){
+        if(isAccelerate()){
             return(unitVector*engineForce);
         }
         else{
@@ -374,10 +374,10 @@ public class Car extends Sprite {
      * @return const
      */
     private double fBraking() {
-        if (this.speed < 1) {
+        if (speed < 1) {
             return (130); //fixed bvreak force at low speed
         } else {
-            return (130 * (1 / this.speed)); //variable force applied at high speed (slowly breaking)
+            return (130 * (1 / speed)); //variable force applied at high speed (slowly breaking)
         }
     }
 
@@ -401,7 +401,7 @@ public class Car extends Sprite {
         //todo need to change
         double rollConst = 0.8;
         //if rolling then stop when rolling slowly
-        if(Math.abs(this.speed) < 0.25 && !(this.isGoingForward() || this.isGoingBackward())){
+        if(Math.abs(speed) < 0.25 && !(isGoingForward() || isGoingBackward())){
             return((forceSpeed)*9);
         }
         return ((forceSpeed) *rollConst);
@@ -482,17 +482,17 @@ public class Car extends Sprite {
             return;
         }
 
-        final double cx = this.getCX();
-        final double cy = this.getCY();
-        final double angle = this.getImageView().getRotate();
+        final double cx = getCX();
+        final double cy = getCY();
+        final double angle = getImageView().getRotate();
 
         double angleMoveX = Math.cos(Math.toRadians(angle));
         double angleMoveY = Math.sin(Math.toRadians(angle));
 
-        double x = (cx + this.getImageView().getLayoutX() + (dy * angleMoveX));
-        double y = (cy + this.getImageView().getLayoutY() + (dy * angleMoveY));
+        double x = (cx + getImageView().getLayoutX() + (dy * angleMoveX));
+        double y = (cy + getImageView().getLayoutY() + (dy * angleMoveY));
 
-        this.move(x, y);
+        move(x, y);
     }
 
     /**
@@ -501,14 +501,14 @@ public class Car extends Sprite {
      * @param y the change in the y-axis
      * */
     private void move(double x, double y) {
-        final double cx = this.getCX();
-        final double cy = this.getCY();
+        final double cx = getCX();
+        final double cy = getCY();
 
         if (x - cx >= 0 && x + cx <= Main.maxWidth && y - cy >= 0 && y + cy <= Main.maxHeight) {
-            this.getImageView().relocate(x - cx, y - cy);
+            getImageView().relocate(x - cx, y - cy);
 
-            raycaster.setPos(new Point(Point.unconvertX(this.getImageView().getLayoutX() + (carWidth/2)), Point.unconvertY(this.getImageView().getLayoutY() + (carHeight/2))));
-            raycaster.setRot(this.getImageView().getRotate());
+            raycaster.setPos(new Point(Point.unconvertX(getImageView().getLayoutX() + (carWidth/2)), Point.unconvertY(getImageView().getLayoutY() + (carHeight/2))));
+            raycaster.setRot(getImageView().getRotate());
         }
     }
 
@@ -518,14 +518,14 @@ public class Car extends Sprite {
      * @param angle change in angle
      */
     public void turn(double angle) {
-        double cAngle = this.getImageView().getRotate();
+        double cAngle = getImageView().getRotate();
         if(carSpinOn) {
-            this.speed = 0;
+            speed = 0;
             cAngle +=11.8;
-            this.getImageView().setRotate(cAngle);
+            getImageView().setRotate(cAngle);
         }
         else if(carSlideOn){
-            this.getImageView().setRotate(cAngle);
+            getImageView().setRotate(cAngle);
         }
         else {
             if (cAngle > 360) {
@@ -536,7 +536,7 @@ public class Car extends Sprite {
 
             angle += cAngle;
 
-            this.getImageView().setRotate(angle);
+            getImageView().setRotate(angle);
         }
     }
 
@@ -551,15 +551,15 @@ public class Car extends Sprite {
             return(getMaxSpeed()+(getMaxSpeed()*0.4));
         }
         else if(carSpinOn){
-            this.speed = 0;
+            speed = 0;
         }
         else if (carSlideOn){
-            return(this.speed);
+            return(speed);
         }
         else{
-            this.moveCar();
+            moveCar();
         }
-        return(this.speed);
+        return(speed);
     }
 
     public void setTurningSpeedModerator(double turningSpeedModerator) {
@@ -573,7 +573,7 @@ public class Car extends Sprite {
      */
     public double getTurningSpeed(){
         double turningSpeed;
-        double currentSpeed = Math.abs(this.speed);
+        double currentSpeed = Math.abs(speed);
         if (currentSpeed < 0.2){
             return (0);
         }
@@ -590,14 +590,14 @@ public class Car extends Sprite {
      * @return bool
      * */
     public boolean collisionDetection(Sprite other) {
-        double widthCar = this.getImage().getBoundsInParent().getWidth()/2;
-        double heightCar = this.getImage().getBoundsInParent().getHeight()/2;
+        double widthCar = getImage().getBoundsInParent().getWidth()/2;
+        double heightCar = getImage().getBoundsInParent().getHeight()/2;
 
         double widthOther = other.getImage().getBoundsInParent().getWidth()/2;
         double heightOther = other.getImage().getBoundsInParent().getHeight()/2;
 
-        double cxCar = this.getImage().getLayoutX();
-        double cyCar = this.getImage().getLayoutY();
+        double cxCar = getImage().getLayoutX();
+        double cyCar = getImage().getLayoutY();
 
         double cxOther = other.getImage().getLayoutX();
         double cyOther = other.getImage().getLayoutY();
@@ -691,13 +691,13 @@ public class Car extends Sprite {
      */
     public boolean wallCollision(double[] gateDistances){
         boolean retVal = false;
-        double diagLen = (Math.sqrt((Math.pow(this.carHeight, 2) + Math.pow(this.carWidth, 2))/4));
+        double diagLen = (Math.sqrt((Math.pow(carHeight, 2) + Math.pow(carWidth, 2))/4));
 
         for (int i = 0; i < gateDistances.length; i++){
             //if diagonal has crashed or if forward or backwards have crashed
             if (((i == 2 || i == 6 || i == 1 || i == 5) && gateDistances[i] < diagLen) || ((i == 0 || i == 7) && (gateDistances[i] < carHeight/2))){
                 retVal = true;
-                this.speed = 0;
+                speed = 0;
                 break;
             }
             else{
@@ -713,8 +713,8 @@ public class Car extends Sprite {
      */
     public double[] getCarHeightWidth(){
         double[] heightWidth = new double[2];
-        heightWidth[0] = (this.getImageView().getBoundsInParent().getHeight());
-        heightWidth[1] = (this.getImageView().getBoundsInParent().getWidth());
+        heightWidth[0] = (getImageView().getBoundsInParent().getHeight());
+        heightWidth[1] = (getImageView().getBoundsInParent().getWidth());
         return heightWidth;
     }
 
@@ -735,13 +735,13 @@ public class Car extends Sprite {
      */
     public double[][] momCollCalc(PlayerCar car1, PlayerCar car2){
         double[][] carsMomentum = new double[2][2];
-        this.car2Mass = car2.getMass();
-        this.car2Force = car2.getForceSpeed();
-        this.car2Angle = car2.getImageView().getRotate();
+        car2Mass = car2.getMass();
+        car2Force = car2.getForceSpeed();
+        car2Angle = car2.getImageView().getRotate();
 
-        this.car1Mass = car1.getMass();
-        this.car1Force = car1.getForceSpeed();
-        this.car1Angle = car1.getImageView().getRotate();
+        car1Mass = car1.getMass();
+        car1Force = car1.getForceSpeed();
+        car1Angle = car1.getImageView().getRotate();
 
 
         if(car2Angle < 0){
@@ -751,18 +751,18 @@ public class Car extends Sprite {
             car1Angle += 360;
         }
 
-        this.setPostVels();
+        setPostVels();
 
-        this.postVel[0] = this.carsPostVels[0];
-        this.postVel[1] = this.carsPostVels[1];
-        this.postVel[2] = this.carsPostVels[2];
-        this.postVel[3] = this.carsPostVels[3];
+        postVel[0] = carsPostVels[0];
+        postVel[1] = carsPostVels[1];
+        postVel[2] = carsPostVels[2];
+        postVel[3] = carsPostVels[3];
 
-        this.setPostMag();
+        setPostMag();
 
-        carsMomentum[0][0] = this.postMag[0];  //Car 1 Post Force
+        carsMomentum[0][0] = postMag[0];  //Car 1 Post Force
         carsMomentum[0][1] = getPostAngle(1);  //Car 1 Post Angle
-        carsMomentum[1][0] = this.postMag[1];  //Car 2 Post Force
+        carsMomentum[1][0] = postMag[1];  //Car 2 Post Force
         carsMomentum[1][1] = getPostAngle(2);  //Car 2 Post Angle
 
 
@@ -832,16 +832,16 @@ public class Car extends Sprite {
     private double getPostAngle(int carNum){
         if (carNum == 1){
             //car 1 angle
-            if (this.carsPostVels[1] == 0){
+            if (carsPostVels[1] == 0){
                 return(car1Angle);
             }
-            return angleCorrection(Math.toDegrees(Math.atan(this.postVel[0]/this.postVel[1] ))); // Car 1 net angle
+            return angleCorrection(Math.toDegrees(Math.atan(postVel[0]/ postVel[1] ))); // Car 1 net angle
         }
         else{
-            if (this.carsPostVels[3] == 0){
+            if (carsPostVels[3] == 0){
                 return(car2Angle);
             }
-            return angleCorrection(Math.toDegrees(Math.atan(this.postVel[2]/this.postVel[3]))+90); // Car 2 net angle
+            return angleCorrection(Math.toDegrees(Math.atan(postVel[2]/ postVel[3]))+90); // Car 2 net angle
 
         }
     }
@@ -868,8 +868,8 @@ public class Car extends Sprite {
      * This sets the magnitude of the force on both ater ther collision
      */
     private void setPostMag(){
-        this.postMag[0] = Math.sqrt(Math.pow(this.carsPostVels[0], 2) + Math.pow(this.carsPostVels[1], 2));
-        this.postMag[1] =  Math.sqrt(Math.pow(this.carsPostVels[2], 2) + Math.pow(this.carsPostVels[3], 2));
+        postMag[0] = Math.sqrt(Math.pow(carsPostVels[0], 2) + Math.pow(carsPostVels[1], 2));
+        postMag[1] =  Math.sqrt(Math.pow(carsPostVels[2], 2) + Math.pow(carsPostVels[3], 2));
     }
 
     private final double[] carsPostVels = new double[4];
@@ -880,16 +880,16 @@ public class Car extends Sprite {
      */
     private void setPostVels(){
         //vertical first
-        double car1Vel = this.getVertVel(car1Force, car1Angle);
-        double car2Vel = this.getVertVel(car2Force, car2Angle);
+        double car1Vel = getVertVel(car1Force, car1Angle);
+        double car2Vel = getVertVel(car2Force, car2Angle);
         //                  ( (m1       -   m2)     /  (m1          +   m2) )   *  u1     + ( (2*   m2)   /   (m1          +  m2 )     ) * u2
         carsPostVels[0] = ((((car1Mass - car2Mass)/(car1Mass + car2Mass))*car1Vel) + (((2*car2Mass)/(car1Mass + car2Mass))*car2Vel)); //Car 1 vert
 
         //            ( (2*  m1)          /  (m1           +   m2)   ) * u1     + ((  m2      -  m1)          /  m1           +    m2   ) * u2
         carsPostVels[2] = ((((2*car1Mass)/(car1Mass + car2Mass))*car1Vel)+(((car2Mass - car1Mass)/car1Mass + car2Mass)*car2Vel)); // Car 2 Vert
 
-        car1Vel = this.getHorizVel(car1Force, car1Angle);
-        car2Vel = this.getHorizVel(car2Force, car2Angle);
+        car1Vel = getHorizVel(car1Force, car1Angle);
+        car2Vel = getHorizVel(car2Force, car2Angle);
 
         carsPostVels[1] = ((((car1Mass - car2Mass)/(car1Mass + car2Mass))*car1Vel) + (((2*car2Mass)/(car1Mass + car2Mass))*car2Vel)); //Car 1 Horiz
         carsPostVels[3] = ((((2*car1Mass)/(car1Mass + car2Mass))*car1Vel)+(((car2Mass - car1Mass)/(car1Mass + car2Mass))*car2Vel)); // Car 2 Horiz

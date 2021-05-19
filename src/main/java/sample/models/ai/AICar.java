@@ -15,7 +15,7 @@ public class AICar extends Car {
      */
     public AICar(Pane gameBackground, Settings.VehicleType vehicleType) {
         super(gameBackground, generateCarImageView(vehicleType), vehicleType);
-        this.getImageView().setOpacity(0.6);
+        getImageView().setOpacity(0.6);
     }
 
     public void setDistances(double[] distances) {
@@ -26,7 +26,7 @@ public class AICar extends Car {
 
     public void chooseAction() {
         //array of distances of the 3 front-facing rays
-        double frontDistances[] = new double[3];
+        double[] frontDistances = new double[3];
         for (int i=5; i<8; i++) {
             frontDistances[i-5] = distances[i];
         }

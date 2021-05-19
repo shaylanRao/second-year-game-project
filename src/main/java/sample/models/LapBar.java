@@ -17,8 +17,8 @@ public class LapBar extends Sprite {
     }
 
     public void addLapCounterInOrder(){
-        this.getImage().setVisible(true);
-        this.start = true;
+        getImage().setVisible(true);
+        start = true;
     }
 
 }

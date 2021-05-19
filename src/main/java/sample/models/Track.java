@@ -109,7 +109,7 @@ public class Track {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
                 gate.setStroke(Color.TRANSPARENT);
                 gates[0] = gate;
-                this.setFinLine(outerPoint, innerPoint);
+                setFinLine(outerPoint, innerPoint);
             }
             if (a==1.570796326794896) {
                 Line gate = new Line(outerPoint.getXConverted(), outerPoint.getYConverted(), innerPoint.getXConverted(), innerPoint.getYConverted());
@@ -159,7 +159,7 @@ public class Track {
             innerLines.add(innerLine);
         }
         outerLines.addAll(innerLines);
-        this.trackLines=outerLines;
+            trackLines =outerLines;
     }
 
     private void setFinLine(Point outerPoint, Point innerPoint) {
@@ -194,7 +194,7 @@ public class Track {
     }
 
     public Line getFinishLine(){
-        return (this.gates[0]);
+        return (gates[0]);
     }
 
     public Line[] getFinWhite(){

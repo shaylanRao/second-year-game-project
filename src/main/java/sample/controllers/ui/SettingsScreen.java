@@ -21,7 +21,7 @@ public class SettingsScreen {
             // get the actual class from the FXMLLoader
             // and configure the ui-elements to represent corrected volume values
             // every time the SoundScreen page is being loaded.
-            SoundScreen soundScreen_controller = (SoundScreen) loader.getController();
+            SoundScreen soundScreen_controller = loader.getController();
             soundScreen_controller.setUp();
             //
 

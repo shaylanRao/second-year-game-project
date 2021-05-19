@@ -18,7 +18,7 @@ public class GameManager{
     private final Stack<Integer> gateStack;
     private final int[] eachLap = new int[maxLaps];
     private double result=0;
-    private Car player;
+    private final Car player;
 
     private TimerBar timerbar;
     private TimerBar timerbar1;
@@ -29,11 +29,11 @@ public class GameManager{
         return result1;
     }
 
-    private double result1=0;
-    private double tt=0;
-    private double tt1=0;
-    private double ttp2=0;
-    private double ttp21=0;
+    private final double result1=0;
+    private final double tt=0;
+    private final double tt1=0;
+    private final double ttp2=0;
+    private final double ttp21=0;
 
 
     Pane gameBackground;
@@ -113,7 +113,7 @@ public class GameManager{
 
 
     //for Timer
-    Image timer[] = new Image[]{
+    Image[] timer = new Image[]{
             new Image(Main.class.getResourceAsStream("/images/numbers/0.png")),
             new Image(Main.class.getResourceAsStream("/images/numbers/1.png")),
             new Image(Main.class.getResourceAsStream("/images/numbers/2.png")),
@@ -164,7 +164,7 @@ private int index = (int)result;
             if (timerbar1 != null) timerbar1.deactivate();
             if (timerbar2 != null) timerbar2.deactivate();
 
-            if(!this.finishedLaps()) {
+            if(!finishedLaps()) {
                 timerbar = new TimerBar(gameBackground, new ImageView(timer[second1]));
                 timerbar1 = new TimerBar(gameBackground, new ImageView(timer[second2]));
                 timerbar2 = new TimerBar(gameBackground, new ImageView(timer[second3]));

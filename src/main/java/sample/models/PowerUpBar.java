@@ -27,7 +27,7 @@ public class PowerUpBar
 	public PowerUpBar(Pane gameBackground)
 	{
 		this.gameBackground = gameBackground;
-        this.powerupsImagesInBar = new LinkedList<>();
+        powerupsImagesInBar = new LinkedList<>();
 	}
 	
 	/**
@@ -41,22 +41,22 @@ public class PowerUpBar
 		{
 			BananaBar banana = new BananaBar(gameBackground);
 			resize(banana);
-			banana.render(addPowerupsToCord(locationInBar, player), this.y);
-			this.powerupsImagesInBar.add(banana);
+			banana.render(addPowerupsToCord(locationInBar, player), y);
+            powerupsImagesInBar.add(banana);
 		}
 		else if (powerup instanceof OilGhostPowerup)
 		{
 			OilGhostBar oil = new OilGhostBar(gameBackground);
 			resize(oil);
-			oil.render(addPowerupsToCord(locationInBar, player), this.y);
-			this.powerupsImagesInBar.add(oil);
+			oil.render(addPowerupsToCord(locationInBar, player), y);
+            powerupsImagesInBar.add(oil);
 		}
 		else if (powerup instanceof SpeedboosterPowerup)
 		{
 			SpeedboosterBar speed = new SpeedboosterBar(gameBackground);
 			resize(speed);
-			speed.render(addPowerupsToCord(locationInBar, player), this.y);
-			this.powerupsImagesInBar.add(speed);
+			speed.render(addPowerupsToCord(locationInBar, player), y);
+            powerupsImagesInBar.add(speed);
 		}
     }
 
@@ -74,25 +74,25 @@ public class PowerUpBar
 	public double addPowerupsToCord (int location, int player) {
 		if (player == 1) {
 			if (location == 1) {
-				return this.im1x1;
+				return im1x1;
 			}
 			else if (location == 2) {
-				return this.im1x2;
+				return im1x2;
 			}
 			else if (location == 3) {
-				return this.im1x3;
+				return im1x3;
 			}
 		}
 		
 		if (player == 2) {
 			if (location == 1) {
-				return this.im2x1;
+				return im2x1;
 			}
 			else if (location == 2) {
-				return this.im2x2;
+				return im2x2;
 			}
 			else if (location == 3) {
-				return this.im2x3;
+				return im2x3;
 			}
 		}
 		
@@ -105,12 +105,12 @@ public class PowerUpBar
      * @return void
      */
 	public void removeFirstPowerup(int player) {
-		this.powerupsImagesInBar.getFirst().deactivate();
-		this.powerupsImagesInBar.removeFirst();
+        powerupsImagesInBar.getFirst().deactivate();
+        powerupsImagesInBar.removeFirst();
 
 		int i = 1;
 		for (Powerup powerup : powerupsImagesInBar) {
-			powerup.getImage().relocate(addPowerupsToCord(i, player), this.y);
+			powerup.getImage().relocate(addPowerupsToCord(i, player), y);
 			i++;
 		}
 	}

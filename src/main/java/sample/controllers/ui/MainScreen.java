@@ -69,7 +69,7 @@ public class MainScreen {
         // Main.soundManager.play("button");
         try {
             System.out.println("Quit Clicked");
-            AlertBox quitPrompt = new AlertBox(this.getCurrentStage(), "Are you sure you want to exit?", "YES", "NO", "QUIT");
+            AlertBox quitPrompt = new AlertBox(getCurrentStage(), "Are you sure you want to exit?", "YES", "NO", "QUIT");
             quitPrompt.displayPrompt();
 
         } catch (Exception e) {

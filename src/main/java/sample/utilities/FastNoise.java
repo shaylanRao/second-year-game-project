@@ -59,7 +59,7 @@ public class FastNoise {
 
     public FastNoise() {
         Random rand = new Random();
-        this.m_seed = rand.nextInt(10000);
+        m_seed = rand.nextInt(10000);
     }
 
     public FastNoise(int seed) {

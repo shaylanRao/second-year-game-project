@@ -75,7 +75,7 @@ public class Settings {
     }
 
     public int getLaps(){
-        return this.laps;
+        return laps;
     }
 
     public Difficulty getDifficulty() {

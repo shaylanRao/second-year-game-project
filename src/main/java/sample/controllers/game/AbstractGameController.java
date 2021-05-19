@@ -29,23 +29,23 @@ public abstract class AbstractGameController implements Initializable {
         switch (code) {
             case UP:
                 System.out.println("up pressed");
-                this.getGame().getPlayerCar().setGoingForward(true);
-                this.getGame().getPlayerCar().setAccelerate(true);
+                getGame().getPlayerCar().setGoingForward(true);
+                getGame().getPlayerCar().setAccelerate(true);
                 break;
             case DOWN:
-                this.getGame().getPlayerCar().setGoingBackward(true);
+                getGame().getPlayerCar().setGoingBackward(true);
                 break;
             case LEFT:
-                this.getGame().getPlayerCar().setTurnLeft(true);
+                getGame().getPlayerCar().setTurnLeft(true);
                 break;
             case RIGHT:
-                this.getGame().getPlayerCar().setTurnRight(true);
+                getGame().getPlayerCar().setTurnRight(true);
                 break;
             case L:
-                this.getGame().getPlayerCar().setActivatePowerup(true);
+                getGame().getPlayerCar().setActivatePowerup(true);
                 //this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 	            try {
-	            this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                    playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 	            }
 	            catch(NullPointerException e) {
 	              System.out.println("POWER-UP BUTTON PRESSED");
@@ -55,7 +55,7 @@ public abstract class AbstractGameController implements Initializable {
                 if (!Main.sceneManager.isPaused()) {
                     Main.sceneManager.setPaused(true);
                     Main.sceneManager.pause();
-                    this.game.getTimer().stop();
+                    game.getTimer().stop();
                 }
                 break;
         }
@@ -66,22 +66,22 @@ public abstract class AbstractGameController implements Initializable {
         KeyCode code = event.getCode();
         switch (code) {
             case UP:
-                this.getGame().getPlayerCar().setAccelerate(false);
+                getGame().getPlayerCar().setAccelerate(false);
                 break;
             case DOWN:
-                this.getGame().getPlayerCar().setGoingBackward(false);
+                getGame().getPlayerCar().setGoingBackward(false);
                 break;
             case LEFT:
-                this.getGame().getPlayerCar().setTurnLeft(false);
+                getGame().getPlayerCar().setTurnLeft(false);
                 break;
             case RIGHT:
-                this.getGame().getPlayerCar().setTurnRight(false);
+                getGame().getPlayerCar().setTurnRight(false);
                 break;
             case L:
-                this.getGame().getPlayerCar().setActivatePowerup(false);
+                getGame().getPlayerCar().setActivatePowerup(false);
                 //this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 	            try {
-	            this.playerCar.setPickedUpPwrtime(System.currentTimeMillis());
+                    playerCar.setPickedUpPwrtime(System.currentTimeMillis());
 	            }
 	            catch(NullPointerException e) {
 	              System.out.println("POWER-UP BUTTON RELEASED");
@@ -89,7 +89,7 @@ public abstract class AbstractGameController implements Initializable {
                 break;
             case P:
                 if (!Main.sceneManager.isPaused()) {
-                    this.game.getTimer().start();
+                    game.getTimer().start();
                 }
                 break;
         }

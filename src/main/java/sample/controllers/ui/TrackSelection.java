@@ -38,7 +38,7 @@ public class TrackSelection {
         wiggleLabel.setText(wiggleTextLabel + " " + wiggleFactor + "%");
 
 
-        Main.settings.setWiggleFactor((int) wiggleFactor/2);
+        Main.settings.setWiggleFactor(wiggleFactor /2);
     }
 
     public void trackWidthSelect(MouseEvent mouseEvent) {
@@ -49,7 +49,7 @@ public class TrackSelection {
         String trackWidthTextLabel = "Track Width:";
         trackWidthLabel.setText(trackWidthTextLabel + " " + trackWidthFactor + "%");
 
-        int trackValue = (int) ((trackWidthFactor * 2) + 100);
+        int trackValue = (trackWidthFactor * 2) + 100;
 
         Main.settings.setTrackWidth(trackValue);
     }

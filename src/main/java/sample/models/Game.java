@@ -51,12 +51,12 @@ public class Game {
         Date date = new Date();
         long current_time = date.getTime();
 
-        this.dt += (current_time - this.start_time);
-        this.start_time = current_time;
+        dt += (current_time - start_time);
+        start_time = current_time;
     }
 
     public long getTimePassed() {
-        return this.dt;
+        return dt;
     }
 
     private double car1Height;
@@ -82,7 +82,7 @@ public class Game {
      * Sets initial game state
      */
     private void initialiser() {
-        this.startXY = this.getCar1SpawnPoint(Main.track.getFinishLine());
+        startXY = getCar1SpawnPoint(Main.track.getFinishLine());
         car1Height = playerCar.getCarHeightWidth()[0];
         car1Width = playerCar.getCarHeightWidth()[1];
         diagLen = (Math.sqrt((Math.pow(car1Height, 2) + Math.pow(car1Width, 2)) / 4));
@@ -90,7 +90,7 @@ public class Game {
         playerCar.getImageView().setRotate(90);
 
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            this.start2XY = this.getCar2SpawnPoint(Main.track.getFinishLine());
+            start2XY = getCar2SpawnPoint(Main.track.getFinishLine());
             car2Height = playerCar.getCarHeightWidth()[0];
             car2Width = playerCar.getCarHeightWidth()[1];
             playerCar2.render(start2XY[0], start2XY[1]);
@@ -145,22 +145,22 @@ public class Game {
         intro[3] = new IntroCountdown(gameBackground, 3);
 
         // this method should take in all the necessary info from the GameController and initialise the playerCars
-        this.players = new ArrayList<>();
+        players = new ArrayList<>();
 
         //todo Change vehicle type to player 1 vehicle type
-        this.playerCar = new PlayerCar(gameBackground, Main.settings.getVehicleType());
-        this.playerCar.playerNumber = 1;
-        this.players.add(playerCar);
+        playerCar = new PlayerCar(gameBackground, Main.settings.getVehicleType());
+        playerCar.playerNumber = 1;
+        players.add(playerCar);
 
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
 
             //todo Change vehicle type to player 2 vehicle type
-            this.playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
+            playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
             gameManager2 = new GameManager(gameBackground, playerCar2);
             gameManager2.wordBar(1650, 60);
             gameManager2.fixBar(1800, 80);
-            this.playerCar2.playerNumber = 2;
-            this.players.add(playerCar2);
+            playerCar2.playerNumber = 2;
+            players.add(playerCar2);
             gameManager2.lapTimer();
             gameManager2.updateBar(1745, 80);
         } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
@@ -172,7 +172,7 @@ public class Game {
             gameManager2 = new GameManager(gameBackground, aiCar);
             gameManager2.wordBar(1650, 60);
             gameManager2.fixBar(1800, 80);
-            this.aiCar.playerNumber = 2;
+            aiCar.playerNumber = 2;
             gameManager2.lapTimer();
             gameManager2.updateBar(1745, 80);
         }
@@ -185,11 +185,11 @@ public class Game {
 
         // generates powerups
         int maxPowerups = 2;
-        this.powerupsOnMap = new ArrayList<>();
+        powerupsOnMap = new ArrayList<>();
         for (int i = 0; i < maxPowerups; i++) {
-            this.powerupsOnMap.add(new BananaPowerup(gameBackground));
-            this.powerupsOnMap.add(new SpeedboosterPowerup(gameBackground));
-            this.powerupsOnMap.add(new OilGhostPowerup(gameBackground));
+            powerupsOnMap.add(new BananaPowerup(gameBackground));
+            powerupsOnMap.add(new SpeedboosterPowerup(gameBackground));
+            powerupsOnMap.add(new OilGhostPowerup(gameBackground));
         }
     }
 
@@ -197,7 +197,7 @@ public class Game {
      * The game loop. This deals with game logic such as handling collisions and moving the car
      */
     public synchronized void gameLoop() {
-        this.initialiser();
+        initialiser();
         timer = new AnimationTimer() {
 
             @Override
@@ -350,7 +350,7 @@ public class Game {
         }
 
         if (!raceStart && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            this.initialColl(player, rcDistances);
+            initialColl(player, rcDistances);
         }
 
         if (raceStart) {
@@ -429,7 +429,7 @@ public class Game {
             }
         }
 
-        if (this.carOnCarColl()) {
+        if (carOnCarColl()) {
             startXY[0] -= player.getCarHeightWidth()[1] / 3;
             start2XY[0] += player.getCarHeightWidth()[1] / 3;
             playerCar.getImage().relocate(startXY[0], startXY[1]);

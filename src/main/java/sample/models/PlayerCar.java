@@ -19,8 +19,8 @@ public class PlayerCar extends Car {
      */
     public PlayerCar(Pane gameBackground, Settings.VehicleType vehicleType) {
         super(gameBackground, generateCarImageView(vehicleType), vehicleType);
-        this.powerups = new LinkedList<>();
-        this.powerUpBar = new PowerUpBar(gameBackground);
+        powerups = new LinkedList<>();
+        powerUpBar = new PowerUpBar(gameBackground);
     }
 
 
@@ -36,11 +36,11 @@ public class PlayerCar extends Car {
      */
     public void addPowerup(Powerup powerup) {
         if (getPowerups().size() >= 3) {
-            this.powerups.pop();
-            this.powerUpBar.removeFirstPowerup(playerNumber);
+            powerups.pop();
+            powerUpBar.removeFirstPowerup(playerNumber);
         }
-        this.getPowerups().add(powerup);
-        this.powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
+        getPowerups().add(powerup);
+        powerUpBar.addPowerUpToBar(getPowerups().size(), powerup, playerNumber);
     }
 
     /**
@@ -105,13 +105,13 @@ public class PlayerCar extends Car {
     private double[] getPowerupLoc(){
         double[] location = new double[2];
         double hyp = carHeight*2;
-        car1Angle = this.getImageView().getRotate();
+        car1Angle = getImageView().getRotate();
         if ((car1Angle > -90 && car1Angle < 90) || car1Angle < -270 || car1Angle > 270) {
-            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX() + carWidth;
+            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + getImage().getLayoutX() + carWidth;
         } else {
-            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + this.getImage().getLayoutX();
+            location[0] = Math.cos( Math.toRadians(car1Angle)) * hyp + getImage().getLayoutX();
         }
-        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + this.getImage().getLayoutY();
+        location[1] = (Math.sin( Math.toRadians(car1Angle)) * hyp) + getImage().getLayoutY();
 
         return location;
     }

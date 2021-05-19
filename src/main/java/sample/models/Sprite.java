@@ -10,9 +10,9 @@ public abstract class Sprite {
 
     public Sprite(Pane gameBackground, ImageView imageView, double ratio) {
         this.gameBackground = gameBackground;
-        this.image = imageView;
-        this.image.setFitWidth(this.image.getBoundsInParent().getWidth()*ratio);
-        this.image.setFitHeight(this.image.getBoundsInParent().getHeight()*ratio);
+        image = imageView;
+        image.setFitWidth(image.getBoundsInParent().getWidth()*ratio);
+        image.setFitHeight(image.getBoundsInParent().getHeight()*ratio);
 
     }
 
@@ -31,7 +31,7 @@ public abstract class Sprite {
      */
     public void render(double d, double e) {
         // this method will place an item on the screen at an specified coordinate
-        this.gameBackground.getChildren().add(getImage());
+        gameBackground.getChildren().add(getImage());
         getImage().relocate(d, e);
     }
 
