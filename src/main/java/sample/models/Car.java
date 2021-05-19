@@ -110,6 +110,10 @@ public class Car extends Sprite {
             mass = 1.66;
             setTurningSpeedModerator(1.2);
         }
+        if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI) && this instanceof AICar) {
+            //todo fine tune this
+            setMaximumSpeed(2.8);
+        }
     }
 
     /**
