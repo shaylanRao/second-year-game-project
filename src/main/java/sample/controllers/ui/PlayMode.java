@@ -59,13 +59,24 @@ public class PlayMode {
     public void nextButtonClicked(ActionEvent actionEvent) {
         SoundManager.play("button");
 
-        // code to handle next screen
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/trackSelection.fxml"));
-            Parent root = loader.load();
-            Main.sceneManager.setCurrentRoot(root);
-        } catch (Exception ex) {
-            System.out.println("Error in PlayMode.next to TrackSelection");
+        if (!Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
+            // code to handle next screen
+            try {
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/trackSelection.fxml"));
+                Parent root = loader.load();
+                Main.sceneManager.setCurrentRoot(root);
+            } catch (Exception ex) {
+                System.out.println("Error in PlayMode.next to TrackSelection");
+            }
+        } else {
+            // code to handle next screen
+            try {
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/totalLapsScreen.fxml"));
+                Parent root = loader.load();
+                Main.sceneManager.setCurrentRoot(root);
+            } catch (Exception ex) {
+                System.out.println("Error in PlayMode.next to TrackSelection");
+            }
         }
     }
 }
