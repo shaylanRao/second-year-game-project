@@ -369,7 +369,7 @@ public class Game {
 
     private void leaderboard() {
         boolean has_player2_finished = true;
-        if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+        if (!Main.settings.getPlayMode().equals(Settings.PlayMode.TIMETRIAL)) {
             has_player2_finished = gameManager2.finishedLaps() && raceStart;
         }
 
@@ -377,7 +377,7 @@ public class Game {
         is_race_completed = has_player1_finished && has_player2_finished;
 
         // if race is completed => show leaderboard Screen
-        if (is_race_completed && !is_showing_leaderboard && Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
+        if (is_race_completed && !is_showing_leaderboard && !Main.settings.getPlayMode().equals(Settings.PlayMode.TIMETRIAL)) {
             try {
 
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/leaderboardScreen.fxml"));
@@ -563,6 +563,10 @@ public class Game {
         gameManager.hitGate();
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
             double[] gateDistances2 = playerCar2.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager2.getNextGate()])), false);
+            gameManager2.setGateDistances(gateDistances2);
+            gameManager2.hitGate();
+        } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
+            double[] gateDistances2 = aiCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager2.getNextGate()])), false);
             gameManager2.setGateDistances(gateDistances2);
             gameManager2.hitGate();
         }

@@ -10,11 +10,9 @@ public class MultiplayerController extends RandomTrackScreen {
 
     @Override
     public void keyClicked(KeyEvent event) {
-        System.out.println("inside key clicked");
         KeyCode code = event.getCode();
         switch (code) {
             case UP:
-                System.out.println("up pressed");
                 getGame().getPlayerCar().setGoingForward(true);
                 getGame().getPlayerCar().setAccelerate(true);
                 break;
