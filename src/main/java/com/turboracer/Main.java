@@ -42,7 +42,7 @@ public class Main extends Application {
         Scene currentScene = new Scene(root, maxWidth, maxHeight);
 
         //primaryStage.setFullScreen(true);
-        primaryStage.setTitle("RACING GAME 2D");
+        primaryStage.setTitle("TURBO RACER");
         primaryStage.setScene(currentScene);
         primaryStage.setResizable(true);
         primaryStage.show();
