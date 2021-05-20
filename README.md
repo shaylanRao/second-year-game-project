@@ -9,4 +9,4 @@ We have made a 2D top-down racing game which includes an AI component as an oppo
 
 Using the maven command line tools inside the git repo:\
 <code>mvn compile</code>\
-<code>mvn exec:java -Dexec.mainClass="com.turboracer.Main"
+<code>mvn exec:java -Dexec.mainClass="Main"
