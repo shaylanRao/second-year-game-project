@@ -30,7 +30,6 @@ public class SceneManager {
     private Game game;
 
     private final Stack<Parent> rootStack;
-    //TODO change currentStage to currentScene as we are only ever using stage to access the scene
     private final Scene currentScene;
 
     public SceneManager(Scene currentScene) {

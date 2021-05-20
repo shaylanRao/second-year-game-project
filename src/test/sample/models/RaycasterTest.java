@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import sample.Main;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,9 @@ public class RaycasterTest {
     public void castRays() {
         //test with no boundaries
         //all the distances should be zero as none of the rays will intersect
+        Main.main(null);
+        Main.settings = new Settings();
+        Main.settings.setPlayMode(Settings.PlayMode.AI);
         ArrayList<Line> emptyList = new ArrayList();
         double[] expected = new double[]{0, 0, 0, 0, 0, 0, 0, 0};
         double[] actual = raycaster.castRays(emptyList, false);

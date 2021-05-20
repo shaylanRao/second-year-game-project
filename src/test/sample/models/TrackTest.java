@@ -17,7 +17,6 @@ class TrackTest {
     void getGates() {
         //basic check to see if gates array is correct length
         assertEquals(track.getGates().length, 4);
-        //TODO do we need to test more thoroughly than this, i.e., check that the gates are actually correct - what would we compare against??
     }
 
     @Test

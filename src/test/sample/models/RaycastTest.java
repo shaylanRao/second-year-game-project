@@ -16,7 +16,7 @@ class RaycastTest {
         //raycast.cast() should return the point where the raycast intersects with testBoundary
         Point intersection = raycast.cast(testBoundary);
         assertNotNull(intersection);
-        assertTrue(intersection.equals(new Point(100, 0)));
+        assertEquals(intersection, new Point(100, 0));
 
         //create a raycast with the same origin as before but in the vertical direction
         raycast = new Raycast(new Point(0, 0), new Point(0, 1));

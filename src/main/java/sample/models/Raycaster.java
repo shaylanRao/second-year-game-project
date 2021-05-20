@@ -13,6 +13,10 @@ public class Raycaster {
     public Point pos;
     private final Car car;
 
+    public double getRot() {
+        return rot;
+    }
+
     private double rot;
     private final Raycast[] rays = new Raycast[8];
     private final Pane pane;

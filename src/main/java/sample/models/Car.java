@@ -57,7 +57,7 @@ public class Car extends Sprite {
         getImageView().setRotate(90);
     }
 
-    public Car(Pane gameBackground, Settings.VehicleType vehicleType, Point pos) {
+    public Car(Pane gameBackground, Settings.VehicleType vehicleType) {
         this(gameBackground, generateCarImageView(vehicleType), vehicleType);
     }
 
@@ -110,7 +110,6 @@ public class Car extends Sprite {
             setTurningSpeedModerator(1.2);
         }
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI) && this instanceof AICar) {
-            //todo fine tune this
             setMaximumSpeed(2.8);
         }
     }
@@ -361,7 +360,6 @@ public class Car extends Sprite {
     private double fTraction(){
         double unitVector = 1;  //used for change in proportion of car size
         double engineForce = 37; // real-life m/s acceleration
-        //todo if up arrow, then this, else return 0
         if(isAccelerate()){
             return(unitVector*engineForce);
         }
@@ -401,7 +399,6 @@ public class Car extends Sprite {
      * @return Speed*rollingConstant
      */
     private double fRolling(){
-        //todo need to change
         double rollConst = 0.8;
         //if rolling then stop when rolling slowly
         if(Math.abs(speed) < 0.25 && !(isGoingForward() || isGoingBackward())){
@@ -550,7 +547,6 @@ public class Car extends Sprite {
     public double getForwardSpeed(){
         if (speedBoostOn){
             //speed boost 140% max speed for a second
-            //todo make current speed + 50%, carry on at the same velocity after
             return(getMaxSpeed()+(getMaxSpeed()*0.4));
         }
         else if(carSpinOn){
@@ -848,7 +844,7 @@ public class Car extends Sprite {
     }
 
     /**
-     * This corrects the angle to be within a constant and limmited range
+     * This corrects the angle to be within a constant and limited range
      * @param angle the calculated angle
      * @return angleCorrected
      */

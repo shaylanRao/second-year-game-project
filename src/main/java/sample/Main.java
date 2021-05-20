@@ -18,7 +18,6 @@ public class Main extends Application {
     public static int maxWidth;
     public static int maxHeight;
 
-    // TODO: is this the right way to do this
     public static SceneManager sceneManager;
     public static Settings settings;
     public static FXMLLoader loader;
@@ -61,7 +60,6 @@ public class Main extends Application {
 
 
             sceneManager.setCurrentRoot(root);
-            //TODO is this the best place to do this?
             track = new Track();
         } catch (Exception e) {
             System.out.println("error in main.java");

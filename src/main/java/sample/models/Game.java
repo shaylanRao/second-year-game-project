@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * The class that contains the main game loop
  */
-//todo convert arrays of length 2 to Points
+
 public class Game {
 
     private boolean is_showing_leaderboard = false;
@@ -124,7 +124,6 @@ public class Game {
     }
 
     private double[] getCar2SpawnPoint(Line finishLine) {
-        //todo use polymorphism, i.e., Car car2 = new AICar or = new PlayerCar depending on game mode
         double[] xyValues = new double[2];
         double distance = (finishLine.getStartX()) - (finishLine.getEndX());
         xyValues[0] = finishLine.getStartX() - (distance / 3) - (playerCar.getImage().getBoundsInParent().getWidth() / 2);
@@ -144,15 +143,11 @@ public class Game {
 
         // this method should take in all the necessary info from the GameController and initialise the playerCars
         players = new ArrayList<>();
-
-        //todo Change vehicle type to player 1 vehicle type
         playerCar = new PlayerCar(gameBackground, Main.settings.getVehicleType());
         playerCar.playerNumber = 1;
         players.add(playerCar);
 
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-
-            //todo Change vehicle type to player 2 vehicle type
             playerCar2 = new PlayerCar(gameBackground, Main.settings.getVehicle2Type());
             gameManager2 = new GameManager(gameBackground, playerCar2);
             gameManager2.wordBar(1650, 60);
@@ -162,7 +157,6 @@ public class Game {
             gameManager2.lapTimer();
             gameManager2.updateBar(1745, 80);
         } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
-            //todo add vehicle selection for AI car
             aiCar = new AICar(gameBackground, Main.settings.getVehicleType());
             start2XY = getCar2SpawnPoint(Main.track.getFinishLine());
             aiCar.render(start2XY[0], start2XY[1]);
@@ -358,7 +352,6 @@ public class Game {
         }
 
         if (raceStart) {
-            //todo probably not great because it keeps setting them to true. only need to do it once
             if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)){
                 aiCar.setGoingForward(true);
                 aiCar.setAccelerate(true);
@@ -398,9 +391,6 @@ public class Game {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else if (is_race_completed && !is_showing_leaderboard) {
-            //single player leaderboard
-            //todo
         }
     }
 
