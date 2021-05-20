@@ -6,7 +6,7 @@ We have made a 2D top-down racing game which includes an AI component as an oppo
 
 #### Reinforcement Learning
 
-This branch contains the reinforcement learning code. If you run it you will see the car begin to train.
+This branch contains the reinforcement learning code. To run it, press the "startGame" button on the main menu and then press the "train" button in the top-left of the screen. You should see the car being to learn to drive around the track.
 
 #### Installation
 
