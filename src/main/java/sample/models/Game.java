@@ -93,8 +93,6 @@ public class Game {
             car2Width = playerCar.getCarHeightWidth()[1];
             playerCar2.render(start2XY[0], start2XY[1]);
             playerCar2.getImageView().setRotate(90);
-        } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
-
         }
         Random random = new Random();
         ArrayList<Point> spawnPoints = Main.track.getPowerupSpawns();
