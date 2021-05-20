@@ -552,15 +552,15 @@ public class Game {
      */
     private void castRays() {
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
-            distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), false);
+            distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), true);
         } else if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)) {
 
-            distances2 = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
+            distances2 = aiCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
             aiCar.setDistances(distances2);
         }
 
         //this is the array of distances measured by the raycaster that we will use to train the RL algorithm
-        distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
+        distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), true);
     }
 
     /**

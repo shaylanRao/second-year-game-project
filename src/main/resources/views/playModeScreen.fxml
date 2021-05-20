@@ -17,11 +17,11 @@
     </top>
     <center>
         <HBox alignment="CENTER">
-            <Button onAction="#gameModeOneClicked" styleClass="card" text="AI VS HUMAN">
+            <Button onAction="#gameModeOneClicked" styleClass="card" text="AI VS PLAYER">
             <HBox.margin>
                <Insets left="20.0" top="40.0" />
             </HBox.margin></Button>
-            <Button onAction="#gameModeTwoClicked" styleClass="card" text="HUMAN VS HUMAN">
+            <Button onAction="#gameModeTwoClicked" styleClass="card" text="MULTIPLAYER">
             <HBox.margin>
                <Insets left="20.0" top="40.0" />
             </HBox.margin></Button>
