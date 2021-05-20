@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<BorderPane fx:controller="sample.controllers.ui.PauseScreen"
+<BorderPane fx:controller="com.turboracer.controllers.ui.PauseScreen"
       xmlns:fx="http://javafx.com/fxml" onKeyPressed="#keyClicked" prefHeight="720.0" prefWidth="1280.0">
 
     <stylesheets>

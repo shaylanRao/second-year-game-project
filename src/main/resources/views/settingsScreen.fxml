@@ -10,7 +10,7 @@
 <?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.controllers.ui.SettingsScreen">
+            fx:controller="com.turboracer.controllers.ui.SettingsScreen">
     <stylesheets>
         <URL value="@../stylesheets/stylesheet.css"/>
     </stylesheets>
