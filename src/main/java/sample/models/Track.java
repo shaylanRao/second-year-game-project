@@ -76,11 +76,20 @@ public class Track {
         finWhite = new Line[6];
         outerPoints = new ArrayList<>();
         innerPoints = new ArrayList<>();
-        BuildTrack();
+        BuildTrack(false);
+    }
+
+    public Track(boolean testMode) {
+        trackWidth = Main.settings.getTrackWidth();
+        gates = new Line[4];
+        finWhite = new Line[6];
+        outerPoints = new ArrayList<>();
+        innerPoints = new ArrayList<>();
+        BuildTrack(testMode);
     }
 
 
-        private void BuildTrack() {
+        private void BuildTrack(boolean testMode) {
         //setup perlin noise generator
         FastNoise noise = new FastNoise();
         noise.SetNoiseType(FastNoise.NoiseType.Perlin);
@@ -93,7 +102,12 @@ public class Track {
             float xoff = Mapper.map((float) Math.cos(a), -1, 1, 0, Main.settings.getWiggleFactor()*30);
             float yoff = Mapper.map((float) Math.sin(a), -1, 1, 0, Main.settings.getWiggleFactor()*50);
             float theNoise = noise.GetNoise(xoff, yoff);
-            float r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.40), (int)(Screen.getPrimary().getBounds().getHeight()*0.45));
+            float r;
+            if (testMode) {
+                r = Mapper.map(theNoise, 0, 1, (int)(720*0.40), (int)(720*0.45));
+            } else {
+                r = Mapper.map(theNoise, 0, 1, (int)(Screen.getPrimary().getBounds().getHeight()*0.40), (int)(Screen.getPrimary().getBounds().getHeight()*0.45));
+            }
             x1 = r * Math.cos(a)*2;
             y1 = r * Math.sin(a);
             Point outerPoint = new Point(x1, y1);
