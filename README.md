@@ -12,4 +12,4 @@ This branch contains the reinforcement learning code. To run it, press the "star
 
 Using the maven command line tools inside the git repo:\
 <code>mvn compile</code>\
-<code>mvn exec:java -Dexec.mainClass="sample.Main"
+<code>mvn exec:java -Dexec.mainClass="com.turboracer.Main"
