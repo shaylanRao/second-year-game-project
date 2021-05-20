@@ -115,7 +115,7 @@ public class Raycaster {
             if (closest != null) {
                 if (showLines) {
                     Line line = new Line(pos.getXConverted(), pos.getYConverted(), closest.getXConverted(), closest.getYConverted());
-                    line.setStroke(Color.BLACK);
+                    line.setStroke(Color.TRANSPARENT);
                     rayLines.add(line);
                 }
 
