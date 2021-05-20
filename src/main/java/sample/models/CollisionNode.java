@@ -9,18 +9,32 @@ public class CollisionNode {
         this.y = y;
     }
 
+    /**
+     * Returns the dot product between this vector and the passed vector as a double.
+     *
+     * @param node the CollisionNode to be calculated with
+     * @return double
+     */
     public double dot(CollisionNode node){
-        // Dot Product between this vector and the passed one
         return x*node.x + y*node.y;
     }
 
+    /**
+     * Returns the normal of this vector.
+     *
+     * @return CollisionNode
+     */
     public CollisionNode normal() {
         // The normal of this vector
         return new CollisionNode(-1*y, x);
     }
 
+    /**
+     * Returns the unit vector of this vector.
+     *
+     * @return CollisionNode
+     */
     public CollisionNode normalize() {
-        // The unit vector of this one
         double d = Math.sqrt(x*x+y*y);
         if(d == 0) {
             d = 1;

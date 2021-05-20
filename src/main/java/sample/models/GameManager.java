@@ -30,11 +30,6 @@ public class GameManager{
     }
 
     private final double result1=0;
-    private final double tt=0;
-    private final double tt1=0;
-    private final double ttp2=0;
-    private final double ttp21=0;
-
 
     Pane gameBackground;
 
@@ -55,11 +50,20 @@ public class GameManager{
 
     private double[] gateDistances;
 
+    /**
+     * Returns the next gate on the stack as an int
+     *
+     * @return int
+     */
     public int getNextGate() {
         return gateStack.peek();
     }
 
-
+    /**
+     * Pops a gate from the stack when the player passes a gate and checks whether the stack is empty after having completed a full lap. If so, then it resets the gate stack to full and
+     * increments the lap counter.
+     *
+     */
     public void hitGate(){
         //Collision detection for each gate (track gates order, do logic (should be in order 1, 2, 3, 4, 1))
         //Only needs to check one line (front) as all lines come from the center of the car and the distance from the line is +-
@@ -74,7 +78,10 @@ public class GameManager{
         }
     }
 
-
+    /**
+     * Increments the lap number by 1 and updates the onscreen display for the current ongoing lap.
+     *
+     */
     public void lapCounterIncrement() {
         lapCounter++;
         if (lapCounter < maxLaps) {
@@ -86,7 +93,10 @@ public class GameManager{
         }
     }
 
-
+    /**
+     * Creates a timer and begins counting in milliseconds after waiting an initial 4.3 seconds while the animation for the start of the game runs.
+     *
+     */
     public void lapTimer(){
         Timer myTimer = new Timer();
         TimerTask task = new TimerTask() {
@@ -126,6 +136,11 @@ public class GameManager{
             new Image(Main.class.getResourceAsStream("/images/numbers/9.png")),
     };
 
+    /**
+     * Gets the locations of where to display the HUD which changes depending on the player number.
+     *
+     * @return int[]
+     */
     private int[] getLoc(){
         int[] location = new int[2];
         if(player.getCarNumber() == 1){
@@ -139,7 +154,7 @@ public class GameManager{
     }
 
 
-private int index = (int)result;
+    private int index = (int)result;
 
     public void timerRender(){
             if (!(index >= result)) {
@@ -184,7 +199,11 @@ private int index = (int)result;
     }
 
 
-
+    /**
+     * Gives the total time elapsed in the race as an int by adding the time taken of each lap.
+     *
+     * @return int
+     */
     public int totalTime(){
         int totalTimeElapsed = 0;
         for (int i = 0; i < maxLaps; i++) {
@@ -194,7 +213,10 @@ private int index = (int)result;
         return totalTimeElapsed;
     }
 
-
+    /**
+     * Resets the stack holding the gates that get popped off as the player passes the specific gate.
+     *
+     */
     private void resetGateStack() {
         gateStack.push(0);
         gateStack.push(3);
@@ -259,8 +281,6 @@ private int index = (int)result;
             LapBar lapBar = new LapBar(gameBackground, new ImageView(updateNumbers[10]));
             lapBar.render(x, y);
         }
-//        System.out.println("updateImageDone");
-
     }
 
     Image[] fixNumbers = new Image[]{

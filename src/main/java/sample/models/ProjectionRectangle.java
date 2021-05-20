@@ -17,27 +17,6 @@ public class ProjectionRectangle {
     double width;
     double height;
 
-    public ProjectionRectangle(double[] x, double[] y) {
-        nodes = new CollisionNode[x.length];
-        for(int i=0; i<x.length; i++) {
-            nodes[i] = new CollisionNode(x[i], y[i]);
-            //System.out.println("Point: "+nodes[i].x+", "+nodes[i].y);
-        }
-        //System.out.println(nodes.length);
-    }
-
-    public ProjectionRectangle(Rectangle rect) {
-        double tleftx = rect.getX();
-        double tlefty = rect.getY();
-        double width = rect.getWidth();
-        double height = rect.getHeight();
-        double[] xs = new double[]{tleftx,tleftx - width,tleftx, tleftx - width};
-        double[] ys = new double[]{tlefty - height, tlefty, tlefty,tlefty - height};
-        nodes = new CollisionNode[4];
-        for(int i=0; i<4; i++) {
-            nodes[i] = new CollisionNode(xs[i], ys[i]);
-        }
-    }
 
     public ProjectionRectangle(PlayerCar rect, Rectangle re) {
 
@@ -61,9 +40,7 @@ public class ProjectionRectangle {
         nodes = new CollisionNode[4];
         for(int i=0; i<4; i++) {
             nodes[i] = new CollisionNode(xs[i], ys[i]);
-            //System.out.println("Point: "+nodes[i].x+", "+nodes[i].y);
         }
-        //System.out.println(nodes.length);
     }
 
     private double[] GetPointRotated(double X, double Y,double Xos,double Yos, double rot){
@@ -73,8 +50,12 @@ public class ProjectionRectangle {
         return p;
     }
 
+    /**
+     * Return the normal of every edge of the rectangle.
+     *
+     * @return CollisionNode[]
+     */
     public CollisionNode[] getAxes() {
-        // Return the normal of every edge of the polygon
         CollisionNode[] axes = new CollisionNode[nodes.length];
         for(int i = 0; i < nodes.length; i++) {
             // Get the vector of the edge
@@ -86,13 +67,21 @@ public class ProjectionRectangle {
         return axes;
     }
 
+    /**
+     * Get CollisionNode at index i.
+     *
+     * @return CollisionNode
+     */
     public CollisionNode getNode(int i, CollisionNode axis) {
-        // Get CollisionNode at index i
         return nodes[i];
     }
 
+    /**
+     * Get the number of nodes in the polygon.
+     *
+     * @return int
+     */
     public int getNumOfNodes() {
-        // Get the number of nodes in the Polygon
         return nodes.length;
     }
 }

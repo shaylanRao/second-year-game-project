@@ -53,7 +53,6 @@ public class Car extends Sprite {
         setSpeedConverter(0.09);
         assignAttributes(vehicleType);
         raycaster = new Raycaster(gameBackground, this);
-        //this.raycaster.setPos(pos);
         raycaster.setRot(90);
         getImageView().setRotate(90);
     }
@@ -317,7 +316,7 @@ public class Car extends Sprite {
      */
     private double accCalc(){
         //adjusted per vehicle to change acceleration, kept at one for consistency
-        return (longForce()/1);
+        return (longForce());
     }
 
 
@@ -445,7 +444,7 @@ public class Car extends Sprite {
 
     /**
      * Method that states whether a power-up had been activated by pressing the power-up button or not.
-     * @return boolean - true or false
+     * @return boolean
      */
     public boolean isActivatedPowerup() {
         return powerup;
@@ -479,7 +478,7 @@ public class Car extends Sprite {
     /**
      * Gets the coordinates and angle of the car
      * Calculates the change in coordinates of where the car moves and the angle of rotation
-     * @param dy
+     * @param dy the change in the y-axis
      */
     public void moveCarBy(double dy) {
         if (dy == 0) {
@@ -590,7 +589,8 @@ public class Car extends Sprite {
 
 
     /**
-     * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter
+     * This function checks whether the coordinates of this Sprite intersects with the sprite passed as the parameter.
+     * Used in powerup implementation and not used for car collision system - that is testCollision().
      * @return bool
      * */
     public boolean collisionDetection(Sprite other) {
@@ -621,12 +621,13 @@ public class Car extends Sprite {
     }
 
     /**
-     * This is used to check whether the two cars have collided
+     * This is used to check whether the two cars have collided.
      * @param A the boundary around one car
      * @param B the boundary around another car
      * @return boolean
      */
     public boolean testCollision(ProjectionRectangle A, ProjectionRectangle B){
+        //Some of the classes used for car collision system is from  https://github.com/ClaymoreAdrendamar/Separating-Axis-Theorem/blob/master/Java/Collisions.java
         // Test collisions between two Shapes: they can be any child of Shape (Circle or Polygon)
         CollisionNode[] axes = concatenate(A.getAxes(), B.getAxes()); // Get the array of all the axes to project the shapes along
 
@@ -645,15 +646,13 @@ public class Car extends Sprite {
         return true;
     }
 
-    //todo
     /**
-     *
-     * @param a
-     * @param axis
-     * @return
+     * Project the shapes along the axis.
+     * @param a the ProjectionRectangle
+     * @param axis the CollisionNode
+     * @return Projection
      */
     private static Projection project(ProjectionRectangle a, CollisionNode axis) {
-        // Project the shapes along the axis
         double min = axis.dot(a.getNode(0, axis)); // Get the first min
         double max = min;
         for (int i = 1; i < a.getNumOfNodes(); i++) {
@@ -667,15 +666,13 @@ public class Car extends Sprite {
         return new Projection(min, max);
     }
 
-    //todo
     /**
-     *
-     * @param a
-     * @param b
-     * @return
+     * Concatenates the two arrays of nodes.
+     * @param a the first CollisionNode
+     * @param b the second CollisionNode
+     * @return CollisionNode
      */
     public static CollisionNode[] concatenate (CollisionNode[] a, CollisionNode[] b) {
-        // Concatenate the two arrays of nodes
         int aLen = a.length;
         int bLen = b.length;
 
@@ -831,7 +828,7 @@ public class Car extends Sprite {
     /**
      * This gets the angles of both cars after the collision
      * @param carNum the car playerNumber
-     * @return
+     * @return double
      */
     private double getPostAngle(int carNum){
         if (carNum == 1){

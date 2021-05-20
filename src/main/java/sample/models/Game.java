@@ -36,8 +36,6 @@ public class Game {
 
     private double[] distances2;
 
-    private double[] distanceToCar;
-
     private boolean raceStart = false;
 
     private AnimationTimer timer;
@@ -176,7 +174,6 @@ public class Game {
             gameManager2.lapTimer();
             gameManager2.updateBar(1745, 80);
         }
-        //		this.playerCar.powerupsDischarge = new ArrayList<>();
         gameManager = new GameManager(gameBackground, playerCar);
         gameManager.wordBar(0, 60);
         gameManager.fixBar(150, 80);
@@ -194,7 +191,7 @@ public class Game {
     }
 
     /**
-     * The game loop. This deals with game logic such as handling collisions and moving the car
+     * The game loop. This deals with game logic such as handling collisions and moving the car.
      */
     public synchronized void gameLoop() {
         initialiser();
@@ -275,7 +272,10 @@ public class Game {
         }
     }
 
-
+    /**
+     * Provides the player with a small boost at the start of a race given that the forward speed of the player is less than 2.6 and
+     * greater than 2.2.
+     */
     private void startBoost(PlayerCar player) {
         if (player.getForwardSpeed() < 2.6 && player.getForwardSpeed() > 2.2) {
             player.setForceSpeed(player.getForceSpeed() * 0.6);
@@ -289,6 +289,10 @@ public class Game {
 
     int counter = 0;
 
+    /**
+     * Handles the car movement by checking for the conditions of a car and calculating how much the car needs to move on screen
+     * and by how many degrees the car should be turned then calling the moveCarBy() and turn() functions.
+     */
     private void carMovement(Car player, double coordPos, double coordRot, double[] rcDistances) {
         double forwardVelocity;
             if (player.wallCollision(rcDistances)) {
@@ -354,7 +358,7 @@ public class Game {
         }
 
         if (raceStart) {
-            //todo probably not great beacause it keeps setting them to true. only need to do it once
+            //todo probably not great because it keeps setting them to true. only need to do it once
             if (Main.settings.getPlayMode().equals(Settings.PlayMode.AI)){
                 aiCar.setGoingForward(true);
                 aiCar.setAccelerate(true);
@@ -396,6 +400,7 @@ public class Game {
             }
         } else if (is_race_completed && !is_showing_leaderboard) {
             //single player leaderboard
+            //todo
         }
     }
 
@@ -418,6 +423,11 @@ public class Game {
         }
     }
 
+    /**
+     * Checks whether the player 1 and 2 cars are colliding when they are first initially spawned. If so, a player car is relocated
+     * so that there is no collision.
+     * Only used when the cars are first spawned.
+     */
     private void initialColl(Car player, double[] rcDistances) {
         if (player.wallCollision(rcDistances)) {
             if (player == playerCar) {
@@ -441,6 +451,12 @@ public class Game {
 
     private int collCounter = 0;
 
+    /**
+     * Checks whether the first car is crashed into the second car by checking if the boundary boxes of each car is
+     * overlapping.
+     *
+     * @return boolean
+     */
     private boolean carOnCarColl() {
         ProjectionRectangle rect1 = new ProjectionRectangle(playerCar, playerCar.getRaycaster().getRayRect().get(0));
         ProjectionRectangle rect2 = new ProjectionRectangle(playerCar2, playerCar2.getRaycaster().getRayRect().get(0));
@@ -470,7 +486,6 @@ public class Game {
     /**
      * Checks if one of the players has picked up a powerup and sends it to Car.handleMapPowerups()
      *
-     * @return void
      */
     private void powerupPickup() {
 				/*
@@ -494,7 +509,6 @@ public class Game {
     /**
      * When one of the players presses the power-up activation button, the button can't be used for 2 seconds.
      *
-     * @return void
      */
     private void usePowerup() {
         for (PlayerCar player : players) {
@@ -519,7 +533,6 @@ public class Game {
      * Controls the movement of the car when the car bumps into one of the defensive power-ups on the track, such as banana peel
      * or oil spill.
      *
-     * @return void
      */
     private void powerupDrop() {
         try {
@@ -543,6 +556,10 @@ public class Game {
         }
     }
 
+    /**
+     * Casts 8 rays from every car that extends to a track boundary. This is used to measure the distances of a car from
+     * the track boundaries to see where the car is.
+     */
     private void castRays() {
         if (Main.settings.getPlayMode().equals(Settings.PlayMode.MULTIPLAYER)) {
             distances2 = playerCar2.getRaycaster().castRays(Main.track.getTrackLines(), false);
@@ -556,6 +573,9 @@ public class Game {
         distances = playerCar.getRaycaster().castRays(Main.track.getTrackLines(), false);
     }
 
+    /**
+     * Handles all logic relating to updating laps.
+     */
     private void lapSystem() {
         //Gets ray cast for next gate
         double[] gateDistances = playerCar.getRaycaster().castRays(new ArrayList<>(Collections.singletonList(Main.track.getGates()[gameManager.getNextGate()])), false);
@@ -576,7 +596,6 @@ public class Game {
     /**
      * Method used to prevent a NullPointerException.
      *
-     * @return void
      */
     private void checkPowerupNotNull(Powerup powerup) {
         if (powerup != null) {
