@@ -18,6 +18,8 @@ public class RaycasterTest {
 
     @BeforeClass
     public static void init() {
+        Main.settings = new Settings();
+        Main.settings.setPlayMode(Settings.PlayMode.TIMETRIAL);
         Pane pane = new Pane();
         Car car = new Car(pane, Settings.VehicleType.VEHICLE1);
         raycaster = new Raycaster(pane ,car);
@@ -27,9 +29,6 @@ public class RaycasterTest {
     public void castRays() {
         //test with no boundaries
         //all the distances should be zero as none of the rays will intersect
-        Main.main(null);
-        Main.settings = new Settings();
-        Main.settings.setPlayMode(Settings.PlayMode.AI);
         ArrayList<Line> emptyList = new ArrayList();
         double[] expected = new double[]{0, 0, 0, 0, 0, 0, 0, 0};
         double[] actual = raycaster.castRays(emptyList, false);

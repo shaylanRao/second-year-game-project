@@ -150,8 +150,6 @@ public class Settings {
         this.colorBlind = colorBlind;
     }
 
-    public Settings() { }
-
     @Override
     public String toString() {
         return "Settings{" +

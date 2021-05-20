@@ -3,6 +3,7 @@ package sample.models;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sample.Main;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +11,9 @@ class TrackTest {
     private Track track;
     @BeforeEach
     void init() {
-        track = new Track();
+        Main.settings = new Settings();
+        Main.settings.setTrackWidth(220);
+        track = new Track(true);
     }
 
     @Test
